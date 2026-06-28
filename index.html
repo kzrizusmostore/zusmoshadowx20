@@ -1348,7 +1348,7 @@ img#shadowBanner,
 <i class="fa-solid fa-file-arrow-down download-icon"></i>
 <h2 style="text-align:center">ZUSMO SHADOW X20</h2>
 <div class="file-info">
-<b>📦 ZusmoShadowX20.apk</b><br/>
+<b>📦 ZUSMO SHADOW-X20.apk</b><br/>
 📅 Upload: 26 Juni 2026<br/>⬇️ Download: 940.711 kali<br/>💾 Ukuran: 5.76MB
 </div>
 <button class="download-btn" onclick="showPasswordPopup();event.stopPropagation();">DOWNLOAD FREE</button>
@@ -1374,7 +1374,7 @@ img#shadowBanner,
 <i class="fa-solid fa-crown download-icon"></i>
 <h2 style="text-align:center">ZUSMO SHADOW VIP</h2>
 <div class="file-info">
-<b>📦 ZusmoShadowV2.1.apk</b><br/>
+<b>📦 ZUSMO SHADOW VIP-X20.apk</b><br/>
 📅 Upload: 23 Juni 2026<br/>⬇️ Download: 9.730 kali<br/>💾 Ukuran: 7.34 MB
 </div>
 <button class="download-btn" onclick="showDownloadPopup('VIP');event.stopPropagation();">DOWNLOAD VIP</button>
@@ -1464,8 +1464,8 @@ let storeDownloadUrl='https://www.mediafire.com/file/0w90p8u73s1stnn/kzrizusmo_s
 
 function showDownloadPopup(type){
  downloadUrl = type==='FREE'
- ? 'https://www.mediafire.com/file/1wdr4hxmcdmm3xm/ZusmoShadowX20.apk/file'
- : 'https://www.mediafire.com/file/zymra9kbbrwc3mf/ZusmoShadowV2.1.apk/file';
+ ? 'https://www.mediafire.com/file/zdn9sifbn0l8t34/ZUSMO_SHADOW-X20.apk/file'
+ : 'https://www.mediafire.com/file/tval0vki3ft1fne/ZUSMO_SHADOW_VIP-X20.apk/file';
 
  document.getElementById('modalText').innerText =
  'Yakin ingin mengunduh ZUSMO SHADOW ' + type + '?';
@@ -1533,51 +1533,24 @@ function checkVipKey(){
 
 
 window.addEventListener('load', ()=>{
-  let i = 0;
-
-  const p = document.getElementById('p');
-  const f = document.getElementById('f');
-  const txt = document.getElementById('loadingText');
-  const load = document.getElementById('loadingScreen');
-
-  const messages = [
-    "Mohon tunggu sebentar...",
-    "Sedang memuat data...",
-    "Sedang memuat gambar...",
-    "Sedang memuat aset...",
-    "Menyiapkan tampilan...",
-    "Mengoptimalkan sistem...",
-    "Hampir selesai..."
-  ];
-
-  let t = setInterval(()=>{
-
-    i++;
-
-    if(p) p.innerText = i+'%';
-    if(f) f.style.width = i+'%';
-
-    if(txt){
-      txt.innerText =
-      messages[Math.floor(i/(100/messages.length))] ||
-      messages[messages.length-1];
+  const p=document.getElementById('p');
+  const f=document.getElementById('f');
+  const txt=document.getElementById('loadingText');
+  const load=document.getElementById('loadingScreen');
+  const start=Date.now();
+  const dur=3000;
+  const timer=setInterval(()=>{
+    const percent=Math.min(100,Math.floor(((Date.now()-start)/dur)*100));
+    if(p)p.innerText=percent+'%';
+    if(f)f.style.width=percent+'%';
+    if(txt)txt.innerText='Sedang memuat...';
+    if(percent>=100){
+      clearInterval(timer);
+      load.style.opacity='0';
+      load.style.transition='opacity .2s';
+      setTimeout(()=>{load.style.display='none';},200);
     }
-
-    if(i >= 100){
-      clearInterval(t);
-
-      if(load){
-        load.style.transition = '0.6s ease';
-        load.style.opacity = '0';
-
-        setTimeout(()=>{
-          load.style.display = 'none';
-          load.style.pointerEvents = 'none';
-        }, 600);
-      }
-    }
-
-  }, 20);
+  },30);
 });
 let portraitMode=false;
 
