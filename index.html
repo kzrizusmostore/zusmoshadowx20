@@ -905,9 +905,7 @@ display:block;
 top:2px!important;right:2px!important;
 }
 </style>
-<style>
-.topbar-pro,.app-topbar{display:none !important;}
-</style>
+
 <style>
 .profile-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:14px 16px;margin:18px 0 16px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
@@ -1018,19 +1016,7 @@ object-fit:contain;
     LVL
   </div>
 </div>
-<div id="loadingScreen" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:99999;overflow:hidden">
-<div style="text-align:center;padding:20px;max-width:320px">
-<img src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" style="width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid #ff2b2b;box-shadow:0 0 25px rgba(255,43,43,.6);margin-bottom:20px"/>
-<div style="font-size:22px;font-weight:800;letter-spacing:1px">LOADING...</div>
-<div id="loadingText" style="margin-top:10px;color:#ccc;min-height:22px">
-Mohon tunggu sebentar...
-</div>
-<div id="p" style="margin-top:15px;font-size:20px;font-weight:700">0%</div>
-<div class="bar" style="margin-top:15px">
-<div class="fill" id="f"></div>
-</div>
-</div>
-</div>
+
 <div class="transition" id="tr"></div><div class="container">
 <div class="page active" id="home">
 <div class="profile-card">
@@ -1672,26 +1658,7 @@ function checkVipKey(){
 
 
 
-window.addEventListener('load', ()=>{
-  const p=document.getElementById('p');
-  const f=document.getElementById('f');
-  const txt=document.getElementById('loadingText');
-  const load=document.getElementById('loadingScreen');
-  const start=Date.now();
-  const dur=3000;
-  const timer=setInterval(()=>{
-    const percent=Math.min(100,Math.floor(((Date.now()-start)/dur)*100));
-    if(p)p.innerText=percent+'%';
-    if(f)f.style.width=percent+'%';
-    if(txt)txt.innerText='Sedang memuat...';
-    if(percent>=100){
-      clearInterval(timer);
-      load.style.opacity='0';
-      load.style.transition='opacity .2s';
-      setTimeout(()=>{load.style.display='none';},200);
-    }
-  },30);
-});
+
 let portraitMode=false;
 
 
@@ -2507,27 +2474,7 @@ function openSettings(){alert('Menu pengaturan akan segera tersedia');}
 <div class="dev-progress"><span style="width:30%"></span></div>
 <p style="color:#00ff88;font-weight:700">Terima kasih telah menunggu. Fitur akan tersedia pada pembaruan berikutnya.</p>
 </div></div>
-<script>
-(function(){
- function showBars(){
-   document.querySelectorAll('.topbar-pro,.app-topbar').forEach(e=>{
-      e.style.setProperty('display','flex','important');
-   });
- }
- function check(){
-   const l=document.getElementById('loadingScreen');
-   if(!l || l.style.display==='none' || getComputedStyle(l).display==='none' || !document.body.contains(l)){
-      showBars();
-      return true;
-   }
-   return false;
- }
- if(!check()){
-   const obs=new MutationObserver(()=>{ if(check()) obs.disconnect(); });
-   obs.observe(document.body,{childList:true,subtree:true,attributes:true});
- }
-})();
-</script>
+
 
 <script>
 const bg=document.getElementById('bgMusic');
