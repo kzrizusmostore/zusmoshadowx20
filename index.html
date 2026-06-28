@@ -1381,6 +1381,31 @@ img#shadowBanner,
 </div>
 </div>
 
+<!-- TIKTOK STEP MODAL -->
+<div class="modal" id="tiktokModal">
+<div class="modal-card" onclick="event.stopPropagation()" style="width:340px;border:1px solid rgba(255,43,43,.4);box-shadow:0 0 30px rgba(255,43,43,.2)">
+<div style="font-size:28px;margin-bottom:6px"><i class="fa-brands fa-tiktok"></i></div>
+<h3 style="margin-bottom:4px">Langkah Verifikasi</h3>
+<p style="font-size:13px;color:#ccc;margin-bottom:16px">like, komen, dan salin tautan untuk membuka akses download.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button id="ttkBtn1" onclick="clickTiktokBtn(1)" style="padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff2b2b,#ff6b6b);color:#fff;font-weight:700;font-size:14px;cursor:pointer;transition:.3s">
+  <i class="fa-solid fa-heart" style="margin-right:8px"></i>Like Video Kami Tuan!
+</button>
+<button id="ttkBtn2" onclick="clickTiktokBtn(2)" style="padding:14px;border:none;border-radius:14px;background:#333;color:#666;font-weight:700;font-size:14px;cursor:not-allowed;transition:.3s" disabled>
+  <i class="fa-solid fa-comment" style="margin-right:8px"></i>Komen Video Kami Tuan!
+</button>
+<button id="ttkBtn3" onclick="clickTiktokBtn(3)" style="padding:14px;border:none;border-radius:14px;background:#333;color:#666;font-weight:700;font-size:14px;cursor:not-allowed;transition:.3s" disabled>
+  🔗 Salin Tautan Video Kami Tuan!
+</button>
+</div>
+<div id="ttkProgress" style="margin-top:14px;font-size:12px;color:#aaa;text-align:center">0 / 3 verifikasi</div>
+<button id="ttkLanjutBtn" onclick="openPasswordFromTiktok()" style="margin-top:14px;width:100%;padding:16px;border:none;border-radius:14px;background:#444;color:#888;font-weight:700;font-size:15px;cursor:not-allowed;transition:.3s" disabled>
+  🔓 Lanjutkan
+</button>
+<button class="cancelBtn" onclick="hideTiktokModal()" style="margin-top:8px;width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-size:14px">Batal</button>
+</div>
+</div>
+
 <div class="modal" id="pwModal"><div class="modal-card" onclick="event.stopPropagation()">
 <h3>🔐 Password Download</h3>
 <p>Masukkan password untuk melanjutkan.</p>
@@ -1451,7 +1476,122 @@ if(r){let e=document.getElementById('roleBadge');if(e){e.textContent=r;if(rc)e.s
 bg.onerror=()=>console.log('Wallpaper gagal dimuat');
 
 
-function showPasswordPopup(){document.getElementById('pwModal').style.display='flex';}
+/* === TIKTOK STEP LOGIC === */
+var ttkClicked={1:false,2:false,3:false};
+var ttkVerifying=false;
+
+function showPasswordPopup(){
+  ttkClicked={1:false,2:false,3:false};
+  ttkVerifying=false;
+  resetTtkButtons();
+  document.getElementById('tiktokModal').style.display='flex';
+}
+
+function resetTtkButtons(){
+  // Tombol 1 aktif, 2 & 3 dikunci
+  var b1=document.getElementById('ttkBtn1');
+  var b2=document.getElementById('ttkBtn2');
+  var b3=document.getElementById('ttkBtn3');
+  var lanjut=document.getElementById('ttkLanjutBtn');
+
+  b1.disabled=false;
+  b1.style.background='linear-gradient(135deg,#ff2b2b,#ff6b6b)';
+  b1.style.color='#fff';
+  b1.style.cursor='pointer';
+  b1.innerHTML='<i class="fa-solid fa-heart" style="margin-right:8px"></i>Like';
+  b1.onclick=function(){clickTiktokBtn(1);};
+
+  b2.disabled=true;
+  b2.style.background='#333';
+  b2.style.color='#666';
+  b2.style.cursor='not-allowed';
+  b2.innerHTML='<i class="fa-solid fa-comment" style="margin-right:8px"></i>Komen';
+
+  b3.disabled=true;
+  b3.style.background='#333';
+  b3.style.color='#666';
+  b3.style.cursor='not-allowed';
+  b3.innerHTML='🔗 Salin Tautan';
+
+  lanjut.disabled=true;
+  lanjut.style.background='#444';
+  lanjut.style.color='#888';
+  lanjut.style.cursor='not-allowed';
+  lanjut.innerHTML='🔓 Lanjutkan';
+
+  document.getElementById('ttkProgress').innerText='0 / 3 verifikasi';
+}
+
+function hideTiktokModal(){
+  document.getElementById('tiktokModal').style.display='none';
+}
+
+function clickTiktokBtn(n){
+  if(ttkVerifying) return;
+  ttkVerifying=true;
+
+  // Buka TikTok
+  window.open('https://vt.tiktok.com/ZSCBa5hk8/','_blank');
+
+  var btn=document.getElementById('ttkBtn'+n);
+  // Loading state
+  btn.disabled=true;
+  btn.style.background='linear-gradient(135deg,#f0a500,#e08c00)';
+  btn.style.color='#fff';
+  btn.style.cursor='not-allowed';
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>Memverifikasi... 2s';
+
+  // Countdown
+  var sisa=2;
+  var cd=setInterval(function(){
+    sisa--;
+    if(sisa>0){
+      btn.innerHTML='<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>Memverifikasi... '+sisa+'s';
+    }
+  },1000);
+
+  setTimeout(function(){
+    clearInterval(cd);
+    // Hijau terverifikasi
+    btn.style.background='linear-gradient(135deg,#1db954,#17a045)';
+    btn.style.color='#fff';
+    btn.innerHTML='<i class="fa-solid fa-circle-check" style="margin-right:8px"></i>✅ Terverifikasi!';
+    ttkClicked[n]=true;
+    ttkVerifying=false;
+
+    var count=Object.values(ttkClicked).filter(Boolean).length;
+    document.getElementById('ttkProgress').innerText=count+' / 3 tombol diklik';
+
+    // Buka tombol berikutnya
+    if(n<3){
+      var next=document.getElementById('ttkBtn'+(n+1));
+      next.disabled=false;
+      next.style.background='linear-gradient(135deg,#ff2b2b,#ff6b6b)';
+      next.style.color='#fff';
+      next.style.cursor='pointer';
+      next.onclick=function(){clickTiktokBtn(n+1);};
+    }
+
+    // Semua selesai → buka tombol Lanjutkan
+    if(count>=3){
+      var lanjut=document.getElementById('ttkLanjutBtn');
+      lanjut.disabled=false;
+      lanjut.style.background='linear-gradient(135deg,#ff2b2b,#ff6b6b)';
+      lanjut.style.color='#fff';
+      lanjut.style.cursor='pointer';
+      lanjut.innerHTML='🔓 Lanjutkan Unlock';
+      document.getElementById('ttkProgress').innerText='✅ Semua terverifikasi!';
+    }
+  },2000);
+}
+
+function openPasswordFromTiktok(){
+  hideTiktokModal();
+  document.getElementById('freePass').value='';
+  document.getElementById('pwErr').innerText='';
+  document.getElementById('pwModal').style.display='flex';
+}
+
 function hidePw(){document.getElementById('pwModal').style.display='none';}
 function checkFreePassword(){
  const v=document.getElementById('freePass').value.trim();
