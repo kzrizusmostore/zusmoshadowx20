@@ -978,6 +978,188 @@ object-fit:contain;
 .dev-progress span{display:block;height:100%;background:linear-gradient(90deg,#ff2b2b,#ff7d7d)}
 .dev-note{color:#d5d5d5;line-height:1.8;font-size:14px}
 </style>
+
+<style>
+/* ====== HOME PREMIUM UI MAX ====== */
+#home{padding-bottom:90px;}
+
+/* PROFILE CARD */
+.hm-profile{
+  display:flex;align-items:center;gap:14px;
+  background:linear-gradient(135deg,rgba(30,0,0,.95),rgba(10,10,10,.98));
+  border:1px solid rgba(255,43,43,.35);
+  border-radius:24px;padding:16px 16px;
+  margin-bottom:18px;
+  box-shadow:0 0 0 1px rgba(255,43,43,.08),0 8px 32px rgba(255,43,43,.12),inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;overflow:hidden;
+}
+.hm-profile::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,43,.7),transparent);
+}
+.hm-profile::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(255,43,43,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hm-avatar{
+  width:62px;height:62px;border-radius:50%;
+  border:2.5px solid #ff2b2b;object-fit:cover;flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(255,43,43,.15),0 0 22px rgba(255,43,43,.5);
+}
+.hm-profile-info{flex:1;min-width:0;}
+.hm-name{
+  font-family:'Audiowide',sans-serif;
+  font-size:14px;font-weight:700;color:#fff;
+  margin-bottom:8px;letter-spacing:.8px;
+  text-shadow:0 0 12px rgba(255,255,255,.2);
+}
+.hm-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.hm-badge{
+  font-size:10px;font-weight:700;letter-spacing:.6px;
+  padding:4px 11px;border-radius:999px;
+}
+.hm-badge.role{
+  background:rgba(255,43,43,.12);
+  border:1px solid rgba(255,43,43,.4);
+  color:#ff8585;
+  box-shadow:0 0 8px rgba(255,43,43,.12);
+}
+.hm-badge.prime{
+  background:rgba(255,215,0,.1);
+  border:1px solid rgba(255,215,0,.38);
+  color:#ffd700;
+  box-shadow:0 0 8px rgba(255,215,0,.12);
+}
+.hm-prime-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(255,215,0,.4));}
+
+/* VIDEO WRAP */
+.hm-video-wrap{
+  position:relative;border-radius:22px;overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 12px 40px rgba(0,0,0,.75),0 0 0 1.5px rgba(255,43,43,.22);
+}
+.hm-video-wrap video{width:100%;display:block;}
+.hm-video-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.8));
+  pointer-events:none;
+}
+.hm-video-label{
+  position:absolute;bottom:16px;left:0;right:0;
+  text-align:center;z-index:2;
+  font-family:'Audiowide',sans-serif;
+  font-size:1.3rem;letter-spacing:3.5px;
+  pointer-events:none;
+}
+.hm-video-label .vl-w{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5),0 2px 8px rgba(0,0,0,.8);}
+.hm-video-label .vl-r{color:#ff2b2b;text-shadow:0 0 20px rgba(255,43,43,1),0 0 40px rgba(255,43,43,.5),0 2px 8px rgba(0,0,0,.8);}
+
+/* STATS ROW */
+.hm-stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin-bottom:18px;
+}
+.hm-stat{
+  background:rgba(10,10,10,.85);
+  border:1px solid rgba(255,43,43,.14);
+  border-radius:16px;padding:13px 8px;
+  text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+  position:relative;overflow:hidden;
+}
+.hm-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,43,.5),transparent);
+}
+.hm-stat i{font-size:18px;color:#ff2b2b;display:block;margin-bottom:5px;text-shadow:0 0 10px rgba(255,43,43,.6);}
+.hm-stat-val{font-size:13px;font-weight:800;color:#fff;display:block;font-family:'Audiowide',sans-serif;letter-spacing:.5px;}
+.hm-stat-lbl{font-size:9px;color:#444;letter-spacing:1px;text-transform:uppercase;margin-top:2px;display:block;}
+
+/* SECTION LABEL */
+.hm-section-lbl{
+  font-family:'Audiowide',sans-serif;
+  font-size:9px;font-weight:700;letter-spacing:2.5px;color:#333;
+  text-transform:uppercase;margin:0 0 10px 2px;
+  display:flex;align-items:center;gap:8px;
+}
+.hm-section-lbl::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(255,43,43,.2),transparent);
+}
+
+/* MENU ITEMS */
+.hm-menu{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 15px;margin-bottom:9px;
+  border-radius:18px;
+  background:rgba(8,8,8,.85);
+  border:1px solid rgba(255,43,43,.14);
+  box-shadow:0 2px 14px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);
+  cursor:pointer;transition:.2s;
+  position:relative;overflow:hidden;
+}
+.hm-menu::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,transparent,#ff2b2b,transparent);
+  border-radius:0 3px 3px 0;opacity:0;transition:.2s;
+}
+.hm-menu:active{
+  transform:scale(.985);
+  border-color:rgba(255,43,43,.45);
+  box-shadow:0 0 20px rgba(255,43,43,.15);
+}
+.hm-menu:active::before{opacity:1;}
+.hm-menu-icon{
+  width:46px;height:46px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,43,43,.08);
+  border:1px solid rgba(255,43,43,.25);
+  box-shadow:0 0 16px rgba(255,43,43,.1),inset 0 0 10px rgba(255,43,43,.07);
+}
+.hm-menu-icon i{font-size:19px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.6);}
+.hm-menu-body{flex:1;min-width:0;}
+.hm-menu-body h4{
+  font-size:13.5px;font-weight:800;color:#fff;
+  margin:0 0 3px;letter-spacing:.4px;
+  font-family:'Outfit',sans-serif;
+}
+.hm-menu-body small{font-size:11px;color:#444;}
+.hm-menu-arrow{color:#2a2a2a;font-size:13px;flex-shrink:0;}
+
+/* SOCIAL ROW */
+.hm-social-row{display:flex;gap:10px;margin-bottom:0;}
+.hm-social{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:20px 8px;border-radius:18px;
+  background:rgba(8,8,8,.85);
+  border:1px solid rgba(255,255,255,.05);
+  cursor:pointer;transition:.2s;position:relative;overflow:hidden;
+}
+.hm-social::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+}
+.hm-social:active{transform:scale(.97);}
+.hm-social i{font-size:26px;}
+.hm-social span{
+  font-size:10px;font-weight:700;color:#444;
+  letter-spacing:1.2px;font-family:'Audiowide',sans-serif;
+}
+.hm-social.wa{border-color:rgba(37,211,102,.2);box-shadow:0 0 20px rgba(37,211,102,.06);}
+.hm-social.wa::before{background:linear-gradient(90deg,transparent,rgba(37,211,102,.5),transparent);}
+.hm-social.wa i{color:#25d366;text-shadow:0 0 16px rgba(37,211,102,.65);}
+.hm-social.tt{border-color:rgba(255,0,80,.2);box-shadow:0 0 20px rgba(255,0,80,.06);}
+.hm-social.tt::before{background:linear-gradient(90deg,transparent,rgba(255,0,80,.5),transparent);}
+.hm-social.tt i{color:#ff0050;text-shadow:0 0 16px rgba(255,0,80,.65);}
+
+/* FOOTER */
+.hm-footer{
+  text-align:center;padding:24px 0 4px;
+  font-size:10px;color:#222;letter-spacing:1.5px;
+  font-family:'Audiowide',sans-serif;
+}
+.hm-footer span{color:#ff2b2b;text-shadow:0 0 8px rgba(255,43,43,.4);}
+</style>
 </head><body oncontextmenu="return false">
 <audio id="bgMusic" src="https://files.catbox.moe/mbkpbs.mp3" loop autoplay></audio>
 <audio id="clickSound" preload="auto" src="data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
@@ -1019,17 +1201,82 @@ object-fit:contain;
 
 <div class="transition" id="tr"></div><div class="container">
 <div class="page active" id="home">
-<div class="profile-card">
-<img src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg"/>
-<div class="profile-info"><div class="profile-top"><div class="profile-name">Guest</div><img class="prime-logo" src="https://files.catbox.moe/fvplwr.png"/></div><div class="roleprime"><div>ROLE : <span class="role-badge" id="roleBadge" style="color:#fff">FREE</span></div><div>PRIME : <b>0</b></div></div></div>
+
+<div class="hm-profile">
+  <img class="hm-avatar" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg"/>
+  <div class="hm-profile-info">
+    <div class="hm-name">Guest</div>
+    <div class="hm-badges">
+      <span class="hm-badge role">ROLE : <span id="roleBadge">FREE</span></span>
+      <span class="hm-badge prime">PRIME : 0</span>
+    </div>
+  </div>
+  <img class="hm-prime-logo" src="https://files.catbox.moe/fvplwr.png"/>
 </div>
-<div class="shine-card" style="margin:20px 0;border-radius:20px;overflow:hidden">
-<video autoplay="" loop="" muted="" playsinline="" src="https://files.catbox.moe/wdw2yd.mp4" style="width:100%;display:block;border-radius:20px;"></video>
+
+<div class="hm-video-wrap shine-card">
+  <video autoplay loop muted playsinline src="https://files.catbox.moe/wdw2yd.mp4"></video>
+  <div class="hm-video-label">
+    <span class="vl-w">ZUSMO</span>&nbsp;<span class="vl-r">SHADOW</span>
+  </div>
 </div>
-<div style="text-align:center">
-<h1 style="font-family:'Audiowide',sans-serif;letter-spacing:2px;"><span style="color:white">𝗭𝗨𝗦𝗠𝗢</span> <span style="color:#ff2b2b">𝗦𝗛𝗔𝗗𝗢𝗪</span></h1>
+
+<!-- STATS ROW -->
+<div class="hm-stats-row">
+  <div class="hm-stat">
+    <i class="fa-solid fa-shield-halved"></i>
+    <span class="hm-stat-val">X20</span>
+    <span class="hm-stat-lbl">VERSI</span>
+  </div>
+  <div class="hm-stat">
+    <i class="fa-solid fa-users"></i>
+    <span class="hm-stat-val">940K+</span>
+    <span class="hm-stat-lbl">USER</span>
+  </div>
+  <div class="hm-stat">
+    <i class="fa-solid fa-circle-check"></i>
+    <span class="hm-stat-val">100%</span>
+    <span class="hm-stat-lbl">AMAN</span>
+  </div>
 </div>
-<div class="vip-menu" onclick="showPage('apk')"><div class="vip-icon"><i class="fa-solid fa-mobile-screen"></i></div><div class="vip-content"><h4>APK ZUSMO</h4><small>Download semua versi aplikasi</small></div></div><div class="vip-menu" onclick="showPage('toko')"><div class="vip-icon"><i class="fa-solid fa-store"></i></div><div class="vip-content"><h4>TOKO ZUSMO</h4><small>Topup &amp; marketplace</small></div></div><div class="vip-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')"><div class="vip-icon"><i class="fa-solid fa-gamepad"></i></div><div class="vip-content"><h4>TOPUP GAME</h4><small>Game favorit kamu</small></div></div><div class="long-btn" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')"><i class="fa-brands fa-whatsapp"></i><div><h4>CHANNEL WHATSAPP</h4><small>Gabung saluran resmi</small></div></div><div class="long-btn" onclick="window.open('https://www.tiktok.com/@kzrizusmo_store','_blank')"><i class="fa-brands fa-tiktok"></i><div><h4>TIKTOK KZRIZUSMO</h4><small>Konten terbaru setiap hari</small></div></div><div class="footer">© 2026 KZRIZUSMO DEV</div></div>
+
+<div class="hm-section-lbl">⚡ Menu Utama</div>
+
+<div class="hm-menu" onclick="showPage('primecalc')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-calculator"></i></div>
+  <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small>Hitung harga Prime Free Fire</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="showPage('apk')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+  <div class="hm-menu-body"><h4>APK ZUSMO</h4><small>Download semua versi aplikasi</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="showPage('toko')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
+  <div class="hm-menu-body"><h4>TOKO ZUSMO</h4><small>Topup &amp; marketplace</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-gamepad"></i></div>
+  <div class="hm-menu-body"><h4>TOPUP GAME</h4><small>Game favorit kamu</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+
+<div class="hm-section-lbl" style="margin-top:16px;">🌐 Komunitas</div>
+<div class="hm-social-row">
+  <div class="hm-social wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>WHATSAPP</span>
+  </div>
+  <div class="hm-social tt" onclick="window.open('https://www.tiktok.com/@kzrizusmo_store','_blank')">
+    <i class="fa-brands fa-tiktok"></i>
+    <span>TIKTOK</span>
+  </div>
+</div>
+
+<div class="hm-footer">© 2026 <span>KZRIZUSMO</span> DEV</div>
+</div>
 <div class="page" id="apk">
 <h1>𝗔𝗣𝗞 𝗭𝗨𝗦𝗠𝗢</h1>
 <p class="subtitle">Pilih versi APK</p>
@@ -1366,6 +1613,382 @@ img#shadowBanner,
 <button class="download-btn" onclick="showDownloadPopup('VIP');event.stopPropagation();">DOWNLOAD VIP</button>
 </div>
 </div>
+
+<!-- PRIME CALCULATOR PAGE -->
+<div class="page" id="primecalc">
+<style>
+#primecalc{padding-bottom:80px;}
+
+/* ── BANNER ── */
+.pc-banner{
+  width:100%;aspect-ratio:16/9;
+  border-radius:18px;overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 8px 28px rgba(0,0,0,.65),0 0 0 1.5px rgba(255,43,43,.3);
+  position:relative;
+}
+.pc-banner img{width:100%;height:100%;object-fit:cover;display:block;}
+.pc-banner::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.55));
+  pointer-events:none;border-radius:18px;
+}
+
+/* ── PAGE TITLE ── */
+.pc-title{
+  font-family:'Audiowide',sans-serif;
+  font-size:1.5rem;text-align:center;
+  margin-bottom:6px;letter-spacing:2px;
+  position:relative;
+  text-shadow:0 0 22px rgba(255,43,43,.4);
+  line-height:1.3;
+}
+.pc-title span.red{
+  color:#ff2b2b;
+  text-shadow:0 0 16px rgba(255,43,43,.7),0 0 32px rgba(255,43,43,.3);
+}
+.pc-title span.wht{
+  color:#fff;
+  text-shadow:0 0 16px rgba(255,255,255,.25);
+}
+.pc-sub{
+  font-family:'Audiowide',sans-serif;
+  text-align:center;font-size:10px;
+  color:#555;letter-spacing:2.2px;margin-bottom:22px;
+  text-transform:uppercase;font-weight:400;
+}
+
+/* ── CARD ── */
+.pc-card{
+  background:rgba(14,14,14,.82);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:22px;
+  padding:20px 16px;
+  margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.pc-card::before{
+  content:'';position:absolute;left:0;top:16px;bottom:16px;width:3px;
+  background:linear-gradient(180deg,transparent,#ff2b2b,transparent);
+  border-radius:0 3px 3px 0;
+}
+.pc-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,43,.4),transparent);
+}
+
+/* ── CARD HEADER ── */
+.pc-head{
+  display:flex;align-items:center;gap:11px;
+  margin-bottom:16px;padding-left:4px;
+}
+.pc-head-icon{
+  width:38px;height:38px;border-radius:11px;
+  background:rgba(255,43,43,.1);
+  border:1px solid rgba(255,43,43,.35);
+  box-shadow:0 0 14px rgba(255,43,43,.12),inset 0 0 10px rgba(255,43,43,.08);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.pc-head-icon i{color:#ff2b2b;font-size:16px;}
+.pc-head-text h3{
+  font-size:13.5px;font-weight:800;color:#fff;
+  letter-spacing:.8px;margin:0 0 2px;
+}
+.pc-head-text p{font-size:11px;color:#888;margin:0;}
+
+/* ── INPUT ── */
+.pc-input-wrap{position:relative;margin-bottom:12px;}
+.pc-input-icon{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  color:#ff2b2b;font-size:13px;pointer-events:none;opacity:.8;
+}
+.pc-input{
+  width:100%;padding:15px 15px 15px 40px;
+  border-radius:13px;
+  background:rgba(255,43,43,.05);
+  border:1.5px solid rgba(255,43,43,.38);
+  color:#fff;font-size:17px;font-weight:700;
+  outline:none;letter-spacing:.5px;
+  transition:border .2s,box-shadow .2s,background .2s;
+  -moz-appearance:textfield;
+}
+.pc-input::-webkit-inner-spin-button,
+.pc-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+.pc-input::placeholder{color:#444;font-size:13.5px;font-weight:400;letter-spacing:0;}
+.pc-input:focus{
+  border-color:#ff2b2b;
+  box-shadow:0 0 0 3px rgba(255,43,43,.13),0 0 18px rgba(255,43,43,.14);
+  background:rgba(255,43,43,.09);
+}
+
+/* ── BUTTON ── */
+.pc-btn{
+  width:100%;padding:15px;border:none;border-radius:13px;
+  background:linear-gradient(135deg,#ff2b2b 0%,#961020 100%);
+  color:#fff;font-size:13.5px;font-weight:800;
+  cursor:pointer;letter-spacing:.8px;
+  margin-bottom:12px;
+  box-shadow:0 5px 22px rgba(255,43,43,.28),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:.18s;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.pc-btn:active{transform:scale(.975);box-shadow:0 2px 8px rgba(255,43,43,.2);}
+
+/* ── RESULT BOX ── */
+.pc-result{
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;padding:2px 0;
+  display:none;overflow:hidden;
+}
+.pc-result.show{display:block;animation:pcIn .3s ease;}
+@keyframes pcIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.pc-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 15px;
+  border-bottom:1px solid rgba(255,255,255,.045);
+  gap:8px;
+}
+.pc-row:last-of-type{border-bottom:none;}
+.pc-lbl{
+  color:#999;font-size:12.5px;
+  display:flex;align-items:center;gap:7px;
+}
+.pc-lbl i{color:#ff2b2b;font-size:11.5px;width:13px;text-align:center;}
+.pc-val{font-weight:800;color:#fff;font-size:14px;letter-spacing:.2px;}
+.pc-val.accent{
+  color:#ff3b3b;font-size:16.5px;
+  text-shadow:0 0 10px rgba(255,43,43,.35);
+}
+.pc-foot{
+  font-size:10.5px;color:#555;
+  text-align:center;padding:9px 15px 5px;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.pc-foot i{color:#ff2b2b;font-size:10px;}
+
+/* ── LEVEL GRID ── */
+.pc-lvl-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:7px;margin:2px 0 14px;
+}
+.pc-lvl{
+  padding:11px 4px 10px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+  background:rgba(255,255,255,.03);
+  color:#777;font-size:12px;font-weight:700;
+  cursor:pointer;text-align:center;
+  transition:.17s;line-height:1.4;
+  position:relative;overflow:hidden;
+  user-select:none;
+}
+.pc-lvl span{display:block;font-size:9.5px;font-weight:500;color:#4a4a4a;margin-top:2px;}
+.pc-lvl:hover{border-color:rgba(255,43,43,.45);color:#ccc;background:rgba(255,43,43,.06);}
+.pc-lvl.on{
+  border-color:#ff2b2b;
+  background:linear-gradient(155deg,rgba(255,43,43,.17),rgba(70,0,0,.2));
+  color:#fff;
+  box-shadow:0 0 14px rgba(255,43,43,.18);
+}
+.pc-lvl.on span{color:#ff8585;}
+.pc-lvl img{transition:transform .17s;}
+.pc-lvl.on img{transform:scale(1.1);filter:drop-shadow(0 0 6px rgba(255,43,43,.7));}
+.pc-lvl.on::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#ff2b2b,transparent);
+}
+
+/* ── DIVIDER ── */
+.pc-div{height:1px;background:rgba(255,255,255,.05);margin:0 0 12px;}
+
+/* ── SHAKE ── */
+@keyframes pcShake{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-6px);}
+  75%{transform:translateX(6px);}
+}
+.pc-shake{animation:pcShake .35s ease;}
+</style>
+
+<!-- Page title -->
+<p class="pc-title"><span class="red">PRIME</span>&nbsp;<span class="wht">CALCULATOR</span></p>
+<p class="pc-sub">Free Fire &bull; Estimasi Harga Point Prime</p>
+
+<!-- 16:9 Banner -->
+<div class="pc-banner">
+  <img src="https://files.catbox.moe/kc6ol7.jpg" alt="Prime Banner" loading="lazy"/>
+</div>
+
+<!-- Card 1: Input Point -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-gem"></i></div>
+    <div class="pc-head-text">
+      <h3>PRIME CALCULATOR</h3>
+      <p>Masukkan jumlah point prime kamu</p>
+    </div>
+  </div>
+
+  <div class="pc-input-wrap">
+    <i class="pc-input-icon fa-solid fa-hashtag"></i>
+    <input class="pc-input" id="primePointInput" inputmode="numeric" type="number" placeholder="Contoh : 200000"/>
+  </div>
+
+  <button class="pc-btn" onclick="hitungPrime()">
+    <i class="fa-solid fa-calculator"></i> HITUNG TOTAL HARGA
+  </button>
+
+  <div class="pc-result" id="primeResult1">
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-gem"></i>Total Diamond</span>
+      <span class="pc-val" id="res1Diamond">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-money-bill-wave"></i>Total Harga</span>
+      <span class="pc-val accent" id="res1Harga">—</span>
+    </div>
+    <div class="pc-foot"><i class="fa-solid fa-circle-info"></i>Harga Rp 126 per 1 Diamond</div>
+  </div>
+</div>
+
+<!-- Card 2: Level Picker -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-crown"></i></div>
+    <div class="pc-head-text">
+      <h3>CEK HARGA PRIME</h3>
+      <p>Pilih level Prime 1 – 8</p>
+    </div>
+  </div>
+
+  <div class="pc-lvl-grid" id="primeLevelGrid"></div>
+  <div class="pc-div"></div>
+
+  <button class="pc-btn" onclick="hitungLevel()">
+    <i class="fa-solid fa-calculator"></i> HITUNG HARGA
+  </button>
+
+  <div class="pc-result" id="primeResult2">
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-crown"></i>Level Prime</span>
+      <span class="pc-val" id="res2Level">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-gem"></i>Total Diamond</span>
+      <span class="pc-val" id="res2Diamond">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-money-bill-wave"></i>Total Harga</span>
+      <span class="pc-val accent" id="res2Harga">—</span>
+    </div>
+    <div class="pc-foot"><i class="fa-solid fa-circle-info"></i>Estimasi &bull; Rp 126 per Diamond</div>
+  </div>
+</div>
+
+<div class="footer" style="margin-top:4px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+/* ── PRIME DATA ── */
+const primeLevels=[
+  {label:'Prime 1',name:'PRIME 1',img:'https://files.catbox.moe/x5pypw.png',dm:100},
+  {label:'Prime 2',name:'PRIME 2',img:'https://files.catbox.moe/b2byx1.png',dm:1000},
+  {label:'Prime 3',name:'PRIME 3',img:'https://files.catbox.moe/nrllzm.png',dm:3000},
+  {label:'Prime 4',name:'PRIME 4',img:'https://files.catbox.moe/yip9im.png',dm:10000},
+  {label:'Prime 5',name:'PRIME 5',img:'https://files.catbox.moe/juhyc3.png',dm:30000},
+  {label:'Prime 6',name:'PRIME 6',img:'https://files.catbox.moe/2d9n67.png',dm:60000},
+  {label:'Prime 7',name:'PRIME 7',img:'https://files.catbox.moe/3gth19.png',dm:120000},
+  {label:'Prime 8',name:'PRIME 8',img:'https://files.catbox.moe/fvplwr.png',dm:200000},
+];
+const HARGA_PER_DM=126;
+let selPrime=-1;
+
+/* Build level grid */
+(function(){
+  const g=document.getElementById('primeLevelGrid');
+  if(!g)return;
+  primeLevels.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='pc-lvl';
+    d.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;';
+    d.innerHTML='<img src="'+p.img+'" alt="'+p.name+'" style="width:44px;height:44px;object-fit:contain;margin-bottom:4px;pointer-events:none;"/><span style="font-size:10px;font-weight:700;color:#aaa;margin-top:0;">'+p.name+'</span>';
+    d.onclick=()=>{
+      selPrime=i;
+      document.querySelectorAll('.pc-lvl').forEach((b,j)=>b.classList.toggle('on',j===i));
+    };
+    g.appendChild(d);
+  });
+})();
+
+/* Scramble animation */
+function scramble(el,final,ms){
+  const ch='0123456789';
+  const len=Math.max(final.replace(/[^0-9]/g,'').length,3);
+  const t=setInterval(()=>{
+    el.textContent=Array.from({length:len},()=>ch[Math.floor(Math.random()*10)]).join('');
+  },42);
+  setTimeout(()=>{clearInterval(t);el.textContent=final;},ms);
+}
+
+/* Counter animation */
+function counter(el,target,ms){
+  const t0=performance.now();
+  (function tick(now){
+    const prog=Math.min((now-t0)/ms,1);
+    const ease=1-Math.pow(1-prog,3);
+    el.textContent='Rp '+Math.round(target*ease).toLocaleString('id-ID');
+    if(prog<1)requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+function showResult(box,entries){
+  box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
+  entries.forEach(([el,val,type])=>{
+    if(type==='s') scramble(el,val,720);
+    else{el.textContent='Rp 0';setTimeout(()=>counter(el,val,880),80);}
+  });
+}
+
+/* Hitung dari input point */
+function hitungPrime(){
+  const inp=document.getElementById('primePointInput');
+  const v=parseInt(inp.value);
+  if(!v||v<=0){
+    inp.classList.remove('pc-shake');void inp.offsetWidth;inp.classList.add('pc-shake');
+    inp.style.borderColor='#ff2b2b';
+    inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{inp.style.boxShadow='';inp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+  showResult(document.getElementById('primeResult1'),[
+    [document.getElementById('res1Diamond'),v.toLocaleString('id-ID'),'s'],
+    [document.getElementById('res1Harga'),v*HARGA_PER_DM,'c'],
+  ]);
+}
+
+/* Hitung dari level */
+function hitungLevel(){
+  if(selPrime<0){
+    const g=document.getElementById('primeLevelGrid');
+    g.style.outline='1.5px solid #ff2b2b';
+    g.style.borderRadius='8px';
+    setTimeout(()=>{g.style.outline='none';},900);
+    return;
+  }
+  const p=primeLevels[selPrime];
+  const box=document.getElementById('primeResult2');
+  document.getElementById('res2Level').textContent=p.name;
+  showResult(box,[
+    [document.getElementById('res2Diamond'),p.dm.toLocaleString('id-ID'),'s'],
+    [document.getElementById('res2Harga'),p.dm*HARGA_PER_DM,'c'],
+  ]);
+}
+</script>
 
 <!-- TIKTOK STEP MODAL -->
 <div class="modal" id="tiktokModal">
