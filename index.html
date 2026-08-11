@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>KZRIZUSMO</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>KZRIZUSMO</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Outfit',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#000;color:#fff;min-height:100vh;user-select:none;overflow-x:hidden}body.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
 body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.75));backdrop-filter:blur(4px);z-index:-1}
@@ -937,6 +937,21 @@ display:block;
 .topbar-pro .tb-badge{
 top:2px!important;right:2px!important;
 }
+.topbar-pro .tb-backbtn{
+width:auto!important;height:auto!important;
+padding:0!important;
+border-radius:0!important;
+display:flex;align-items:center;gap:7px;
+font-size:14px;font-weight:700;letter-spacing:.3px;
+background:transparent!important;
+border:none!important;
+color:#fff!important;
+}
+.topbar-pro .tb-backbtn i{font-size:15px!important;color:#ff3c3c;}
+.topbar-pro .tb-backbtn:hover{
+color:#ff3c3c!important;
+}
+.topbar-pro .tb-backbtn:active{transform:scale(.96);}
 </style>
 
 <style>
@@ -1081,9 +1096,10 @@ object-fit:contain;
 .hm-video-label{
   position:absolute;bottom:16px;left:0;right:0;
   text-align:center;z-index:2;
-  font-family:'Audiowide',sans-serif;
+  font-family:'Orbitron',sans-serif;
   font-size:1.3rem;letter-spacing:3.5px;
   pointer-events:none;
+  font-weight:900;
 }
 .hm-video-label .vl-w{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5),0 2px 8px rgba(0,0,0,.8);}
 .hm-video-label .vl-r{color:#ff2b2b;text-shadow:0 0 20px rgba(255,43,43,1),0 0 40px rgba(255,43,43,.5),0 2px 8px rgba(0,0,0,.8);}
@@ -1160,6 +1176,32 @@ object-fit:contain;
 .hm-menu-body small{font-size:11px;color:#444;}
 .hm-menu-arrow{color:#2a2a2a;font-size:13px;flex-shrink:0;}
 
+.hm-new-badge{
+  position:absolute;
+  top:9px;right:12px;
+  display:none;
+  align-items:center;gap:4px;
+  background:rgba(255,43,43,.15);
+  border:1px solid #ff2b2b;
+  color:#ff5c5c;
+  font-size:9px;font-weight:800;
+  letter-spacing:.6px;
+  padding:2px 8px 2px 6px;
+  border-radius:20px;
+  z-index:2;
+  font-family:'Outfit',sans-serif;
+}
+.hm-new-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#ff2b2b;
+  box-shadow:0 0 6px #ff2b2b,0 0 2px #ff2b2b;
+  animation:hmNewPulse 1.3s ease-in-out infinite;
+}
+@keyframes hmNewPulse{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.5);opacity:.55;}
+}
+
 /* SOCIAL ROW */
 .hm-social-row{display:flex;gap:10px;margin-bottom:0;}
 .hm-social{
@@ -1200,14 +1242,13 @@ object-fit:contain;
 <style>
 .topbar-pro{background:rgba(15,15,15,.75)!important;backdrop-filter:blur(20px);box-shadow:none!important}
 .topbar-pro .center{position:absolute;left:50%;transform:translateX(-50%);text-align:center}
-.online-dot{display:inline-block;width:8px;height:8px;background:#22ff66;border-radius:50%;box-shadow:0 0 8px #22ff66;animation:blink 1s infinite}
-@keyframes blink{50%{opacity:.3}}
 .vipbadge{background:gold;color:#000;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold}
 </style>
-<div class="topbar-pro">
-<div class="left"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
-<div class="center"><small><span class="online-dot"></span> ONLINE <span class=></span></small></div>
-<div class="right"><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i></button></div>
+<div class="topbar-pro" id="topbarPro">
+<button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i>Kembali</button>
+<div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
+<div class="center" id="topbarCenter"></div>
+<div class="right" id="topbarRight"><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i></button></div>
 </div>
 <div class="app-bottombar">
 <div class="tab" onclick="showPage('shadowmenu')">
@@ -1280,9 +1321,16 @@ object-fit:contain;
   <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small>Hitung harga Prime Free Fire</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
-<div class="hm-menu" onclick="showPage('apk')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-  <div class="hm-menu-body"><h4>APK ZUSMO</h4><small>Download semua versi aplikasi</small></div>
+<div class="hm-menu" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-heart"></i></div>
+  <div class="hm-menu-body"><h4>SUNTIK LIKE FF</h4><small>Tambah like profile Free Fire</small></div>
+  <span class="hm-new-badge" id="newBadge_suntiklike"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="dismissNewBadge('botglory');showPage('botglory')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
+  <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small>Bot booster keaktifan guild Free Fire</small></div>
+  <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="showPage('toko')">
@@ -1290,14 +1338,14 @@ object-fit:contain;
   <div class="hm-menu-body"><h4>TOKO ZUSMO</h4><small>Topup &amp; marketplace</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
+<div class="hm-menu" onclick="showPage('apk')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+  <div class="hm-menu-body"><h4>APK ZUSMO</h4><small>Download semua versi aplikasi</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')">
   <div class="hm-menu-icon"><i class="fa-solid fa-gamepad"></i></div>
   <div class="hm-menu-body"><h4>TOPUP GAME</h4><small>Game favorit kamu</small></div>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
-<div class="hm-menu" onclick="showPage('jualbeliakun')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-user-tag"></i></div>
-  <div class="hm-menu-body"><h4>JUAL &amp; BELI AKUN</h4><small>Akun Free Fire siap pakai</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 
@@ -1647,6 +1695,437 @@ img#shadowBanner,
 </div>
 </div>
 
+<!-- SUNTIK LIKE FF PAGE -->
+<div class="page" id="suntiklike">
+<style>
+#suntiklike{padding-bottom:80px;}
+
+.sl-pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.sl-pack{
+  border:1.5px solid rgba(255,255,255,.09);
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  padding:14px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:.17s;
+  position:relative;overflow:hidden;
+  user-select:none;
+}
+.sl-pack:hover{border-color:rgba(255,43,43,.4);background:rgba(255,43,43,.05);}
+.sl-pack.on{
+  border-color:#ff2b2b;
+  background:linear-gradient(155deg,rgba(255,43,43,.17),rgba(70,0,0,.2));
+  box-shadow:0 0 14px rgba(255,43,43,.18);
+}
+.sl-pack.on::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#ff2b2b,transparent);
+}
+.sl-pack-like{display:block;font-size:19px;font-weight:900;color:#fff;letter-spacing:.3px;}
+.sl-pack-like small{font-size:10px;font-weight:700;color:#888;letter-spacing:1px;margin-left:2px;}
+.sl-pack.on .sl-pack-like small{color:#ff8585;}
+.sl-pack-price{font-size:14px;font-weight:800;color:#ff3b3b;margin-top:6px;text-shadow:0 0 8px rgba(255,43,43,.3);}
+.sl-pack-days{
+  display:inline-block;margin-top:7px;padding:3px 9px;
+  border-radius:20px;font-size:9.5px;font-weight:700;
+  background:rgba(255,255,255,.06);color:#999;letter-spacing:.4px;
+}
+.sl-pack.on .sl-pack-days{background:rgba(255,43,43,.18);color:#ff9a9a;}
+
+.sl-info-box{
+  background:rgba(255,180,0,.07);
+  border:1px solid rgba(255,180,0,.28);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:11.5px;
+  color:#e8c877;
+  line-height:1.65;
+  margin-bottom:14px;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.sl-info-box i{color:#ffb300;font-size:14px;margin-top:1px;flex-shrink:0;}
+
+.sl-wa-btn{
+  width:100%;padding:15px;border:none;border-radius:13px;
+  background:linear-gradient(135deg,#25D366 0%,#128c4a 100%);
+  color:#fff;font-size:13.5px;font-weight:800;
+  cursor:pointer;letter-spacing:.6px;
+  margin-bottom:6px;
+  box-shadow:0 5px 22px rgba(37,211,102,.25),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:.18s;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.sl-wa-btn:active{transform:scale(.975);}
+</style>
+
+<p class="pc-title"><span class="red">SUNTIK</span>&nbsp;<span class="wht">LIKE FF</span></p>
+<p class="pc-sub">Tambah Like Profile Free Fire Kamu</p>
+
+<div class="pc-banner" style="aspect-ratio:16/7;">
+  <img src="https://img.sanishtech.com/u/146523c4d8999a8b23afdb3bbe54b79b.png" alt="Suntik Like FF" style="width:100%;height:100%;object-fit:cover;">
+</div>
+
+<!-- Card 1: Pilih Paket -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-heart"></i></div>
+    <div class="pc-head-text">
+      <h3>PILIH PAKET LIKE</h3>
+      <p>Limit 220 like / hari</p>
+    </div>
+  </div>
+  <div class="sl-pack-grid" id="slPackGrid"></div>
+</div>
+
+<!-- Card 2: Input ID -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-id-card"></i></div>
+    <div class="pc-head-text">
+      <h3>ID FREE FIRE</h3>
+      <p>Masukkan ID akun kamu</p>
+    </div>
+  </div>
+  <div class="pc-input-wrap" style="margin-bottom:0;">
+    <i class="pc-input-icon fa-solid fa-hashtag"></i>
+    <input class="pc-input" id="slIdInput" inputmode="numeric" type="number" placeholder="Contoh : 5008131603"/>
+  </div>
+</div>
+
+<!-- Ringkasan -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-receipt"></i></div>
+    <div class="pc-head-text">
+      <h3>RINGKASAN ORDER</h3>
+      <p>Cek sebelum order</p>
+    </div>
+  </div>
+  <div class="pc-result show">
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-heart"></i>Total Like</span>
+      <span class="pc-val" id="slResLike">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-calendar-days"></i>Estimasi Selesai</span>
+      <span class="pc-val" id="slResDays">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-money-bill-wave"></i>Total Harga</span>
+      <span class="pc-val accent" id="slResHarga">—</span>
+    </div>
+    <div class="pc-foot"><i class="fa-solid fa-circle-info"></i>Proses like otomatis 220/hari</div>
+  </div>
+</div>
+
+<div class="sl-info-box">
+  <i class="fa-solid fa-triangle-exclamation"></i>
+  <div>
+    Like dikirim bertahap maksimal <b>220 like per hari</b> mengikuti batas sistem Free Fire. Semakin besar paket, semakin lama waktu prosesnya (contoh: paket 6600 like membutuhkan ±30 hari hingga selesai). Order diproses <b>manual</b> oleh admin.
+  </div>
+</div>
+
+<button class="sl-wa-btn" onclick="orderSuntikLike()">
+  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+</button>
+<p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+const slPackages=[
+  {like:220,price:5000,days:1},
+  {like:1100,price:25000,days:5},
+  {like:3300,price:60000,days:15},
+  {like:6600,price:100000,days:30},
+];
+let slSelected=-1;
+
+(function(){
+  const g=document.getElementById('slPackGrid');
+  if(!g)return;
+  slPackages.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='sl-pack';
+    d.innerHTML='<span class="sl-pack-like">'+p.like.toLocaleString('id-ID')+'<small>LIKE</small></span>'+
+      '<div class="sl-pack-price">Rp '+p.price.toLocaleString('id-ID')+'</div>'+
+      '<span class="sl-pack-days">± '+p.days+' HARI</span>';
+    d.onclick=()=>{
+      slSelected=i;
+      document.querySelectorAll('.sl-pack').forEach((b,j)=>b.classList.toggle('on',j===i));
+      updateSlSummary();
+    };
+    g.appendChild(d);
+  });
+})();
+
+function updateSlSummary(){
+  if(slSelected<0)return;
+  const p=slPackages[slSelected];
+  document.getElementById('slResLike').textContent=p.like.toLocaleString('id-ID')+' Like';
+  document.getElementById('slResDays').textContent='± '+p.days+' Hari';
+  document.getElementById('slResHarga').textContent='Rp '+p.price.toLocaleString('id-ID');
+}
+
+function orderSuntikLike(){
+  const idInp=document.getElementById('slIdInput');
+  const id=idInp.value.trim();
+
+  if(slSelected<0){
+    const g=document.getElementById('slPackGrid');
+    g.style.outline='1.5px solid #ff2b2b';g.style.borderRadius='8px';
+    setTimeout(()=>{g.style.outline='none';},900);
+    return;
+  }
+  if(!id){
+    idInp.classList.remove('pc-shake');void idInp.offsetWidth;idInp.classList.add('pc-shake');
+    idInp.style.borderColor='#ff2b2b';
+    idInp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{idInp.style.boxShadow='';idInp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+
+  const p=slPackages[slSelected];
+  const msg='Halo Admin, saya mau order *SUNTIK LIKE FF* :\n\n'+
+    '🆔 ID FF : '+id+'\n'+
+    '❤️ Paket : '+p.like.toLocaleString('id-ID')+' Like\n'+
+    '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n'+
+    '📅 Estimasi Selesai : ± '+p.days+' Hari (limit 220 like/hari)\n\n'+
+    'Mohon diproses ya, terima kasih.';
+
+  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+
+<!-- BOT GLORY GUILD PAGE -->
+<div class="page" id="botglory">
+<style>
+#botglory{padding-bottom:80px;}
+.bg-rules{
+  background:rgba(255,180,0,.07);
+  border:1px solid rgba(255,180,0,.28);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:11.5px;
+  color:#e8c877;
+  line-height:1.75;
+  margin-bottom:14px;
+}
+.bg-rules b{color:#ffd47a;}
+.bg-rules-item{display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;}
+.bg-rules-item:last-child{margin-bottom:0;}
+.bg-rules-item i{color:#ffb300;font-size:13px;margin-top:2px;flex-shrink:0;width:14px;text-align:center;}
+
+/* BOT GLORY BANNER SLIDER */
+.bg-slider{position:relative;overflow:hidden;}
+.bg-slide-img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;
+  transition:opacity 1s ease-in-out;
+}
+.bg-slide-img.active{opacity:1;}
+.bg-slide-dots{
+  position:absolute;bottom:10px;left:0;right:0;
+  display:flex;justify-content:center;gap:6px;
+  z-index:3;
+}
+.bg-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.35);
+  border:1px solid rgba(255,255,255,.5);
+  transition:.3s;
+}
+.bg-dot.active{
+  background:#ff2b2b;
+  border-color:#ff2b2b;
+  box-shadow:0 0 8px rgba(255,43,43,.8);
+  width:16px;border-radius:4px;
+}
+</style>
+
+<p class="pc-title"><span class="red">BOT</span>&nbsp;<span class="wht">GLORY GUILD</span></p>
+<p class="pc-sub">Bot Booster Keaktifan Guild Free Fire</p>
+
+<div class="pc-banner bg-slider" style="aspect-ratio:16/7;">
+  <img class="bg-slide-img active" src="https://img.sanishtech.com/u/acbf88125130599bcfd8d12e25cd9573.png" alt="Bot Glory Guild">
+  <img class="bg-slide-img" src="https://img.sanishtech.com/u/15a02540f7b759c89244d86b0ce0dbb9.png" alt="Bot Glory Guild">
+  <img class="bg-slide-img" src="https://img.sanishtech.com/u/750a81f6e70981af6231398aa1ee2250.png" alt="Bot Glory Guild">
+  <img class="bg-slide-img" src="https://img.sanishtech.com/u/7d0ae6db1168790d0f7c6de9a2a3385d.png" alt="Bot Glory Guild">
+  <div class="bg-slide-dots">
+    <span class="bg-dot active"></span>
+    <span class="bg-dot"></span>
+    <span class="bg-dot"></span>
+    <span class="bg-dot"></span>
+  </div>
+</div>
+
+<!-- Card 1: Pilih Paket Squad -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-robot"></i></div>
+    <div class="pc-head-text">
+      <h3>PILIH PAKET SQUAD</h3>
+      <p>1 Squad = 4 Bot • Durasi 7 Hari</p>
+    </div>
+  </div>
+  <div class="sl-pack-grid" id="bgPackGrid"></div>
+</div>
+
+<!-- Card 2: Input ID Guild -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="pc-head-text">
+      <h3>ID GUILD</h3>
+      <p>Masukkan ID guild kamu</p>
+    </div>
+  </div>
+  <div class="pc-input-wrap" style="margin-bottom:0;">
+    <i class="pc-input-icon fa-solid fa-hashtag"></i>
+    <input class="pc-input" id="bgIdInput" inputmode="numeric" type="number" placeholder="Contoh : 123456789"/>
+  </div>
+</div>
+
+<!-- Ringkasan -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-receipt"></i></div>
+    <div class="pc-head-text">
+      <h3>RINGKASAN ORDER</h3>
+      <p>Cek sebelum order</p>
+    </div>
+  </div>
+  <div class="pc-result show">
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-users"></i>Jumlah Squad</span>
+      <span class="pc-val" id="bgResSquad">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-robot"></i>Total Bot</span>
+      <span class="pc-val" id="bgResBots">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-calendar-days"></i>Durasi</span>
+      <span class="pc-val" id="bgResDays">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-bolt"></i>Poin Keaktifan</span>
+      <span class="pc-val" id="bgResPoin">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-money-bill-wave"></i>Total Harga</span>
+      <span class="pc-val accent" id="bgResHarga">—</span>
+    </div>
+    <div class="pc-foot"><i class="fa-solid fa-circle-info"></i>Bot auto masuk top region</div>
+  </div>
+</div>
+
+<div class="bg-rules">
+  <div class="bg-rules-item"><i class="fa-solid fa-clock"></i><div>Booking untuk <b>siap pakai hari Senin, pukul 05:00 WIB</b>. Bot akan mulai masuk tepat jam <b>05:00 WIB</b>.</div></div>
+  <div class="bg-rules-item"><i class="fa-solid fa-lock-open"></i><div>Pengaturan permintaan bergabung ke guild wajib di-set <b>default (terbuka)</b> agar bot bisa melakukan request masuk.</div></div>
+  <div class="bg-rules-item"><i class="fa-solid fa-check-double"></i><div>Acc / penerimaan bot dilakukan pada pukul <b>05:00 WIB</b>.</div></div>
+  <div class="bg-rules-item"><i class="fa-solid fa-bolt"></i><div>Poin keaktifan: <b>1 Bot = 100rb</b> poin, <b>1 Squad (4 bot) = 400rb</b> poin.</div></div>
+  <div class="bg-rules-item"><i class="fa-solid fa-earth-asia"></i><div>Bot otomatis masuk dan menetap di <b>Top Region</b>.</div></div>
+</div>
+
+<button class="sl-wa-btn" onclick="orderBotGlory()">
+  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+</button>
+<p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+const bgPackages=[
+  {squad:1,bots:4,price:150000,poin:400000},
+  {squad:2,bots:8,price:300000,poin:800000},
+  {squad:3,bots:12,price:450000,poin:1200000},
+  {squad:4,bots:16,price:600000,poin:1600000},
+];
+let bgSelected=-1;
+
+(function(){
+  const g=document.getElementById('bgPackGrid');
+  if(!g)return;
+  bgPackages.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='sl-pack';
+    d.innerHTML='<span class="sl-pack-like">'+p.squad+'<small>SQUAD</small></span>'+
+      '<div class="sl-pack-price">Rp '+p.price.toLocaleString('id-ID')+'</div>'+
+      '<span class="sl-pack-days">'+p.bots+' BOT • 7 HARI</span>';
+    d.onclick=()=>{
+      bgSelected=i;
+      document.querySelectorAll('#bgPackGrid .sl-pack').forEach((b,j)=>b.classList.toggle('on',j===i));
+      updateBgSummary();
+    };
+    g.appendChild(d);
+  });
+})();
+
+function updateBgSummary(){
+  if(bgSelected<0)return;
+  const p=bgPackages[bgSelected];
+  document.getElementById('bgResSquad').textContent=p.squad+' Squad';
+  document.getElementById('bgResBots').textContent=p.bots+' Bot';
+  document.getElementById('bgResDays').textContent='7 Hari';
+  document.getElementById('bgResPoin').textContent=p.poin.toLocaleString('id-ID')+' Poin';
+  document.getElementById('bgResHarga').textContent='Rp '+p.price.toLocaleString('id-ID');
+}
+
+/* BOT GLORY BANNER AUTO SLIDE */
+(function(){
+  document.addEventListener('DOMContentLoaded',()=>{
+    const wrap=document.querySelector('#botglory .bg-slider');
+    if(!wrap)return;
+    const slides=wrap.querySelectorAll('.bg-slide-img');
+    const dots=wrap.querySelectorAll('.bg-dot');
+    let idx=0;
+    setInterval(()=>{
+      slides[idx].classList.remove('active');
+      dots[idx].classList.remove('active');
+      idx=(idx+1)%slides.length;
+      slides[idx].classList.add('active');
+      dots[idx].classList.add('active');
+    },3000);
+  });
+})();
+
+function orderBotGlory(){
+  const idInp=document.getElementById('bgIdInput');
+  const id=idInp.value.trim();
+
+  if(bgSelected<0){
+    const g=document.getElementById('bgPackGrid');
+    g.style.outline='1.5px solid #ff2b2b';g.style.borderRadius='8px';
+    setTimeout(()=>{g.style.outline='none';},900);
+    return;
+  }
+  if(!id){
+    idInp.classList.remove('pc-shake');void idInp.offsetWidth;idInp.classList.add('pc-shake');
+    idInp.style.borderColor='#ff2b2b';
+    idInp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{idInp.style.boxShadow='';idInp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+
+  const p=bgPackages[bgSelected];
+  const msg='Halo Admin, saya mau order *BOT GLORY GUILD* :\n\n'+
+    '🛡️ ID Guild : '+id+'\n'+
+    '🤖 Paket : '+p.squad+' Squad ('+p.bots+' Bot)\n'+
+    '📅 Durasi : 7 Hari\n'+
+    '⚡ Poin Keaktifan : '+p.poin.toLocaleString('id-ID')+' Poin\n'+
+    '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n\n'+
+    'Catatan: Booking untuk siap pakai hari Senin 05:00 WIB, bot masuk & acc jam 05:00 WIB. Mohon setting request join guild ke default. Terima kasih.';
+
+  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+
 <div class="page" id="downloadvip">
 <div class="download-box">
 <i class="fa-solid fa-crown download-icon"></i>
@@ -1688,6 +2167,11 @@ img#shadowBanner,
   text-shadow:0 0 22px rgba(255,43,43,.4);
   line-height:1.3;
 }
+.pc-title{
+  font-family:'Fredoka One',sans-serif !important;
+  font-weight:900 !important;
+  letter-spacing:1.2px;
+}
 .pc-title span.red{
   color:#ff2b2b;
   text-shadow:0 0 16px rgba(255,43,43,.7),0 0 32px rgba(255,43,43,.3);
@@ -1697,10 +2181,10 @@ img#shadowBanner,
   text-shadow:0 0 16px rgba(255,255,255,.25);
 }
 .pc-sub{
-  font-family:'Audiowide',sans-serif;
+  font-family:'Space Mono',monospace;
   text-align:center;font-size:10px;
   color:#555;letter-spacing:2.2px;margin-bottom:22px;
-  text-transform:uppercase;font-weight:400;
+  text-transform:uppercase;font-weight:700;
 }
 
 /* ── CARD ── */
@@ -2111,6 +2595,33 @@ function showHome(){showPage('home')}
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+
+var homeTabs=['home','shadowmenu','beta','emote','lvl'];
+var bottomBar=document.querySelector('.app-bottombar');
+var backBtn=document.getElementById('topbarBackBtn');
+var tLeft=document.getElementById('topbarLeft');
+var tCenter=document.getElementById('topbarCenter');
+var tRight=document.getElementById('topbarRight');
+
+if(homeTabs.indexOf(id)!==-1){
+  if(bottomBar) bottomBar.style.display='';
+  if(backBtn) backBtn.style.display='none';
+  if(tLeft) tLeft.style.display='';
+  if(tCenter) tCenter.style.display='';
+  if(tRight) tRight.style.display='';
+
+  document.querySelectorAll('.app-bottombar .tab').forEach(t=>t.classList.remove('active'));
+  var tabMap={shadowmenu:0,beta:1,home:2,emote:3,lvl:4};
+  var tabs=document.querySelectorAll('.app-bottombar .tab');
+  var idx=tabMap[id];
+  if(tabs[idx]) tabs[idx].classList.add('active');
+}else{
+  if(bottomBar) bottomBar.style.display='none';
+  if(backBtn) backBtn.style.display='flex';
+  if(tLeft) tLeft.style.display='none';
+  if(tCenter) tCenter.style.display='none';
+  if(tRight) tRight.style.display='none';
+}
 }
 
 
@@ -3116,431 +3627,6 @@ function openNotifications(){alert('Belum ada notifikasi baru');}
 function openSettings(){alert('Menu pengaturan akan segera tersedia');}
 </script>
 
-<style>
-/* ===== JUAL & BELI AKUN ===== */
-#jualbeliakun{padding-bottom:30px;position:relative}
-.jb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
-.jb-head h1{text-align:left;font-size:1.6rem;margin:0}
-.jb-cart-btn{position:relative;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.25s}
-.jb-cart-btn:active{transform:scale(.92)}
-.jb-cart-btn i{font-size:18px;color:#ff4747}
-.jb-cart-count{position:absolute;top:-6px;right:-6px;background:#ff2b2b;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #000;transition:transform .25s}
-.jb-cart-count.bump{animation:jbBump .4s ease}
-@keyframes jbBump{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
-.jb-sub{color:#ccc;font-size:12px;margin:6px 0 4px;line-height:1.6}
-.jb-updated{color:#7fd68a;font-size:10.5px;margin:0 0 14px;display:flex;align-items:center;gap:5px}
-.jb-updated i{font-size:8px}
-
-/* Toolbar: search + sort */
-.jb-toolbar{display:flex;gap:8px;margin-bottom:12px}
-.jb-search{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:0 12px;height:44px}
-.jb-search i{color:#888;font-size:13px}
-.jb-search input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:12.5px;height:100%}
-.jb-search input::placeholder{color:#777}
-.jb-sort{flex-shrink:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;color:#ddd;font-size:11.5px;font-weight:600;padding:0 10px;height:44px;max-width:118px}
-.jb-sort:focus{outline:none}
-
-.jb-filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:none}
-.jb-filter-row::-webkit-scrollbar{display:none}
-.jb-filter{flex-shrink:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#ddd;font-size:12px;font-weight:600;padding:9px 14px;border-radius:30px;cursor:pointer;white-space:nowrap;transition:.25s;display:flex;align-items:center;gap:6px}
-.jb-filter.active{background:linear-gradient(135deg,#ff2b2b,#ff5f5f);border-color:#ff2b2b;color:#fff;box-shadow:0 4px 14px rgba(255,43,43,.4)}
-.jb-filter-count{background:rgba(255,255,255,.18);color:#fff;font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:20px;min-width:16px;text-align:center}
-.jb-filter.active .jb-filter-count{background:rgba(0,0,0,.25)}
-
-.jb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;min-height:120px}
-.jb-card{background:rgba(255,255,255,.07);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:.3s;opacity:0;animation:jbCardIn .45s ease forwards}
-@keyframes jbCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.jb-card:active{transform:scale(.98)}
-.jb-card:hover{border-color:rgba(255,71,71,.4);box-shadow:0 10px 26px rgba(0,0,0,.4)}
-.jb-card.available{border-color:rgba(0,255,136,.35)}
-.jb-thumb{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#111}
-.jb-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(65%) brightness(.62);transition:.4s}
-.jb-thumb img.jb-available-img{filter:none}
-.jb-sold-ribbon{position:absolute;top:10px;left:-30px;background:#ff2b2b;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;padding:4px 34px;transform:rotate(-38deg);box-shadow:0 3px 10px rgba(0,0,0,.5);z-index:2}
-.jb-available-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#00e08a,#00b86b);color:#032;font-size:9.5px;font-weight:900;letter-spacing:.5px;padding:5px 10px;border-radius:9px;z-index:2;box-shadow:0 3px 10px rgba(0,224,138,.4)}
-.jb-price-tag{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.72);border:1px solid rgba(255,43,43,.5);color:#fff;font-weight:800;font-size:12px;padding:4px 10px;border-radius:10px;z-index:2;display:flex;align-items:center;gap:5px}
-.jb-price-tag .fa-crown{color:#ffd447;font-size:10px}
-.jb-cat-tag{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,.14);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px;z-index:2}
-.jb-body{padding:10px 12px 12px}
-.jb-title{font-size:12.5px;font-weight:800;color:#fff;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.jb-spec-line{font-size:10.5px;color:#aaa;line-height:1.5;margin-bottom:2px;display:flex;gap:5px}
-.jb-spec-line i{color:#ff4747;width:11px;font-size:9px;margin-top:2px}
-.jb-actions{display:flex;gap:6px;margin-top:10px}
-.jb-btn-detail,.jb-btn-cart{flex:1;border:none;border-radius:12px;padding:9px 4px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s}
-.jb-btn-detail{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18)}
-.jb-btn-detail:active{transform:scale(.94)}
-.jb-btn-cart{background:#2a2a2a;color:#888;cursor:not-allowed}
-.jb-btn-cart.available{background:linear-gradient(135deg,#00e08a,#00b86b);color:#032;cursor:pointer}
-.jb-btn-cart.available:active{transform:scale(.94)}
-
-/* Empty state (no search/filter results) */
-.jb-empty{grid-column:1/-1;text-align:center;padding:40px 15px;color:#999}
-.jb-empty i{font-size:38px;color:#444;margin-bottom:12px;display:block}
-.jb-empty p{font-size:12.5px;line-height:1.7}
-
-/* Skeleton loading */
-.jb-skel{pointer-events:none}
-.jb-skel-thumb{width:100%;aspect-ratio:4/3;background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.14) 50%,rgba(255,255,255,.06) 75%);background-size:200% 100%;animation:jbShimmer 1.4s infinite}
-.jb-skel-line{height:9px;border-radius:6px;margin-bottom:8px;background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.14) 50%,rgba(255,255,255,.06) 75%);background-size:200% 100%;animation:jbShimmer 1.4s infinite}
-@keyframes jbShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* Floating WhatsApp button */
-.jb-float-wa{position:fixed;right:16px;bottom:86px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#25d366,#1eb856);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;box-shadow:0 6px 20px rgba(37,211,102,.5);z-index:1500;text-decoration:none;animation:jbFloatPulse 2.4s infinite}
-.jb-float-wa:active{transform:scale(.9)}
-@keyframes jbFloatPulse{0%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 12px rgba(37,211,102,0)}100%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 0 rgba(37,211,102,0)}}
-
-/* Toast */
-.jb-toast{position:fixed;bottom:150px;left:50%;transform:translateX(-50%) translateY(20px);background:#181818;border:1px solid rgba(255,255,255,.15);color:#fff;font-size:12.5px;font-weight:600;padding:12px 18px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:2000000;opacity:0;pointer-events:none;transition:.3s;display:flex;align-items:center;gap:8px;max-width:80%;text-align:left}
-.jb-toast i{color:#00e08a}
-.jb-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* Detail Modal */
-.jb-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-end;justify-content:center;z-index:1000000}
-.jb-modal.jbshow{display:flex}
-.jb-modal-card{width:100%;max-width:480px;max-height:88vh;overflow-y:auto;background:#131313;border-radius:26px 26px 0 0;border:1px solid rgba(255,255,255,.12);animation:fadeSlide .35s ease}
-.jb-modal-imgwrap{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:3/4;background:#000}
-.jb-modal-imgwrap img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(55%) brightness(.7)}
-.jb-modal-imgwrap img.jb-available-img{filter:none}
-.jb-modal-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3}
-.jb-modal-sold{position:absolute;top:14px;left:14px;background:#ff2b2b;color:#fff;font-size:11px;font-weight:900;padding:6px 14px;border-radius:10px;letter-spacing:1px;z-index:2;box-shadow:0 4px 14px rgba(255,43,43,.5)}
-.jb-modal-avail{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#00e08a,#00b86b);color:#032;font-size:11px;font-weight:900;padding:6px 14px;border-radius:10px;letter-spacing:.5px;z-index:2;box-shadow:0 4px 14px rgba(0,224,138,.45)}
-.jb-modal-body{padding:20px 20px 28px}
-.jb-modal-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:2px}
-.jb-modal-price{font-size:19px;font-weight:900;color:#ff4747;margin-bottom:14px}
-.jb-spec-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;margin-bottom:16px}
-.jb-spec-row{display:flex;gap:10px;font-size:12.5px;color:#ddd;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-.jb-spec-row:last-child{border-bottom:none}
-.jb-spec-row i{color:#ff4747;width:16px;text-align:center;margin-top:2px}
-.jb-spec-row b{color:#fff;display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;opacity:.65;margin-bottom:2px}
-.jb-note{background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.3);color:#ffb3b3;font-size:11.5px;padding:12px 14px;border-radius:14px;margin-bottom:16px;line-height:1.6}
-.jb-note.avail{background:rgba(0,224,138,.1);border-color:rgba(0,224,138,.3);color:#a9f5d4}
-.jb-modal-actions{display:flex;gap:10px}
-.jb-modal-actions button{flex:1;border:none;border-radius:14px;padding:14px;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
-.jb-btn-wa{background:linear-gradient(135deg,#25d366,#1eb856);color:#fff}
-.jb-btn-close2{background:#2a2a2a;color:#ddd}
-.jb-btn-cart-add{background:linear-gradient(135deg,#00e08a,#00b86b);color:#032}
-.jb-btn-buynow{width:100%;margin-top:10px;border:none;border-radius:14px;padding:14px;font-size:13px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ff2b2b,#ff5f5f);color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}
-
-/* Cart / Checkout Modal */
-.jb-cart-card{width:100%;max-width:480px;max-height:85vh;overflow-y:auto;background:#131313;border-radius:26px 26px 0 0;border:1px solid rgba(255,255,255,.12);padding:22px 22px 32px;animation:fadeSlide .35s ease}
-.jb-cart-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.jb-cart-title i{cursor:pointer;color:#999}
-.jb-cart-empty{text-align:center;padding:30px 10px;color:#999}
-.jb-cart-empty i{font-size:40px;color:#444;margin-bottom:12px;display:block}
-.jb-cart-empty p{font-size:12.5px;line-height:1.7}
-.jb-admin-box{margin-top:18px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.3);border-radius:18px;padding:16px;display:flex;align-items:center;gap:12px}
-.jb-admin-box i{font-size:26px;color:#25d366}
-.jb-admin-box div{flex:1}
-.jb-admin-box b{color:#fff;font-size:13px;display:block}
-.jb-admin-box span{color:#bbb;font-size:11.5px}
-.jb-cart-item{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.05);border-radius:14px;padding:10px;margin-bottom:10px}
-.jb-cart-item img{width:52px;height:52px;border-radius:10px;object-fit:cover}
-.jb-cart-item-info{flex:1}
-.jb-cart-item-info b{font-size:12.5px;color:#fff;display:block}
-.jb-cart-item-info span{font-size:11.5px;color:#ff4747;font-weight:700}
-.jb-cart-item i.fa-trash{padding:6px;cursor:pointer}
-.jb-checkout-btn{width:100%;margin-top:14px;background:linear-gradient(135deg,#ff2b2b,#ff5f5f);color:#fff;border:none;padding:15px;border-radius:16px;font-weight:800;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.jb-checkout-btn:active{transform:scale(.97)}
-
-/* === FIX: Disable ONLY banner clicks === */
-img#shadowBanner,
-.banner img,
-.top-banner img,
-.shadow-banner img {
-  pointer-events: none !important;
-  cursor: default !important;
-}
-.banner a,
-.top-banner a,
-.shadow-banner a {
-  pointer-events: none !important;
-}
-</style>
-
-<div class="page" id="jualbeliakun">
-<div class="jb-head">
-<h1>𝗝𝗨𝗔𝗟 &amp; 𝗕𝗘𝗟𝗜 𝗔𝗞𝗨𝗡</h1>
-<div class="jb-cart-btn" onclick="jbOpenCart()">
-<i class="fa-solid fa-cart-shopping"></i>
-<span class="jb-cart-count" id="jbCartCount">0</span>
-</div>
-</div>
-<p class="jb-sub">Akun Free Fire siap pakai dengan berbagai pilihan harga &amp; spek. Pilih kategori, cari, atau urutkan sesuai budget kamu.</p>
-<div class="jb-updated"><i class="fa-solid fa-circle"></i><span id="jbUpdatedAt">Memuat...</span></div>
-
-<div class="jb-toolbar">
-<div class="jb-search">
-<i class="fa-solid fa-magnifying-glass"></i>
-<input type="text" id="jbSearchInput" placeholder="Cari level, rank, skin..." oninput="jbRenderGrid()">
-</div>
-<select class="jb-sort" id="jbSortSelect" onchange="jbRenderGrid()">
-<option value="default">Default</option>
-<option value="asc">Termurah</option>
-<option value="desc">Termahal</option>
-</select>
-</div>
-
-<div class="jb-filter-row" id="jbFilterRow">
-<button class="jb-filter active" data-cat="all" onclick="jbFilter('all',this)">Semua <span class="jb-filter-count">0</span></button>
-<button class="jb-filter" data-cat="termurah" onclick="jbFilter('termurah',this)">&lt; 25K <span class="jb-filter-count">0</span></button>
-<button class="jb-filter" data-cat="ekonomis" onclick="jbFilter('ekonomis',this)">25K-70K <span class="jb-filter-count">0</span></button>
-<button class="jb-filter" data-cat="menengah" onclick="jbFilter('menengah',this)">70K-100K <span class="jb-filter-count">0</span></button>
-<button class="jb-filter" data-cat="premium" onclick="jbFilter('premium',this)">&gt; 100K <span class="jb-filter-count">0</span></button>
-</div>
-
-<div class="jb-grid" id="jbGrid"></div>
-
-<a class="jb-float-wa" href="#" onclick="jbQuickWA();return false;" aria-label="Chat Admin WhatsApp">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-</div>
-
-<!-- DETAIL MODAL -->
-<div class="jb-modal" id="jbDetailModal">
-<div class="jb-modal-card" id="jbDetailContent"></div>
-</div>
-
-<!-- CART / CHECKOUT MODAL -->
-<div class="jb-modal" id="jbCartModal">
-<div class="jb-cart-card">
-<div class="jb-cart-title">Keranjang &amp; Checkout <i class="fa-solid fa-xmark" onclick="jbCloseCart()"></i></div>
-<div id="jbCartBody"></div>
-</div>
-</div>
-
-<!-- TOAST -->
-<div class="jb-toast" id="jbToast"><i class="fa-solid fa-circle-check"></i><span id="jbToastMsg"></span></div>
-
-<script>
-const JB_ADMIN_NUMBER = '089515092009';
-// Data akun. Untuk menandai akun sebagai TERSEDIA (siap dijual), ubah sold:true -> sold:false pada akun terkait.
-const jbData = [
-{id:1,img:'https://files.catbox.moe/t53r8n.webp',price:160000,cat:'premium',title:'#001',level:'Semi OLD, Evo 2 Rasa, Jordan, Tas Sayap, Taa Naga, Tas OLD, Katana 5 Rasa, Tinju, Naruto 2, Animasi Loby.',rank:'Rank Heroic (Season ini)',bind:'Bind On',skin:'Vault Otw 300',diamond:'Riwayat top up cukup aktif',extra:'Elite Pass beberapa season, outfit lengkap',sold:true},
-{id:2,img:'https://files.catbox.moe/20pc0v.webp',price:75000,cat:'menengah',title:'Akun Free Fire #02',level:'Level 52+',rank:'Rank Diamond',bind:'Bind Facebook',skin:'Beberapa bundle favorit, skin gun standar, emote lucu',diamond:'Riwayat top up sedang',extra:'Elite Pass 1-2 season',sold:true},
-{id:3,img:'https://files.catbox.moe/v9allw.webp',price:25000,cat:'termurah',title:'Akun Free Fire #03',level:'Level 30+',rank:'Rank Platinum',bind:'Bind Guest / belum bind',skin:'Akun starter, koleksi skin dasar',diamond:'Riwayat top up minim',extra:'Cocok untuk pemula',sold:true},
-{id:4,img:'https://files.catbox.moe/npya7x.webp',price:80000,cat:'menengah',title:'Akun Free Fire #04',level:'Level 55+',rank:'Rank Diamond - Heroic',bind:'Bind Facebook',skin:'Koleksi emote &amp; skin lumayan lengkap',diamond:'Riwayat top up aktif',extra:'Beberapa bundle limited',sold:true},
-{id:5,img:'https://files.catbox.moe/dbrhcu.webp',price:15000,cat:'termurah',title:'Akun Free Fire #05',level:'Level 20+',rank:'Rank Gold',bind:'Bind Guest',skin:'Akun ringan, murah meriah',diamond:'Belum banyak riwayat top up',extra:'Cocok untuk akun sampingan',sold:true},
-{id:6,img:'https://files.catbox.moe/a8v4mi.webp',price:60000,cat:'ekonomis',title:'Akun Free Fire #06',level:'Level 45+',rank:'Rank Platinum - Diamond',bind:'Bind Facebook',skin:'Beberapa bundle limited, skin gun oke',diamond:'Riwayat top up sedang',extra:'Emote &amp; outfit cukup lengkap',sold:true},
-{id:7,img:'https://files.catbox.moe/q2iqqd.webp',price:1100000,cat:'premium',title:'Akun Free Fire #07 (SULTAN)',level:'Level 80+',rank:'Rank Grandmaster / Heroic Top Global',bind:'Bind Facebook lama (Aman)',skin:'Koleksi bundle &amp; skin evo lengkap, full skin gun mahal',diamond:'Riwayat top up sangat aktif, akun flagship',extra:'Elite Pass hampir semua season, item collector',sold:true},
-{id:8,img:'https://files.catbox.moe/i0rv9s.webp',price:65000,cat:'ekonomis',title:'Akun Free Fire #08',level:'Level 48+',rank:'Rank Diamond',bind:'Bind Facebook / Guest',skin:'Koleksi skin cukup, beberapa bundle',diamond:'Riwayat top up sedang',extra:'Elite Pass 1 season',sold:true},
-{id:9,img:'https://files.catbox.moe/cqzgov.webp',price:20000,cat:'termurah',title:'Akun Free Fire #09',level:'Level 25+',rank:'Rank Gold - Platinum',bind:'Bind Guest',skin:'Akun ringan, skin dasar',diamond:'Riwayat top up minim',extra:'Harga bersahabat',sold:true},
-{id:10,img:'https://files.catbox.moe/4jn3sj.webp',price:75000,cat:'menengah',title:'Akun Free Fire #10',level:'Level 52+',rank:'Rank Diamond',bind:'Bind Facebook',skin:'Koleksi skin &amp; bundle menengah',diamond:'Riwayat top up sedang',extra:'Beberapa emote favorit',sold:true},
-{id:11,img:'https://files.catbox.moe/mq9iuc.webp',price:130000,cat:'premium',title:'Akun Free Fire #11',level:'Level 65+',rank:'Rank Heroic',bind:'Bind Facebook',skin:'Koleksi skin premium &amp; evo gun',diamond:'Riwayat top up aktif',extra:'Elite Pass beberapa season',sold:true},
-{id:12,img:'https://files.catbox.moe/p3ac7s.webp',price:70000,cat:'ekonomis',title:'Akun Free Fire #12',level:'Level 50+',rank:'Rank Diamond',bind:'Bind Facebook / Guest',skin:'Koleksi lumayan, beberapa bundle',diamond:'Riwayat top up sedang',extra:'Emote &amp; outfit lengkap',sold:true}
-];
-
-let jbCart=[];
-let jbCurrentFilter='all';
-let jbInitialized=false;
-
-function jbFormatRp(n){return 'Rp'+n.toLocaleString('id-ID');}
-
-function jbCatLabel(cat){
-return {termurah:'< 25K',ekonomis:'25K-70K',menengah:'70K-100K',premium:'> 100K'}[cat]||cat;
-}
-
-function jbUpdateFilterCounts(){
-const cats=['all','termurah','ekonomis','menengah','premium'];
-cats.forEach(cat=>{
-const count=cat==='all'?jbData.length:jbData.filter(a=>a.cat===cat).length;
-const btn=document.querySelector('#jbFilterRow [data-cat="'+cat+'"] .jb-filter-count');
-if(btn) btn.textContent=count;
-});
-}
-
-function jbRenderSkeleton(count){
-count=count||6;
-const grid=document.getElementById('jbGrid');
-grid.innerHTML=Array.from({length:count}).map(function(){return `
-<div class="jb-card jb-skel">
-<div class="jb-skel-thumb"></div>
-<div class="jb-body">
-<div class="jb-skel-line" style="width:85%"></div>
-<div class="jb-skel-line" style="width:65%"></div>
-<div class="jb-skel-line" style="width:45%;margin-bottom:0"></div>
-</div>
-</div>`;}).join('');
-}
-
-function jbRenderGrid(){
-const grid=document.getElementById('jbGrid');
-const searchInput=document.getElementById('jbSearchInput');
-const sortSelect=document.getElementById('jbSortSelect');
-const search=(searchInput?searchInput.value:'').toLowerCase().trim();
-const sort=sortSelect?sortSelect.value:'default';
-
-let items=jbData.filter(a=>jbCurrentFilter==='all'||a.cat===jbCurrentFilter);
-
-if(search){
-items=items.filter(a=>
-a.title.toLowerCase().includes(search)||
-a.level.toLowerCase().includes(search)||
-a.rank.toLowerCase().includes(search)||
-a.skin.toLowerCase().includes(search)||
-a.bind.toLowerCase().includes(search)
-);
-}
-
-if(sort==='asc') items=items.slice().sort((x,y)=>x.price-y.price);
-else if(sort==='desc') items=items.slice().sort((x,y)=>y.price-x.price);
-
-jbUpdateFilterCounts();
-
-if(items.length===0){
-grid.innerHTML=`<div class="jb-empty"><i class="fa-solid fa-magnifying-glass"></i><p>Tidak ada akun yang cocok.<br>Coba ubah kata kunci pencarian atau kategori filter.</p></div>`;
-return;
-}
-
-grid.innerHTML=items.map(function(a,i){
-const delay=(Math.min(i,8)*0.05).toFixed(2);
-return `
-<div class="jb-card ${a.sold?'':'available'}" style="animation-delay:${delay}s">
-<div class="jb-thumb" onclick="jbOpenDetail(${a.id})">
-${a.sold?'<div class="jb-sold-ribbon">TERJUAL</div>':'<div class="jb-available-badge"><i class="fa-solid fa-circle-check"></i> TERSEDIA</div>'}
-<img src="${a.img}" loading="lazy" alt="${a.title}" class="${a.sold?'':'jb-available-img'}">
-<div class="jb-price-tag">${a.cat==='premium'?'<i class="fa-solid fa-crown"></i>':''}${jbFormatRp(a.price)}</div>
-<div class="jb-cat-tag">${jbCatLabel(a.cat)}</div>
-</div>
-<div class="jb-body">
-<div class="jb-title">${a.title}</div>
-<div class="jb-spec-line"><i class="fa-solid fa-star"></i><span>${a.level} • ${a.rank}</span></div>
-<div class="jb-spec-line"><i class="fa-solid fa-link"></i><span>${a.bind}</span></div>
-<div class="jb-actions">
-<button class="jb-btn-detail" onclick="jbOpenDetail(${a.id})"><i class="fa-solid fa-eye"></i> Detail</button>
-${a.sold?'<button class="jb-btn-cart" disabled><i class="fa-solid fa-ban"></i> Terjual</button>':`<button class="jb-btn-cart available" onclick="jbAddCart(${a.id},event)"><i class="fa-solid fa-cart-plus"></i> Keranjang</button>`}
-</div>
-</div>
-</div>
-`;}).join('');
-}
-
-function jbFilter(cat,btn){
-jbCurrentFilter=cat;
-document.querySelectorAll('#jbFilterRow .jb-filter').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-jbRenderGrid();
-}
-
-function jbOpenDetail(id){
-const a=jbData.find(x=>x.id===id);
-if(!a)return;
-const waMsgSold=encodeURIComponent(`Halo admin, saya mau tanya stok baru untuk akun sejenis "${a.title}" (${jbFormatRp(a.price)}). Apakah ada yang tersedia?`);
-const waMsgBuy=encodeURIComponent(`Halo admin, saya mau beli akun "${a.title}" seharga ${jbFormatRp(a.price)}. Bagaimana cara lanjutnya?`);
-document.getElementById('jbDetailContent').innerHTML=`
-<div class="jb-modal-imgwrap">
-<div class="jb-modal-close" onclick="jbCloseDetail()"><i class="fa-solid fa-xmark"></i></div>
-${a.sold?'<div class="jb-modal-sold">TERJUAL / SOLD</div>':'<div class="jb-modal-avail"><i class="fa-solid fa-circle-check"></i> TERSEDIA</div>'}
-<img src="${a.img}" alt="${a.title}" class="${a.sold?'':'jb-available-img'}">
-</div>
-<div class="jb-modal-body">
-<div class="jb-modal-title">${a.title}</div>
-<div class="jb-modal-price">${jbFormatRp(a.price)}</div>
-<div class="jb-spec-box">
-<div class="jb-spec-row"><i class="fa-solid fa-star"></i><div><b>Level &amp; Rank</b>${a.level} • ${a.rank}</div></div>
-<div class="jb-spec-row"><i class="fa-solid fa-link"></i><div><b>Status Bind</b>${a.bind}</div></div>
-<div class="jb-spec-row"><i class="fa-solid fa-shirt"></i><div><b>Koleksi Skin</b>${a.skin}</div></div>
-<div class="jb-spec-row"><i class="fa-solid fa-gem"></i><div><b>Riwayat Top Up</b>${a.diamond}</div></div>
-<div class="jb-spec-row"><i class="fa-solid fa-gift"></i><div><b>Bonus Lain</b>${a.extra}</div></div>
-</div>
-${a.sold?'<div class="jb-note"><i class="fa-solid fa-circle-info"></i> Akun ini sudah <b>terjual</b>. Spesifikasi di atas masih data sementara dan akan diperbarui. Hubungi admin untuk info stok akun baru dengan spek serupa.</div>':'<div class="jb-note avail"><i class="fa-solid fa-circle-info"></i> Akun ini <b>tersedia</b>. Tambahkan ke keranjang atau chat admin langsung untuk proses transaksi aman.</div>'}
-<div class="jb-modal-actions">
-<button class="jb-btn-close2" onclick="jbCloseDetail()">Tutup</button>
-${a.sold?`<button class="jb-btn-wa" onclick="window.open('https://wa.me/62${JB_ADMIN_NUMBER.substring(1)}?text=${waMsgSold}','_blank')"><i class="fa-brands fa-whatsapp"></i> Chat Admin</button>`:`<button class="jb-btn-cart-add" onclick="jbAddCart(${a.id})"><i class="fa-solid fa-cart-plus"></i> Keranjang</button>`}
-</div>
-${a.sold?'':`<button class="jb-btn-buynow" onclick="window.open('https://wa.me/62${JB_ADMIN_NUMBER.substring(1)}?text=${waMsgBuy}','_blank')"><i class="fa-brands fa-whatsapp"></i> Beli Langsung via WhatsApp</button>`}
-</div>
-`;
-document.getElementById('jbDetailModal').classList.add('jbshow');
-}
-function jbCloseDetail(){document.getElementById('jbDetailModal').classList.remove('jbshow');}
-
-function jbUpdateCartCount(){
-const el=document.getElementById('jbCartCount');
-el.textContent=jbCart.length;
-el.classList.remove('bump');
-void el.offsetWidth;
-el.classList.add('bump');
-}
-
-function jbAddCart(id,ev){
-if(ev&&ev.stopPropagation) ev.stopPropagation();
-const a=jbData.find(x=>x.id===id);
-if(!a||a.sold) return;
-if(jbCart.some(x=>x.id===id)){ jbToast('Akun ini sudah ada di keranjang'); return; }
-jbCart.push(a);
-jbUpdateCartCount();
-jbToast('"'+a.title+'" ditambahkan ke keranjang');
-}
-
-function jbToast(msg){
-const t=document.getElementById('jbToast');
-document.getElementById('jbToastMsg').textContent=msg;
-t.classList.add('show');
-clearTimeout(window._jbToastTimer);
-window._jbToastTimer=setTimeout(()=>t.classList.remove('show'),2200);
-}
-
-function jbQuickWA(){
-const msg=encodeURIComponent('Halo admin, saya ingin tanya-tanya soal Jual & Beli Akun Free Fire di ZUSMO.');
-window.open('https://wa.me/62'+JB_ADMIN_NUMBER.substring(1)+'?text='+msg,'_blank');
-}
-
-function jbOpenCart(){
-const body=document.getElementById('jbCartBody');
-if(jbCart.length===0){
-body.innerHTML=`
-<div class="jb-cart-empty">
-<i class="fa-solid fa-cart-shopping"></i>
-<p>Keranjang kamu masih kosong.<br>Cek daftar akun yang <b style="color:#00e08a">tersedia</b> di atas, atau hubungi admin untuk info stok terbaru.</p>
-</div>
-<div class="jb-admin-box">
-<i class="fa-brands fa-whatsapp"></i>
-<div><b>Admin KZRIZUSMO</b><span>${JB_ADMIN_NUMBER} • cek stok / nego akun</span></div>
-</div>
-<button class="jb-checkout-btn" onclick="window.open('https://wa.me/62${JB_ADMIN_NUMBER.substring(1)}?text=${encodeURIComponent('Halo admin, saya mau tanya stok akun Free Fire terbaru.')}','_blank')"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin</button>
-`;
-}else{
-let total=0;
-let rows=jbCart.map(a=>{total+=a.price;return `
-<div class="jb-cart-item">
-<img src="${a.img}" alt="${a.title}">
-<div class="jb-cart-item-info"><b>${a.title}</b><span>${jbFormatRp(a.price)}</span></div>
-<i class="fa-solid fa-trash" onclick="jbRemoveCart(${a.id})"></i>
-</div>`}).join('');
-const waMsg=encodeURIComponent(`Halo admin, saya mau checkout akun berikut:\n${jbCart.map(a=>'- '+a.title+' ('+jbFormatRp(a.price)+')').join('\n')}\nTotal: ${jbFormatRp(total)}`);
-body.innerHTML=`${rows}<div style="text-align:right;font-weight:800;color:#fff;margin:10px 0">Total: ${jbFormatRp(total)}</div>
-<button class="jb-checkout-btn" onclick="window.open('https://wa.me/62${JB_ADMIN_NUMBER.substring(1)}?text=${waMsg}','_blank')"><i class="fa-brands fa-whatsapp"></i> Checkout via WhatsApp</button>`;
-}
-document.getElementById('jbCartModal').classList.add('jbshow');
-}
-function jbCloseCart(){document.getElementById('jbCartModal').classList.remove('jbshow');}
-function jbRemoveCart(id){jbCart=jbCart.filter(a=>a.id!==id);jbUpdateCartCount();jbOpenCart();}
-
-function jbInit(){
-if(jbInitialized) return;
-jbInitialized=true;
-jbUpdateFilterCounts();
-jbRenderSkeleton();
-const updatedEl=document.getElementById('jbUpdatedAt');
-if(updatedEl){
-const now=new Date();
-updatedEl.textContent='Katalog diperbarui: '+now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-}
-setTimeout(function(){ jbRenderGrid(); },450);
-jbUpdateCartCount();
-}
-
-document.addEventListener('DOMContentLoaded',jbInit);
-if(document.readyState==='complete'||document.readyState==='interactive'){ jbInit(); }
-
-document.getElementById('jbDetailModal').addEventListener('click',function(e){
-if(e.target===this) jbCloseDetail();
-});
-document.getElementById('jbCartModal').addEventListener('click',function(e){
-if(e.target===this) jbCloseCart();
-});
-</script>
-
 <div class="page" id="beta"><div class="dev-card">
 <img src="https://files.catbox.moe/9dfz0n.png">
 <div class="dev-badge">BETA TESTING</div>
@@ -3618,6 +3704,40 @@ document.addEventListener('click',e=>{
  }
 },true);
 </script>
+
+<script>
+/* ===== LOGIC BADGE "NEW" (SUNTIK LIKE FF & BOT GLORY GUILD) ===== */
+/* Ganti tanggal "launch" di bawah sesuai tanggal fitur mulai tayang (format: YYYY-MM-DD) */
+const NEW_BADGE_CONFIG={
+  suntiklike:{launch:'2026-08-11'},
+  botglory:{launch:'2026-08-11'}
+};
+const NEW_BADGE_DURATION_DAYS=20;
+
+function isNewBadgeActive(key){
+  const cfg=NEW_BADGE_CONFIG[key];
+  if(!cfg) return false;
+  if(localStorage.getItem('hmNewClicked_'+key)==='1') return false;
+  const launch=new Date(cfg.launch+'T00:00:00');
+  const now=new Date();
+  const diffDays=(now-launch)/(1000*60*60*24);
+  return diffDays>=0 && diffDays<NEW_BADGE_DURATION_DAYS;
+}
+
+function dismissNewBadge(key){
+  localStorage.setItem('hmNewClicked_'+key,'1');
+  const el=document.getElementById('newBadge_'+key);
+  if(el) el.style.display='none';
+}
+
+function initNewBadges(){
+  Object.keys(NEW_BADGE_CONFIG).forEach(key=>{
+    const el=document.getElementById('newBadge_'+key);
+    if(el) el.style.display = isNewBadgeActive(key) ? 'flex' : 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded',initNewBadges);
+</script>
 </body></html>
 <style>
 .loaderLogo{
@@ -3684,4 +3804,125 @@ img#shadowBanner,
   pointer-events: none !important;
 }
 
+</style><style>
+/* ================= SKELETON LOADING ================= */
+.skeleton-overlay{position:fixed;inset:0;z-index:9998;background:#000;display:none;padding:20px;overflow:hidden}
+.skeleton-overlay.show{display:block}
+.skel-block{background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.14) 37%,rgba(255,255,255,.06) 63%);background-size:400% 100%;animation:skel-shimmer 1.4s ease infinite;border-radius:18px}
+@keyframes skel-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+.skel-logo{width:90px;height:90px;border-radius:50%;margin:10px auto 20px}
+.skel-title{width:60%;height:22px;margin:0 auto 14px}
+.skel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.skel-card{height:110px;border-radius:28px}
+.skel-line{height:16px;border-radius:8px;margin-top:14px}
+
+/* ================= PULL TO REFRESH ================= */
+#ptrIndicator{position:fixed;top:-60px;left:0;right:0;display:flex;align-items:center;justify-content:center;height:60px;z-index:9997;transition:top .25s ease;pointer-events:none}
+#ptrIndicator .ptr-spin{width:30px;height:30px;border:3px solid rgba(255,255,255,.25);border-top:3px solid #ff2b2b;border-radius:50%;animation:spin .7s linear infinite}
+#ptrIndicator.pulling .ptr-spin{animation:none}
+
+/* ================= DARK/LIGHT MODE TOGGLE ================= */
+#themeToggleBtn{position:fixed;bottom:78px;right:16px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;z-index:9990;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:.3s}
+#themeToggleBtn:active{transform:scale(.9)}
+#themeToggleBtn i{font-size:20px;color:#ffd24d}
+
+body.light-mode{background:#f2f2f5;color:#111}
+body.light-mode.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
+body.light-mode:before{background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.75));backdrop-filter:blur(4px)}
+body.light-mode h1,body.light-mode .subtitle{color:#111}
+body.light-mode .subtitle{color:#333}
+body.light-mode .card,body.light-mode .long-btn,body.light-mode .download-box,body.light-mode .file-info,body.light-mode .modal-card,body.light-mode .load-card{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12);color:#111}
+body.light-mode .footer{color:#444}
+body.light-mode #themeToggleBtn{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.15)}
+body.light-mode #themeToggleBtn i{color:#ff8c00}
 </style>
+
+<script>
+/* ================= SKELETON LOADING ================= */
+document.addEventListener('DOMContentLoaded',function(){
+  var ov=document.createElement('div');
+  ov.id='skeletonOverlay';
+  ov.className='skeleton-overlay';
+  ov.innerHTML='<div class="skel-block skel-logo"></div><div class="skel-block skel-title"></div><div class="skel-grid"><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div></div><div class="skel-block skel-line"></div><div class="skel-block skel-line" style="width:80%"></div>';
+  document.body.appendChild(ov);
+
+  var ptr=document.createElement('div');
+  ptr.id='ptrIndicator';
+  ptr.innerHTML='<div class="ptr-spin"></div>';
+  document.body.appendChild(ptr);
+
+  var themeBtn=document.createElement('div');
+  themeBtn.id='themeToggleBtn';
+  themeBtn.innerHTML='<i class="fa-solid fa-moon"></i>';
+  document.body.appendChild(themeBtn);
+
+  if(localStorage.getItem('zusmoTheme')==='light'){
+    document.body.classList.add('light-mode');
+    themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+  }
+
+  themeBtn.addEventListener('click',function(){
+    document.body.classList.toggle('light-mode');
+    var isLight=document.body.classList.contains('light-mode');
+    localStorage.setItem('zusmoTheme',isLight?'light':'dark');
+    themeBtn.innerHTML=isLight?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+    if(navigator.vibrate) navigator.vibrate(12);
+  });
+
+  window.zusmoShowSkeleton=function(duration){
+    var el=document.getElementById('skeletonOverlay');
+    el.classList.add('show');
+    setTimeout(function(){el.classList.remove('show')},duration||450);
+  };
+
+  var origShowPage=window.showPage;
+  if(typeof origShowPage==='function'){
+    window.showPage=function(id){
+      window.zusmoShowSkeleton(400);
+      origShowPage(id);
+    };
+  }
+  var origOpenPage=window.openPage;
+  if(typeof origOpenPage==='function'){
+    window.openPage=function(id){
+      window.zusmoShowSkeleton(500);
+      origOpenPage(id);
+    };
+  }
+
+  /* ================= PULL TO REFRESH ================= */
+  var startY=0,pulling=false,threshold=80;
+  document.addEventListener('touchstart',function(e){
+    if(window.scrollY<=0){ startY=e.touches[0].clientY; pulling=true; }
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(!pulling) return;
+    var dy=e.touches[0].clientY-startY;
+    if(dy>0 && window.scrollY<=0){
+      var pull=Math.min(dy,100);
+      ptr.style.top=(pull-60)+'px';
+      ptr.classList.toggle('pulling',pull<threshold);
+    }
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!pulling) return;
+    pulling=false;
+    var currentTop=parseInt(ptr.style.top||'-60',10);
+    if(currentTop>=(threshold-60)){
+      ptr.style.top='20px';
+      ptr.classList.remove('pulling');
+      if(navigator.vibrate) navigator.vibrate(20);
+      setTimeout(function(){ location.reload(); },500);
+    }else{
+      ptr.style.top='-60px';
+    }
+  },{passive:true});
+
+  /* ================= HAPTIC FEEDBACK ================= */
+  document.addEventListener('click',function(e){
+    if(e.target.closest('button,.tab,.card,.long-btn,.vip-menu,.apk-image,.download-btn,summary,#themeToggleBtn')){
+      if(navigator.vibrate) navigator.vibrate(15);
+    }
+  },true);
+});
+</script>
