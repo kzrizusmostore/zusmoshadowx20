@@ -3805,90 +3805,19 @@ img#shadowBanner,
 }
 
 </style><style>
-/* ================= SKELETON LOADING ================= */
-.skeleton-overlay{position:fixed;inset:0;z-index:9998;background:#000;display:none;padding:20px;overflow:hidden}
-.skeleton-overlay.show{display:block}
-.skel-block{background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.14) 37%,rgba(255,255,255,.06) 63%);background-size:400% 100%;animation:skel-shimmer 1.4s ease infinite;border-radius:18px}
-@keyframes skel-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
-.skel-logo{width:90px;height:90px;border-radius:50%;margin:10px auto 20px}
-.skel-title{width:60%;height:22px;margin:0 auto 14px}
-.skel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
-.skel-card{height:110px;border-radius:28px}
-.skel-line{height:16px;border-radius:8px;margin-top:14px}
-
 /* ================= PULL TO REFRESH ================= */
 #ptrIndicator{position:fixed;top:-60px;left:0;right:0;display:flex;align-items:center;justify-content:center;height:60px;z-index:9997;transition:top .25s ease;pointer-events:none}
 #ptrIndicator .ptr-spin{width:30px;height:30px;border:3px solid rgba(255,255,255,.25);border-top:3px solid #ff2b2b;border-radius:50%;animation:spin .7s linear infinite}
 #ptrIndicator.pulling .ptr-spin{animation:none}
 
-/* ================= DARK/LIGHT MODE TOGGLE ================= */
-#themeToggleBtn{position:fixed;bottom:78px;right:16px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;z-index:9990;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:.3s}
-#themeToggleBtn:active{transform:scale(.9)}
-#themeToggleBtn i{font-size:20px;color:#ffd24d}
-
-body.light-mode{background:#f2f2f5;color:#111}
-body.light-mode.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
-body.light-mode:before{background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.75));backdrop-filter:blur(4px)}
-body.light-mode h1,body.light-mode .subtitle{color:#111}
-body.light-mode .subtitle{color:#333}
-body.light-mode .card,body.light-mode .long-btn,body.light-mode .download-box,body.light-mode .file-info,body.light-mode .modal-card,body.light-mode .load-card{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12);color:#111}
-body.light-mode .footer{color:#444}
-body.light-mode #themeToggleBtn{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.15)}
-body.light-mode #themeToggleBtn i{color:#ff8c00}
 </style>
 
 <script>
-/* ================= SKELETON LOADING ================= */
 document.addEventListener('DOMContentLoaded',function(){
-  var ov=document.createElement('div');
-  ov.id='skeletonOverlay';
-  ov.className='skeleton-overlay';
-  ov.innerHTML='<div class="skel-block skel-logo"></div><div class="skel-block skel-title"></div><div class="skel-grid"><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div><div class="skel-block skel-card"></div></div><div class="skel-block skel-line"></div><div class="skel-block skel-line" style="width:80%"></div>';
-  document.body.appendChild(ov);
-
   var ptr=document.createElement('div');
   ptr.id='ptrIndicator';
   ptr.innerHTML='<div class="ptr-spin"></div>';
   document.body.appendChild(ptr);
-
-  var themeBtn=document.createElement('div');
-  themeBtn.id='themeToggleBtn';
-  themeBtn.innerHTML='<i class="fa-solid fa-moon"></i>';
-  document.body.appendChild(themeBtn);
-
-  if(localStorage.getItem('zusmoTheme')==='light'){
-    document.body.classList.add('light-mode');
-    themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
-  }
-
-  themeBtn.addEventListener('click',function(){
-    document.body.classList.toggle('light-mode');
-    var isLight=document.body.classList.contains('light-mode');
-    localStorage.setItem('zusmoTheme',isLight?'light':'dark');
-    themeBtn.innerHTML=isLight?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
-    if(navigator.vibrate) navigator.vibrate(12);
-  });
-
-  window.zusmoShowSkeleton=function(duration){
-    var el=document.getElementById('skeletonOverlay');
-    el.classList.add('show');
-    setTimeout(function(){el.classList.remove('show')},duration||450);
-  };
-
-  var origShowPage=window.showPage;
-  if(typeof origShowPage==='function'){
-    window.showPage=function(id){
-      window.zusmoShowSkeleton(400);
-      origShowPage(id);
-    };
-  }
-  var origOpenPage=window.openPage;
-  if(typeof origOpenPage==='function'){
-    window.openPage=function(id){
-      window.zusmoShowSkeleton(500);
-      origOpenPage(id);
-    };
-  }
 
   /* ================= PULL TO REFRESH ================= */
   var startY=0,pulling=false,threshold=80;
@@ -3911,18 +3840,10 @@ document.addEventListener('DOMContentLoaded',function(){
     if(currentTop>=(threshold-60)){
       ptr.style.top='20px';
       ptr.classList.remove('pulling');
-      if(navigator.vibrate) navigator.vibrate(20);
       setTimeout(function(){ location.reload(); },500);
     }else{
       ptr.style.top='-60px';
     }
   },{passive:true});
-
-  /* ================= HAPTIC FEEDBACK ================= */
-  document.addEventListener('click',function(e){
-    if(e.target.closest('button,.tab,.card,.long-btn,.vip-menu,.apk-image,.download-btn,summary,#themeToggleBtn')){
-      if(navigator.vibrate) navigator.vibrate(15);
-    }
-  },true);
 });
 </script>
