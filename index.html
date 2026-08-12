@@ -1111,7 +1111,7 @@ object-fit:contain;
   align-items:flex-start;
   justify-content:center;
   padding:20px;
-  padding-top:9vh;
+  padding-top:14vh;
   overflow:hidden !important;
   overscroll-behavior:none;
   touch-action:none;
@@ -1146,18 +1146,6 @@ object-fit:contain;
   background:radial-gradient(circle,rgba(255,43,43,.18),transparent 70%);
   pointer-events:none;
 }
-.hm-name-modal-close{
-  position:absolute;top:14px;right:14px;
-  width:26px;height:26px;border-radius:50%;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
-  color:rgba(255,255,255,.6);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;cursor:pointer;
-  transition:background .15s ease,color .15s ease,transform .15s ease;
-  z-index:2;
-}
-.hm-name-modal-close:hover{background:rgba(255,43,43,.2);color:#fff;}
-.hm-name-modal-close:active{transform:scale(.9);}
 .hm-name-modal-icon{
   width:52px;height:52px;border-radius:50%;margin:0 auto 14px;
   background:radial-gradient(circle,rgba(255,43,43,.2),rgba(255,43,43,.06));
@@ -1435,7 +1423,6 @@ object-fit:contain;
 
 <div class="hm-name-modal-overlay" id="hmNameModalOverlay">
   <div class="hm-name-modal">
-    <button class="hm-name-modal-close" onclick="closeNameEditModal()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
     <div class="hm-name-modal-icon"><img src="https://files.catbox.moe/9ahs7d.png" alt="Edit" class="hm-name-modal-icon-img"/></div>
     <div class="hm-name-modal-title">GANTI NAMA TAMPILAN</div>
     <div class="hm-name-modal-sub">Maksimal 12 karakter</div>
@@ -2868,22 +2855,32 @@ function openNameEditModal(){
   const overlay=document.getElementById('hmNameModalOverlay');
   const input=document.getElementById('hmNameInput');
   const nameEl=document.getElementById('hmNameText');
+  const bar=document.querySelector('.app-bottombar');
   if(!overlay||!input) return;
   input.value=(nameEl?nameEl.textContent:'').trim();
   updateNameCount();
   overlay.classList.add('show');
   hmLockScroll();
   hmSyncOverlayViewport();
+  if(bar){
+    bar.style.setProperty('visibility','hidden','important');
+    bar.style.setProperty('opacity','0','important');
+  }
 }
 
 function closeNameEditModal(){
   const overlay=document.getElementById('hmNameModalOverlay');
   const input=document.getElementById('hmNameInput');
+  const bar=document.querySelector('.app-bottombar');
   if(input) input.blur();
   if(overlay){
     overlay.classList.remove('show');
     overlay.style.height='';
     overlay.style.top='';
+  }
+  if(bar){
+    bar.style.removeProperty('visibility');
+    bar.style.removeProperty('opacity');
   }
   hmUnlockScroll();
 }
@@ -4039,6 +4036,244 @@ function initNewBadges(){
   });
 }
 document.addEventListener('DOMContentLoaded',initNewBadges);
+</script>
+
+<style>
+#customKeyboard{position:fixed;left:0;right:0;bottom:-110%;z-index:100000;background:linear-gradient(180deg,#141414,#0a0a0a);border-top:1px solid rgba(255,255,255,.14);border-radius:22px 22px 0 0;box-shadow:0 -14px 40px rgba(0,0,0,.55),0 -2px 0 rgba(255,43,43,.35) inset;transition:bottom .28s cubic-bezier(.4,0,.2,1);padding:8px 6px calc(10px + env(safe-area-inset-bottom,0px));user-select:none}
+#customKeyboard.open{bottom:0}
+#customKeyboard .ck-row{display:flex;justify-content:center;gap:4px;margin-bottom:7px}
+#customKeyboard .ck-key{flex:1;max-width:44px;min-width:24px;height:48px;background:linear-gradient(180deg,#242424,#1a1a1a);border:1px solid rgba(255,255,255,.08);border-bottom:2px solid rgba(0,0,0,.5);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#f2f2f2;font-family:'Rajdhani','Orbitron',sans-serif;font-size:16px;font-weight:700;letter-spacing:.4px;cursor:pointer;transition:transform .07s ease,background .07s ease,box-shadow .07s ease;-webkit-tap-highlight-color:transparent;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+#customKeyboard .ck-key:active,#customKeyboard .ck-key.pressed{background:linear-gradient(180deg,#ff3c3c,#d81f1f);border-color:#ff5c5c;border-bottom-color:#8a0000;transform:translateY(1px) scale(.97);box-shadow:0 2px 10px rgba(255,0,0,.5)}
+#customKeyboard .ck-key.wide{max-width:76px;min-width:60px;flex:1.9;height:50px;background:linear-gradient(180deg,#232323,#161616);color:#ff8080;font-family:'Orbitron','Rajdhani',sans-serif;font-size:17px;font-weight:700;letter-spacing:.3px;border-color:rgba(255,80,80,.25)}
+#customKeyboard .ck-key.wide:active,#customKeyboard .ck-key.wide.pressed{background:linear-gradient(180deg,#ff3c3c,#d81f1f);color:#fff}
+#customKeyboard .ck-key.caps-on{background:linear-gradient(180deg,#ff3c3c,#d81f1f);border-color:#ff5c5c;color:#fff;box-shadow:0 0 12px rgba(255,43,43,.6)}
+#customKeyboard .ck-key.space{max-width:none;flex:6;background:linear-gradient(180deg,#1c1c1c,#131313)}
+#customKeyboard .ck-key.enter{max-width:76px;min-width:60px;flex:1.9;height:50px;font-family:'Orbitron','Rajdhani',sans-serif;font-size:19px;font-weight:800;background:linear-gradient(180deg,#ff3c3c,#b80000);border-color:#ff5c5c;border-bottom-color:#6b0000;box-shadow:0 3px 14px rgba(255,0,0,.45),0 0 10px rgba(255,60,60,.3) inset}
+#customKeyboard .ck-key.enter:active,#customKeyboard .ck-key.enter.pressed{background:linear-gradient(180deg,#ff6a6a,#c80000);transform:translateY(1px) scale(.97)}
+#customKeyboard .ck-top{display:flex;justify-content:space-between;align-items:center;padding:4px 8px 12px;color:#ff5252;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+#customKeyboard .ck-top:after{content:'';position:absolute;left:50%;top:6px;transform:translateX(-50%);width:36px;height:4px;border-radius:4px;background:rgba(255,255,255,.15)}
+#customKeyboard .ck-top{position:relative}
+#customKeyboard .ck-top .ck-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;transition:background .1s}
+#customKeyboard .ck-top .ck-close:active{background:#ff2b2b;border-color:#ff2b2b}
+#ckBackdrop{position:fixed;inset:0;z-index:99999;display:none;background:transparent}
+#ckBackdrop.open{display:block}
+</style>
+
+<div id="ckBackdrop"></div>
+<div id="customKeyboard">
+  <div class="ck-top"><span><i class="fa-solid fa-keyboard" style="margin-right:6px"></i>Kzrizusmo</span><button type="button" class="ck-close" id="ckCloseBtn">Tutup</button></div>
+  <div id="ckKeysArea"></div>
+</div>
+
+<script>
+(function(){
+  var kb=document.getElementById('customKeyboard');
+  var keysArea=document.getElementById('ckKeysArea');
+  var backdrop=document.getElementById('ckBackdrop');
+  var activeInput=null;
+  var shift=false;
+  var capsLock=false;
+  var lastShiftTap=0;
+
+  var rowsAlpha=[
+    ['1','2','3','4','5','6','7','8','9','0'],
+    ['q','w','e','r','t','y','u','i','o','p'],
+    ['a','s','d','f','g','h','j','k','l'],
+    ['shift','z','x','c','v','b','n','m','back'],
+    ['space','enter']
+  ];
+  var rowsNumeric=[
+    ['1','2','3'],
+    ['4','5','6'],
+    ['7','8','9'],
+    ['back','0','enter']
+  ];
+
+  var mode='alpha';
+
+  function isNumericInput(el){
+    if(!el) return false;
+    var type=(el.getAttribute('type')||'').toLowerCase();
+    var inputmode=(el.getAttribute('inputmode')||'').toLowerCase();
+    return type==='number' || inputmode==='numeric' || inputmode==='decimal' || type==='tel';
+  }
+
+  function labelFor(k){
+    if(k==='back') return '⌫';
+    if(k==='enter') return '⏎';
+    if(k==='shift') return '⇧';
+    if(k==='space') return 'Spasi';
+    return (shift||capsLock) ? k.toUpperCase() : k;
+  }
+
+  function classFor(k){
+    if(k==='space') return 'ck-key space';
+    if(k==='shift') return capsLock ? 'ck-key wide caps-on' : 'ck-key wide';
+    if(k==='back') return 'ck-key wide';
+    if(k==='enter') return 'ck-key enter';
+    return 'ck-key';
+  }
+
+  function render(){
+    var rows = mode==='numeric' ? rowsNumeric : rowsAlpha;
+
+    keysArea.innerHTML='';
+    rows.forEach(function(row){
+      var rowEl=document.createElement('div');
+      rowEl.className='ck-row';
+      row.forEach(function(k){
+        var btn=document.createElement('div');
+        btn.className=classFor(k);
+        btn.textContent=labelFor(k);
+        var press=function(){
+          btn.classList.add('pressed');
+          if(navigator.vibrate){ try{navigator.vibrate(8);}catch(e){} }
+        };
+        var release=function(){ btn.classList.remove('pressed'); stopRepeat(); };
+        var repeatTimer=null, repeatInterval=null;
+        var stopRepeat=function(){
+          if(repeatTimer){ clearTimeout(repeatTimer); repeatTimer=null; }
+          if(repeatInterval){ clearInterval(repeatInterval); repeatInterval=null; }
+        };
+        var startPress=function(){
+          press();
+          handleKey(k);
+          if(k==='back'){
+            stopRepeat();
+            repeatTimer=setTimeout(function(){
+              repeatInterval=setInterval(function(){
+                handleKey(k);
+                if(navigator.vibrate){ try{navigator.vibrate(5);}catch(e){} }
+              },45);
+            },350);
+          }
+        };
+        btn.addEventListener('touchstart',function(e){e.preventDefault();startPress();},{passive:false});
+        btn.addEventListener('touchend',function(e){e.preventDefault();release();},{passive:false});
+        btn.addEventListener('touchcancel',release);
+        btn.addEventListener('mousedown',function(e){e.preventDefault();startPress();});
+        btn.addEventListener('mouseup',release);
+        btn.addEventListener('mouseleave',release);
+        rowEl.appendChild(btn);
+      });
+      keysArea.appendChild(rowEl);
+    });
+  }
+
+  function setNativeValue(el,value){
+    var proto = el instanceof HTMLTextAreaElement ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype;
+    var setter = Object.getOwnPropertyDescriptor(proto,'value').set;
+    setter.call(el,value);
+    el.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+
+  function insertAtCursor(el,text){
+    var start=el.selectionStart!=null?el.selectionStart:el.value.length;
+    var end=el.selectionEnd!=null?el.selectionEnd:el.value.length;
+    var val=el.value||'';
+    var newVal=val.slice(0,start)+text+val.slice(end);
+    setNativeValue(el,newVal);
+    var pos=start+text.length;
+    try{el.setSelectionRange(pos,pos);}catch(e){}
+  }
+
+  function backspaceAtCursor(el){
+    var start=el.selectionStart!=null?el.selectionStart:el.value.length;
+    var end=el.selectionEnd!=null?el.selectionEnd:el.value.length;
+    var val=el.value||'';
+    if(start===end){
+      if(start===0) return;
+      var newVal=val.slice(0,start-1)+val.slice(end);
+      setNativeValue(el,newVal);
+      try{el.setSelectionRange(start-1,start-1);}catch(e){}
+    }else{
+      var newVal2=val.slice(0,start)+val.slice(end);
+      setNativeValue(el,newVal2);
+      try{el.setSelectionRange(start,start);}catch(e){}
+    }
+  }
+
+  function handleKey(k){
+    if(!activeInput) return;
+    if(k==='back'){ backspaceAtCursor(activeInput); return; }
+    if(k==='space'){ insertAtCursor(activeInput,' '); return; }
+    if(k==='enter'){
+      activeInput.blur();
+      closeKeyboard();
+      var form=activeInput.closest && activeInput.closest('form');
+      if(form){ var evt; try{evt=new Event('submit',{cancelable:true});form.dispatchEvent(evt);}catch(e){} }
+      return;
+    }
+    if(k==='shift'){
+      var now=Date.now();
+      if(now-lastShiftTap<350){
+        capsLock=!capsLock;
+        shift=false;
+      }else{
+        if(capsLock){ capsLock=false; shift=false; }
+        else{ shift=!shift; }
+      }
+      lastShiftTap=now;
+      render();
+      return;
+    }
+    var ch=(shift||capsLock) ? k.toUpperCase() : k;
+    insertAtCursor(activeInput,ch);
+    if(shift && !capsLock){ shift=false; render(); }
+  }
+
+  function openKeyboard(el){
+    activeInput=el;
+    mode = isNumericInput(el) ? 'numeric' : 'alpha';
+    shift=false;
+    capsLock=false;
+    render();
+    kb.classList.add('open');
+    backdrop.classList.add('open');
+  }
+
+  function closeKeyboard(){
+    kb.classList.remove('open');
+    backdrop.classList.remove('open');
+    activeInput=null;
+  }
+
+  document.getElementById('ckCloseBtn').addEventListener('click',function(){
+    if(activeInput) activeInput.blur();
+    closeKeyboard();
+  });
+  backdrop.addEventListener('click',function(){
+    if(activeInput) activeInput.blur();
+    closeKeyboard();
+  });
+
+  function attachToInput(el){
+    if(el.dataset.ckAttached) return;
+    el.dataset.ckAttached='1';
+    el.setAttribute('readonly','readonly');
+    el.setAttribute('inputmode','none');
+    el.addEventListener('focus',function(e){
+      e.preventDefault();
+      openKeyboard(el);
+    });
+    el.addEventListener('click',function(e){
+      openKeyboard(el);
+    });
+  }
+
+  function scanInputs(){
+    var els=document.querySelectorAll('input[type="text"],input[type="number"],input[type="password"],input[type="tel"],input[type="email"],input[type="search"],input:not([type]),textarea');
+    els.forEach(attachToInput);
+  }
+
+  document.addEventListener('DOMContentLoaded',scanInputs);
+  window.addEventListener('load',scanInputs);
+  var mo=new MutationObserver(function(){ scanInputs(); });
+  mo.observe(document.body,{childList:true,subtree:true});
+
+  // rescan periodically as a safety net for dynamically shown pages
+  setInterval(scanInputs,1500);
+})();
 </script>
 </body></html>
 <style>
