@@ -1081,6 +1081,101 @@ object-fit:contain;
 }
 .hm-prime-logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(255,215,0,.4));}
 
+/* NAME ROW + EDIT BUTTON */
+.hm-name-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.hm-name-row .hm-name{margin-bottom:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;}
+.hm-name-edit-btn{
+  flex-shrink:0;width:22px;height:22px;border-radius:50%;
+  border:1px solid rgba(255,43,43,.45);
+  background:rgba(255,43,43,.12);
+  color:#ff8585;font-size:10px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+  box-shadow:0 0 8px rgba(255,43,43,.15);
+  padding:0;
+}
+.hm-name-edit-btn:hover{background:rgba(255,43,43,.28);transform:scale(1.12);box-shadow:0 0 14px rgba(255,43,43,.35);}
+.hm-name-edit-btn:active{transform:scale(.92);}
+
+/* NAME EDIT MODAL */
+.hm-name-modal-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.72);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+}
+.hm-name-modal-overlay.show{display:flex;animation:hmNameFadeIn .2s ease;}
+@keyframes hmNameFadeIn{from{opacity:0}to{opacity:1}}
+.hm-name-modal{
+  width:100%;max-width:340px;
+  background:linear-gradient(150deg,rgba(30,0,0,.97),rgba(8,8,8,.99));
+  border:1px solid rgba(255,43,43,.4);
+  border-radius:22px;padding:22px 20px 20px;
+  box-shadow:0 0 0 1px rgba(255,43,43,.1),0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(255,43,43,.15);
+  position:relative;overflow:hidden;
+  animation:hmNamePopIn .25s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes hmNamePopIn{from{transform:scale(.9) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.hm-name-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,43,.7),transparent);
+}
+.hm-name-modal-icon{
+  width:46px;height:46px;border-radius:50%;margin:0 auto 12px;
+  background:rgba(255,43,43,.12);border:1px solid rgba(255,43,43,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#ff8585;
+  box-shadow:0 0 16px rgba(255,43,43,.25);
+  overflow:hidden;
+}
+.hm-name-modal-icon-img{width:60%;height:60%;object-fit:contain;}
+.hm-name-modal-title{
+  font-family:'Audiowide',sans-serif;
+  font-size:15px;color:#fff;text-align:center;
+  letter-spacing:.6px;margin-bottom:4px;
+}
+.hm-name-modal-sub{
+  font-size:11px;color:rgba(255,255,255,.5);
+  text-align:center;margin-bottom:16px;
+}
+.hm-name-input-wrap{position:relative;margin-bottom:8px;}
+.hm-name-input{
+  width:100%;background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,43,43,.35);
+  border-radius:14px;padding:12px 14px;
+  color:#fff;font-size:14px;font-weight:600;
+  letter-spacing:.4px;outline:none;
+  transition:border-color .18s ease,box-shadow .18s ease;
+  box-sizing:border-box;
+}
+.hm-name-input:focus{border-color:#ff2b2b;box-shadow:0 0 0 3px rgba(255,43,43,.15);}
+.hm-name-input.limit-hit{border-color:#ffb020;}
+.hm-name-count{
+  display:flex;justify-content:flex-end;
+  font-size:10px;color:rgba(255,255,255,.4);
+  margin-bottom:16px;letter-spacing:.4px;
+}
+.hm-name-count.limit-hit{color:#ffb020;}
+.hm-name-modal-actions{display:flex;gap:10px;}
+.hm-name-btn{
+  flex:1;padding:11px 0;border-radius:12px;border:none;
+  font-family:'Audiowide',sans-serif;font-size:11px;letter-spacing:.6px;
+  cursor:pointer;transition:transform .15s ease,filter .15s ease;
+}
+.hm-name-btn:active{transform:scale(.96);}
+.hm-name-btn-cancel{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.7);
+}
+.hm-name-btn-cancel:hover{background:rgba(255,255,255,.1);}
+.hm-name-btn-save{
+  background:linear-gradient(135deg,#ff2b2b,#c40000);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(255,43,43,.4);
+}
+.hm-name-btn-save:hover{filter:brightness(1.1);}
+
 /* VIDEO WRAP */
 .hm-video-wrap{
   position:relative;border-radius:22px;overflow:hidden;
@@ -1279,13 +1374,34 @@ object-fit:contain;
 <div class="hm-profile">
   <img class="hm-avatar" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg"/>
   <div class="hm-profile-info">
-    <div class="hm-name">Guest</div>
+    <div class="hm-name-row">
+      <div class="hm-name" id="hmNameText">Guest</div>
+      <button class="hm-name-edit-btn" onclick="openNameEditModal()" aria-label="Edit nama">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+    </div>
     <div class="hm-badges">
       <span class="hm-badge role">ROLE : <span id="roleBadge">FREE</span></span>
       <span class="hm-badge prime">PRIME : 0</span>
     </div>
   </div>
   <img class="hm-prime-logo" src="https://files.catbox.moe/fvplwr.png"/>
+</div>
+
+<div class="hm-name-modal-overlay" id="hmNameModalOverlay">
+  <div class="hm-name-modal">
+    <div class="hm-name-modal-icon"><img src="https://files.catbox.moe/9ahs7d.png" alt="Edit" class="hm-name-modal-icon-img"/></div>
+    <div class="hm-name-modal-title">GANTI NAMA TAMPILAN</div>
+    <div class="hm-name-modal-sub">Maksimal 12 karakter</div>
+    <div class="hm-name-input-wrap">
+      <input type="text" id="hmNameInput" class="hm-name-input" maxlength="12" placeholder="Masukkan nama..." autocomplete="off"/>
+    </div>
+    <div class="hm-name-count" id="hmNameCount">0 / 12</div>
+    <div class="hm-name-modal-actions">
+      <button class="hm-name-btn hm-name-btn-cancel" onclick="closeNameEditModal()">BATAL</button>
+      <button class="hm-name-btn hm-name-btn-save" onclick="saveNameEdit()">SIMPAN</button>
+    </div>
+  </div>
 </div>
 
 <div class="hm-video-wrap shine-card">
@@ -2639,6 +2755,77 @@ document.body.style.backgroundRepeat='no-repeat';const r=localStorage.getItem('r
 if(r){let e=document.getElementById('roleBadge');if(e){e.textContent=r;if(rc)e.style.color=rc;}}
 };
 bg.onerror=()=>console.log('Wallpaper gagal dimuat');
+
+/* === HM NAME EDIT (max 12 karakter) === */
+const HM_NAME_MAX=12;
+(function(){
+  const savedName=localStorage.getItem('hmDisplayName');
+  if(savedName){
+    const nameEl=document.getElementById('hmNameText');
+    if(nameEl) nameEl.textContent=savedName;
+  }
+})();
+
+function openNameEditModal(){
+  const overlay=document.getElementById('hmNameModalOverlay');
+  const input=document.getElementById('hmNameInput');
+  const nameEl=document.getElementById('hmNameText');
+  if(!overlay||!input) return;
+  input.value=(nameEl?nameEl.textContent:'').trim();
+  updateNameCount();
+  overlay.classList.add('show');
+  setTimeout(()=>input.focus(),80);
+}
+
+function closeNameEditModal(){
+  const overlay=document.getElementById('hmNameModalOverlay');
+  if(overlay) overlay.classList.remove('show');
+}
+
+function updateNameCount(){
+  const input=document.getElementById('hmNameInput');
+  const count=document.getElementById('hmNameCount');
+  if(!input||!count) return;
+  const len=input.value.length;
+  count.textContent=len+' / '+HM_NAME_MAX;
+  if(len>=HM_NAME_MAX){
+    count.classList.add('limit-hit');
+    input.classList.add('limit-hit');
+  }else{
+    count.classList.remove('limit-hit');
+    input.classList.remove('limit-hit');
+  }
+}
+
+function saveNameEdit(){
+  const input=document.getElementById('hmNameInput');
+  const nameEl=document.getElementById('hmNameText');
+  if(!input) return;
+  let val=input.value.trim().slice(0,HM_NAME_MAX);
+  if(val.length===0) val='Guest';
+  if(nameEl) nameEl.textContent=val;
+  localStorage.setItem('hmDisplayName',val);
+  closeNameEditModal();
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  const input=document.getElementById('hmNameInput');
+  const overlay=document.getElementById('hmNameModalOverlay');
+  if(input){
+    input.addEventListener('input',function(){
+      if(this.value.length>HM_NAME_MAX) this.value=this.value.slice(0,HM_NAME_MAX);
+      updateNameCount();
+    });
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter') saveNameEdit();
+    });
+  }
+  if(overlay){
+    overlay.addEventListener('click',function(e){
+      if(e.target===overlay) closeNameEditModal();
+    });
+  }
+});
 
 
 /* === TIKTOK STEP LOGIC === */
