@@ -1215,9 +1215,12 @@ object-fit:contain;
   margin-bottom:20px;
   box-shadow:0 12px 40px rgba(0,0,0,.75),0 0 0 1.5px rgba(255,43,43,.22);
   aspect-ratio:var(--banner-ratio,16/9);
+  background:#0c0c0c;
 }
 .hm-video-wrap video,
-.hm-video-wrap img.hm-banner-img{width:100%;height:100%;object-fit:cover;display:block;}
+.hm-video-wrap img.hm-banner-img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .4s ease;}
+.hm-video-wrap video[src],
+.hm-video-wrap img.hm-banner-img[src]{opacity:1;}
 .hm-video-wrap::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.8));
@@ -1227,12 +1230,26 @@ object-fit:contain;
   position:absolute;bottom:16px;left:0;right:0;
   text-align:center;z-index:2;
   font-family:'Orbitron',sans-serif;
-  font-size:1.3rem;letter-spacing:3.5px;
+  font-size:1.5rem;letter-spacing:4.5px;
   pointer-events:none;
   font-weight:900;
+  font-style:italic;
+  transform:skewX(-7deg);
 }
-.hm-video-label .vl-w{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5),0 2px 8px rgba(0,0,0,.8);}
-.hm-video-label .vl-r{color:#ff2b2b;text-shadow:0 0 20px rgba(255,43,43,1),0 0 40px rgba(255,43,43,.5),0 2px 8px rgba(0,0,0,.8);}
+.hm-video-label .vl-w{
+  color:#fff;
+  text-shadow:0 0 10px rgba(255,255,255,.75),0 0 26px rgba(255,255,255,.4),0 2px 10px rgba(0,0,0,.9);
+}
+.hm-video-label .vl-r{
+  background:linear-gradient(180deg,#ff9b6b 0%,#ff2b2b 40%,#7a0000 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:.4px rgba(255,150,120,.35);
+  animation:vlGlowPulse 2.4s ease-in-out infinite;
+}
+@keyframes vlGlowPulse{
+  0%,100%{filter:drop-shadow(0 0 6px rgba(255,43,43,.55)) drop-shadow(0 2px 8px rgba(0,0,0,.85));}
+  50%{filter:drop-shadow(0 0 18px rgba(255,60,60,1)) drop-shadow(0 2px 8px rgba(0,0,0,.85));}
+}
 
 /* STATS ROW */
 .hm-stats-row{
@@ -1407,7 +1424,7 @@ object-fit:contain;
 <div class="page active" id="home">
 
 <div class="hm-profile">
-  <img class="hm-avatar" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg"/>
+  <img loading="lazy" decoding="async" class="hm-avatar" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg"/>
   <div class="hm-profile-info">
     <div class="hm-name-row">
       <div class="hm-name" id="hmNameText">Guest</div>
@@ -1420,12 +1437,12 @@ object-fit:contain;
       <span class="hm-badge prime"><span data-i18n="home.prime">PRIME</span> : 0</span>
     </div>
   </div>
-  <img class="hm-prime-logo" src="https://files.catbox.moe/fvplwr.png"/>
+  <img loading="lazy" decoding="async" class="hm-prime-logo" src="https://files.catbox.moe/fvplwr.png"/>
 </div>
 
 <div class="hm-name-modal-overlay" id="hmNameModalOverlay">
   <div class="hm-name-modal">
-    <div class="hm-name-modal-icon"><img src="https://files.catbox.moe/9ahs7d.png" alt="Edit" class="hm-name-modal-icon-img"/></div>
+    <div class="hm-name-modal-icon"><img loading="lazy" decoding="async" src="https://files.catbox.moe/9ahs7d.png" alt="Edit" class="hm-name-modal-icon-img"/></div>
     <div class="hm-name-modal-title" data-i18n="nameModal.title">GANTI NAMA TAMPILAN</div>
     <div class="hm-name-modal-sub" data-i18n="nameModal.sub">Maksimal 12 karakter</div>
     <div class="hm-name-input-wrap">
@@ -1440,7 +1457,7 @@ object-fit:contain;
 </div>
 
 <div class="hm-video-wrap shine-card">
-  <video autoplay loop muted playsinline src="https://files.catbox.moe/wdw2yd.mp4"></video>
+  <video loop muted playsinline preload="none" data-src="https://files.catbox.moe/wdw2yd.mp4"></video>
   <div class="hm-video-label">
     <span class="vl-w">ZUSMO</span>&nbsp;<span class="vl-r">SHADOW</span>
   </div>
@@ -1526,7 +1543,7 @@ object-fit:contain;
 <p class="subtitle" data-i18n="notif.subtitle">Informasi &amp; update terbaru aplikasi</p>
 <div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
 <div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747" data-i18n="notif.updateTitle">UPDATE FITUR APLIKASI</h3></div>
-<img src="https://files.catbox.moe/n9mn0g.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/n9mn0g.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
 <div style="padding:4px 18px 20px;line-height:1.7;color:#ddd;font-size:14px">
 <p><b style="color:#fff" data-i18n="notif.item1Title">Keyboard dari Aplikasi</b><br><span data-i18n="notif.item1Desc">Keyboard bawaan langsung dari aplikasi, lebih cepat dan praktis!</span></p>
 <p style="margin-top:12px"><b style="color:#fff" data-i18n="notif.item2Title">Ganti Nama Profile</b><br><span data-i18n="notif.item2Desc">Sekarang kamu bisa ganti nama profile sesuai keinginanmu!</span></p>
@@ -1537,10 +1554,10 @@ object-fit:contain;
 <h1>𝗔𝗣𝗞 𝗭𝗨𝗦𝗠𝗢</h1>
 <p class="subtitle" data-i18n="apk.subtitle">Pilih versi APK</p>
 <div class="grid">
-<div class="apk-image" onclick="showPage('shadowmenu')" style="cursor:pointer"><img src="https://files.catbox.moe/x5ozja.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
-<div class="apk-image" onclick="showPage('beta')" style="cursor:pointer"><img src="https://files.catbox.moe/pbpi6q.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
-<div class="apk-image" onclick="showPage('emote')" style="cursor:pointer"><img src="https://files.catbox.moe/wv4os5.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
-<div class="apk-image" onclick="showPage('lvl')" style="cursor:pointer"><img src="https://files.catbox.moe/gb1c39.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
+<div class="apk-image" onclick="showPage('shadowmenu')" style="cursor:pointer"><img loading="lazy" decoding="async" src="https://files.catbox.moe/x5ozja.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
+<div class="apk-image" onclick="showPage('beta')" style="cursor:pointer"><img loading="lazy" decoding="async" src="https://files.catbox.moe/pbpi6q.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
+<div class="apk-image" onclick="showPage('emote')" style="cursor:pointer"><img loading="lazy" decoding="async" src="https://files.catbox.moe/wv4os5.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
+<div class="apk-image" onclick="showPage('lvl')" style="cursor:pointer"><img loading="lazy" decoding="async" src="https://files.catbox.moe/gb1c39.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
 </div></div>
 
 <div class="page" id="shadowmenu">
@@ -1553,10 +1570,10 @@ object-fit:contain;
 <!-- MAIN CARDS -->
 <div style="display:flex;gap:16px;margin-top:18px;">
 <div class="shine-card" onclick="showPage('downloadui')" style="flex:1;cursor:pointer;">
-<img src="https://files.catbox.moe/kcxby8.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/kcxby8.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
 <div class="shine-card" onclick="showPage('downloadvip')" style="flex:1;cursor:pointer;">
-<img src="https://files.catbox.moe/edczch.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/edczch.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
 </div>
 <!-- MENU BUTTONS -->
@@ -1589,7 +1606,7 @@ object-fit:contain;
 <!-- BIG LOGO PREMIUM -->
 <div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
 <div style="position:relative;width:99%;margin:4px auto;height:auto;overflow:hidden;">
-<img id="shadowBanner" src="https://files.catbox.moe/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
+<img loading="lazy" decoding="async" id="shadowBanner" src="https://files.catbox.moe/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
 </div>
 <div style="position:absolute;top:-1px;left:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
 <div style="position:absolute;top:-1px;right:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
@@ -1823,7 +1840,7 @@ img#shadowBanner,
 </div>
 </div>
 <div class="page" id="vipverify">
-<img src="https://files.catbox.moe/pc6kxb.png" style="width:70%;max-width:280px;display:block;margin:0 auto 20px auto;object-fit:contain;border-radius:8px"/>
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/pc6kxb.png" style="width:70%;max-width:280px;display:block;margin:0 auto 20px auto;object-fit:contain;border-radius:8px"/>
 <h1>VERIFIKASI VIP</h1>
 <p class="subtitle">Masukkan Key VIP Anda</p>
 <div class="download-box">
@@ -1926,7 +1943,7 @@ img#shadowBanner,
 <p class="pc-sub">Tambah Like Profile Free Fire Kamu</p>
 
 <div class="pc-banner" style="aspect-ratio:16/7;">
-  <img src="https://files.catbox.moe/cvbx0f.png" alt="Suntik Like FF" style="width:100%;height:100%;object-fit:cover;">
+  <img loading="lazy" decoding="async" src="https://files.catbox.moe/cvbx0f.png" alt="Suntik Like FF" style="width:100%;height:100%;object-fit:cover;">
 </div>
 
 <!-- Card 1: Pilih Paket -->
@@ -2114,10 +2131,10 @@ function orderSuntikLike(){
 <p class="pc-sub">Bot Booster Keaktifan Guild Free Fire</p>
 
 <div class="pc-banner bg-slider" style="aspect-ratio:16/7;">
-  <img class="bg-slide-img active" src="https://files.catbox.moe/6o6rkc.png" alt="Bot Glory Guild">
-  <img class="bg-slide-img" src="https://files.catbox.moe/ugl8hc.png" alt="Bot Glory Guild">
-  <img class="bg-slide-img" src="https://files.catbox.moe/k17fgk.png" alt="Bot Glory Guild">
-  <img class="bg-slide-img" src="https://files.catbox.moe/hnt6wk.png" alt="Bot Glory Guild">
+  <img loading="lazy" decoding="async" class="bg-slide-img active" src="https://files.catbox.moe/6o6rkc.png" alt="Bot Glory Guild">
+  <img loading="lazy" decoding="async" class="bg-slide-img" src="https://files.catbox.moe/ugl8hc.png" alt="Bot Glory Guild">
+  <img loading="lazy" decoding="async" class="bg-slide-img" src="https://files.catbox.moe/k17fgk.png" alt="Bot Glory Guild">
+  <img loading="lazy" decoding="async" class="bg-slide-img" src="https://files.catbox.moe/hnt6wk.png" alt="Bot Glory Guild">
   <div class="bg-slide-dots">
     <span class="bg-dot active"></span>
     <span class="bg-dot"></span>
@@ -2513,7 +2530,7 @@ function orderBotGlory(){
 
 <!-- 16:9 Banner -->
 <div class="pc-banner">
-  <img src="https://files.catbox.moe/atr6iu.jpg" alt="Prime Banner" loading="lazy"/>
+  <img src="https://files.catbox.moe/atr6iu.jpg" alt="Prime Banner" loading="lazy" decoding="async"/>
 </div>
 
 <!-- Card 1: Input Point -->
@@ -2608,7 +2625,7 @@ let selPrime=-1;
     const d=document.createElement('div');
     d.className='pc-lvl';
     d.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;';
-    d.innerHTML='<img src="'+p.img+'" alt="'+p.name+'" style="width:44px;height:44px;object-fit:contain;margin-bottom:4px;pointer-events:none;"/><span style="font-size:10px;font-weight:700;color:#aaa;margin-top:0;">'+p.name+'</span>';
+    d.innerHTML='<img loading="lazy" decoding="async" src="'+p.img+'" alt="'+p.name+'" style="width:44px;height:44px;object-fit:contain;margin-bottom:4px;pointer-events:none;"/><span style="font-size:10px;font-weight:700;color:#aaa;margin-top:0;">'+p.name+'</span>';
     d.onclick=()=>{
       selPrime=i;
       document.querySelectorAll('.pc-lvl').forEach((b,j)=>b.classList.toggle('on',j===i));
@@ -4002,7 +4019,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .banner-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .banner-detail-card{position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.1);cursor:pointer;aspect-ratio:var(--banner-ratio,16/9);background:#1a1a1a;transition:.2s}
 .banner-detail-card:active{transform:scale(.97)}
-.banner-detail-card .bd-img{width:100%;height:100%;object-fit:cover;display:block}
+.banner-detail-card .bd-img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease}
+.banner-detail-card .bd-img[src]{opacity:1}
 .banner-detail-card .bd-video{width:100%;height:100%;object-fit:cover;display:none;pointer-events:none;position:absolute;inset:0}
 .banner-detail-card.video-ready .bd-img{display:none}
 .banner-detail-card.video-ready .bd-video{display:block}
@@ -4125,7 +4143,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     <button class="banner-detail-back" onclick="closeBannerDetail()"><i class="fa-solid fa-arrow-left"></i></button>
     <h2 data-i18n="settings.chooseBanner">Pilih Banner</h2>
   </div>
-  <div class="banner-detail-body">
+  <div class="banner-detail-body" id="bannerDetailBody">
     <div class="banner-detail-grid" id="bannerDetailGrid"></div>
   </div>
 </div>
@@ -4164,7 +4182,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var activeId = getBannerData().id;
     grid.innerHTML = BANNERS.map(function(b){
       return '<div class="banner-opt'+(b.id===activeId?' active':'')+'" onclick="onSelectBanner(\''+b.id+'\')" title="'+b.name+'">'+
-        '<div class="banner-opt-thumb"><img src="'+b.img+'" alt="'+b.name+'"/>'+
+        '<div class="banner-opt-thumb"><img loading="lazy" decoding="async" src="'+b.img+'" alt="'+b.name+'"/>'+
         '<div class="banner-opt-check"><i class="fa-solid fa-check"></i></div></div>'+
         '<div class="banner-opt-name">'+b.name+'</div>'+
       '</div>';
@@ -4172,6 +4190,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   }
 
   var bannerDetailInitialized = false;
+  var bannerDetailObserver = null;
 
   function renderBannerDetailGrid(){
     var grid = document.getElementById('bannerDetailGrid');
@@ -4179,29 +4198,57 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var activeId = getBannerData().id;
     grid.innerHTML = BANNERS.map(function(b){
       return '<div class="banner-detail-card'+(b.id===activeId?' active':'')+'" data-banner-id="'+b.id+'" onclick="onSelectBannerDetail(\''+b.id+'\')" title="'+b.name+'">'+
-        '<img class="bd-img" src="'+b.img+'" alt="'+b.name+'" loading="lazy"/>'+
-        '<video class="bd-video" muted loop playsinline preload="auto" src="'+b.video+'"></video>'+
+        '<img loading="lazy" decoding="async" class="bd-img" data-src="'+b.img+'" alt=""/>'+
+        '<video class="bd-video" muted loop playsinline preload="none" data-src="'+b.video+'"></video>'+
         '<div class="bd-check"><i class="fa-solid fa-check"></i></div>'+
         '<div class="bd-name">'+b.name+'</div>'+
       '</div>';
     }).join('');
 
-    // Each banner shows its PNG first. The moment THAT banner's own video
-    // has finished downloading enough to play smoothly, it swaps in place
-    // (independently of the other 15 videos, which may still be loading).
-    Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
+    // Lazy load: nothing downloads until a card scrolls near the viewport.
+    // Once a card is visible, its PNG loads first; the moment THAT banner's
+    // own video finishes downloading enough to play smoothly, it swaps in
+    // place (independently of the other cards, loaded or not).
+    if(bannerDetailObserver) bannerDetailObserver.disconnect();
+
+    function loadCard(card){
+      var img = card.querySelector('.bd-img');
       var video = card.querySelector('.bd-video');
-      if(!video) return;
-      var onReady = function(){
-        card.classList.add('video-ready');
-        var ov = document.getElementById('bannerDetailOverlay');
-        if(ov && ov.classList.contains('open')){
-          video.play().catch(function(){});
-        }
-        video.removeEventListener('canplaythrough', onReady);
-      };
-      video.addEventListener('canplaythrough', onReady);
-    });
+      if(img && !img.src && img.dataset.src){
+        img.src = img.dataset.src;
+      }
+      if(video && !video.src && video.dataset.src){
+        video.src = video.dataset.src;
+        video.load();
+        var onReady = function(){
+          card.classList.add('video-ready');
+          var ov = document.getElementById('bannerDetailOverlay');
+          if(ov && ov.classList.contains('open')){
+            video.play().catch(function(){});
+          }
+          video.removeEventListener('canplaythrough', onReady);
+        };
+        video.addEventListener('canplaythrough', onReady);
+      }
+    }
+
+    if('IntersectionObserver' in window){
+      bannerDetailObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            loadCard(entry.target);
+            bannerDetailObserver.unobserve(entry.target);
+          }
+        });
+      }, { root: document.getElementById('bannerDetailBody') || null, rootMargin: '200px 0px', threshold: 0.01 });
+
+      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
+        bannerDetailObserver.observe(card);
+      });
+    }else{
+      // Fallback for browsers without IntersectionObserver: load everything.
+      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), loadCard);
+    }
   }
 
   function updateBannerDetailActiveState(){
@@ -4321,29 +4368,69 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
 
+  // Generic lazy-load helper: an element with a data-src attribute only
+  // gets its real src (and starts downloading) once its container scrolls
+  // near the viewport. Safe to call repeatedly - it no-ops once loaded.
+  function lazyLoadMedia(container, el){
+    if(!el || !el.dataset || !el.dataset.src) return;
+    if(el.getAttribute('src')) return; // already loaded
+    var assign = function(){
+      if(el.getAttribute('src')) return;
+      el.src = el.dataset.src;
+      if(el.tagName==='VIDEO'){
+        el.load();
+        el.play().catch(function(){});
+      }
+    };
+    if(!('IntersectionObserver' in window)){
+      assign();
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          assign();
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '300px 0px', threshold: 0.01 });
+    io.observe(container);
+  }
+
   function applyBannerState(on){
     var wrap = document.querySelector('.hm-video-wrap');
     if(!wrap) return;
     var data = getBannerData();
     var existing = wrap.querySelector('video, img.hm-banner-img');
     if(on){
-      if(existing && existing.tagName==='VIDEO' && existing.getAttribute('src')===data.video) return;
+      if(existing && existing.tagName==='VIDEO' && existing.dataset.src===data.video){
+        lazyLoadMedia(wrap, existing);
+        return;
+      }
       if(existing) existing.remove();
       var vid = document.createElement('video');
-      vid.autoplay = true; vid.loop = true; vid.muted = true; vid.playsInline = true;
-      vid.src = data.video;
+      vid.loop = true; vid.muted = true; vid.playsInline = true;
+      vid.preload = 'none';
+      vid.dataset.src = data.video;
       wrap.insertBefore(vid, wrap.firstChild);
+      lazyLoadMedia(wrap, vid);
     }else{
-      if(existing && existing.tagName==='IMG' && existing.getAttribute('src')===data.img) return;
+      if(existing && existing.tagName==='IMG' && existing.dataset.src===data.img){
+        lazyLoadMedia(wrap, existing);
+        return;
+      }
       if(existing) existing.remove();
       var img = document.createElement('img');
       img.className = 'hm-banner-img';
-      img.src = data.img;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.dataset.src = data.img;
       img.style.width='100%';
       img.style.height='100%';
       img.style.objectFit='cover';
       img.style.display='block';
       wrap.insertBefore(img, wrap.firstChild);
+      lazyLoadMedia(wrap, img);
     }
   }
 
@@ -4583,7 +4670,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 </script>
 
 <div class="page" id="beta"><div class="dev-card">
-<img src="https://files.catbox.moe/9dfz0n.png">
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/9dfz0n.png">
 <div class="dev-badge">BETA TESTING</div>
 <h1>𝗭𝗨𝗦𝗠𝗢 𝗕𝗘𝗧𝗔</h1>
 <p class="dev-note">ZUSMO Beta sedang menjalani pengujian internal untuk memastikan seluruh fitur berjalan stabil, aman, dan siap digunakan sebelum dirilis kepada semua pengguna.</p>
@@ -4592,7 +4679,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 </div></div>
 
 <div class="page" id="emote"><div class="dev-card">
-<img src="https://files.catbox.moe/9rj69g.png">
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/9rj69g.png">
 <div class="dev-badge">UNDER DEVELOPMENT</div>
 <h1>𝗭𝗨𝗦𝗠𝗢 𝗘𝗠𝗢𝗧𝗘</h1>
 <p class="dev-note">Tim pengembang sedang menambahkan koleksi emote baru serta meningkatkan kompatibilitas agar pengalaman penggunaan menjadi lebih optimal.</p>
@@ -4601,7 +4688,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 </div></div>
 
 <div class="page" id="lvl"><div class="dev-card">
-<img src="https://files.catbox.moe/eoih4t.png">
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/eoih4t.png">
 <div class="dev-badge">COMING SOON</div>
 <h1>𝗭𝗨𝗦𝗠𝗢 𝗟𝗘𝗩𝗘𝗟</h1>
 <p class="dev-note">ZUSMO Level sedang dipersiapkan dengan berbagai fitur baru dan penyempurnaan sistem. Nantikan peluncuran resminya pada update berikutnya.</p>
