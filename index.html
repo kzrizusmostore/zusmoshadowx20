@@ -874,7 +874,7 @@ if(oldShow){
       tabs[idx].classList.add('active');
     }
 
-    navigator.vibrate?.(20);
+    window.ZUSMO&&window.ZUSMO.vibrate(20);
   }
 }
 </script>
@@ -1214,8 +1214,10 @@ object-fit:contain;
   position:relative;border-radius:22px;overflow:hidden;
   margin-bottom:20px;
   box-shadow:0 12px 40px rgba(0,0,0,.75),0 0 0 1.5px rgba(255,43,43,.22);
+  aspect-ratio:var(--banner-ratio,16/9);
 }
-.hm-video-wrap video{width:100%;display:block;}
+.hm-video-wrap video,
+.hm-video-wrap img.hm-banner-img{width:100%;height:100%;object-fit:cover;display:block;}
 .hm-video-wrap::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.8));
@@ -1373,7 +1375,7 @@ object-fit:contain;
 .vipbadge{background:gold;color:#000;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold}
 </style>
 <div class="topbar-pro" id="topbarPro">
-<button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i>Kembali</button>
+<button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
 <div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
 <div class="center" id="topbarCenter"></div>
 <div class="right" id="topbarRight"><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="showPage('notifikasi')"><i class="fa-solid fa-bell"></i></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i></button></div>
@@ -1389,7 +1391,7 @@ object-fit:contain;
   </div>
 <div class="tab home-center active" onclick="showPage('home')">
 <div class="home-circle"><i class="fa fa-home"></i></div>
-    HOME
+    <span data-i18n="nav.home">HOME</span>
   </div>
 <div class="tab" onclick="showPage('emote')">
 <i class="fa fa-face-smile"></i>
@@ -1414,8 +1416,8 @@ object-fit:contain;
       </button>
     </div>
     <div class="hm-badges">
-      <span class="hm-badge role">ROLE : <span id="roleBadge">FREE</span></span>
-      <span class="hm-badge prime">PRIME : 0</span>
+      <span class="hm-badge role"><span data-i18n="home.role">ROLE</span> : <span id="roleBadge">FREE</span></span>
+      <span class="hm-badge prime"><span data-i18n="home.prime">PRIME</span> : 0</span>
     </div>
   </div>
   <img class="hm-prime-logo" src="https://files.catbox.moe/fvplwr.png"/>
@@ -1424,15 +1426,15 @@ object-fit:contain;
 <div class="hm-name-modal-overlay" id="hmNameModalOverlay">
   <div class="hm-name-modal">
     <div class="hm-name-modal-icon"><img src="https://files.catbox.moe/9ahs7d.png" alt="Edit" class="hm-name-modal-icon-img"/></div>
-    <div class="hm-name-modal-title">GANTI NAMA TAMPILAN</div>
-    <div class="hm-name-modal-sub">Maksimal 12 karakter</div>
+    <div class="hm-name-modal-title" data-i18n="nameModal.title">GANTI NAMA TAMPILAN</div>
+    <div class="hm-name-modal-sub" data-i18n="nameModal.sub">Maksimal 12 karakter</div>
     <div class="hm-name-input-wrap">
-      <input type="text" id="hmNameInput" class="hm-name-input" maxlength="12" placeholder="Masukkan nama..." autocomplete="off"/>
+      <input type="text" id="hmNameInput" class="hm-name-input" maxlength="12" data-i18n-placeholder="nameModal.placeholder" placeholder="Masukkan nama..." autocomplete="off"/>
     </div>
     <div class="hm-name-count" id="hmNameCount">0 / 12</div>
     <div class="hm-name-modal-actions">
-      <button class="hm-name-btn hm-name-btn-cancel" onclick="closeNameEditModal()">BATAL</button>
-      <button class="hm-name-btn hm-name-btn-save" onclick="saveNameEdit()">SIMPAN</button>
+      <button class="hm-name-btn hm-name-btn-cancel" onclick="closeNameEditModal()" data-i18n="nameModal.cancel">BATAL</button>
+      <button class="hm-name-btn hm-name-btn-save" onclick="saveNameEdit()" data-i18n="nameModal.save">SIMPAN</button>
     </div>
   </div>
 </div>
@@ -1449,56 +1451,56 @@ object-fit:contain;
   <div class="hm-stat">
     <i class="fa-solid fa-shield-halved"></i>
     <span class="hm-stat-val">X20</span>
-    <span class="hm-stat-lbl">VERSI</span>
+    <span class="hm-stat-lbl" data-i18n="home.version">VERSI</span>
   </div>
   <div class="hm-stat">
     <i class="fa-solid fa-users"></i>
     <span class="hm-stat-val">940K+</span>
-    <span class="hm-stat-lbl">USER</span>
+    <span class="hm-stat-lbl" data-i18n="home.user">USER</span>
   </div>
   <div class="hm-stat">
     <i class="fa-solid fa-circle-check"></i>
     <span class="hm-stat-val">100%</span>
-    <span class="hm-stat-lbl">AMAN</span>
+    <span class="hm-stat-lbl" data-i18n="home.safe">AMAN</span>
   </div>
 </div>
 
-<div class="hm-section-lbl">⚡ Menu Utama</div>
+<div class="hm-section-lbl"><span data-i18n="home.mainMenu">⚡ Menu Utama</span></div>
 
 <div class="hm-menu" onclick="showPage('primecalc')">
   <div class="hm-menu-icon"><i class="fa-solid fa-calculator"></i></div>
-  <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small>Hitung harga Prime Free Fire</small></div>
+  <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small data-i18n="home.primeCalcDesc">Hitung harga Prime Free Fire</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
   <div class="hm-menu-icon"><i class="fa-solid fa-heart"></i></div>
-  <div class="hm-menu-body"><h4>SUNTIK LIKE FF</h4><small>Tambah like profile Free Fire</small></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.suntikLikeTitle">SUNTIK LIKE FF</h4><small data-i18n="home.suntikLikeDesc">Tambah like profile Free Fire</small></div>
   <span class="hm-new-badge" id="newBadge_suntiklike"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="dismissNewBadge('botglory');showPage('botglory')">
   <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
-  <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small>Bot booster keaktifan guild Free Fire</small></div>
+  <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small data-i18n="home.botGloryDesc">Bot booster keaktifan guild Free Fire</small></div>
   <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="showPage('toko')">
   <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
-  <div class="hm-menu-body"><h4>TOKO ZUSMO</h4><small>Topup &amp; marketplace</small></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.tokoTitle">TOKO ZUSMO</h4><small data-i18n="home.tokoDesc">Topup &amp; marketplace</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="showPage('apk')">
   <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-  <div class="hm-menu-body"><h4>APK ZUSMO</h4><small>Download semua versi aplikasi</small></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.apkTitle">APK ZUSMO</h4><small data-i18n="home.apkDesc">Download semua versi aplikasi</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')">
   <div class="hm-menu-icon"><i class="fa-solid fa-gamepad"></i></div>
-  <div class="hm-menu-body"><h4>TOPUP GAME</h4><small>Game favorit kamu</small></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.topupTitle">TOPUP GAME</h4><small data-i18n="home.topupDesc">Game favorit kamu</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 
-<div class="hm-section-lbl" style="margin-top:16px;">🌐 Komunitas</div>
+<div class="hm-section-lbl" style="margin-top:16px;"><span data-i18n="home.community">🌐 Komunitas</span></div>
 <div class="hm-social-row">
   <div class="hm-social wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
     <i class="fa-brands fa-whatsapp"></i>
@@ -1517,23 +1519,23 @@ object-fit:contain;
   </div>
 </div>
 
-<div class="hm-footer">© 2026 <span>KZRIZUSMO</span> DEV</div>
+<div class="hm-footer">© 2026 <span>KZRIZUSMO</span> <span data-i18n="home.devTag">DEV</span></div>
 </div>
 <div class="page" id="notifikasi">
-<h1 style="font-size:1.6rem">Notifikasi</h1>
-<p class="subtitle">Informasi &amp; update terbaru aplikasi</p>
+<h1 style="font-size:1.6rem" data-i18n="notif.title">Notifikasi</h1>
+<p class="subtitle" data-i18n="notif.subtitle">Informasi &amp; update terbaru aplikasi</p>
 <div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
-<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">UPDATE FITUR APLIKASI</h3></div>
+<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747" data-i18n="notif.updateTitle">UPDATE FITUR APLIKASI</h3></div>
 <img src="https://files.catbox.moe/n9mn0g.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
 <div style="padding:4px 18px 20px;line-height:1.7;color:#ddd;font-size:14px">
-<p><b style="color:#fff">Keyboard dari Aplikasi</b><br>Keyboard bawaan langsung dari aplikasi, lebih cepat dan praktis!</p>
-<p style="margin-top:12px"><b style="color:#fff">Ganti Nama Profile</b><br>Sekarang kamu bisa ganti nama profile sesuai keinginanmu!</p>
+<p><b style="color:#fff" data-i18n="notif.item1Title">Keyboard dari Aplikasi</b><br><span data-i18n="notif.item1Desc">Keyboard bawaan langsung dari aplikasi, lebih cepat dan praktis!</span></p>
+<p style="margin-top:12px"><b style="color:#fff" data-i18n="notif.item2Title">Ganti Nama Profile</b><br><span data-i18n="notif.item2Desc">Sekarang kamu bisa ganti nama profile sesuai keinginanmu!</span></p>
 </div>
 </div>
 </div>
 <div class="page" id="apk">
 <h1>𝗔𝗣𝗞 𝗭𝗨𝗦𝗠𝗢</h1>
-<p class="subtitle">Pilih versi APK</p>
+<p class="subtitle" data-i18n="apk.subtitle">Pilih versi APK</p>
 <div class="grid">
 <div class="apk-image" onclick="showPage('shadowmenu')" style="cursor:pointer"><img src="https://files.catbox.moe/x5ozja.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
 <div class="apk-image" onclick="showPage('beta')" style="cursor:pointer"><img src="https://files.catbox.moe/pbpi6q.png" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;border-radius:0"></div>
@@ -3129,7 +3131,7 @@ function checkVipKey(){
    result.innerHTML='🎉 AKSES DITERIMA!<br>Selamat datang Member VIP';
    result.style.color='#00ff88';
    input.style.border='3px solid #00ff88';
-   navigator.vibrate && navigator.vibrate([100,50,100,50,300]);
+   window.ZUSMO && window.ZUSMO.vibrate([100,50,100,50,300]);
    setTimeout(()=>window.open('https://whatsapp.com/channel/0029Vb8a3bU8V0tjsp1Orx0m','_blank'),1500);
  }else{
    result.innerHTML='❌ KEY VIP TIDAK VALID';
@@ -3138,7 +3140,7 @@ function checkVipKey(){
    void input.offsetWidth;
    input.classList.add('shake');
    input.style.border='3px solid #ff3b3b';
-   navigator.vibrate && navigator.vibrate([200,100,200]);
+   window.ZUSMO && window.ZUSMO.vibrate([200,100,200]);
  }
 }
 
@@ -3938,7 +3940,7 @@ function openNotifications(){alert('Belum ada notifikasi baru');}
 function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } }
 </script>
 
-<!-- ===== SETTINGS PANEL: TAMPILAN ===== -->
+<!-- ===== SETTINGS PANEL ===== -->
 <style>
 .settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center;z-index:100000;backdrop-filter:blur(6px)}
 .settings-overlay.open{display:flex}
@@ -3958,21 +3960,71 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .switch .slider:before{content:'';position:absolute;height:22px;width:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s}
 .switch input:checked+.slider{background:#ff2b2b}
 .switch input:checked+.slider:before{transform:translateX(20px)}
+.vol-slider-wrap{display:flex;align-items:center;gap:10px;margin-top:10px}
+.vol-slider-wrap i{color:#aaa;font-size:14px;flex:none}
+.vol-slider{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:50px;background:rgba(255,255,255,.18);outline:none}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#ff2b2b;cursor:pointer;box-shadow:0 0 8px rgba(255,43,43,.6)}
+.vol-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#ff2b2b;border:none;cursor:pointer;box-shadow:0 0 8px rgba(255,43,43,.6)}
+.vol-value{font-size:.8rem;color:#ccc;flex:none;min-width:34px;text-align:right}
+.lang-switch{display:flex;gap:10px;margin-top:4px}
+.lang-opt{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px 10px;color:#fff;cursor:pointer;transition:.2s}
+.lang-opt .lang-flag{font-size:20px}
+.lang-opt .lang-name{font-size:.85rem;font-weight:600}
+.lang-opt.active{border-color:#ff2b2b;background:rgba(255,43,43,.14);box-shadow:0 0 0 1px #ff2b2b inset}
+
+.ratio-switch{display:flex;gap:10px;margin-top:4px}
+.ratio-opt{flex:1;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px 10px;color:#fff;cursor:pointer;transition:.2s}
+.ratio-opt .ratio-name{font-size:.85rem;font-weight:700}
+.ratio-opt.active{border-color:#ff2b2b;background:rgba(255,43,43,.14);box-shadow:0 0 0 1px #ff2b2b inset}
+
+.banner-grid{display:flex;gap:12px;margin-top:2px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none;-ms-overflow-style:none}
+.banner-grid::-webkit-scrollbar{display:none}
+.banner-opt{position:relative;flex:0 0 auto;width:52px;cursor:pointer;text-align:center}
+.banner-opt .banner-opt-thumb{width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.14);transition:.2s;position:relative}
+.banner-opt .banner-opt-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.banner-opt .banner-opt-name{margin-top:4px;font-size:.58rem;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52px;margin-left:auto;margin-right:auto;font-weight:600}
+.banner-opt .banner-opt-check{position:absolute;bottom:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:#ff2b2b;border:2px solid #17181b;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;opacity:0;transform:scale(.5);transition:.2s}
+.banner-opt.active .banner-opt-thumb{border-color:#ff2b2b;box-shadow:0 0 0 2px rgba(255,43,43,.25)}
+.banner-opt.active .banner-opt-check{opacity:1;transform:scale(1)}
+.banner-opt.active .banner-opt-name{color:#fff}
+
+.banner-detail-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:.68rem;font-weight:700;padding:6px 10px;border-radius:20px;cursor:pointer;flex:none}
+.banner-detail-btn:active{transform:scale(.94)}
+.banner-detail-btn i{font-size:.7rem;color:#ff4747}
+
+.banner-detail-overlay{position:fixed;inset:0;background:#0e0e0e;z-index:100010;display:none;flex-direction:column;opacity:0;transform:translateX(24px);transition:.28s ease}
+.banner-detail-overlay.open{display:flex;opacity:1;transform:translateX(0)}
+.banner-detail-header{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex:none}
+.banner-detail-back{background:rgba(255,255,255,.08);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:15px;cursor:pointer;flex:none}
+.banner-detail-back:active{transform:scale(.92)}
+.banner-detail-header h2{font-size:1.02rem}
+.banner-detail-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 36px}
+.banner-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.banner-detail-card{position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.1);cursor:pointer;aspect-ratio:var(--banner-ratio,16/9);background:#1a1a1a;transition:.2s}
+.banner-detail-card:active{transform:scale(.97)}
+.banner-detail-card .bd-img{width:100%;height:100%;object-fit:cover;display:block}
+.banner-detail-card .bd-video{width:100%;height:100%;object-fit:cover;display:none;pointer-events:none;position:absolute;inset:0}
+.banner-detail-card.video-ready .bd-img{display:none}
+.banner-detail-card.video-ready .bd-video{display:block}
+.banner-detail-card .bd-name{position:absolute;left:0;right:0;bottom:0;padding:8px 10px 7px;font-size:.7rem;font-weight:700;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1}
+.banner-detail-card .bd-check{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:#ff2b2b;border:2px solid #0e0e0e;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;opacity:0;transform:scale(.5);transition:.2s}
+.banner-detail-card.active{border-color:#ff2b2b;box-shadow:0 0 0 2px rgba(255,43,43,.25)}
+.banner-detail-card.active .bd-check{opacity:1;transform:scale(1)}
 </style>
 
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-sheet">
     <div class="settings-header">
-      <h2><i class="fa-solid fa-gear"></i>&nbsp; Pengaturan</h2>
+      <h2><i class="fa-solid fa-gear"></i>&nbsp; <span data-i18n="settings.title">Pengaturan</span></h2>
       <button class="settings-close" onclick="closeSettingsPanel()"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <div class="settings-panel-title">Tampilan</div>
+    <div class="settings-panel-title" data-i18n="settings.appearance">Tampilan</div>
 
     <div class="settings-row">
       <div class="settings-row-label">
-        <span class="title">Animasi Banner</span>
-        <span class="desc">Banner home berupa video animasi</span>
+        <span class="title" data-i18n="settings.animBanner">Animasi Banner</span>
+        <span class="desc" data-i18n="settings.animBannerDesc">Banner home berupa video animasi</span>
       </div>
       <label class="switch">
         <input type="checkbox" id="toggleAnimasi" onchange="onToggleAnimasi(this.checked)"/>
@@ -3980,25 +4032,249 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       </label>
     </div>
 
+    <div class="settings-row" style="display:block;padding-bottom:10px;">
+      <div class="settings-row-label" style="margin-bottom:6px;flex-direction:row;align-items:center;justify-content:space-between;width:100%;">
+        <span class="title" data-i18n="settings.chooseBanner" style="font-size:.85rem;">Pilih Banner</span>
+        <button type="button" class="banner-detail-btn" onclick="openBannerDetail()">
+          <i class="fa-solid fa-table-cells-large"></i>
+          <span data-i18n="settings.detail">Detail</span>
+        </button>
+      </div>
+      <div class="banner-grid" id="bannerGrid"></div>
+    </div>
+
+    <div class="settings-row" style="display:block;padding-bottom:10px;">
+      <div class="settings-row-label" style="margin-bottom:6px;">
+        <span class="title" data-i18n="settings.bannerSize">Ukuran Banner</span>
+        <span class="desc" data-i18n="settings.bannerSizeDesc">Rasio tampilan banner home</span>
+      </div>
+      <div class="ratio-switch" id="ratioSwitch">
+        <button type="button" class="ratio-opt" id="ratioOpt169" onclick="onSetBannerRatio('16/9')">
+          <span class="ratio-name">16:9</span>
+        </button>
+        <button type="button" class="ratio-opt" id="ratioOpt167" onclick="onSetBannerRatio('16/7')">
+          <span class="ratio-name">16:7</span>
+        </button>
+      </div>
+    </div>
+
     <div class="settings-row">
       <div class="settings-row-label">
-        <span class="title">Blur Background</span>
-        <span class="desc">Efek blur pada latar belakang aplikasi</span>
+        <span class="title" data-i18n="settings.blurBg">Blur Background</span>
+        <span class="desc" data-i18n="settings.blurBgDesc">Efek blur pada latar belakang aplikasi</span>
       </div>
       <label class="switch">
         <input type="checkbox" id="toggleBlur" onchange="onToggleBlur(this.checked)"/>
         <span class="slider"></span>
       </label>
     </div>
+
+    <div class="settings-panel-title" data-i18n="settings.soundVibrate">Suara &amp; Getar</div>
+
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <span class="title" data-i18n="settings.sfx">Suara Efek</span>
+        <span class="desc" data-i18n="settings.sfxDesc">Bunyi klik pada tombol &amp; interaksi</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleSfx" onchange="onToggleSfx(this.checked)"/>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <span class="title" data-i18n="settings.vibrate">Getar</span>
+        <span class="desc" data-i18n="settings.vibrateDesc">Getaran saat menekan tombol</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleVibrate" onchange="onToggleVibrate(this.checked)"/>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="settings-row settings-row-vol">
+      <div class="settings-row-label" style="width:100%">
+        <span class="title" data-i18n="settings.volume">Volume</span>
+        <div class="vol-slider-wrap">
+          <i class="fa-solid fa-volume-low"></i>
+          <input type="range" id="volumeSlider" class="vol-slider" min="0" max="100" value="80" oninput="onVolumeInput(this.value)"/>
+          <i class="fa-solid fa-volume-high"></i>
+          <span class="vol-value" id="volumeValue">80%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-panel-title" data-i18n="settings.language">Bahasa</div>
+
+    <div class="lang-switch" id="langSwitch">
+      <button type="button" class="lang-opt" id="langOptId" onclick="onSetLanguage('id')">
+        <span class="lang-flag">🇮🇩</span>
+        <span class="lang-name">Indonesia</span>
+      </button>
+      <button type="button" class="lang-opt" id="langOptEn" onclick="onSetLanguage('en')">
+        <span class="lang-flag">🇬🇧</span>
+        <span class="lang-name">English</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="banner-detail-overlay" id="bannerDetailOverlay">
+  <div class="banner-detail-header">
+    <button class="banner-detail-back" onclick="closeBannerDetail()"><i class="fa-solid fa-arrow-left"></i></button>
+    <h2 data-i18n="settings.chooseBanner">Pilih Banner</h2>
+  </div>
+  <div class="banner-detail-body">
+    <div class="banner-detail-grid" id="bannerDetailGrid"></div>
   </div>
 </div>
 
 <script>
 (function(){
+  var BANNERS = [
+    { id:'default',   name:'Default',           img:'https://files.catbox.moe/7dj8gw.jpg', video:'https://files.catbox.moe/wdw2yd.mp4' },
+    { id:'hellfire',  name:'Hellfire',           img:'https://files.catbox.moe/avlyba.jpg', video:'https://files.catbox.moe/bmr4h1.mp4' },
+    { id:'akari',     name:'Akari',              img:'https://files.catbox.moe/t8c2zi.jpg', video:'https://files.catbox.moe/869yvj.mp4' },
+    { id:'redspace',  name:'Red Space',          img:'https://files.catbox.moe/s4g2sc.jpg', video:'https://files.catbox.moe/lfow35.mp4' },
+    { id:'sukuna',    name:'Sukuna',             img:'https://files.catbox.moe/sydc3m.jpg', video:'https://files.catbox.moe/myei3q.mp4' },
+    { id:'eyegaze',   name:'Eye Gaze',           img:'https://files.catbox.moe/cf0o3d.jpg', video:'https://files.catbox.moe/z1y8m2.mp4' },
+    { id:'mahkota',   name:'Estetika Mahkota',   img:'https://files.catbox.moe/9ax0zw.jpg', video:'https://files.catbox.moe/svyazq.mp4' },
+    { id:'darkgothic',name:'Dark Gothic',        img:'https://files.catbox.moe/jel2rt.jpg', video:'https://files.catbox.moe/keln08.mp4' },
+    { id:'nyx',       name:'Nyx',                img:'https://files.catbox.moe/1ozx1z.jpg', video:'https://files.catbox.moe/32yxwl.mp4' },
+    { id:'spiderman', name:'Spiderman BND',      img:'https://files.catbox.moe/3m55tl.jpg', video:'https://files.catbox.moe/si463k.mp4' },
+    { id:'spiderman2',name:'Spiderman BND 2',    img:'https://files.catbox.moe/2a5q8p.jpg', video:'https://files.catbox.moe/mru51x.mp4' },
+    { id:'junko',     name:'Junko',              img:'https://files.catbox.moe/zuj3oa.jpg', video:'https://files.catbox.moe/pcpso7.mp4' },
+    { id:'butterflies',name:'Butterflies',       img:'https://files.catbox.moe/5mc9ui.jpg', video:'https://files.catbox.moe/wnkc0o.mp4' },
+    { id:'gojo',      name:'Gojo',               img:'https://files.catbox.moe/1yjnsr.jpg', video:'https://files.catbox.moe/ysvq2o.mp4' },
+    { id:'cr7',       name:'CR7',                img:'https://files.catbox.moe/72wv8z.jpg', video:'https://files.catbox.moe/fnddjw.mp4' },
+    { id:'lm10',      name:'LM10',               img:'https://files.catbox.moe/16tky1.jpg', video:'https://files.catbox.moe/rhmwqn.mp4' }
+  ];
+  var LS_BANNER_ID = 'zusmo_settings_banner';
+
+  function getBannerData(){
+    var id = localStorage.getItem(LS_BANNER_ID) || 'default';
+    for(var i=0;i<BANNERS.length;i++){ if(BANNERS[i].id===id) return BANNERS[i]; }
+    return BANNERS[0];
+  }
+
+  function renderBannerGrid(){
+    var grid = document.getElementById('bannerGrid');
+    if(!grid) return;
+    var activeId = getBannerData().id;
+    grid.innerHTML = BANNERS.map(function(b){
+      return '<div class="banner-opt'+(b.id===activeId?' active':'')+'" onclick="onSelectBanner(\''+b.id+'\')" title="'+b.name+'">'+
+        '<div class="banner-opt-thumb"><img src="'+b.img+'" alt="'+b.name+'"/>'+
+        '<div class="banner-opt-check"><i class="fa-solid fa-check"></i></div></div>'+
+        '<div class="banner-opt-name">'+b.name+'</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  var bannerDetailInitialized = false;
+
+  function renderBannerDetailGrid(){
+    var grid = document.getElementById('bannerDetailGrid');
+    if(!grid) return;
+    var activeId = getBannerData().id;
+    grid.innerHTML = BANNERS.map(function(b){
+      return '<div class="banner-detail-card'+(b.id===activeId?' active':'')+'" data-banner-id="'+b.id+'" onclick="onSelectBannerDetail(\''+b.id+'\')" title="'+b.name+'">'+
+        '<img class="bd-img" src="'+b.img+'" alt="'+b.name+'" loading="lazy"/>'+
+        '<video class="bd-video" muted loop playsinline preload="auto" src="'+b.video+'"></video>'+
+        '<div class="bd-check"><i class="fa-solid fa-check"></i></div>'+
+        '<div class="bd-name">'+b.name+'</div>'+
+      '</div>';
+    }).join('');
+
+    // Each banner shows its PNG first. The moment THAT banner's own video
+    // has finished downloading enough to play smoothly, it swaps in place
+    // (independently of the other 15 videos, which may still be loading).
+    Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
+      var video = card.querySelector('.bd-video');
+      if(!video) return;
+      var onReady = function(){
+        card.classList.add('video-ready');
+        var ov = document.getElementById('bannerDetailOverlay');
+        if(ov && ov.classList.contains('open')){
+          video.play().catch(function(){});
+        }
+        video.removeEventListener('canplaythrough', onReady);
+      };
+      video.addEventListener('canplaythrough', onReady);
+    });
+  }
+
+  function updateBannerDetailActiveState(){
+    var grid = document.getElementById('bannerDetailGrid');
+    if(!grid) return;
+    var activeId = getBannerData().id;
+    Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
+      card.classList.toggle('active', card.getAttribute('data-banner-id')===activeId);
+    });
+  }
+
+  window.openBannerDetail = function(){
+    if(!bannerDetailInitialized){
+      // First open: create the grid, images show immediately, videos start
+      // downloading in the background per-card.
+      renderBannerDetailGrid();
+      bannerDetailInitialized = true;
+    }else{
+      // Re-opening: don't rebuild (keeps whatever already finished
+      // downloading), just refresh which card is marked active.
+      updateBannerDetailActiveState();
+    }
+    var ov = document.getElementById('bannerDetailOverlay');
+    if(ov) ov.classList.add('open');
+    var grid = document.getElementById('bannerDetailGrid');
+    if(grid){
+      // Resume playback for any cards whose video already finished loading.
+      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card.video-ready .bd-video'), function(v){
+        v.play().catch(function(){});
+      });
+    }
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
+  window.closeBannerDetail = function(){
+    var ov = document.getElementById('bannerDetailOverlay');
+    if(ov) ov.classList.remove('open');
+    var grid = document.getElementById('bannerDetailGrid');
+    if(grid){
+      // Pause videos while the page is closed (saves battery/CPU); the
+      // already-downloaded data stays cached so it resumes instantly.
+      Array.prototype.forEach.call(grid.querySelectorAll('.bd-video'), function(v){ v.pause(); });
+    }
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
+  window.onSelectBannerDetail = function(id){
+    onSelectBanner(id);
+    updateBannerDetailActiveState();
+  };
+
+  window.onSelectBanner = function(id){
+    localStorage.setItem(LS_BANNER_ID, id);
+    // Selecting a banner automatically switches to animated (with) version,
+    // unless the user has explicitly turned Banner Animation off.
+    if(getAnimasi()){
+      applyBannerState(true);
+    }else{
+      applyBannerState(false);
+    }
+    renderBannerGrid();
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
   var BANNER_IMG_FALLBACK = 'https://files.catbox.moe/7dj8gw.jpg';
   var BANNER_VIDEO_SRC = 'https://files.catbox.moe/wdw2yd.mp4';
   var LS_ANIM = 'zusmo_settings_animasi';
   var LS_BLUR = 'zusmo_settings_blur';
+  var LS_SFX = 'zusmo_settings_sfx';
+  var LS_VIBRATE = 'zusmo_settings_vibrate';
+  var LS_VOLUME = 'zusmo_settings_volume';
+  var LS_LANG = 'zusmo_settings_lang';
+  var LS_BANNER_RATIO = 'zusmo_settings_banner_ratio';
 
   function getAnimasi(){
     var v = localStorage.getItem(LS_ANIM);
@@ -4008,24 +4284,61 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var v = localStorage.getItem(LS_BLUR);
     return v===null ? true : v==='1';
   }
+  function getSfx(){
+    var v = localStorage.getItem(LS_SFX);
+    return v===null ? true : v==='1';
+  }
+  function getVibrate(){
+    var v = localStorage.getItem(LS_VIBRATE);
+    return v===null ? true : v==='1';
+  }
+  function getVolume(){
+    var v = localStorage.getItem(LS_VOLUME);
+    return v===null ? 80 : parseInt(v,10);
+  }
+  function getLang(){
+    var v = localStorage.getItem(LS_LANG);
+    return (v==='en') ? 'en' : 'id';
+  }
+  function getBannerRatio(){
+    var v = localStorage.getItem(LS_BANNER_RATIO);
+    return (v==='16/7') ? '16/7' : '16/9';
+  }
+  function applyBannerRatio(ratio){
+    document.documentElement.style.setProperty('--banner-ratio', ratio);
+  }
+  function renderRatioSwitch(){
+    var ratio = getBannerRatio();
+    var o9 = document.getElementById('ratioOpt169');
+    var o7 = document.getElementById('ratioOpt167');
+    if(o9) o9.classList.toggle('active', ratio==='16/9');
+    if(o7) o7.classList.toggle('active', ratio==='16/7');
+  }
+  window.onSetBannerRatio = function(ratio){
+    localStorage.setItem(LS_BANNER_RATIO, ratio);
+    applyBannerRatio(ratio);
+    renderRatioSwitch();
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
 
   function applyBannerState(on){
     var wrap = document.querySelector('.hm-video-wrap');
     if(!wrap) return;
+    var data = getBannerData();
     var existing = wrap.querySelector('video, img.hm-banner-img');
     if(on){
-      if(existing && existing.tagName==='VIDEO') return;
+      if(existing && existing.tagName==='VIDEO' && existing.getAttribute('src')===data.video) return;
       if(existing) existing.remove();
       var vid = document.createElement('video');
       vid.autoplay = true; vid.loop = true; vid.muted = true; vid.playsInline = true;
-      vid.src = BANNER_VIDEO_SRC;
+      vid.src = data.video;
       wrap.insertBefore(vid, wrap.firstChild);
     }else{
-      if(existing && existing.tagName==='IMG') return;
+      if(existing && existing.tagName==='IMG' && existing.getAttribute('src')===data.img) return;
       if(existing) existing.remove();
       var img = document.createElement('img');
       img.className = 'hm-banner-img';
-      img.src = BANNER_IMG_FALLBACK;
+      img.src = data.img;
       img.style.width='100%';
       img.style.height='100%';
       img.style.objectFit='cover';
@@ -4044,9 +4357,190 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     styleTag.textContent = on ? '' : 'body:before{backdrop-filter:none !important;}';
   }
 
+  function applyVolumeToMusic(vol){
+    var frac = Math.max(0,Math.min(100,vol))/100;
+    var bgEl = document.getElementById('bgMusic');
+    if(bgEl) bgEl.volume = frac;
+  }
+
+  // Centralized sound + vibration API used across the app
+  window.ZUSMO = window.ZUSMO || {};
+  window.ZUSMO.playClick = function(){
+    if(!getSfx()) return;
+    try{
+      var ctx = window._ctx || (window._ctx = new (window.AudioContext||window.webkitAudioContext)());
+      if(ctx.state==='suspended') ctx.resume();
+      var vol = getVolume()/100;
+      var o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='triangle';
+      o.frequency.setValueAtTime(1400,ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(700,ctx.currentTime+0.05);
+      g.gain.setValueAtTime(0.25*vol,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.08);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); o.stop(ctx.currentTime+0.08);
+    }catch(e){}
+  };
+  window.ZUSMO.vibrate = function(pattern){
+    if(!getVibrate()) return;
+    if(navigator.vibrate){
+      try{ navigator.vibrate(pattern); }catch(e){}
+    }
+  };
+
+  /* ===== BAHASA / LANGUAGE (i18n) ===== */
+  var I18N_DICT = {
+    id: {
+      'settings.title':'Pengaturan',
+      'settings.appearance':'Tampilan',
+      'settings.animBanner':'Animasi Banner',
+      'settings.animBannerDesc':'Banner home berupa video animasi',
+      'settings.chooseBanner':'Pilih Banner',
+      'settings.chooseBannerDesc':'Ganti tema banner halaman home',
+      'settings.detail':'Detail',
+      'settings.bannerSize':'Ukuran Banner',
+      'settings.bannerSizeDesc':'Rasio tampilan banner home',
+      'settings.blurBg':'Blur Background',
+      'settings.blurBgDesc':'Efek blur pada latar belakang aplikasi',
+      'settings.soundVibrate':'Suara & Getar',
+      'settings.sfx':'Suara Efek',
+      'settings.sfxDesc':'Bunyi klik pada tombol & interaksi',
+      'settings.vibrate':'Getar',
+      'settings.vibrateDesc':'Getaran saat menekan tombol',
+      'settings.volume':'Volume',
+      'settings.language':'Bahasa',
+
+      'nav.back':'Kembali',
+      'nav.home':'HOME',
+
+      'nameModal.title':'GANTI NAMA TAMPILAN',
+      'nameModal.sub':'Maksimal 12 karakter',
+      'nameModal.placeholder':'Masukkan nama...',
+      'nameModal.cancel':'BATAL',
+      'nameModal.save':'SIMPAN',
+
+      'home.role':'ROLE',
+      'home.prime':'PRIME',
+      'home.version':'VERSI',
+      'home.user':'USER',
+      'home.safe':'AMAN',
+      'home.mainMenu':'⚡ Menu Utama',
+      'home.primeCalcDesc':'Hitung harga Prime Free Fire',
+      'home.suntikLikeTitle':'SUNTIK LIKE FF',
+      'home.suntikLikeDesc':'Tambah like profile Free Fire',
+      'home.botGloryDesc':'Bot booster keaktifan guild Free Fire',
+      'home.tokoTitle':'TOKO ZUSMO',
+      'home.tokoDesc':'Topup & marketplace',
+      'home.apkTitle':'APK ZUSMO',
+      'home.apkDesc':'Download semua versi aplikasi',
+      'home.topupTitle':'TOPUP GAME',
+      'home.topupDesc':'Game favorit kamu',
+      'home.community':'🌐 Komunitas',
+      'home.devTag':'DEV',
+
+      'notif.title':'Notifikasi',
+      'notif.subtitle':'Informasi & update terbaru aplikasi',
+      'notif.updateTitle':'UPDATE FITUR APLIKASI',
+      'notif.item1Title':'Keyboard dari Aplikasi',
+      'notif.item1Desc':'Keyboard bawaan langsung dari aplikasi, lebih cepat dan praktis!',
+      'notif.item2Title':'Ganti Nama Profile',
+      'notif.item2Desc':'Sekarang kamu bisa ganti nama profile sesuai keinginanmu!',
+
+      'apk.subtitle':'Pilih versi APK'
+    },
+    en: {
+      'settings.title':'Settings',
+      'settings.appearance':'Appearance',
+      'settings.animBanner':'Banner Animation',
+      'settings.animBannerDesc':'Home banner shown as an animated video',
+      'settings.chooseBanner':'Choose Banner',
+      'settings.chooseBannerDesc':'Change the home page banner theme',
+      'settings.detail':'Detail',
+      'settings.bannerSize':'Banner Size',
+      'settings.bannerSizeDesc':'Home banner display ratio',
+      'settings.blurBg':'Background Blur',
+      'settings.blurBgDesc':'Blur effect on the app background',
+      'settings.soundVibrate':'Sound & Vibration',
+      'settings.sfx':'Sound Effects',
+      'settings.sfxDesc':'Click sound on buttons & interactions',
+      'settings.vibrate':'Vibration',
+      'settings.vibrateDesc':'Vibrate when pressing buttons',
+      'settings.volume':'Volume',
+      'settings.language':'Language',
+
+      'nav.back':'Back',
+      'nav.home':'HOME',
+
+      'nameModal.title':'CHANGE DISPLAY NAME',
+      'nameModal.sub':'Maximum 12 characters',
+      'nameModal.placeholder':'Enter name...',
+      'nameModal.cancel':'CANCEL',
+      'nameModal.save':'SAVE',
+
+      'home.role':'ROLE',
+      'home.prime':'PRIME',
+      'home.version':'VERSION',
+      'home.user':'USERS',
+      'home.safe':'SAFE',
+      'home.mainMenu':'⚡ Main Menu',
+      'home.primeCalcDesc':'Calculate Free Fire Prime price',
+      'home.suntikLikeTitle':'FF LIKE BOOST',
+      'home.suntikLikeDesc':'Add likes to your Free Fire profile',
+      'home.botGloryDesc':'Free Fire guild activity booster bot',
+      'home.tokoTitle':'ZUSMO STORE',
+      'home.tokoDesc':'Top up & marketplace',
+      'home.apkTitle':'ZUSMO APK',
+      'home.apkDesc':'Download all app versions',
+      'home.topupTitle':'GAME TOP UP',
+      'home.topupDesc':'Your favorite games',
+      'home.community':'🌐 Community',
+      'home.devTag':'DEV',
+
+      'notif.title':'Notifications',
+      'notif.subtitle':'Latest app info & updates',
+      'notif.updateTitle':'APP FEATURE UPDATE',
+      'notif.item1Title':'In-App Keyboard',
+      'notif.item1Desc':'Built-in keyboard right in the app, faster and more convenient!',
+      'notif.item2Title':'Change Profile Name',
+      'notif.item2Desc':'You can now change your profile name however you like!',
+
+      'apk.subtitle':'Choose APK version'
+    }
+  };
+
+  function applyLanguage(lang){
+    var dict = I18N_DICT[lang] || I18N_DICT.id;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(dict[key]) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-placeholder');
+      if(dict[key]) el.setAttribute('placeholder', dict[key]);
+    });
+    var optId = document.getElementById('langOptId');
+    var optEn = document.getElementById('langOptEn');
+    if(optId && optEn){
+      optId.classList.toggle('active', lang==='id');
+      optEn.classList.toggle('active', lang==='en');
+    }
+  }
+
+  window.onSetLanguage = function(lang){
+    localStorage.setItem(LS_LANG, lang);
+    applyLanguage(lang);
+  };
+
   window.openSettingsPanel = function(){
     document.getElementById('toggleAnimasi').checked = getAnimasi();
+    renderBannerGrid();
+    renderRatioSwitch();
     document.getElementById('toggleBlur').checked = getBlur();
+    document.getElementById('toggleSfx').checked = getSfx();
+    document.getElementById('toggleVibrate').checked = getVibrate();
+    document.getElementById('volumeSlider').value = getVolume();
+    document.getElementById('volumeValue').textContent = getVolume()+'%';
+    applyLanguage(getLang());
     document.getElementById('settingsOverlay').classList.add('open');
   };
   window.closeSettingsPanel = function(){
@@ -4060,6 +4554,19 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     localStorage.setItem(LS_BLUR, checked ? '1' : '0');
     applyBlurState(checked);
   };
+  window.onToggleSfx = function(checked){
+    localStorage.setItem(LS_SFX, checked ? '1' : '0');
+    if(checked) window.ZUSMO.playClick();
+  };
+  window.onToggleVibrate = function(checked){
+    localStorage.setItem(LS_VIBRATE, checked ? '1' : '0');
+    if(checked) window.ZUSMO.vibrate(20);
+  };
+  window.onVolumeInput = function(val){
+    localStorage.setItem(LS_VOLUME, val);
+    document.getElementById('volumeValue').textContent = val+'%';
+    applyVolumeToMusic(val);
+  };
 
   document.getElementById('settingsOverlay').addEventListener('click', function(e){
     if(e.target === this) closeSettingsPanel();
@@ -4067,7 +4574,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 
   document.addEventListener('DOMContentLoaded', function(){
     applyBannerState(getAnimasi());
+    applyBannerRatio(getBannerRatio());
     applyBlurState(getBlur());
+    applyVolumeToMusic(getVolume());
+    applyLanguage(getLang());
   });
 })();
 </script>
@@ -4102,18 +4612,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 
 <script>
 const bg=document.getElementById('bgMusic');
-bg.volume=0.38;
 document.addEventListener('click',()=>bg.play().catch(()=>{}),{once:true});
-function playClick(){
- try{
- const c=new (window.AudioContext||window.webkitAudioContext)();
- const o=c.createOscillator(),g=c.createGain();
- o.type='square';o.frequency.value=900;
- g.gain.value=0.18;
- o.connect(g);g.connect(c.destination);
- o.start();g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+0.08);o.stop(c.currentTime+0.08);
- }catch(e){}
-}
+function playClick(){ if(window.ZUSMO) window.ZUSMO.playClick(); }
 document.addEventListener('click',e=>{
  if(e.target.closest('button,.tab,.vip-menu,.long-btn,.card,.apk-image,.download-btn,summary')) playClick();
 },true);
@@ -4121,33 +4621,7 @@ function toggleMusic(){
  if(bg.paused){bg.play();musicIcon.className='fa-solid fa-music';}
  else{bg.pause();musicIcon.className='fa-solid fa-volume-xmark';}
 }
-</script>
-
-<script>
-const bgMusic=document.getElementById('bgMusic');
-bgMusic.volume=0.35;
-let musicOn=true;
-function toggleMusic(){
- if(musicOn){bgMusic.pause();musicOn=false;document.getElementById('musicIcon').className='fa-solid fa-volume-xmark';}
- else{bgMusic.play().catch(()=>{});musicOn=true;document.getElementById('musicIcon').className='fa-solid fa-music';}
-}
-function playClick(){
- const ctx=window._ctx||(window._ctx=new (window.AudioContext||window.webkitAudioContext)());
- if(ctx.state==='suspended') ctx.resume();
- const o=ctx.createOscillator(),g=ctx.createGain();
- o.type='triangle';
- o.frequency.setValueAtTime(1400,ctx.currentTime);
- o.frequency.exponentialRampToValueAtTime(700,ctx.currentTime+0.05);
- g.gain.setValueAtTime(0.25,ctx.currentTime);
- g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.08);
- o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.08);
-}
-document.addEventListener('pointerdown',()=>{bgMusic.play().catch(()=>{});},{once:true});
-document.addEventListener('click',e=>{
- if(e.target.closest('button,.card,.long-btn,.vip-menu,.tab,.apk-image,.download-btn,summary')){
-   playClick();
- }
-},true);
+document.addEventListener('pointerdown',()=>{bg.play().catch(()=>{});},{once:true});
 </script>
 
 <script>
@@ -4273,7 +4747,7 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
         btn.textContent=labelFor(k);
         var press=function(){
           btn.classList.add('pressed');
-          if(navigator.vibrate){ try{navigator.vibrate(8);}catch(e){} }
+          if(window.ZUSMO){ try{window.ZUSMO.vibrate(8);}catch(e){} }
         };
         var release=function(){ btn.classList.remove('pressed'); stopRepeat(); };
         var repeatTimer=null, repeatInterval=null;
@@ -4289,7 +4763,7 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
             repeatTimer=setTimeout(function(){
               repeatInterval=setInterval(function(){
                 handleKey(k);
-                if(navigator.vibrate){ try{navigator.vibrate(5);}catch(e){} }
+                if(window.ZUSMO){ try{window.ZUSMO.vibrate(5);}catch(e){} }
               },45);
             },350);
           }
