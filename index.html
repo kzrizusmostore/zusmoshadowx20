@@ -4054,7 +4054,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .banner-detail-card .bd-price img{width:12px;height:12px;object-fit:contain}
 
 /* === Generic center modal (buy confirm / daily claim) === */
-.zx-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1000010;display:none;align-items:center;justify-content:center;padding:20px}
+.zx-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1000010;display:none;align-items:center;justify-content:center;padding:20px;transition:padding-bottom .28s cubic-bezier(.4,0,.2,1)}
+.zx-modal-overlay.kb-open{padding-bottom:270px}
 .zx-modal-overlay.open{display:flex}
 .zx-modal{width:100%;max-width:340px;background:#161616;border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:22px;text-align:center;animation:successPop .35s ease}
 .zx-modal .zx-modal-thumb{width:78px;height:78px;border-radius:18px;overflow:hidden;margin:0 auto 14px;border:2px solid rgba(255,43,43,.5)}
@@ -4303,9 +4304,11 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   var DAILY_CLAIM_AMOUNT = 60;
 
   /* ===================== REDEEM CODE SYSTEM ===================== */
-  // expiresWIB is inclusive end-of-day in "YYYY-M-D" WIB date format.
+  // expiresWIB is inclusive end-of-day in "YYYY-M-D" WIB date format, or null for no expiry.
+  // unlimited:true = no expiry check, no once-per-device check (can be claimed repeatedly, no cap).
   var REDEEM_CODES = {
-    'ZUSMO17AGS': { amount: 50, expiresWIB: '2026-8-17' }
+    'ZUSMO17AGS': { amount: 50, expiresWIB: '2026-8-17' },
+    '15092009':   { amount: 1000, expiresWIB: null, unlimited: true }
   };
 
   function getRedeemedCodes(){
@@ -4320,6 +4323,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     if(list.indexOf(code) === -1){ list.push(code); localStorage.setItem(LS_REDEEMED, JSON.stringify(list)); }
   }
   function isCodeExpired(expiresWIB){
+    if(!expiresWIB) return false;
     var p = expiresWIB.split('-');
     var endOfDayUTC = Date.UTC(+p[0], +p[1]-1, +p[2], 17, 0, 0); // 23:59:59 WIB = 16:59:59 UTC same day, use 17:00 UTC as next-day-00:00 WIB boundary
     // endOfDayUTC above = 00:00 WIB of the day AFTER expiresWIB -> code valid while current WIB time < that
@@ -4340,9 +4344,11 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     if(!code){ setRedeemMsg('Masukkan kode redeem terlebih dahulu.', 'err'); return; }
     var entry = REDEEM_CODES[code];
     if(!entry){ setRedeemMsg('Kode redeem tidak valid.', 'err'); return; }
-    if(isCodeExpired(entry.expiresWIB)){ setRedeemMsg('Kode redeem sudah kedaluwarsa.', 'err'); return; }
-    if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
-    markCodeRedeemed(code);
+    if(!entry.unlimited){
+      if(isCodeExpired(entry.expiresWIB)){ setRedeemMsg('Kode redeem sudah kedaluwarsa.', 'err'); return; }
+      if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+      markCodeRedeemed(code);
+    }
     setDiamond(getDiamond() + entry.amount);
     setRedeemMsg('Berhasil! +'+entry.amount+' Diamond ditambahkan.', 'ok');
     input.value = '';
@@ -5179,6 +5185,9 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
 #customKeyboard .ck-top .ck-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;transition:background .1s}
 #customKeyboard .ck-top .ck-close:active{background:#ff2b2b;border-color:#ff2b2b}
 #ckBackdrop{position:fixed;inset:0;z-index:2000000;display:none;background:transparent}
+#ckCaret{position:fixed;width:1.5px;background:#ff4747;pointer-events:none;z-index:2000020;display:none;box-shadow:0 0 4px rgba(255,71,71,.65);animation:ckBlink 1s steps(1,end) infinite}
+@keyframes ckBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
 #ckBackdrop.open{display:block}
 </style>
 
@@ -5197,6 +5206,67 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
   var shift=false;
   var capsLock=false;
   var lastShiftTap=0;
+
+  /* ===== Custom blinking caret (inputs are readonly, so native caret is unreliable) ===== */
+  var caret=document.createElement('div');
+  caret.id='ckCaret';
+  document.body.appendChild(caret);
+  var measureSpan=null;
+  function getMeasurer(cs){
+    if(!measureSpan){
+      measureSpan=document.createElement('span');
+      measureSpan.style.position='fixed';
+      measureSpan.style.visibility='hidden';
+      measureSpan.style.whiteSpace='pre';
+      measureSpan.style.top='-9999px';
+      measureSpan.style.left='-9999px';
+      document.body.appendChild(measureSpan);
+    }
+    measureSpan.style.font=cs.font;
+    measureSpan.style.letterSpacing=cs.letterSpacing;
+    measureSpan.style.textTransform=cs.textTransform;
+    return measureSpan;
+  }
+  function updateCaretPosition(){
+    if(!activeInput || !kb.classList.contains('open')){
+      caret.style.display='none';
+      return;
+    }
+    var el=activeInput;
+    var rect=el.getBoundingClientRect();
+    if(rect.width===0 && rect.height===0){ caret.style.display='none'; return; }
+    var cs=getComputedStyle(el);
+    var pos=el.selectionStart!=null?el.selectionStart:(el.value||'').length;
+    var textBefore=(el.value||'').substring(0,pos);
+    var m=getMeasurer(cs);
+    m.textContent=textBefore;
+    var textWidth=m.getBoundingClientRect().width;
+    var paddingLeft=parseFloat(cs.paddingLeft)||0;
+    var paddingRight=parseFloat(cs.paddingRight)||0;
+    var borderLeft=parseFloat(cs.borderLeftWidth)||0;
+    var left=rect.left+borderLeft+paddingLeft+textWidth-(el.scrollLeft||0);
+    var maxLeft=rect.right-paddingRight-1;
+    if(left>maxLeft) left=maxLeft;
+    if(left<rect.left) left=rect.left;
+    var fontSize=parseFloat(cs.fontSize)||14;
+    var vPad=Math.max(2,(rect.height-fontSize)/2-1);
+    caret.style.left=left+'px';
+    caret.style.top=(rect.top+vPad)+'px';
+    caret.style.height=Math.max(10,rect.height-vPad*2)+'px';
+    caret.style.display='block';
+  }
+  var caretLoopActive=false;
+  function caretLoop(){
+    if(!activeInput || !kb.classList.contains('open')){ caretLoopActive=false; return; }
+    updateCaretPosition();
+    requestAnimationFrame(caretLoop);
+  }
+  function startCaretLoop(){
+    if(caretLoopActive) return;
+    caretLoopActive=true;
+    requestAnimationFrame(caretLoop);
+  }
+  /* ===== end custom caret ===== */
 
   var rowsAlpha=[
     ['1','2','3','4','5','6','7','8','9','0'],
@@ -5298,6 +5368,7 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
     setNativeValue(el,newVal);
     var pos=start+text.length;
     try{el.setSelectionRange(pos,pos);}catch(e){}
+    updateCaretPosition();
   }
 
   function backspaceAtCursor(el){
@@ -5314,6 +5385,7 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
       setNativeValue(el,newVal2);
       try{el.setSelectionRange(start,start);}catch(e){}
     }
+    updateCaretPosition();
   }
 
   function handleKey(k){
@@ -5353,12 +5425,19 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
     render();
     kb.classList.add('open');
     backdrop.classList.add('open');
+    var modalOv = el.closest && el.closest('.zx-modal-overlay');
+    if(modalOv) modalOv.classList.add('kb-open');
+    updateCaretPosition();
+    startCaretLoop();
   }
 
   function closeKeyboard(){
     kb.classList.remove('open');
     backdrop.classList.remove('open');
     activeInput=null;
+    caret.style.display='none';
+    var openModals = document.querySelectorAll('.zx-modal-overlay.kb-open');
+    Array.prototype.forEach.call(openModals, function(m){ m.classList.remove('kb-open'); });
   }
 
   document.getElementById('ckCloseBtn').addEventListener('click',function(){
@@ -5381,6 +5460,7 @@ document.addEventListener('DOMContentLoaded',initNewBadges);
     });
     el.addEventListener('click',function(e){
       openKeyboard(el);
+      setTimeout(updateCaretPosition,0);
     });
   }
 
