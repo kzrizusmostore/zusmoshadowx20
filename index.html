@@ -16,6 +16,7 @@ h1{text-align:center;font-size:2.2rem}.subtitle{text-align:center;color:#ddd;mar
 .apklogo{width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:2px solid #ff4747}
 .long-btn{display:flex;align-items:center;gap:15px;padding:18px;margin-top:18px}.long-btn i{font-size:22px;color:#ff4747}
 .footer{text-align:center;color:#bbb;margin:25px 0}
+.notif-date{padding:0 18px 16px;text-align:right;font-size:.68rem;font-weight:600;letter-spacing:.3px;color:rgba(255,255,255,.42)}
 .page{display:none;opacity:0}.active{display:block;animation:fadePage .6s ease forwards}@keyframes fadePage{from{opacity:0}to{opacity:1}}
 .back{background:#ff2b2b;border:none;color:#fff;padding:18px 18px;border-radius:8px;margin-bottom:20px}
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s linear}@keyframes rip{to{transform:scale(4);opacity:0}}
@@ -1542,6 +1543,16 @@ object-fit:contain;
 <div class="page" id="notifikasi">
 <h1 style="font-size:1.6rem" data-i18n="notif.title">Notifikasi</h1>
 <p class="subtitle" data-i18n="notif.subtitle">Informasi &amp; update terbaru aplikasi</p>
+
+<div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
+<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">UPDATE FITUR BARU</h3></div>
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/mbsbt1.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
+<div style="padding:4px 18px 20px;line-height:1.7;color:#ddd;font-size:14px">
+<p><b style="color:#fff">15+ Pilihan Banner</b><br><span>tersedia untuk kamu yang gampang bosan</span></p>
+</div>
+<div class="notif-date">14 Agustus</div>
+</div>
+
 <div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
 <div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747" data-i18n="notif.updateTitle">UPDATE FITUR APLIKASI</h3></div>
 <img loading="lazy" decoding="async" src="https://files.catbox.moe/n9mn0g.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
@@ -1549,6 +1560,7 @@ object-fit:contain;
 <p><b style="color:#fff" data-i18n="notif.item1Title">Keyboard dari Aplikasi</b><br><span data-i18n="notif.item1Desc">Keyboard bawaan langsung dari aplikasi, lebih cepat dan praktis!</span></p>
 <p style="margin-top:12px"><b style="color:#fff" data-i18n="notif.item2Title">Ganti Nama Profile</b><br><span data-i18n="notif.item2Desc">Sekarang kamu bisa ganti nama profile sesuai keinginanmu!</span></p>
 </div>
+<div class="notif-date">12 Agustus</div>
 </div>
 </div>
 <div class="page" id="apk">
