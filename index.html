@@ -919,7 +919,11 @@ background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.08);
 display:flex;align-items:center;justify-content:center;
 transition:.25s;
+position:relative;
 }
+.notif-dot{position:absolute;top:2px;right:2px;width:8px;height:8px;border-radius:50%;background:#ff2b2b;border:1.5px solid #0a0a0a;box-shadow:0 0 6px rgba(255,43,43,.8);display:none}
+.notif-dot.show{display:block}
+.diamond-widget{position:relative}
 .topbar-pro button:hover{
 border-color:#ff2b2b;
 box-shadow:0 0 14px rgba(255,43,43,.35);
@@ -1397,7 +1401,7 @@ object-fit:contain;
 <button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
 <div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
 <div class="center" id="topbarCenter"></div>
-<div class="right" id="topbarRight"><button class="diamond-widget" onclick="openDailyClaim()"><img src="https://files.catbox.moe/onzrii.png" alt="diamond" width="11" height="11" style="width:11px;height:11px;object-fit:contain;display:block"/><span id="diamondBalanceTop">0</span></button><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="showPage('notifikasi')"><i class="fa-solid fa-bell"></i></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i></button></div>
+<div class="right" id="topbarRight"><button class="diamond-widget" onclick="openDailyClaim()"><img src="https://files.catbox.moe/onzrii.png" alt="diamond" width="11" height="11" style="width:11px;height:11px;object-fit:contain;display:block"/><span id="diamondBalanceTop">0</span><span class="notif-dot" id="diamondDot"></span></button><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="showPage('notifikasi')"><i class="fa-solid fa-bell"></i><span class="notif-dot" id="notifDot"></span></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i><span class="notif-dot" id="settingsDot"></span></button></div>
 </div>
 <div class="app-bottombar">
 <div class="tab" onclick="showPage('shadowmenu')">
@@ -1543,6 +1547,15 @@ object-fit:contain;
 <div class="page" id="notifikasi">
 <h1 style="font-size:1.6rem" data-i18n="notif.title">Notifikasi</h1>
 <p class="subtitle" data-i18n="notif.subtitle">Informasi &amp; update terbaru aplikasi</p>
+
+<div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
+<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">DIAMOND HARIAN & KODE REDEEM</h3></div>
+<img loading="lazy" decoding="async" src="https://files.catbox.moe/grcdbb.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
+<div style="padding:4px 18px 20px;line-height:1.7;color:#ddd;font-size:14px">
+<p><b style="color:#fff">Kode : ZUSMO17AGS</b><br><span><i>FREE +50 DIAMOND 💎</i></span><br><span style="color:#ff8080">berakhir 17 agustus</span></p>
+</div>
+<div class="notif-date">14 Agustus</div>
+</div>
 
 <div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
 <div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">UPDATE FITUR BARU</h3></div>
@@ -2788,6 +2801,7 @@ function showHome(){showPage('home')}
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+if(id==='notifikasi' && typeof markNotifSeen==='function') markNotifSeen();
 
 var homeTabs=['home','shadowmenu','beta','emote','lvl'];
 var bottomBar=document.querySelector('.app-bottombar');
@@ -3967,7 +3981,7 @@ function openSettings(){alert('Pengaturan');}
 <script>
 function toggleMenu(){alert('Menu akan segera tersedia');}
 function openNotifications(){alert('Belum ada notifikasi baru');}
-function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } }
+function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } if(typeof markSettingsSeen==='function') markSettingsSeen(); }
 </script>
 
 <!-- ===== SETTINGS PANEL ===== -->
@@ -4429,6 +4443,15 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     return isNaN(v) ? 0 : v;
   }
 
+  function updateDiamondDot(){
+    var dot = document.getElementById('diamondDot');
+    if(!dot) return;
+    dot.classList.toggle('show', !hasClaimedToday());
+  }
+  window.updateDiamondDot = updateDiamondDot;
+  document.addEventListener('DOMContentLoaded', updateDiamondDot);
+  setInterval(updateDiamondDot, 30000);
+
   window.doClaimDaily = function(){
     if(hasClaimedToday()) return;
     var today = getWIBDateStr();
@@ -4443,6 +4466,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     localStorage.setItem(LS_CLAIM_STREAK, String(streak));
     setDiamond(getDiamond() + DAILY_CLAIM_AMOUNT);
     renderDailyClaimUI();
+    updateDiamondDot();
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
 
@@ -4450,6 +4474,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var grid = document.getElementById('claimWeekGrid');
     if(!grid) return;
     var claimedToday = hasClaimedToday();
+    updateDiamondDot();
     var streak = getClaimStreak();
     var currentSlot = claimedToday ? streak : (streak >= 7 ? 1 : streak + 1);
     var html = '';
@@ -5488,6 +5513,40 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
 
   // rescan periodically as a safety net for dynamically shown pages
   setInterval(scanInputs,1500);
+})();
+</script>
+
+<script>
+(function(){
+  var LATEST_NOTIF_ID = '2026-08-14-b'; // bump this whenever a new notif card is added, so old "seen" state resets
+  var LS_SEEN_NOTIF = 'zusmo_seen_notif_id';
+  var LS_SEEN_SETTINGS = 'zusmo_seen_settings';
+
+  function refreshNotifDot(){
+    var dot = document.getElementById('notifDot');
+    if(!dot) return;
+    var seen = localStorage.getItem(LS_SEEN_NOTIF);
+    dot.classList.toggle('show', seen !== LATEST_NOTIF_ID);
+  }
+  window.markNotifSeen = function(){
+    localStorage.setItem(LS_SEEN_NOTIF, LATEST_NOTIF_ID);
+    refreshNotifDot();
+  };
+
+  function refreshSettingsDot(){
+    var dot = document.getElementById('settingsDot');
+    if(!dot) return;
+    dot.classList.toggle('show', localStorage.getItem(LS_SEEN_SETTINGS) !== '1');
+  }
+  window.markSettingsSeen = function(){
+    localStorage.setItem(LS_SEEN_SETTINGS, '1');
+    refreshSettingsDot();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    refreshNotifDot();
+    refreshSettingsDot();
+  });
 })();
 </script>
 </body></html>
