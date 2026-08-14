@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>KZRIZUSMO</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><title>KZRIZUSMO</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Outfit',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:#000;color:#fff;min-height:100vh;user-select:none;overflow-x:hidden}body.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
+::selection{background:#ff2b2b;color:#fff}
+::-moz-selection{background:#ff2b2b;color:#fff}
+body{background:#000;color:#fff;min-height:100vh;overflow-x:hidden}body.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
 body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.75));backdrop-filter:blur(4px);z-index:-1}
 .container{max-width:900px;margin:auto;padding:20px}
 .logo{width:150px;height:150px;border-radius:50%;display:block;margin:10px auto;object-fit:cover;border:4px solid #ff2b2b;box-shadow:none;animation:float 4s ease-in-out infinite}
@@ -922,7 +924,7 @@ transition:.25s;
 position:relative;
 }
 .notif-dot{position:absolute;top:2px;right:2px;width:8px;height:8px;border-radius:50%;background:#ff2b2b;border:1.5px solid #0a0a0a;box-shadow:0 0 6px rgba(255,43,43,.8);display:none}
-.notif-dot.show{display:block}
+.notif-dot.dot-show{display:block}
 .diamond-widget{position:relative}
 .topbar-pro button:hover{
 border-color:#ff2b2b;
@@ -1388,7 +1390,7 @@ object-fit:contain;
 }
 .hm-footer span{color:#ff2b2b;text-shadow:0 0 8px rgba(255,43,43,.4);}
 </style>
-</head><body oncontextmenu="return false">
+</head><body>
 <audio id="bgMusic" src="https://files.catbox.moe/mbkpbs.mp3" loop autoplay></audio>
 <audio id="clickSound" preload="auto" src="data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
 
@@ -1549,10 +1551,10 @@ object-fit:contain;
 <p class="subtitle" data-i18n="notif.subtitle">Informasi &amp; update terbaru aplikasi</p>
 
 <div class="notif-card" style="max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden">
-<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">DIAMOND HARIAN & KODE REDEEM</h3></div>
+<div style="padding:16px 18px 0"><h3 style="font-size:1.05rem;letter-spacing:.5px;color:#ff4747">𝗞𝗢𝗗𝗘 𝗥𝗘𝗗𝗘𝗘𝗠 𝗞𝗭𝗥𝗜𝗭𝗨𝗦𝗠𝗢 𝗫𝟮𝟬</h3></div>
 <img loading="lazy" decoding="async" src="https://files.catbox.moe/grcdbb.jpg" style="width:100%;aspect-ratio:16/7;object-fit:cover;display:block;margin:12px 0">
 <div style="padding:4px 18px 20px;line-height:1.7;color:#ddd;font-size:14px">
-<p><b style="color:#fff">Kode : ZUSMO17AGS</b><br><span><i>FREE +50 DIAMOND 💎</i></span><br><span style="color:#ff8080">berakhir 17 agustus</span></p>
+<p><b style="color:#fff">Kode : ZUSMO17AGS</b><br><span><i>FREE +50 DIAMOND 💎</i></span><br><span style="color:#ff8080">&gt; berakhir 17 agustus</span></p>
 </div>
 <div class="notif-date">14 Agustus</div>
 </div>
@@ -2834,7 +2836,7 @@ if(homeTabs.indexOf(id)!==-1){
 
 
 
-document.addEventListener('selectstart',e=>e.preventDefault());document.addEventListener('copy',e=>e.preventDefault());document.addEventListener('dragstart',e=>e.preventDefault());
+
 const bg=new Image();
 bg.src='https://files.catbox.moe/jk23mr.jpg';
 bg.onload=()=>{
@@ -3266,82 +3268,6 @@ function nextBanner(){
 }
 
 setInterval(nextBanner, 3000);
-</script>
-<script>
-const banners = [
-  "https://files.catbox.moe/azd7bw.jpg",
-  "https://files.catbox.moe/qv7019.jpg",
-  "https://files.catbox.moe/kl35y3.jpg",
-  "https://files.catbox.moe/jromt0.jpg"
-];
-
-let i = 0;
-let showA = true;
-
-const A = document.getElementById("bannerA");
-const B = document.getElementById("bannerB");
-
-function nextBanner(){
-  i = (i + 1) % banners.length;
-
-  if(showA){
-    B.src = banners[i];
-    B.style.opacity = "1";
-    A.style.opacity = "0";
-  }else{
-    A.src = banners[i];
-    A.style.opacity = "1";
-    B.style.opacity = "0";
-  }
-
-  showA = !showA;
-}
-
-// 5 seconds interval
-setInterval(nextBanner, 5000);
-</script>
-<script>
-const imgs = [
- document.getElementById("b0"),
- document.getElementById("b1"),
- document.getElementById("b2"),
- document.getElementById("b3")
-];
-
-let current = 0;
-let next = 1;
-
-const DURATION = 10000;
-const STEP = 500;
-
-function runTransition(){
-  let t = 0;
-
-  const interval = setInterval(()=>{
-    t += STEP;
-    let p = t / DURATION;
-
-    if(p > 1) p = 1;
-
-    // current fades out, next fades in (true blend)
-    imgs[current].style.opacity = 1 - p;
-    imgs[next].style.opacity = p;
-
-    if(t >= DURATION){
-      clearInterval(interval);
-
-      imgs[current].style.opacity = 0;
-      imgs[next].style.opacity = 1;
-
-      current = next;
-      next = (next + 1) % imgs.length;
-
-      setTimeout(runTransition, 0);
-    }
-  }, STEP);
-}
-
-runTransition();
 </script>
 <style>
 /* ===== FINAL CLEAN UI PATCH ===== */
@@ -3974,13 +3900,7 @@ document.querySelectorAll('.shadow-banner, .banner.shadow, .preview.shadow, .car
 });
 </script>
 <script>
-function toggleMenu(){alert('Menu');}
-function openNotifications(){alert('Notifikasi');}
-function openSettings(){alert('Pengaturan');}
-</script>
-<script>
 function toggleMenu(){alert('Menu akan segera tersedia');}
-function openNotifications(){alert('Belum ada notifikasi baru');}
 function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } if(typeof markSettingsSeen==='function') markSettingsSeen(); }
 </script>
 
@@ -4446,7 +4366,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   function updateDiamondDot(){
     var dot = document.getElementById('diamondDot');
     if(!dot) return;
-    dot.classList.toggle('show', !hasClaimedToday());
+    dot.classList.toggle('dot-show', !hasClaimedToday());
   }
   window.updateDiamondDot = updateDiamondDot;
   document.addEventListener('DOMContentLoaded', updateDiamondDot);
@@ -5526,7 +5446,7 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
     var dot = document.getElementById('notifDot');
     if(!dot) return;
     var seen = localStorage.getItem(LS_SEEN_NOTIF);
-    dot.classList.toggle('show', seen !== LATEST_NOTIF_ID);
+    dot.classList.toggle('dot-show', seen !== LATEST_NOTIF_ID);
   }
   window.markNotifSeen = function(){
     localStorage.setItem(LS_SEEN_NOTIF, LATEST_NOTIF_ID);
@@ -5536,7 +5456,7 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
   function refreshSettingsDot(){
     var dot = document.getElementById('settingsDot');
     if(!dot) return;
-    dot.classList.toggle('show', localStorage.getItem(LS_SEEN_SETTINGS) !== '1');
+    dot.classList.toggle('dot-show', localStorage.getItem(LS_SEEN_SETTINGS) !== '1');
   }
   window.markSettingsSeen = function(){
     localStorage.setItem(LS_SEEN_SETTINGS, '1');
@@ -5615,27 +5535,80 @@ img#shadowBanner,
   pointer-events: none !important;
 }
 
-</style><script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* ================= PULL TO REFRESH (no visual indicator) ================= */
-  var startY=0,pulling=false,threshold=80,currentPull=0;
+</style><style>
+html,body{
+  overscroll-behavior-y:contain; /* matikan pull-to-refresh bawaan browser */
+  touch-action:pan-y pan-x;      /* blok pinch-zoom, tetap izinkan swipe/drag */
+}
+/* Warna highlight saat teks di-blok/disalin (ganti biru default sistem -> merah) */
+::selection{background:#ff2b2b;color:#fff;}
+::-moz-selection{background:#ff2b2b;color:#fff;}
+</style>
+<script>
+(function(){
+  /* ================= DETEKSI MODE APLIKASI (WebView / PWA standalone) ================= */
+  function isAppMode(){
+    return window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true
+      || /wv/i.test(navigator.userAgent) // Android WebView
+      || window.__isNativeApp === true;  // set flag ini manual dari wrapper APK jika perlu
+  }
+
+  /* ================= BLOK ZOOM (pinch, double-tap, ctrl+scroll, ctrl +/-) ================= */
+  document.addEventListener('gesturestart',function(e){ e.preventDefault(); });
+  document.addEventListener('gesturechange',function(e){ e.preventDefault(); });
+  document.addEventListener('gestureend',function(e){ e.preventDefault(); });
+
+  document.addEventListener('touchmove',function(e){
+    if(e.touches && e.touches.length>1) e.preventDefault(); // cegah pinch 2 jari
+  },{passive:false});
+
+  var lastTouchEnd=0;
+  document.addEventListener('touchend',function(e){
+    var now=Date.now();
+    if(now-lastTouchEnd<=300) e.preventDefault(); // cegah double-tap zoom
+    lastTouchEnd=now;
+  },false);
+
+  document.addEventListener('wheel',function(e){
+    if(e.ctrlKey) e.preventDefault(); // cegah zoom ctrl+scroll di desktop
+  },{passive:false});
+
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if((e.ctrlKey||e.metaKey) && (k==='+'||k==='-'||k==='='||k==='0')) e.preventDefault(); // cegah zoom keyboard
+  });
+
+  /* ================= BLOK REFRESH (F5, Ctrl/Cmd+R) ================= */
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='F5' || ((e.ctrlKey||e.metaKey) && (k==='r'||k==='R'))){
+      e.preventDefault();
+    }
+  });
+
+  /* opsional: konfirmasi sebelum keluar/reload manual (unload lain, mis. tombol back browser) */
+  // window.addEventListener('beforeunload', function(e){ e.preventDefault(); e.returnValue=''; });
+
+  /* ================= PULL-TO-REFRESH: matikan reload, tapi TETAP bisa ditarik (drag/swipe) di mode aplikasi ================= */
+  var startY=0, pulling=false;
   document.addEventListener('touchstart',function(e){
     if(window.scrollY<=0){ startY=e.touches[0].clientY; pulling=true; }
   },{passive:true});
+
   document.addEventListener('touchmove',function(e){
     if(!pulling) return;
     var dy=e.touches[0].clientY-startY;
-    if(dy>0 && window.scrollY<=0){
-      currentPull=Math.min(dy,100);
+    // Saat di posisi paling atas & user menarik ke bawah di BROWSER biasa, tahan supaya tidak memicu refresh native.
+    if(dy>0 && window.scrollY<=0 && !isAppMode()){
+      e.preventDefault();
     }
-  },{passive:true});
-  document.addEventListener('touchend',function(e){
-    if(!pulling) return;
+    // Di mode aplikasi (WebView/PWA), gesture drag/swipe dibiarkan berjalan normal (tidak di-preventDefault).
+  },{passive:false});
+
+  document.addEventListener('touchend',function(){
     pulling=false;
-    if(currentPull>=threshold){
-      setTimeout(function(){ location.reload(); },300);
-    }
-    currentPull=0;
+    // Tidak ada lagi location.reload() -- refresh via pull dinonaktifkan total.
   },{passive:true});
-});
+})();
 </script>
