@@ -1503,6 +1503,12 @@ object-fit:contain;
   <span class="hm-new-badge" id="newBadge_suntiklike"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
+<div class="hm-menu" onclick="dismissNewBadge('nickhijau');showPage('nickhijau')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-leaf"></i></div>
+  <div class="hm-menu-body"><h4>NICKNAME HIJAU</h4><small>Suntik followers Craftland</small></div>
+  <span class="hm-new-badge" id="newBadge_nickhijau"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="dismissNewBadge('botglory');showPage('botglory')">
   <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
   <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small data-i18n="home.botGloryDesc">Bot booster keaktifan guild Free Fire</small></div>
@@ -2101,6 +2107,522 @@ function orderSuntikLike(){
     '❤️ Paket : '+p.like.toLocaleString('id-ID')+' Like\n'+
     '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n'+
     '📅 Estimasi Selesai : ± '+p.days+' Hari (limit 220 like/hari)\n\n'+
+    'Mohon diproses ya, terima kasih.';
+
+  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+
+<!-- NICKNAME HIJAU PAGE -->
+<div class="page" id="nickhijau">
+<style>
+#nickhijau{padding-bottom:80px;}
+
+/* NICKNAME HIJAU BANNER SLIDER (manual + numbered toggle) */
+.nh-slider{position:relative;overflow:hidden;}
+.nh-slide-img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;
+  transition:opacity .5s ease-in-out;
+}
+.nh-slide-img.active{opacity:1;}
+.nh-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:30px;height:30px;border-radius:50%;border:none;
+  background:rgba(0,0,0,.45);color:#fff;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:4;backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.25);transition:.2s;
+}
+.nh-nav:hover{background:rgba(255,43,43,.55);}
+.nh-nav.prev{left:8px;}
+.nh-nav.next{right:8px;}
+.nh-slide-toggle{
+  position:absolute;bottom:8px;left:0;right:0;
+  display:flex;justify-content:center;gap:7px;
+  z-index:3;
+}
+.nh-toggle-num{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:#fff;
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.4);
+  cursor:pointer;transition:.2s;user-select:none;
+}
+.nh-toggle-num.active{
+  background:#ff2b2b;border-color:#ff2b2b;
+  box-shadow:0 0 10px rgba(255,43,43,.75);
+  color:#fff;
+}
+
+.nh-desc-box{
+  background:rgba(255,43,43,.07);
+  border:1px solid rgba(255,43,43,.3);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:11.5px;
+  color:#ffb3b3;
+  line-height:1.75;
+  margin-bottom:14px;
+}
+.nh-desc-box b{color:#ff6b6b;}
+.nh-desc-item{display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;}
+.nh-desc-item:last-child{margin-bottom:0;}
+.nh-desc-item i{color:#ff5252;font-size:13px;margin-top:2px;flex-shrink:0;width:14px;text-align:center;}
+
+/* PROOF NICKNAME HIJAU (image + copyable ID) */
+.nh-proof-id{
+  flex:0 0 auto;
+  display:flex;flex-direction:column;gap:5px;
+  align-items:center;
+  width:100%;
+}
+.nh-proof-id-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  width:100%;
+  background:rgba(255,43,43,.08);
+  border:1px solid rgba(255,43,43,.32);
+  border-radius:10px;padding:9px 9px 9px 14px;
+}
+.nh-proof-id-val{
+  font-family:'Space Mono',monospace;
+  font-size:14px;font-weight:700;color:#fff;
+  letter-spacing:2.5px;
+}
+.nh-proof-copy-btn{
+  background:rgba(255,43,43,.9);border:none;
+  color:#fff;height:32px;padding:0 14px;
+  border-radius:8px;display:flex;align-items:center;
+  justify-content:center;gap:6px;cursor:pointer;font-size:11.5px;font-weight:700;
+  letter-spacing:.3px;
+  box-shadow:0 3px 10px rgba(255,43,43,.35);
+  transition:.18s;flex-shrink:0;
+}
+.nh-proof-copy-btn:active{transform:scale(.92);}
+.nh-proof-desc{
+  font-size:10.5px;color:#999;text-align:center;
+  line-height:1.55;margin:2px 0 16px;
+}
+
+/* INFO BUTTON DI BANNER (SLIDE 7) */
+.nh-info-btn{
+  position:absolute;top:10px;right:10px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
+  color:#fff;display:none;align-items:center;justify-content:center;
+  font-size:14px;cursor:pointer;z-index:5;
+  backdrop-filter:blur(4px);
+}
+.nh-info-btn.nh-open{display:flex;}
+
+/* POPUP CONTOH ID NICKNAME HIJAU */
+.nh-info-modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.75);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+  overflow:hidden !important;
+  overscroll-behavior:none;
+  touch-action:none;
+  z-index:1000020;
+}
+.nh-info-modal-overlay.nh-open{display:flex !important;animation:hmNameFadeIn .2s ease;}
+.nh-info-modal-card{
+  width:100%;max-width:340px;background:#181818;
+  border:1px solid rgba(255,43,43,.32);border-radius:20px;
+  padding:16px;text-align:center;position:relative;
+}
+.nh-info-modal-close{
+  position:absolute;top:10px;right:10px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:none;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;cursor:pointer;
+}
+.nh-info-modal-img-wrap{
+  width:100%;aspect-ratio:20/4.5;overflow:hidden;
+  border-radius:10px;margin:8px 0 14px;background:transparent;
+}
+.nh-info-modal-img{width:100%;height:100%;object-fit:contain;display:block;}
+
+/* NICKNAME PREVIEW TOOL (live gradient text over banner) */
+.nh-preview-row{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+}
+.nh-preview-img-wrap{
+  position:relative;flex:1 1 200px;
+  aspect-ratio:20/4.5;
+  overflow:hidden;border-radius:0;
+  background:transparent;
+}
+.nh-preview-bg{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.nh-preview-text{
+  position:absolute;top:25%;left:27%;
+  transform:translate(0,-50%);
+  text-align:left;
+  font-family:'Rajdhani','Outfit',sans-serif;
+  font-weight:800;font-size:clamp(28px,4.2vw,21px);
+  letter-spacing:.5px;white-space:nowrap;
+  max-width:92%;overflow:hidden;text-overflow:ellipsis;
+  background:linear-gradient(135deg,#F9FFEC 0%,#00FFB3 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  pointer-events:none;
+}
+.nh-preview-input-col{
+  flex:1 1 140px;min-width:140px;
+  display:flex;flex-direction:column;gap:5px;
+}
+.nh-preview-input{
+  width:100%;padding:13px 14px;
+  border-radius:12px;
+  background:rgba(255,43,43,.06);
+  border:1.5px solid rgba(255,43,43,.35);
+  color:#fff;font-size:14.5px;font-weight:700;
+  outline:none;letter-spacing:.4px;
+  transition:border .2s,box-shadow .2s,background .2s;
+}
+.nh-preview-input::placeholder{color:#4a4a4a;font-size:12.5px;font-weight:400;}
+.nh-preview-input:focus{
+  border-color:#ff2b2b;
+  box-shadow:0 0 0 3px rgba(255,43,43,.18);
+  background:rgba(255,43,43,.1);
+}
+.nh-preview-counter{
+  font-size:9.5px;color:#888;text-align:right;letter-spacing:.4px;
+}
+
+.nh-pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.nh-pack{
+  border:1.5px solid rgba(255,255,255,.09);
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  padding:14px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:.17s;
+  position:relative;overflow:hidden;
+  user-select:none;
+}
+.nh-pack:hover{border-color:rgba(255,43,43,.45);background:rgba(255,43,43,.05);}
+.nh-pack.on{
+  border-color:#ff2b2b;
+  background:linear-gradient(155deg,rgba(255,43,43,.18),rgba(60,0,0,.22));
+  box-shadow:0 0 14px rgba(255,43,43,.22);
+}
+.nh-pack.on::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#ff5252,transparent);
+}
+.nh-pack-f{display:block;font-size:18px;font-weight:900;color:#fff;letter-spacing:.3px;}
+.nh-pack-f small{font-size:9.5px;font-weight:700;color:#888;letter-spacing:1px;margin-left:2px;}
+.nh-pack.on .nh-pack-f small{color:#ffb3b3;}
+.nh-pack-price{font-size:14px;font-weight:800;color:#ff5252;margin-top:6px;text-shadow:0 0 8px rgba(255,43,43,.35);}
+.nh-pack-tag{
+  display:inline-block;margin-top:7px;padding:3px 9px;
+  border-radius:20px;font-size:9px;font-weight:700;
+  background:rgba(255,255,255,.06);color:#999;letter-spacing:.3px;
+}
+.nh-pack.on .nh-pack-tag{background:rgba(255,43,43,.2);color:#ffb3b3;}
+
+.nh-bonus-box{
+  background:rgba(255,180,0,.07);
+  border:1px solid rgba(255,180,0,.28);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:11.5px;
+  color:#e8c877;
+  line-height:1.65;
+  margin-bottom:14px;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.nh-bonus-box i{color:#ffb300;font-size:14px;margin-top:1px;flex-shrink:0;}
+
+.nh-wa-btn{
+  width:100%;padding:15px;border:none;border-radius:13px;
+  background:linear-gradient(135deg,#25D366 0%,#128c4a 100%);
+  color:#fff;font-size:13.5px;font-weight:800;
+  cursor:pointer;letter-spacing:.6px;
+  margin-bottom:6px;
+  box-shadow:0 5px 22px rgba(37,211,102,.25),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:.18s;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.nh-wa-btn:active{transform:scale(.975);}
+</style>
+
+<p class="pc-title"><span class="red">NICK</span>&nbsp;<span class="wht">HIJAU GRADIASI</span></p>
+<p class="pc-sub">Suntik Followers Craftland</p>
+
+<div class="pc-banner nh-slider" style="aspect-ratio:16/7;">
+  <img loading="lazy" decoding="async" class="nh-slide-img active" src="https://files.catbox.moe/vwxpq9.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/h96euf.png" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/ydx4gd.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/jjisve.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/8k6f8f.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/vqcyje.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <img loading="lazy" decoding="async" class="nh-slide-img" src="https://files.catbox.moe/0q29jt.jpg" alt="Nickname Hijau Gradiasi Craftland">
+  <button class="nh-nav prev" onclick="nhSlideMove(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="nh-nav next" onclick="nhSlideMove(1)"><i class="fa-solid fa-chevron-right"></i></button>
+  <button class="nh-info-btn nh-open" id="nhInfoBtn" onclick="openNhInfoModal()" type="button"><i class="fa-solid fa-info"></i></button>
+  <div class="nh-slide-toggle" id="nhToggle">
+    <span class="nh-toggle-num active" data-idx="0">1</span>
+    <span class="nh-toggle-num" data-idx="1">2</span>
+    <span class="nh-toggle-num" data-idx="2">3</span>
+    <span class="nh-toggle-num" data-idx="3">4</span>
+    <span class="nh-toggle-num" data-idx="4">5</span>
+    <span class="nh-toggle-num" data-idx="5">6</span>
+    <span class="nh-toggle-num" data-idx="6">7</span>
+  </div>
+</div>
+
+<div class="nh-desc-box">
+  <div class="nh-desc-item"><i class="fa-solid fa-leaf"></i><div>Nickname <b>hijau gradiasi</b> didapat dengan cara push level <b>Craftland</b> hingga mencapai <b>Level 6</b>, atau setara <b>60.000 point EXP Craftland</b>.</div></div>
+  <div class="nh-desc-item"><i class="fa-solid fa-users"></i><div><b>1 Followers Craftland = 100 Point EXP.</b> Semakin banyak followers yang kamu suntik, semakin cepat level Craftland naik.</div></div>
+</div>
+
+
+<!-- Card: Preview Nickname Hijau Gradiasi -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+    <div class="pc-head-text">
+      <h3>PREVIEW NICKNAME HIJAU</h3>
+      <p>Coba tampilan nickname kamu</p>
+    </div>
+  </div>
+  <div class="nh-preview-row">
+    <div class="nh-preview-img-wrap">
+      <img loading="lazy" decoding="async" class="nh-preview-bg" src="https://files.catbox.moe/vz7jpa.png" alt="Preview Nickname Hijau Gradiasi">
+      <span class="nh-preview-text" id="nhPreviewText">NICKNAME</span>
+    </div>
+    <div class="nh-preview-input-col">
+      <input class="nh-preview-input" id="nhPreviewInput" maxlength="12" type="text" placeholder="Ketik nickname kamu" oninput="updateNhPreview()"/>
+      <span class="nh-preview-counter" id="nhPreviewCounter">0/12</span>
+    </div>
+  </div>
+</div>
+
+<!-- Card 1: Pilih Paket Followers -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-leaf"></i></div>
+    <div class="pc-head-text">
+      <h3>PILIH PAKET FOLLOWERS</h3>
+      <p>Suntik followers Craftland</p>
+    </div>
+  </div>
+  <div class="nh-pack-grid" id="nhPackGrid"></div>
+</div>
+
+<!-- Card 2: Input ID -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-id-card"></i></div>
+    <div class="pc-head-text">
+      <h3>ID FREE FIRE</h3>
+      <p>Masukkan ID akun kamu</p>
+    </div>
+  </div>
+  <div class="pc-input-wrap" style="margin-bottom:0;">
+    <i class="pc-input-icon fa-solid fa-hashtag"></i>
+    <input class="pc-input" id="nhIdInput" inputmode="numeric" type="number" placeholder="Contoh : 5008131603"/>
+  </div>
+</div>
+
+<!-- Ringkasan -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-receipt"></i></div>
+    <div class="pc-head-text">
+      <h3>RINGKASAN ORDER</h3>
+      <p>Cek sebelum order</p>
+    </div>
+  </div>
+  <div class="pc-result show">
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-users"></i>Jumlah Followers</span>
+      <span class="pc-val" id="nhResFollowers">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-bolt"></i>Point EXP Craftland</span>
+      <span class="pc-val" id="nhResPoin">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-layer-group"></i>Auto Level</span>
+      <span class="pc-val" id="nhResLevel">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-gift"></i>Estimasi Bonus</span>
+      <span class="pc-val" id="nhResBonus">—</span>
+    </div>
+    <div class="pc-row">
+      <span class="pc-lbl"><i class="fa-solid fa-money-bill-wave"></i>Total Harga</span>
+      <span class="pc-val accent" id="nhResHarga">—</span>
+    </div>
+    <div class="pc-foot"><i class="fa-solid fa-circle-info"></i>Cukup 600 followers, nick kamu hijau gradiasi.</div>
+  </div>
+</div>
+
+<div class="nh-bonus-box">
+  <i class="fa-solid fa-gift"></i>
+  <div>
+    Setiap pembelian mendapatkan <b>bonus followers random</b>. Contoh: order paket <b>600 Followers</b>, kamu punya peluang mendapatkan <b>600–800 Followers Craftland</b>.
+  </div>
+</div>
+
+<button class="nh-wa-btn" onclick="orderNickHijau()">
+  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+</button>
+<p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+const nhPackages=[
+  {followers:600,price:150000,poin:60000,level:7,bonusMax:800},
+  {followers:1200,price:300000,poin:120000,level:7,bonusMax:1600},
+  {followers:1800,price:450000,poin:180000,level:7,bonusMax:2400},
+  {followers:2400,price:600000,poin:240000,level:7,bonusMax:3200},
+];
+let nhSelected=-1;
+
+(function(){
+  const g=document.getElementById('nhPackGrid');
+  if(!g)return;
+  nhPackages.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='nh-pack';
+    d.innerHTML='<span class="nh-pack-f">'+p.followers.toLocaleString('id-ID')+'<small>FOLLOWERS</small></span>'+
+      '<div class="nh-pack-price">Rp '+p.price.toLocaleString('id-ID')+'</div>'+
+      '<span class="nh-pack-tag">'+(p.poin/1000)+'RB POIN • LVL '+p.level+'</span>';
+    d.onclick=()=>{
+      nhSelected=i;
+      document.querySelectorAll('#nhPackGrid .nh-pack').forEach((b,j)=>b.classList.toggle('on',j===i));
+      updateNhSummary();
+    };
+    g.appendChild(d);
+  });
+})();
+
+function updateNhSummary(){
+  if(nhSelected<0)return;
+  const p=nhPackages[nhSelected];
+  document.getElementById('nhResFollowers').textContent=p.followers.toLocaleString('id-ID')+' Followers';
+  document.getElementById('nhResPoin').textContent=p.poin.toLocaleString('id-ID')+' Poin';
+  document.getElementById('nhResLevel').textContent='Level '+p.level;
+  document.getElementById('nhResBonus').textContent=p.followers.toLocaleString('id-ID')+'–'+p.bonusMax.toLocaleString('id-ID')+' Followers';
+  document.getElementById('nhResHarga').textContent='Rp '+p.price.toLocaleString('id-ID');
+}
+
+function updateNhPreview(){
+  const inp=document.getElementById('nhPreviewInput');
+  let v=inp.value;
+  if(v.length>12){v=v.slice(0,12);inp.value=v;}
+  document.getElementById('nhPreviewCounter').textContent=v.length+'/12';
+  document.getElementById('nhPreviewText').textContent=v.length?v:'NICKNAME';
+}
+
+function copyNhProofId(){
+  const val=document.getElementById('nhProofId').textContent.trim();
+  const btn=document.querySelector('.nh-proof-copy-btn');
+  const icon=btn?btn.querySelector('i'):null;
+  const label=btn?btn.querySelector('span'):null;
+  function done(){
+    if(!icon)return;
+    const origIcon=icon.className;
+    const origLabel=label?label.textContent:null;
+    icon.className='fa-solid fa-check';
+    if(label)label.textContent='Tersalin';
+    setTimeout(()=>{icon.className=origIcon;if(label)label.textContent=origLabel;},1200);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(val).then(done).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=val;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);done();
+    });
+  }else{
+    const ta=document.createElement('textarea');
+    ta.value=val;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);done();
+  }
+}
+
+/* NICKNAME HIJAU BANNER MANUAL SLIDER */
+(function(){
+  document.addEventListener('DOMContentLoaded',()=>{
+    const wrap=document.querySelector('#nickhijau .nh-slider');
+    if(!wrap)return;
+    const slides=wrap.querySelectorAll('.nh-slide-img');
+    const toggles=wrap.querySelectorAll('.nh-toggle-num');
+    let idx=0;
+    function goTo(newIdx){
+      slides[idx].classList.remove('active');
+      toggles[idx].classList.remove('active');
+      idx=(newIdx+slides.length)%slides.length;
+      slides[idx].classList.add('active');
+      toggles[idx].classList.add('active');
+    }
+    window.nhSlideMove=function(dir){ goTo(idx+dir); };
+    toggles.forEach(t=>{
+      t.addEventListener('click',()=>{ goTo(parseInt(t.dataset.idx,10)); });
+    });
+  });
+})();
+
+function openNhInfoModal(){
+  const ov=document.getElementById('nhInfoModalOverlay');
+  if(!ov)return;
+  ov.classList.add('nh-open');
+  hmLockScroll();
+}
+function closeNhInfoModal(){
+  const ov=document.getElementById('nhInfoModalOverlay');
+  if(!ov)return;
+  ov.classList.remove('nh-open');
+  hmUnlockScroll();
+}
+(function(){
+  document.addEventListener('DOMContentLoaded',()=>{
+    const ov=document.getElementById('nhInfoModalOverlay');
+    if(ov)ov.addEventListener('click',closeNhInfoModal);
+  });
+})();
+
+function orderNickHijau(){
+  const idInp=document.getElementById('nhIdInput');
+  const id=idInp.value.trim();
+
+  if(nhSelected<0){
+    const g=document.getElementById('nhPackGrid');
+    g.style.outline='1.5px solid #ff2b2b';g.style.borderRadius='8px';
+    setTimeout(()=>{g.style.outline='none';},900);
+    return;
+  }
+  if(!id){
+    idInp.classList.remove('pc-shake');void idInp.offsetWidth;idInp.classList.add('pc-shake');
+    idInp.style.borderColor='#ff2b2b';
+    idInp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{idInp.style.boxShadow='';idInp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+
+  const p=nhPackages[nhSelected];
+  const msg='Halo Admin, saya mau order *NICK HIJAU GRADIASI (Suntik Followers Craftland)* :\n\n'+
+    '🆔 ID FF : '+id+'\n'+
+    '🌿 Paket : '+p.followers.toLocaleString('id-ID')+' Followers\n'+
+    '⚡ Poin EXP : '+p.poin.toLocaleString('id-ID')+' Poin (Auto Level '+p.level+')\n'+
+    '🎁 Estimasi Bonus : '+p.followers.toLocaleString('id-ID')+'–'+p.bonusMax.toLocaleString('id-ID')+' Followers\n'+
+    '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n\n'+
     'Mohon diproses ya, terima kasih.';
 
   window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
@@ -5095,7 +5617,8 @@ document.addEventListener('pointerdown',()=>{bg.play().catch(()=>{});},{once:tru
 /* Ganti tanggal "launch" di bawah sesuai tanggal fitur mulai tayang (format: YYYY-MM-DD) */
 const NEW_BADGE_CONFIG={
   suntiklike:{launch:'2026-08-11'},
-  botglory:{launch:'2026-08-11'}
+  botglory:{launch:'2026-08-11'},
+  nickhijau:{launch:'2026-08-15'}
 };
 const NEW_BADGE_DURATION_DAYS=20;
 
@@ -5469,6 +5992,21 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
   });
 })();
 </script>
+<div class="nh-info-modal-overlay" id="nhInfoModalOverlay">
+  <div class="nh-info-modal-card" onclick="event.stopPropagation()">
+    <button class="nh-info-modal-close" onclick="closeNhInfoModal()" type="button"><i class="fa-solid fa-xmark"></i></button>
+    <div class="nh-info-modal-img-wrap">
+      <img loading="lazy" decoding="async" class="nh-info-modal-img" src="https://files.catbox.moe/nr6cn4.jpg" alt="Contoh Nickname Hijau Gradiasi">
+    </div>
+    <div class="nh-proof-id">
+      <div class="nh-proof-id-row">
+        <span class="nh-proof-id-val" id="nhProofId">260190210</span>
+        <button class="nh-proof-copy-btn" onclick="copyNhProofId()" type="button"><i class="fa-regular fa-copy"></i><span>Salin</span></button>
+      </div>
+    </div>
+    <p class="nh-proof-desc" style="margin:10px 0 0;">Silahkan cek akun dengan nickname hijau Gradiasi diatas ini secara langsung di game Free fire kamu.</p>
+  </div>
+</div>
 </body></html>
 <style>
 .loaderLogo{
