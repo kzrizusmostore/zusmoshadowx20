@@ -1515,6 +1515,12 @@ object-fit:contain;
   <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
+<div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-shield-halved"></i></div>
+  <div class="hm-menu-body"><h4>JOIN GUILD</h4><small>Daftar Guild Z SHADOWS</small></div>
+  <span class="hm-new-badge" id="newBadge_joinguild"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="showPage('toko')">
   <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
   <div class="hm-menu-body"><h4 data-i18n="home.tokoTitle">TOKO ZUSMO</h4><small data-i18n="home.tokoDesc">Topup &amp; marketplace</small></div>
@@ -2855,6 +2861,818 @@ function orderBotGlory(){
   window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
 }
 </script>
+
+<!-- JOIN GUILD Z SHADOWS PAGE -->
+<div class="page" id="joinguild">
+<style>
+#joinguild{padding-bottom:80px;position:relative;}
+#joinguild::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,43,43,.05) 1px,transparent 1px);
+  background-size:22px 22px;mask-image:linear-gradient(180deg,rgba(0,0,0,.5),transparent 420px);
+}
+#joinguild > *{position:relative;z-index:1;}
+
+.jg-logo-wrap{width:120px;height:120px;margin:6px auto 12px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 18px rgba(255,43,43,.4));}
+.jg-logo-wrap img{width:100%;height:100%;object-fit:contain;display:block;}
+
+.jg-label{font-size:11.5px;color:#ccc;font-weight:700;margin:0 0 9px;display:flex;align-items:center;gap:8px;letter-spacing:.3px;}
+.jg-label i{
+  color:var(--jg-acc,#ff2b2b);font-size:10.5px;width:22px;height:22px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;border-radius:7px;
+  background:rgba(255,43,43,.13);
+  background:color-mix(in srgb, var(--jg-acc,#ff2b2b) 16%, transparent);
+}
+.jg-sub{font-size:10px;color:#666;margin:-4px 0 9px;line-height:1.6;}
+.jg-group{margin-bottom:16px;padding-top:16px;border-top:1px dashed rgba(255,255,255,.07);}
+.jg-group:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+.jg-group:last-child{margin-bottom:0;}
+
+.jg-select,.jg-input,.jg-textarea{
+  width:100%;padding:14px 15px;border-radius:13px;
+  background:rgba(255,43,43,.05);
+  border:1.5px solid rgba(255,43,43,.28);
+  color:#fff;font-size:14px;font-weight:600;
+  outline:none;letter-spacing:.3px;
+  transition:border .2s,box-shadow .2s,background .2s;
+  font-family:inherit;
+}
+.jg-select{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff2b2b' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:13px;
+  padding-right:38px;cursor:pointer;
+}
+.jg-select option{background:#141414;color:#fff;}
+.jg-input::placeholder,.jg-textarea::placeholder{color:#4a4a4a;font-size:13px;font-weight:400;}
+.jg-textarea{resize:vertical;min-height:90px;line-height:1.65;}
+.jg-select:focus,.jg-input:focus,.jg-textarea:focus{
+  border-color:#ff2b2b;
+  box-shadow:0 0 0 3px rgba(255,43,43,.13),0 0 18px rgba(255,43,43,.14);
+  background:rgba(255,43,43,.09);
+}
+
+.jg-pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.jg-pill-grid.c3{grid-template-columns:repeat(3,1fr);}
+.jg-pill{
+  border:1.5px solid rgba(255,255,255,.09);border-radius:13px;
+  background:rgba(255,255,255,.03);
+  padding:12px 6px;text-align:center;cursor:pointer;
+  transition:.17s;font-size:11.5px;font-weight:700;color:#999;
+  user-select:none;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.jg-pill i{font-size:16px;color:#666;transition:.17s;}
+.jg-pill:hover{border-color:rgba(255,43,43,.4);background:rgba(255,43,43,.05);}
+.jg-pill.on{
+  border-color:#ff2b2b;
+  background:linear-gradient(155deg,rgba(255,43,43,.17),rgba(70,0,0,.2));
+  color:#fff;box-shadow:0 0 14px rgba(255,43,43,.18);
+}
+.jg-pill.on i{color:#ff5252;}
+.jg-pill.on::before{content:'';display:block;position:absolute;}
+
+/* ROLE COLORS */
+.jg-pill.role-rusher i{color:#ff3b3b;}
+.jg-pill.role-rusher.on{border-color:#ff3b3b;background:linear-gradient(155deg,rgba(255,59,59,.2),rgba(70,0,0,.2));box-shadow:0 0 14px rgba(255,59,59,.25);}
+.jg-pill.role-rusher.on i{color:#ff6b6b;}
+
+.jg-pill.role-rifler i{color:#b34dff;}
+.jg-pill.role-rifler.on{border-color:#b34dff;background:linear-gradient(155deg,rgba(179,77,255,.2),rgba(40,0,70,.2));box-shadow:0 0 14px rgba(179,77,255,.25);}
+.jg-pill.role-rifler.on i{color:#c987ff;}
+
+.jg-pill.role-sniper i{color:#3d9bff;}
+.jg-pill.role-sniper.on{border-color:#3d9bff;background:linear-gradient(155deg,rgba(61,155,255,.2),rgba(0,30,70,.2));box-shadow:0 0 14px rgba(61,155,255,.25);}
+.jg-pill.role-sniper.on i{color:#7cbaff;}
+
+.jg-pill.role-support i{color:#2ecc71;}
+.jg-pill.role-support.on{border-color:#2ecc71;background:linear-gradient(155deg,rgba(46,204,113,.2),rgba(0,60,30,.2));box-shadow:0 0 14px rgba(46,204,113,.25);}
+.jg-pill.role-support.on i{color:#6be09a;}
+
+.jg-pill.role-bomber i{color:#ff8a3d;}
+.jg-pill.role-bomber.on{border-color:#ff8a3d;background:linear-gradient(155deg,rgba(255,138,61,.2),rgba(70,30,0,.2));box-shadow:0 0 14px rgba(255,138,61,.25);}
+.jg-pill.role-bomber.on i{color:#ffab6b;}
+
+/* PRIME TIER GRID */
+.jg-prime-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+.jg-prime{
+  padding:10px 4px 9px;border:1px solid rgba(255,255,255,.09);border-radius:12px;
+  background:rgba(255,255,255,.03);cursor:pointer;text-align:center;
+  transition:.17s;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  user-select:none;position:relative;overflow:hidden;
+}
+.jg-prime img{width:40px;height:40px;object-fit:contain;margin-bottom:4px;pointer-events:none;}
+.jg-prime span{font-size:9.5px;font-weight:700;color:#888;letter-spacing:.3px;}
+.jg-prime:hover{border-color:rgba(255,43,43,.45);background:rgba(255,43,43,.06);}
+.jg-prime.on{
+  border-color:#ff2b2b;
+  background:linear-gradient(155deg,rgba(255,43,43,.17),rgba(70,0,0,.2));
+  box-shadow:0 0 14px rgba(255,43,43,.18);
+}
+.jg-prime.on span{color:#ff8585;}
+.jg-prime.on img{transform:scale(1.08);filter:drop-shadow(0 0 6px rgba(255,43,43,.6));}
+.jg-prime.on::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#ff2b2b,transparent);}
+
+/* PRIME GRID */
+#jgPrimeGrid.pc-lvl-grid{grid-template-columns:repeat(4,1fr);}
+#jgPrimeGrid .pc-lvl{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;}
+#jgPrimeGrid .pc-lvl img{width:40px;height:40px;object-fit:contain;margin-bottom:4px;pointer-events:none;}
+#jgPrimeGrid .pc-lvl span{font-size:10px;font-weight:700;color:#aaa;margin-top:0;}
+
+.jg-nick-preview{
+  margin-top:10px;padding:13px 14px;border-radius:12px;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:9px;
+  font-size:14px;font-weight:800;color:#555;letter-spacing:.5px;
+}
+.jg-nick-preview i{color:#ff2b2b;flex-shrink:0;}
+.jg-nick-preview.filled{color:#fff;}
+.jg-nick-preview .jg-tag{color:#ff5252;margin-left:4px;}
+
+.jg-char-count{font-size:10px;color:#666;text-align:right;margin-top:6px;letter-spacing:.3px;}
+.jg-char-count.ok{color:#00ff88;}
+
+.jg-check-row{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:13px 14px;border-radius:13px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;transition:.17s;
+}
+.jg-check-row input{margin-top:2px;accent-color:#ff2b2b;width:16px;height:16px;flex-shrink:0;}
+.jg-check-row span{font-size:11px;color:#aaa;line-height:1.65;}
+.jg-check-row span strong{color:#fff;}
+
+#jgSuccess{text-align:center;position:relative;overflow:hidden;}
+#jgSuccess .jg-success-icon{font-size:56px;color:#00ff88;margin-bottom:12px;text-shadow:0 0 22px rgba(0,255,136,.4);display:inline-block;}
+#jgSuccess h3{font-size:16px;font-weight:800;margin-bottom:8px;letter-spacing:.4px;}
+#jgSuccess p{font-size:11.5px;color:#999;line-height:1.75;}
+#jgSuccess p strong{color:#fff;}
+
+/* ===== UI UPGRADE ===== */
+#joinguild .jg-hero{position:relative;text-align:center;padding:8px 0 2px;}
+#joinguild .jg-hero-glow{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:230px;height:230px;background:radial-gradient(circle,rgba(255,43,43,.28),transparent 68%);filter:blur(6px);pointer-events:none;z-index:0;}
+#joinguild .jg-logo-wrap{position:relative;z-index:1;animation:jgFloat 3.6s ease-in-out infinite;}
+@keyframes jgFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+#joinguild .jg-hero-badge{
+  display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 11px;border-radius:20px;
+  background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.35);
+  font-size:9.5px;font-weight:800;letter-spacing:1.1px;color:#ff9d9d;
+  position:relative;z-index:1;margin-bottom:6px;text-transform:uppercase;
+}
+#joinguild .jg-hero-badge .jg-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;animation:jgPulseDot 1.4s infinite;flex-shrink:0;}
+@keyframes jgPulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.8);}}
+
+#joinguild .pc-card{position:relative;overflow:hidden;animation:jgCardIn .5s cubic-bezier(.22,.85,.4,1) both;}
+#joinguild #jgFormWrap .pc-card:nth-of-type(1){animation-delay:.02s;}
+#joinguild #jgFormWrap .pc-card:nth-of-type(2){animation-delay:.08s;}
+#joinguild #jgFormWrap .pc-card:nth-of-type(3){animation-delay:.14s;}
+#joinguild #jgFormWrap .pc-card:nth-of-type(4){animation-delay:.2s;}
+@keyframes jgCardIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+#joinguild .pc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(90deg,transparent,var(--jg-acc,#ff2b2b),transparent);opacity:.85;
+}
+#joinguild .pc-card.acc-blue{--jg-acc:#3d9bff;}
+#joinguild .pc-card.acc-purple{--jg-acc:#b34dff;}
+#joinguild .pc-card.acc-gold{--jg-acc:#ffb020;}
+
+#joinguild .pc-head{position:relative;}
+#joinguild .jg-step{
+  position:absolute;right:2px;top:-4px;font-size:30px;font-weight:900;
+  color:rgba(255,255,255,.045);letter-spacing:0;line-height:1;
+  font-family:'Space Mono',monospace;user-select:none;pointer-events:none;
+}
+
+#joinguild .jg-field{position:relative;}
+#joinguild .jg-field .jg-field-icon{
+  position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  color:#ff4747;font-size:13px;pointer-events:none;opacity:.9;z-index:1;
+}
+#joinguild .jg-field input.jg-input{padding-left:41px;}
+#joinguild .jg-field input.jg-input:focus ~ .jg-field-icon,
+#joinguild .jg-field:focus-within .jg-field-icon{color:#ff2b2b;filter:drop-shadow(0 0 4px rgba(255,43,43,.6));}
+
+#joinguild .jg-pill{position:relative;}
+#joinguild .jg-pill:active{transform:scale(.95);}
+#joinguild .jg-pill.on::after{
+  content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900;
+  position:absolute;top:5px;right:6px;font-size:8px;color:var(--jg-acc,#ff2b2b);
+  opacity:.9;
+}
+#joinguild .jg-prime,#joinguild #jgPrimeGrid .pc-lvl{transition:.15s;position:relative;}
+#joinguild #jgPrimeGrid .pc-lvl:active{transform:scale(.93);}
+#joinguild #jgPrimeGrid .pc-lvl.on::after{
+  content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900;
+  position:absolute;top:5px;right:7px;font-size:8px;color:#ff2b2b;
+}
+
+#joinguild .pc-btn{position:relative;overflow:hidden;}
+#joinguild .pc-btn::after{
+  content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+  transform:skewX(-20deg);animation:jgShine 2.8s ease-in-out infinite;
+}
+@keyframes jgShine{0%{left:-60%;}55%{left:130%;}100%{left:130%;}}
+
+#jgSuccess{animation:jgCardIn .45s cubic-bezier(.22,.85,.4,1) both;}
+#jgSuccess::before{
+  content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+  width:200px;height:200px;background:radial-gradient(circle,rgba(0,255,136,.16),transparent 70%);
+  pointer-events:none;
+}
+#jgSuccess .jg-success-icon{animation:jgPopIcon .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes jgPopIcon{0%{transform:scale(0) rotate(-25deg);opacity:0;}60%{transform:scale(1.2) rotate(4deg);opacity:1;}100%{transform:scale(1) rotate(0);}}
+
+#joinguild .jg-check-row:hover{border-color:rgba(255,43,43,.3);background:rgba(255,43,43,.04);}
+#joinguild .jg-check-row:has(input:checked){border-color:#ff2b2b;background:rgba(255,43,43,.07);}
+
+.jg-trust-row{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.jg-trust-item{
+  display:flex;align-items:center;gap:5px;padding:6px 11px;border-radius:20px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  font-size:9.5px;font-weight:700;color:#999;letter-spacing:.2px;
+}
+.jg-trust-item i{color:#ff2b2b;font-size:9px;}
+
+/* PROGRESS BAR */
+.jg-progress-wrap{
+  display:flex;align-items:center;gap:10px;
+  margin:2px 0 16px;padding:10px 14px;border-radius:14px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+}
+.jg-progress-label{font-size:9.5px;font-weight:800;color:#999;letter-spacing:.4px;white-space:nowrap;text-transform:uppercase;}
+.jg-progress-track{flex:1;height:7px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden;position:relative;}
+.jg-progress-fill{
+  height:100%;border-radius:6px;width:0%;
+  background:linear-gradient(90deg,#ff2b2b,#ff6b6b);
+  box-shadow:0 0 10px rgba(255,43,43,.5);
+  transition:width .4s cubic-bezier(.22,.85,.4,1);
+}
+.jg-progress-pct{font-size:11px;font-weight:900;color:#ff5252;min-width:32px;text-align:right;font-family:'Space Mono',monospace;}
+
+/* SELECT ICON */
+.jg-field select.jg-select{padding-left:41px;}
+
+/* CARD HOVER */
+#joinguild .pc-card{transition:transform .25s,box-shadow .25s;}
+#joinguild .pc-card:hover{transform:translateY(-2px);}
+
+/* COPY BTN */
+.jg-copy-btn{
+  margin-left:auto;flex-shrink:0;width:26px;height:26px;border-radius:8px;
+  background:rgba(255,43,43,.12);border:1px solid rgba(255,43,43,.3);
+  color:#ff8585;display:flex;align-items:center;justify-content:center;
+  font-size:10.5px;cursor:pointer;transition:.2s;
+}
+.jg-copy-btn:hover{background:rgba(255,43,43,.22);}
+.jg-copy-btn.copied{background:rgba(0,255,136,.15);border-color:rgba(0,255,136,.4);color:#00ff88;}
+
+/* SLIDER */
+.jg-slider{position:relative;overflow:hidden;margin-top:6px;}
+.jg-slide-img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;transform:scale(1.06);
+  transition:opacity 1s ease-in-out;
+}
+.jg-slide-img.active{opacity:1;animation:jgKenBurns 6s ease-in-out forwards;}
+@keyframes jgKenBurns{
+  0%{transform:scale(1.06);}
+  100%{transform:scale(1);}
+}
+</style>
+
+<div class="jg-hero">
+  <div class="jg-hero-glow"></div>
+  <div class="jg-hero-badge"><span class="jg-dot"></span>Official Guild Recruitment</div>
+  <div class="jg-logo-wrap"><img loading="lazy" decoding="async" src="https://files.catbox.moe/q7p90u.png" alt="Z Shadows Logo"></div>
+  <p class="pc-title" style="position:relative;z-index:1;"><span class="red">JOIN</span>&nbsp;<span class="wht">GUILD Z SHADOWS</span></p>
+  <div style="width:52px;height:3px;border-radius:3px;margin:2px auto 8px;background:linear-gradient(90deg,transparent,#ff2b2b,transparent);position:relative;z-index:1;"></div>
+  <p class="pc-sub" style="position:relative;z-index:1;">Pendaftaran Member Guild &bull; Free Fire</p>
+</div>
+
+<div class="pc-banner jg-slider" style="aspect-ratio:13/6;">
+  <img loading="lazy" decoding="async" class="jg-slide-img active" src="https://files.catbox.moe/rz4m87.jpg" alt="Z Shadows Guild">
+  <img loading="lazy" decoding="async" class="jg-slide-img" src="https://files.catbox.moe/jn29br.jpg" alt="Z Shadows Guild">
+</div>
+
+<div class="jg-progress-wrap">
+  <span class="jg-progress-label"><i class="fa-solid fa-list-check"></i> Progress</span>
+  <div class="jg-progress-track"><div class="jg-progress-fill" id="jgProgressFill"></div></div>
+  <span class="jg-progress-pct" id="jgProgressPct">0%</span>
+</div>
+
+<div id="jgFormWrap">
+
+<!-- Card 1: Data Akun -->
+<div class="pc-card">
+  <div class="pc-head">
+    <span class="jg-step">01</span>
+    <div class="pc-head-icon"><i class="fa-solid fa-user-shield"></i></div>
+    <div class="pc-head-text">
+      <h3>DATA AKUN</h3>
+      <p>Pastikan data sesuai akun Free Fire kamu</p>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-user"></i>Nama Lengkap</div>
+    <div class="jg-field">
+      <input class="jg-input" id="jgName" type="text" placeholder="Masukkan nama lengkap">
+      <i class="fa-solid fa-user jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-hashtag"></i>UID Free Fire</div>
+    <div class="jg-field">
+      <input class="jg-input" id="jgUid" type="number" inputmode="numeric" maxlength="12" placeholder="Contoh: 1234567890">
+      <i class="fa-solid fa-hashtag jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-chart-column"></i>Level Akun</div>
+    <div class="jg-field">
+    <select class="jg-select" id="jgLevel">
+      <option value="">-- Pilih Level --</option>
+      <optgroup label="Level 40-50">
+        <option value="40">Level 40</option><option value="41">Level 41</option><option value="42">Level 42</option><option value="43">Level 43</option><option value="44">Level 44</option><option value="45">Level 45</option><option value="46">Level 46</option><option value="47">Level 47</option><option value="48">Level 48</option><option value="49">Level 49</option><option value="50">Level 50</option>
+      </optgroup>
+      <optgroup label="Level 51-60">
+        <option value="51">Level 51</option><option value="52">Level 52</option><option value="53">Level 53</option><option value="54">Level 54</option><option value="55">Level 55</option><option value="56">Level 56</option><option value="57">Level 57</option><option value="58">Level 58</option><option value="59">Level 59</option><option value="60">Level 60</option>
+      </optgroup>
+      <optgroup label="Level 61-70">
+        <option value="61">Level 61</option><option value="62">Level 62</option><option value="63">Level 63</option><option value="64">Level 64</option><option value="65">Level 65</option><option value="66">Level 66</option><option value="67">Level 67</option><option value="68">Level 68</option><option value="69">Level 69</option><option value="70">Level 70</option>
+      </optgroup>
+      <optgroup label="Level 71-80">
+        <option value="71">Level 71</option><option value="72">Level 72</option><option value="73">Level 73</option><option value="74">Level 74</option><option value="75">Level 75</option><option value="76">Level 76</option><option value="77">Level 77</option><option value="78">Level 78</option><option value="79">Level 79</option><option value="80">Level 80</option>
+      </optgroup>
+      <optgroup label="Level 81-90">
+        <option value="81">Level 81</option><option value="82">Level 82</option><option value="83">Level 83</option><option value="84">Level 84</option><option value="85">Level 85</option><option value="86">Level 86</option><option value="87">Level 87</option><option value="88">Level 88</option><option value="89">Level 89</option><option value="90">Level 90</option>
+      </optgroup>
+      <optgroup label="Level 91-100">
+        <option value="91">Level 91</option><option value="92">Level 92</option><option value="93">Level 93</option><option value="94">Level 94</option><option value="95">Level 95</option><option value="96">Level 96</option><option value="97">Level 97</option><option value="98">Level 98</option><option value="99">Level 99</option><option value="100">Level 100</option>
+      </optgroup>
+    </select>
+    <i class="fa-solid fa-chart-column jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-trophy"></i>Rank BR (Saat Ini)</div>
+    <div class="jg-field">
+    <select class="jg-select" id="jgRankBR">
+      <option value="">-- Pilih Rank BR --</option>
+      <option value="Bronze">Bronze</option><option value="Silver">Silver</option><option value="Gold">Gold</option><option value="Platinum">Platinum</option><option value="Diamond">Diamond</option><option value="Heroic">Heroic</option><option value="Master">Master</option>
+    </select>
+    <i class="fa-solid fa-trophy jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-medal"></i>Rank CSR (Saat Ini)</div>
+    <div class="jg-field">
+    <select class="jg-select" id="jgRankCSR">
+      <option value="">-- Pilih Rank CSR --</option>
+      <option value="Bronze">Bronze</option><option value="Silver">Silver</option><option value="Gold">Gold</option><option value="Platinum">Platinum</option><option value="Diamond">Diamond</option><option value="Heroic">Heroic</option><option value="Master">Master</option>
+    </select>
+    <i class="fa-solid fa-medal jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-hourglass-half"></i>Akun FF Berumur</div>
+    <div class="jg-field">
+    <select class="jg-select" id="jgUmurAkun">
+      <option value="">-- Pilih Umur Akun --</option>
+      <option value="1">1 Tahun</option><option value="2">2 Tahun</option><option value="3">3 Tahun</option><option value="4">4 Tahun</option><option value="5">5 Tahun</option><option value="6">6 Tahun</option><option value="7">7 Tahun</option><option value="8">8 Tahun</option>
+    </select>
+    <i class="fa-solid fa-hourglass-half jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-gem"></i>Prime Tier</div>
+    <div class="pc-lvl-grid" id="jgPrimeGrid"></div>
+  </div>
+</div>
+
+<!-- Card 2: Info Pribadi -->
+<div class="pc-card acc-blue">
+  <div class="pc-head">
+    <span class="jg-step">02</span>
+    <div class="pc-head-icon"><i class="fa-solid fa-gamepad"></i></div>
+    <div class="pc-head-text">
+      <h3>INFO PRIBADI & ROLE</h3>
+      <p>Untuk penempatan role di guild</p>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-bullseye"></i>Role Favorit</div>
+    <div class="jg-pill-grid c3" id="jgRoleGroup">
+      <div class="jg-pill role-rusher" data-group="role" data-value="Rusher"><i class="fa-solid fa-bolt"></i>Rusher</div>
+      <div class="jg-pill role-rifler" data-group="role" data-value="Rifler"><i class="fa-solid fa-gun"></i>Rifler</div>
+      <div class="jg-pill role-sniper" data-group="role" data-value="Sniper"><i class="fa-solid fa-bullseye"></i>Sniper</div>
+      <div class="jg-pill role-support" data-group="role" data-value="Support"><i class="fa-solid fa-shield-halved"></i>Support</div>
+      <div class="jg-pill role-bomber" data-group="role" data-value="Bomber"><i class="fa-solid fa-bomb"></i>Bomber</div>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-cake-candles"></i>Umur</div>
+    <div class="jg-field">
+      <input class="jg-input" id="jgUmur" type="number" inputmode="numeric" min="10" max="25" placeholder="Contoh: 18">
+      <i class="fa-solid fa-cake-candles jg-field-icon"></i>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-venus-mars"></i>Jenis Kelamin</div>
+    <div class="jg-pill-grid" id="jgGenderGroup">
+      <div class="jg-pill" data-group="gender" data-value="Laki-laki"><i class="fa-solid fa-mars"></i>Laki-laki</div>
+      <div class="jg-pill" data-group="gender" data-value="Perempuan"><i class="fa-solid fa-venus"></i>Perempuan</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Card 3: Format CN -->
+<div class="pc-card acc-purple">
+  <div class="pc-head">
+    <span class="jg-step">03</span>
+    <div class="pc-head-icon"><i class="fa-solid fa-tags"></i></div>
+    <div class="pc-head-text">
+      <h3>FORMAT NAMA (CN)</h3>
+      <p>Wajib CN jika diterima jadi member</p>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-circle-check"></i>Siap CN?</div>
+    <div class="jg-pill-grid" id="jgCnGroup">
+      <div class="jg-pill" data-group="cn" data-value="Ya"><i class="fa-solid fa-circle-check"></i>Ya, Siap CN</div>
+      <div class="jg-pill" data-group="cn" data-value="Tidak"><i class="fa-solid fa-circle-xmark"></i>Tidak Siap</div>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-pen-to-square"></i>Nickname Baru</div>
+    <div class="jg-sub">Format wajib: <strong style="color:#ff8585;">NICKNAME SDW</strong> — ketik nickname kamu saja (maks 8 karakter), tag "SDW" otomatis ditambahkan</div>
+    <div class="jg-field">
+      <input class="jg-input" id="jgNickname" type="text" maxlength="8" placeholder="Ketik nickname kamu">
+      <i class="fa-solid fa-pen-to-square jg-field-icon"></i>
+    </div>
+    <div class="jg-nick-preview" id="jgNickPreview"><i class="fa-solid fa-id-badge"></i><span id="jgNickPreviewText">Preview nickname akan muncul di sini</span><button type="button" class="jg-copy-btn" id="jgCopyBtn" onclick="jgCopyNickname()"><i class="fa-regular fa-copy"></i></button></div>
+  </div>
+</div>
+
+<!-- Card 4: Komitmen & Alasan -->
+<div class="pc-card acc-gold">
+  <div class="pc-head">
+    <span class="jg-step">04</span>
+    <div class="pc-head-icon"><i class="fa-solid fa-dumbbell"></i></div>
+    <div class="pc-head-text">
+      <h3>KOMITMEN & MOTIVASI</h3>
+      <p>Kami mencari member yang serius</p>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-swords"></i>Siap Aktif Guild War & Latihan</div>
+    <div class="jg-pill-grid" id="jgCommitGroup">
+      <div class="jg-pill" data-group="commit" data-value="Ya, Siap 100%"><i class="fa-solid fa-circle-check"></i>Ya, Siap 100%</div>
+      <div class="jg-pill" data-group="commit" data-value="Tidak, Santai Saja"><i class="fa-solid fa-circle-xmark"></i>Santai Saja</div>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-scroll"></i>Siap Ikuti Aturan Guild / Leader</div>
+    <div class="jg-pill-grid" id="jgAturanGroup">
+      <div class="jg-pill" data-group="aturan" data-value="Ya, Siap Patuh"><i class="fa-solid fa-circle-check"></i>Siap Patuh</div>
+      <div class="jg-pill" data-group="aturan" data-value="Tidak Siap"><i class="fa-solid fa-circle-xmark"></i>Tidak Siap</div>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-sack-dollar"></i>Siap Uang Kas Guild</div>
+    <div class="jg-pill-grid" id="jgKasGroup">
+      <div class="jg-pill" data-group="kas" data-value="Ya, Siap"><i class="fa-solid fa-circle-check"></i>Ya, Siap</div>
+      <div class="jg-pill" data-group="kas" data-value="Tidak Siap"><i class="fa-solid fa-circle-xmark"></i>Tidak Siap</div>
+    </div>
+  </div>
+
+  <div class="jg-group">
+    <div class="jg-label"><i class="fa-solid fa-comments"></i>Alasan Ingin Bergabung</div>
+    <div class="jg-sub">Minimal 50 karakter, ceritakan dengan jujur ya!</div>
+    <textarea class="jg-textarea" id="jgAlasan" maxlength="500" placeholder="Ceritakan alasan kamu ingin bergabung dengan Z SHADOWS..."></textarea>
+    <div class="jg-char-count" id="jgCharCount">0 / 500 (minimal 50)</div>
+  </div>
+
+  <div class="jg-group">
+    <label class="jg-check-row">
+      <input type="checkbox" id="jgConfirmCheck">
+      <span>Saya menyatakan seluruh data yang diisi di atas <strong>benar dan sesuai fakta</strong></span>
+    </label>
+  </div>
+</div>
+
+<button class="pc-btn" onclick="submitJoinGuild()" style="animation:jgCardIn .5s cubic-bezier(.22,.85,.4,1) .24s both;">
+  <i class="fa-brands fa-whatsapp"></i> KIRIM PENDAFTARAN
+</button>
+<div class="jg-trust-row">
+  <div class="jg-trust-item"><i class="fa-solid fa-shield-halved"></i>Data Aman</div>
+  <div class="jg-trust-item"><i class="fa-solid fa-bolt"></i>Respon Cepat</div>
+  <div class="jg-trust-item"><i class="fa-solid fa-certificate"></i>Official Guild</div>
+</div>
+<p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
+
+</div>
+
+<!-- Success State -->
+<div class="pc-card" id="jgSuccess" style="display:none;">
+  <div class="jg-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+  <h3>Pendaftaran Berhasil!</h3>
+  <p>Data kamu akan dikirim ke WhatsApp Admin.<br><strong>Tunggu konfirmasi dari admin Z SHADOWS.</strong></p>
+  <button class="pc-btn" style="margin-top:16px;" onclick="showPage('home')"><i class="fa-solid fa-house"></i> KEMBALI KE BERANDA</button>
+</div>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+const jgData={role:'',gender:'',cn:'',commit:'',aturan:'',kas:''};
+
+const jgPrimeOptions=[
+  {name:'PRIME 1',value:'1',img:'https://files.catbox.moe/x5pypw.png'},
+  {name:'PRIME 2',value:'2',img:'https://files.catbox.moe/b2byx1.png'},
+  {name:'PRIME 3',value:'3',img:'https://files.catbox.moe/nrllzm.png'},
+  {name:'PRIME 4',value:'4',img:'https://files.catbox.moe/yip9im.png'},
+  {name:'PRIME 5',value:'5',img:'https://files.catbox.moe/juhyc3.png'},
+  {name:'PRIME 6',value:'6',img:'https://files.catbox.moe/2d9n67.png'},
+  {name:'PRIME 7',value:'7',img:'https://files.catbox.moe/3gth19.png'},
+  {name:'PRIME 8',value:'8',img:'https://files.catbox.moe/fvplwr.png'}
+];
+let jgSelectedPrime=-1;
+
+let jgSlideIdx=0;
+let jgSlideTimer=null;
+function jgShowSlide(i){
+  const imgs=document.querySelectorAll('#joinguild .jg-slide-img');
+  if(!imgs.length)return;
+  jgSlideIdx=(i+imgs.length)%imgs.length;
+  imgs.forEach(function(im,idx){
+    im.classList.remove('active');
+    void im.offsetWidth;
+    im.classList.toggle('active',idx===jgSlideIdx);
+  });
+}
+function jgStartAutoSlide(){
+  clearInterval(jgSlideTimer);
+  jgSlideTimer=setInterval(function(){jgShowSlide(jgSlideIdx+1);},4500);
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  jgStartAutoSlide();
+
+  document.querySelectorAll('#joinguild .jg-pill[data-group]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      const group=btn.dataset.group;
+      document.querySelectorAll('#joinguild .jg-pill[data-group="'+group+'"]').forEach(function(b){b.classList.remove('on');});
+      btn.classList.add('on');
+      jgData[group]=btn.dataset.value;
+    });
+  });
+
+  const jgPrimeGrid=document.getElementById('jgPrimeGrid');
+  if(jgPrimeGrid){
+    jgPrimeOptions.forEach(function(p,i){
+      const d=document.createElement('div');
+      d.className='pc-lvl';
+      d.innerHTML='<img loading="lazy" decoding="async" src="'+p.img+'" alt="'+p.name+'"/><span>'+p.name+'</span>';
+      d.onclick=function(){
+        jgSelectedPrime=i;
+        document.querySelectorAll('#jgPrimeGrid .pc-lvl').forEach(function(b,j){b.classList.toggle('on',j===i);});
+        jgUpdateProgress();
+      };
+      jgPrimeGrid.appendChild(d);
+    });
+  }
+
+  const jgUidInput=document.getElementById('jgUid');
+  if(jgUidInput){
+    jgUidInput.addEventListener('input',function(){
+      let v=jgUidInput.value.replace(/[^0-9]/g,'');
+      if(v.length>12) v=v.slice(0,12);
+      if(v!==jgUidInput.value) jgUidInput.value=v;
+    });
+  }
+
+  const jgNickInput=document.getElementById('jgNickname');
+  const jgNickPreview=document.getElementById('jgNickPreview');
+  const jgNickPreviewText=document.getElementById('jgNickPreviewText');
+  if(jgNickInput){
+    jgNickInput.addEventListener('input',function(){
+      let v=jgNickInput.value;
+      if(v.length>8){ v=v.slice(0,8); jgNickInput.value=v; }
+      v=v.trim();
+      if(v){
+        jgNickPreviewText.innerHTML=v.toUpperCase()+'<span class="jg-tag">SDW</span>';
+        jgNickPreview.classList.add('filled');
+      }else{
+        jgNickPreviewText.textContent='Preview nickname akan muncul di sini';
+        jgNickPreview.classList.remove('filled');
+      }
+    });
+  }
+
+  const jgAlasan=document.getElementById('jgAlasan');
+  const jgCharCount=document.getElementById('jgCharCount');
+  if(jgAlasan){
+    jgAlasan.addEventListener('input',function(){
+      const len=jgAlasan.value.length;
+      jgCharCount.textContent=len+' / 500'+(len<50?' (minimal 50)':'');
+      jgCharCount.classList.toggle('ok',len>=50);
+      jgUpdateProgress();
+    });
+  }
+
+  ['jgName','jgUid','jgLevel','jgRankBR','jgRankCSR','jgUmurAkun','jgUmur','jgNickname'].forEach(function(id){
+    const el=document.getElementById(id);
+    if(el){ el.addEventListener('input',jgUpdateProgress); el.addEventListener('change',jgUpdateProgress); }
+  });
+  const jgConfirmCheckEl=document.getElementById('jgConfirmCheck');
+  if(jgConfirmCheckEl) jgConfirmCheckEl.addEventListener('change',jgUpdateProgress);
+
+  document.querySelectorAll('#joinguild .jg-pill[data-group]').forEach(function(btn){
+    btn.addEventListener('click',jgUpdateProgress);
+  });
+
+  jgUpdateProgress();
+});
+
+function jgUpdateProgress(){
+  const get=function(id){return document.getElementById(id);};
+  const checks=[
+    !!get('jgName') && !!get('jgName').value.trim(),
+    !!get('jgUid') && !!get('jgUid').value.trim(),
+    !!get('jgLevel') && !!get('jgLevel').value,
+    !!get('jgRankBR') && !!get('jgRankBR').value,
+    !!get('jgRankCSR') && !!get('jgRankCSR').value,
+    !!get('jgUmurAkun') && !!get('jgUmurAkun').value,
+    jgSelectedPrime>=0,
+    !!jgData.role,
+    !!get('jgUmur') && !!get('jgUmur').value.trim(),
+    !!jgData.gender,
+    !!jgData.cn,
+    !!get('jgNickname') && !!get('jgNickname').value.trim(),
+    !!jgData.commit,
+    !!jgData.aturan,
+    !!jgData.kas,
+    !!get('jgAlasan') && get('jgAlasan').value.trim().length>=50,
+    !!get('jgConfirmCheck') && get('jgConfirmCheck').checked
+  ];
+  const filled=checks.filter(Boolean).length;
+  const pct=Math.round((filled/checks.length)*100);
+  const fill=get('jgProgressFill');
+  const pctEl=get('jgProgressPct');
+  if(fill) fill.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=pct+'%';
+}
+
+function jgCopyNickname(){
+  const nameEl=document.getElementById('jgNickname');
+  const btn=document.getElementById('jgCopyBtn');
+  if(!nameEl || !nameEl.value.trim()) return;
+  const text=nameEl.value.trim().toUpperCase()+' SDW';
+  const done=function(){
+    btn.classList.add('copied');
+    btn.innerHTML='<i class="fa-solid fa-check"></i>';
+    try{ navigator.vibrate && navigator.vibrate(30); }catch(e){}
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      btn.innerHTML='<i class="fa-regular fa-copy"></i>';
+    },1400);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(done);
+  }else{
+    done();
+  }
+}
+
+function jgShake(el){
+  if(!el)return;
+  el.classList.remove('pc-shake');void el.offsetWidth;el.classList.add('pc-shake');
+  el.style.borderColor='#ff2b2b';
+  el.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+  setTimeout(function(){el.style.boxShadow='';el.style.borderColor='';},900);
+}
+function jgOutline(el){
+  if(!el)return;
+  el.style.outline='1.5px solid #ff2b2b';el.style.borderRadius='13px';
+  setTimeout(function(){el.style.outline='none';},900);
+}
+
+function submitJoinGuild(){
+  const get=function(id){return document.getElementById(id);};
+
+  const fields={
+    name:get('jgName').value.trim(),
+    uid:get('jgUid').value.trim(),
+    level:get('jgLevel').value,
+    rankBR:get('jgRankBR').value,
+    rankCSR:get('jgRankCSR').value,
+    umurAkun:get('jgUmurAkun').value,
+    prime:jgSelectedPrime>=0?jgPrimeOptions[jgSelectedPrime].value:'',
+    role:jgData.role,
+    umur:get('jgUmur').value.trim(),
+    gender:jgData.gender,
+    cn:jgData.cn,
+    nickname:get('jgNickname').value.trim(),
+    commit:jgData.commit,
+    aturan:jgData.aturan,
+    kas:jgData.kas,
+    alasan:get('jgAlasan').value.trim()
+  };
+
+  let firstInvalid=null;
+
+  [['jgName',fields.name],['jgUid',fields.uid],['jgLevel',fields.level],['jgRankBR',fields.rankBR],
+   ['jgRankCSR',fields.rankCSR],['jgUmurAkun',fields.umurAkun],
+   ['jgUmur',fields.umur],['jgNickname',fields.nickname]].forEach(function(pair){
+    const el=get(pair[0]);
+    if(!pair[1]){ jgShake(el); if(!firstInvalid) firstInvalid=el; }
+  });
+
+  if(!fields.prime){
+    const wrap=get('jgPrimeGrid');
+    jgOutline(wrap); if(!firstInvalid) firstInvalid=wrap;
+  }
+
+  [['role',fields.role,'jgRoleGroup'],['gender',fields.gender,'jgGenderGroup'],
+   ['cn',fields.cn,'jgCnGroup'],['commit',fields.commit,'jgCommitGroup'],
+   ['aturan',fields.aturan,'jgAturanGroup'],['kas',fields.kas,'jgKasGroup']].forEach(function(t){
+    const wrap=get(t[2]);
+    if(!t[1]){ jgOutline(wrap); if(!firstInvalid) firstInvalid=wrap; }
+  });
+
+  if(fields.alasan.length<50){
+    const el=get('jgAlasan'); jgShake(el); if(!firstInvalid) firstInvalid=el;
+  }
+
+  const confirmCheck=get('jgConfirmCheck');
+  if(!confirmCheck.checked){
+    const row=confirmCheck.closest('.jg-check-row');
+    jgOutline(row); if(!firstInvalid) firstInvalid=row;
+  }
+
+  if(firstInvalid){
+    firstInvalid.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  const msg='PENDAFTARAN GUILD Z SHADOWS\n\n'+
+    '== DATA AKUN ==\n'+
+    'Nama: '+fields.name+'\n'+
+    'UID: '+fields.uid+'\n'+
+    'Level: '+fields.level+'\n'+
+    'Rank BR: '+fields.rankBR+'\n'+
+    'Rank CSR: '+fields.rankCSR+'\n'+
+    'Umur Akun: '+fields.umurAkun+' Tahun\n'+
+    'Prime: PRIME '+fields.prime+'\n\n'+
+    '== INFO BERMAIN ==\n'+
+    'Role: '+fields.role+'\n'+
+    'Umur: '+fields.umur+' Tahun\n'+
+    'Gender: '+fields.gender+'\n\n'+
+    '== FORMAT CN ==\n'+
+    'Siap CN: '+fields.cn+'\n'+
+    'Nickname Baru: '+fields.nickname+' SDW\n\n'+
+    '== KOMITMEN GUILD ==\n'+
+    'Guild War: '+fields.commit+'\n'+
+    'Ikuti Aturan/Leader: '+fields.aturan+'\n'+
+    'Uang Kas Guild: '+fields.kas+'\n\n'+
+    '== ALASAN BERGABUNG ==\n'+
+    '"'+fields.alasan+'"\n\n'+
+    'Terima kasih telah mendaftar!\n'+
+    'Admin akan segera memproses pendaftaran Anda.\n'+
+    'Selamat bergabung dengan Shadow Squad!';
+
+  get('jgFormWrap').style.display='none';
+  const successBox=get('jgSuccess');
+  successBox.style.display='block';
+  successBox.classList.add('successAnim');
+  try{ navigator.vibrate && navigator.vibrate([40,30,60]); }catch(e){}
+
+  setTimeout(function(){
+    window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+  },1200);
+}
+</script>
+
 
 <div class="page" id="downloadvip">
 <div class="download-box">
@@ -4662,6 +5480,18 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       </div>
     </div>
 
+    <div class="settings-panel-title" data-i18n="settings.keyboard">Keyboard</div>
+
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <span class="title" data-i18n="settings.customKeyboard">Keyboard Kustom Kzrizusmo</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleCustomKeyboard" onchange="onToggleCustomKeyboard(this.checked)"/>
+        <span class="slider"></span>
+      </label>
+    </div>
+
     <div class="settings-panel-title" data-i18n="settings.language">Bahasa</div>
 
     <div class="lang-switch" id="langSwitch">
@@ -5216,6 +6046,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   var LS_VOLUME = 'zusmo_settings_volume';
   var LS_LANG = 'zusmo_settings_lang';
   var LS_BANNER_RATIO = 'zusmo_settings_banner_ratio';
+  var LS_CUSTOM_KEYBOARD = 'zusmo_settings_custom_keyboard';
 
   function getAnimasi(){
     var v = localStorage.getItem(LS_ANIM);
@@ -5244,6 +6075,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   function getBannerRatio(){
     var v = localStorage.getItem(LS_BANNER_RATIO);
     return (v==='16/7') ? '16/7' : '16/9';
+  }
+  function getCustomKeyboard(){
+    var v = localStorage.getItem(LS_CUSTOM_KEYBOARD);
+    return v==='1' ? true : false; // default OFF = pakai keyboard bawaan HP
   }
   function applyBannerRatio(ratio){
     document.documentElement.style.setProperty('--banner-ratio', ratio);
@@ -5389,6 +6224,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'settings.vibrate':'Getar',
       'settings.vibrateDesc':'Getaran saat menekan tombol',
       'settings.volume':'Volume',
+      'settings.keyboard':'Keyboard',
+      'settings.customKeyboard':'Keyboard Kustom Kzrizusmo',
       'settings.language':'Bahasa',
 
       'nav.back':'Kembali',
@@ -5447,6 +6284,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'settings.vibrate':'Vibration',
       'settings.vibrateDesc':'Vibrate when pressing buttons',
       'settings.volume':'Volume',
+      'settings.keyboard':'Keyboard',
+      'settings.customKeyboard':'Kzrizusmo Custom Keyboard',
       'settings.language':'Language',
 
       'nav.back':'Back',
@@ -5522,6 +6361,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     document.getElementById('volumeSlider').value = getVolume();
     document.getElementById('volumeValue').textContent = getVolume()+'%';
     applyLanguage(getLang());
+    var ckToggle = document.getElementById('toggleCustomKeyboard');
+    if(ckToggle) ckToggle.checked = getCustomKeyboard();
     document.getElementById('settingsOverlay').classList.add('open');
   };
   window.closeSettingsPanel = function(){
@@ -5548,6 +6389,11 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     document.getElementById('volumeValue').textContent = val+'%';
     applyVolumeToMusic(val);
   };
+  window.onToggleCustomKeyboard = function(checked){
+    localStorage.setItem(LS_CUSTOM_KEYBOARD, checked ? '1' : '0');
+    if(window.ZKB && typeof window.ZKB.setEnabled==='function') window.ZKB.setEnabled(checked);
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
 
   document.getElementById('settingsOverlay').addEventListener('click', function(e){
     if(e.target === this) closeSettingsPanel();
@@ -5567,6 +6413,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     applyVolumeToMusic(getVolume());
     applyLanguage(getLang());
     setDiamond(getDiamond());
+    if(window.ZKB && typeof window.ZKB.setEnabled==='function') window.ZKB.setEnabled(getCustomKeyboard());
   });
 })();
 </script>
@@ -5619,7 +6466,8 @@ document.addEventListener('pointerdown',()=>{bg.play().catch(()=>{});},{once:tru
 const NEW_BADGE_CONFIG={
   suntiklike:{launch:'2026-08-11'},
   botglory:{launch:'2026-08-11'},
-  nickhijau:{launch:'2026-08-15'}
+  nickhijau:{launch:'2026-08-15'},
+  joinguild:{launch:'2026-08-17'}
 };
 const NEW_BADGE_DURATION_DAYS=20;
 
@@ -5930,24 +6778,50 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
     closeKeyboard();
   });
 
+  // Keyboard kustom OFF secara default -> pakai keyboard bawaan HP.
+  // Diaktifkan lewat Pengaturan > Keyboard > "Keyboard Kustom Kzrizusmo".
+  var enabled=false;
+
+  function onFocusHandler(e){
+    e.preventDefault();
+    openKeyboard(this);
+  }
+  function onClickHandler(e){
+    openKeyboard(this);
+    setTimeout(updateCaretPosition,0);
+  }
+
   function attachToInput(el){
+    if(!enabled){
+      detachFromInput(el);
+      return;
+    }
     if(el.dataset.ckAttached) return;
     el.dataset.ckAttached='1';
+    if(el.hasAttribute('inputmode')) el.dataset.ckOrigInputmode=el.getAttribute('inputmode');
     el.setAttribute('readonly','readonly');
     el.setAttribute('inputmode','none');
-    el.addEventListener('focus',function(e){
-      e.preventDefault();
-      openKeyboard(el);
-    });
-    el.addEventListener('click',function(e){
-      openKeyboard(el);
-      setTimeout(updateCaretPosition,0);
-    });
+    el.addEventListener('focus',onFocusHandler);
+    el.addEventListener('click',onClickHandler);
+  }
+
+  function detachFromInput(el){
+    if(!el.dataset.ckAttached) return;
+    delete el.dataset.ckAttached;
+    el.removeAttribute('readonly');
+    if(el.dataset.ckOrigInputmode){
+      el.setAttribute('inputmode',el.dataset.ckOrigInputmode);
+      delete el.dataset.ckOrigInputmode;
+    }else{
+      el.removeAttribute('inputmode');
+    }
+    el.removeEventListener('focus',onFocusHandler);
+    el.removeEventListener('click',onClickHandler);
   }
 
   function scanInputs(){
     var els=document.querySelectorAll('input[type="text"],input[type="number"],input[type="password"],input[type="tel"],input[type="email"],input[type="search"],input:not([type]),textarea');
-    els.forEach(attachToInput);
+    els.forEach(enabled ? attachToInput : detachFromInput);
   }
 
   document.addEventListener('DOMContentLoaded',scanInputs);
@@ -5957,6 +6831,18 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
 
   // rescan periodically as a safety net for dynamically shown pages
   setInterval(scanInputs,1500);
+
+  window.ZKB = {
+    setEnabled: function(on){
+      enabled = !!on;
+      if(!enabled){
+        if(activeInput) activeInput.blur();
+        closeKeyboard();
+      }
+      scanInputs();
+    },
+    isEnabled: function(){ return enabled; }
+  };
 })();
 </script>
 
