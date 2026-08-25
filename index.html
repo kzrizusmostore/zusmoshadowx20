@@ -22,7 +22,7 @@ h1{text-align:center;font-size:2.2rem}.subtitle{text-align:center;color:#ddd;mar
 .page{display:none;opacity:0}.active{display:block;animation:fadePage .6s ease forwards}@keyframes fadePage{from{opacity:0}to{opacity:1}}
 .back{background:#ff2b2b;border:none;color:#fff;padding:18px 18px;border-radius:8px;margin-bottom:20px}
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s linear}@keyframes rip{to{transform:scale(4);opacity:0}}
-.transition{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:999}.show{animation:fadeScreen .8s ease forwards}@keyframes fadeScreen{0%{opacity:0}50%{opacity:.9}100%{opacity:0}}
+.transition{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:999}.transition.show{animation:fadeScreen .8s ease forwards}@keyframes fadeScreen{0%{opacity:0}50%{opacity:.9}100%{opacity:0}}
 
 #shadowmenu .grid{grid-template-columns:1fr;gap:14px}
 #shadowmenu .card{
@@ -52,9 +52,11 @@ border-radius:24px;
 .download-icon{font-size:72px;color:#4da3ff;display:block;text-align:center;margin-bottom:12px}
 .file-info{background:rgba(255,255,255,.05);padding:16px;border-radius:20px;margin:16px 0;line-height:1.8}
 .download-btn{width:100%;padding:18px;border:none;border-radius:20px;background:#0a84ff;color:#fff;font-size:15px;font-weight:700}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:1000;opacity:0;transition:opacity .25s ease}
 .modal.show{display:flex}
-.modal-card{width:320px;background:#181818;border-radius:28px;padding:24px;text-align:center}
+.modal.show.in{opacity:1}
+.modal-card{width:320px;max-height:80vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#181818;border-radius:28px;padding:24px;text-align:center;transform:scale(.92);transition:transform .25s ease}
+.modal.show.in .modal-card{transform:scale(1)}
 .modal-actions{display:flex;gap:10px;margin-top:18px}
 .modal-actions button{flex:1;padding:18px;border:none;border-radius:16px;color:#fff}
 .cancelBtn{background:#444}.okBtn{background:#ff2b2b}
@@ -1398,12 +1400,55 @@ object-fit:contain;
 .topbar-pro{background:rgba(15,15,15,.75)!important;backdrop-filter:blur(20px);box-shadow:none!important}
 .topbar-pro .center{position:absolute;left:50%;transform:translateX(-50%);text-align:center}
 .vipbadge{background:gold;color:#000;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold}
+
+.side-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:1000000;display:none;opacity:0;transition:opacity .3s ease}
+.side-drawer-overlay.open{display:block;opacity:1}
+.side-drawer{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:#141414;border-right:1px solid rgba(255,255,255,.12);z-index:1000001;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+.side-drawer-overlay.open .side-drawer{transform:translateX(0)}
+.sd-header{background:linear-gradient(135deg,#b30000,#e00000);padding:28px 20px 20px;position:relative}
+.sd-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sd-avatar{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);margin-bottom:10px;display:block}
+.sd-name{font-size:1.05rem;font-weight:800;color:#fff;line-height:1.2}
+.sd-role{display:inline-block;margin-top:6px;font-size:.62rem;font-weight:700;letter-spacing:.5px;background:rgba(0,0,0,.3);color:#ffe27a;padding:3px 10px;border-radius:10px}
+.sd-diamond{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:.82rem;font-weight:700;color:#fff;background:rgba(0,0,0,.25);padding:6px 12px;border-radius:14px;width:fit-content}
+.sd-diamond img{width:13px;height:13px;object-fit:contain}
+.sd-nav{padding:14px 10px;flex:1}
+.sd-nav-item{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:16px;color:#eee;cursor:pointer;font-size:.83rem;font-weight:600;transition:.2s}
+.sd-nav-item i{width:18px;text-align:center;color:#ff4747;font-size:15px}
+.sd-nav-item:hover,.sd-nav-item:active{background:rgba(255,255,255,.08)}
+.sd-nav-divider{margin:16px 12px 8px;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.4);font-weight:700}
+.sd-nav-divider:first-child{margin-top:4px}
+.sd-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.63rem;color:rgba(255,255,255,.4);line-height:1.6}
 </style>
 <div class="topbar-pro" id="topbarPro">
 <button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
 <div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
 <div class="center" id="topbarCenter"></div>
 <div class="right" id="topbarRight"><button class="diamond-widget" onclick="openDailyClaim()"><img src="https://files.catbox.moe/onzrii.png" alt="diamond" width="11" height="11" style="width:11px;height:11px;object-fit:contain;display:block"/><span id="diamondBalanceTop">0</span><span class="notif-dot" id="diamondDot"></span></button><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="showPage('notifikasi')"><i class="fa-solid fa-bell"></i><span class="notif-dot" id="notifDot"></span></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i><span class="notif-dot" id="settingsDot"></span></button></div>
+</div>
+
+<div class="side-drawer-overlay" id="sideDrawerOverlay" onclick="if(event.target===this)closeSideDrawer()">
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <button class="sd-close" onclick="closeSideDrawer()" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
+      <img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/>
+      <div class="sd-name" id="sdName">Guest</div>
+      <div class="sd-role" id="sdRole">FREE</div>
+      <div class="sd-diamond"><img src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
+    </div>
+    <div class="sd-nav">
+      <div class="sd-nav-divider">Menu Utama</div>
+      <div class="sd-nav-item" onclick="sdGo('home')"><i class="fa-solid fa-house"></i>Beranda</div>
+      <div class="sd-nav-item" onclick="sdGo('shadowmenu')"><i class="fa-solid fa-shield-halved"></i>Semua Layanan Shadow</div>
+      <div class="sd-nav-item" onclick="sdGo('toko')"><i class="fa-solid fa-store"></i>Toko</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openDailyClaim==='function')openDailyClaim();"><i class="fa-solid fa-gift"></i>Klaim Harian</div>
+      <div class="sd-nav-divider">Akun</div>
+      <div class="sd-nav-item" onclick="sdGo('notifikasi')"><i class="fa-solid fa-bell"></i>Notifikasi</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openSettings==='function')openSettings();"><i class="fa-solid fa-gear"></i>Pengaturan</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openNameEditModal==='function')openNameEditModal();"><i class="fa-solid fa-pen"></i>Ganti Nama</div>
+    </div>
+    <div class="sd-footer">KZRIZUSMO &bull; Zusmo Shadow<br/>Versi 1.0</div>
+  </div>
 </div>
 <div class="app-bottombar">
 <div class="tab" onclick="showPage('shadowmenu')">
@@ -1513,6 +1558,12 @@ object-fit:contain;
   <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
   <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small data-i18n="home.botGloryDesc">Bot booster keaktifan guild Free Fire</small></div>
   <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="dismissNewBadge('nickeditor');showPage('nickeditor')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-pen-nib"></i></div>
+  <div class="hm-menu-body"><h4>EDITOR BIO</h4><small>Warna, bold, italic &amp; underline bio</small></div>
+  <span class="hm-new-badge" id="newBadge_nickeditor"><span class="hm-new-dot"></span>NEW</span>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
@@ -2860,6 +2911,538 @@ function orderBotGlory(){
 
   window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
 }
+</script>
+
+<!-- NICKNAME EDITOR PAGE -->
+<div class="page" id="nickeditor">
+<style>
+#nickeditor{padding-bottom:80px;}
+.ne-output{
+  min-height:64px;
+  background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(0,0,0,.35));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:18px 16px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  font-size:19px;font-weight:800;
+  word-break:break-word;
+  line-height:1.5;
+}
+.ne-output span.ne-empty{color:#444;font-size:12.5px;font-weight:600;letter-spacing:.5px;}
+.ne-toolbar{
+  display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;
+}
+.ne-tbtn{
+  flex:1;min-width:54px;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 6px;border-radius:12px;
+  background:rgba(255,43,43,.07);
+  border:1.5px solid rgba(255,43,43,.3);
+  color:#eee;font-size:10.5px;font-weight:800;
+  cursor:pointer;transition:.17s;user-select:none;
+}
+.ne-tbtn:active{transform:scale(.94);background:rgba(255,43,43,.18);}
+.ne-tbtn i{color:#ff2b2b;font-size:17px;}
+.ne-section-lbl{
+  font-size:10.5px;font-weight:800;color:#777;
+  letter-spacing:.8px;text-transform:uppercase;
+  margin:2px 2px 10px;
+}
+.ne-swatch-row{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin-bottom:4px;
+}
+.ne-swatch{
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.18);
+  cursor:pointer;flex-shrink:0;
+  transition:.18s;
+  box-shadow:0 2px 6px rgba(0,0,0,.4);
+}
+.ne-swatch:active{transform:scale(.88);}
+.ne-swatch:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.4);}
+.ne-swatch.on{border-color:#fff;box-shadow:0 0 0 2px rgba(255,43,43,.5),0 2px 6px rgba(0,0,0,.4);}
+.ne-swatch-custom{
+  background:conic-gradient(from 0deg,red,orange,yellow,lime,cyan,blue,magenta,red);
+  background-size:150% 150%;
+  background-position:center;
+  border-color:rgba(255,255,255,.35);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08);
+}
+.ne-swatch-custom:hover{box-shadow:0 4px 12px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.15);}
+
+/* ── HSV CUSTOM COLOR PICKER ── */
+.ne-hsv-card{margin-top:14px;}
+.ne-hsv-preview-row{
+  display:flex;align-items:center;gap:13px;margin-bottom:16px;
+}
+.ne-hsv-preview{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,255,255,.25);
+  box-shadow:0 3px 10px rgba(0,0,0,.5),inset 0 0 10px rgba(255,255,255,.08);
+  transition:background .1s;
+}
+.ne-hsv-code{
+  flex:1;
+  font-family:'Space Mono',monospace;
+  font-size:13px;font-weight:700;color:#fff;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:9px 12px;
+  letter-spacing:1px;
+}
+.ne-hsv-code span{color:#ff5b5b;}
+.ne-slider-group{margin-bottom:14px;}
+.ne-slider-group:last-of-type{margin-bottom:0;}
+.ne-slider-lbl{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;font-weight:800;color:#999;letter-spacing:.6px;
+  margin-bottom:8px;text-transform:uppercase;
+}
+.ne-slider-lbl b{color:#ff2b2b;font-size:11px;}
+.ne-slider-lbl span{color:#eee;font-family:'Space Mono',monospace;font-weight:700;}
+.ne-range{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:14px;border-radius:8px;
+  outline:none;cursor:pointer;
+  border:1px solid rgba(255,255,255,.1);
+}
+.ne-range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:24px;height:24px;border-radius:50%;
+  background:#fff;
+  border:3px solid #ff2b2b;
+  box-shadow:0 0 10px rgba(255,43,43,.6),0 2px 6px rgba(0,0,0,.5);
+  cursor:pointer;margin-top:-1px;
+}
+.ne-range::-moz-range-thumb{
+  width:24px;height:24px;border-radius:50%;
+  background:#fff;border:3px solid #ff2b2b;
+  box-shadow:0 0 10px rgba(255,43,43,.6),0 2px 6px rgba(0,0,0,.5);
+  cursor:pointer;
+}
+#neHue{background:linear-gradient(to right,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);}
+.ne-apply-btn{
+  width:100%;padding:13px;border:none;border-radius:13px;
+  background:rgba(255,43,43,.1);
+  border:1.5px solid rgba(255,43,43,.4);
+  color:#ff8a8a;font-size:12.5px;font-weight:800;
+  cursor:pointer;letter-spacing:.6px;margin-top:6px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:.17s;
+}
+.ne-apply-btn:active{transform:scale(.97);background:rgba(255,43,43,.2);}
+.ne-input-wrap{position:relative;margin-bottom:6px;}
+.ne-textarea{
+  width:100%;min-height:92px;resize:none;
+  padding:14px 15px 20px;
+  border-radius:13px;
+  background:rgba(255,43,43,.05);
+  border:1.5px solid rgba(255,43,43,.38);
+  color:#fff;font-size:14.5px;font-weight:600;
+  outline:none;letter-spacing:.2px;line-height:1.55;
+  transition:border .2s,box-shadow .2s,background .2s;
+  font-family:inherit;
+}
+.ne-textarea::placeholder{color:#444;font-size:12.5px;font-weight:400;}
+.ne-textarea:focus{
+  border-color:#ff2b2b;
+  box-shadow:0 0 0 3px rgba(255,43,43,.13),0 0 18px rgba(255,43,43,.14);
+  background:rgba(255,43,43,.09);
+}
+.ne-count{
+  text-align:right;font-size:10.5px;color:#666;
+  margin:6px 2px 0;font-weight:700;letter-spacing:.3px;
+}
+.ne-count.warn{color:#ff5252;}
+.ne-copy-btn{
+  width:100%;padding:14px;border:none;border-radius:13px;
+  background:linear-gradient(135deg,#ff2b2b 0%,#961020 100%);
+  color:#fff;font-size:13px;font-weight:800;
+  cursor:pointer;letter-spacing:.6px;
+  margin-top:4px;
+  box-shadow:0 5px 22px rgba(255,43,43,.28),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:.18s;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.ne-copy-btn:active{transform:scale(.975);}
+.ne-copy-btn:hover{box-shadow:0 7px 26px rgba(255,43,43,.4),inset 0 1px 0 rgba(255,255,255,.14);}
+.ne-clear-btn{
+  width:100%;padding:12px;border-radius:13px;margin-top:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  color:#999;font-size:12px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.ne-clear-btn i{color:#777;}
+
+</style>
+
+<p class="pc-title"><span class="red">EDITOR</span>&nbsp;<span class="wht">BIO</span></p>
+<p class="pc-sub">Warna, Bold, Italic &amp; Underline Bio</p>
+
+<!-- Toolbar + Input -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-pen-nib"></i></div>
+    <div class="pc-head-text">
+      <h3>EDITOR TEKS</h3>
+      <p>Pilih warna &amp; gaya, lalu ketik bio</p>
+    </div>
+  </div>
+
+  <div class="ne-toolbar">
+    <div class="ne-tbtn" onclick="neWrap('[b]')"><i class="fa-solid fa-bold"></i></div>
+    <div class="ne-tbtn" onclick="neWrap('[i]')"><i class="fa-solid fa-italic"></i></div>
+    <div class="ne-tbtn" onclick="neWrap('[u]')"><i class="fa-solid fa-underline"></i></div>
+  </div>
+
+  <div class="ne-section-lbl">Pilih Warna</div>
+  <div class="ne-swatch-row" id="neSwatchRow"></div>
+
+  <div class="ne-input-wrap" style="margin-top:14px;">
+    <textarea class="ne-textarea" id="neInput" maxlength="250" placeholder="Contoh: [FF0000]Zusmo[b]Shadow[/b] bio kamu di sini"></textarea>
+  </div>
+  <div class="ne-count" id="neCount">0 / 250</div>
+</div>
+
+<!-- Preview / Output (di bawah input) -->
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-eye"></i></div>
+    <div class="pc-head-text">
+      <h3>PREVIEW</h3>
+      <p>Tampilan hasil bio kamu</p>
+    </div>
+  </div>
+  <div class="ne-output" id="neOutput"><span class="ne-empty">Preview akan muncul di sini...</span></div>
+
+  <button class="ne-copy-btn" onclick="neCopyCode(event)" style="margin-top:14px;">
+    <i class="fa-solid fa-copy"></i> SALIN KODE
+  </button>
+</div>
+
+<!-- Popup pilih warna custom -->
+<div class="modal" id="neHsvModal">
+  <div class="modal-card" onclick="event.stopPropagation()" style="width:300px;">
+    <h3 style="margin:0 0 14px;font-size:15px;">Warna Custom</h3>
+    <div class="ne-hsv-preview-row">
+      <div class="ne-hsv-preview" id="neHsvPreview"></div>
+      <div class="ne-hsv-code">[<span id="neHsvHex">FF2B2B</span>]</div>
+    </div>
+    <div class="ne-slider-group">
+      <div class="ne-slider-lbl"><b>RONA</b><span id="neHueVal">0°</span></div>
+      <input type="range" class="ne-range" id="neHue" min="0" max="360" value="0" oninput="neUpdateHsv()"/>
+    </div>
+    <div class="ne-slider-group">
+      <div class="ne-slider-lbl"><b>SATURASI</b><span id="neSatVal">100%</span></div>
+      <input type="range" class="ne-range" id="neSat" min="0" max="100" value="100" oninput="neUpdateHsv()"/>
+    </div>
+    <div class="ne-slider-group">
+      <div class="ne-slider-lbl"><b>NILAI</b><span id="neValVal">100%</span></div>
+      <input type="range" class="ne-range" id="neVal" min="0" max="100" value="100" oninput="neUpdateHsv()"/>
+    </div>
+    <div class="modal-actions">
+      <button onclick="neCloseHsvModal()" style="background:#2a2a2a;color:#ccc;">BATAL</button>
+      <button onclick="neApplyHsvColor()" style="background:#ff2b2b;color:#fff;font-weight:800;">TERAPKAN</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup hasil salin kode -->
+<div class="modal" id="neCopyModal">
+  <div class="modal-card" onclick="event.stopPropagation()" style="width:300px;">
+    <div style="width:44px;height:44px;margin:0 auto 12px;border-radius:50%;background:#242424;display:flex;align-items:center;justify-content:center;">
+      <i class="fa-solid fa-check" style="color:#4caf50;font-size:18px;"></i>
+    </div>
+    <h3 style="margin:0 0 4px;font-size:16px;">Kode tersalin</h3>
+    <p style="margin:0 0 14px;opacity:.6;font-size:12px;">Preview bio kamu</p>
+    <div class="ne-output" id="neCopyPreview" style="text-align:left;"></div>
+    <div class="modal-actions">
+      <button onclick="neCloseCopyModal()" style="background:#2a2a2a;">OKE</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+(function(){
+  // Warna-warna positif & mencolok untuk demo cepat
+  const swatchColors=['FF0000','00C853','FFEB00','FF8C00','FF2FA0','9B30FF','2979FF'];
+  const row=document.getElementById('neSwatchRow');
+  if(row){
+    swatchColors.forEach(hex=>{
+      const s=document.createElement('div');
+      s.className='ne-swatch';
+      s.style.background='#'+hex;
+      s.title='#'+hex;
+      s.onclick=()=>neInsertColor(hex);
+      row.appendChild(s);
+    });
+    const custom=document.createElement('div');
+    custom.className='ne-swatch ne-swatch-custom';
+    custom.title='Warna custom';
+    custom.onclick=()=>neShowHsvModal();
+    row.insertBefore(custom,row.firstChild);
+  }
+
+  const neInputEl=document.getElementById('neInput');
+  if(neInputEl){
+    const trackCaret=()=>{
+      neInputEl._neLastStart=neInputEl.selectionStart;
+      neInputEl._neLastEnd=neInputEl.selectionEnd;
+    };
+    neInputEl.addEventListener('input',()=>{trackCaret();neUpdatePreview();});
+    ['keyup','click','select','focus'].forEach(evt=>{
+      neInputEl.addEventListener(evt,trackCaret);
+    });
+    trackCaret();
+  }
+})();
+
+function neEscape(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function neParse(raw){
+  const tokenRe=/(\[[0-9A-Fa-f]{6}\]|\[b\]|\[\/b\]|\[i\]|\[\/i\]|\[u\]|\[\/u\])/g;
+  const parts=raw.split(tokenRe);
+  let html='';
+  let colorOpen=false;
+  parts.forEach(part=>{
+    if(!part)return;
+    let m=part.match(/^\[([0-9A-Fa-f]{6})\]$/);
+    if(m){
+      if(colorOpen) html+='</span>';
+      html+='<span style="color:#'+m[1]+'">';
+      colorOpen=true;
+    }
+    else if(part==='[b]'){ html+='<b>'; }
+    else if(part==='[i]'){ html+='<i>'; }
+    else if(part==='[u]'){ html+='<u>'; }
+    else{ html+=neEscape(part); }
+  });
+  if(colorOpen) html+='</span>';
+  return html;
+}
+
+function neUpdatePreview(){
+  const inp=document.getElementById('neInput');
+  const out=document.getElementById('neOutput');
+  const cnt=document.getElementById('neCount');
+  if(!inp||!out)return;
+  const val=inp.value;
+  cnt.textContent=val.length+' / 250';
+  cnt.classList.toggle('warn',val.length>=250);
+  out.innerHTML=val.trim()===''?'<span class="ne-empty">Preview akan muncul di sini...</span>':neParse(val);
+}
+
+function neWrap(open,close){
+  const inp=document.getElementById('neInput');
+  if(!inp)return;
+  const start=inp._neLastStart!=null?inp._neLastStart:inp.value.length;
+  const end=inp._neLastEnd!=null?inp._neLastEnd:inp.value.length;
+  const val=inp.value;
+  const selected=val.slice(start,end);
+  const insertText=open+selected+close;
+  const newVal=val.slice(0,start)+insertText+val.slice(end);
+  if(newVal.length>250){
+    inp.classList.remove('pc-shake');void inp.offsetWidth;inp.classList.add('pc-shake');
+    inp.style.borderColor='#ff2b2b';inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{inp.style.boxShadow='';inp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+  inp.value=newVal;
+  inp.focus();
+  const caret=start+insertText.length;
+  inp.setSelectionRange(caret,caret);
+  inp._neLastStart=caret;inp._neLastEnd=caret;
+  neUpdatePreview();
+}
+
+function neInsertColor(hexColor){
+  const inp=document.getElementById('neInput');
+  if(!inp)return;
+  const hex=hexColor.replace('#','').toUpperCase();
+  const tag='['+hex+']';
+  const start=inp._neLastStart!=null?inp._neLastStart:inp.value.length;
+  const end=inp._neLastEnd!=null?inp._neLastEnd:inp.value.length;
+  const val=inp.value;
+  const newVal=val.slice(0,start)+tag+val.slice(end);
+  if(newVal.length>250){
+    inp.classList.remove('pc-shake');void inp.offsetWidth;inp.classList.add('pc-shake');
+    inp.style.borderColor='#ff2b2b';inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
+    setTimeout(()=>{inp.style.boxShadow='';inp.style.borderColor='rgba(255,43,43,.38)';},900);
+    return;
+  }
+  inp.value=newVal;
+  inp.focus();
+  const caret=start+tag.length;
+  inp.setSelectionRange(caret,caret);
+  inp._neLastStart=caret;inp._neLastEnd=caret;
+  neUpdatePreview();
+}
+
+/* ── HSV (Hue / Saturation / Value) Custom Color Picker ── */
+function neHsvToHex(h,s,v){
+  s/=100; v/=100;
+  const c=v*s;
+  const x=c*(1-Math.abs((h/60)%2-1));
+  const m=v-c;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;}
+  else if(h<120){r=x;g=c;b=0;}
+  else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;}
+  else if(h<300){r=x;g=0;b=c;}
+  else{r=c;g=0;b=x;}
+  const toHex=n=>Math.round((n+m)*255).toString(16).padStart(2,'0');
+  return (toHex(r)+toHex(g)+toHex(b)).toUpperCase();
+}
+
+function neUpdateHsv(){
+  const h=+document.getElementById('neHue').value;
+  const s=+document.getElementById('neSat').value;
+  const v=+document.getElementById('neVal').value;
+  const hex=neHsvToHex(h,s,v);
+
+  document.getElementById('neHueVal').textContent=h+'°';
+  document.getElementById('neSatVal').textContent=s+'%';
+  document.getElementById('neValVal').textContent=v+'%';
+  document.getElementById('neHsvHex').textContent=hex;
+  document.getElementById('neHsvPreview').style.background='#'+hex;
+
+  // Update saturation & value slider gradients based on current hue
+  const pureHue=neHsvToHex(h,100,100);
+  document.getElementById('neSat').style.background=
+    'linear-gradient(to right, #fff, #'+pureHue+')';
+  document.getElementById('neVal').style.background=
+    'linear-gradient(to right, #000, #'+pureHue+')';
+}
+
+function neApplyHsvColor(){
+  const hex=document.getElementById('neHsvHex').textContent;
+  neInsertColor(hex);
+  neCloseHsvModal();
+}
+
+function neSyncModalViewport(id){
+  const el=document.getElementById(id);
+  if(!el||!el.classList.contains('show'))return;
+  if(window.visualViewport){
+    const vv=window.visualViewport;
+    el.style.height=vv.height+'px';
+    el.style.top=vv.offsetTop+'px';
+  }else{
+    el.style.height='100%';
+    el.style.top='0';
+  }
+}
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',()=>{neSyncModalViewport('neHsvModal');neSyncModalViewport('neCopyModal');});
+  window.visualViewport.addEventListener('scroll',()=>{neSyncModalViewport('neHsvModal');neSyncModalViewport('neCopyModal');});
+}
+
+function neShowHsvModal(){
+  const modal=document.getElementById('neHsvModal');
+  if(!modal)return;
+  neUpdateHsv();
+  hmLockScroll();
+  setTimeout(()=>{
+    modal.classList.add('show');
+    void modal.offsetWidth;
+    modal.classList.add('in');
+    neSyncModalViewport('neHsvModal');
+  },20);
+}
+
+function neCloseHsvModal(){
+  const modal=document.getElementById('neHsvModal');
+  if(!modal)return;
+  modal.classList.remove('in');
+  setTimeout(()=>{
+    modal.classList.remove('show');
+    modal.style.height='';
+    modal.style.top='';
+    hmUnlockScroll();
+  },250);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  neUpdateHsv();
+});
+
+function neShowCopyModal(){
+  const inp=document.getElementById('neInput');
+  const modal=document.getElementById('neCopyModal');
+  const prev=document.getElementById('neCopyPreview');
+  if(!inp||!modal||!prev)return;
+  prev.innerHTML=inp.value.trim()===''?'<span class="ne-empty">Preview akan muncul di sini...</span>':neParse(inp.value);
+  hmLockScroll();
+  setTimeout(()=>{
+    modal.classList.add('show');
+    void modal.offsetWidth;
+    modal.classList.add('in');
+    neSyncModalViewport('neCopyModal');
+  },80);
+}
+
+function neCloseCopyModal(){
+  const modal=document.getElementById('neCopyModal');
+  if(!modal)return;
+  modal.classList.remove('in');
+  setTimeout(()=>{
+    modal.classList.remove('show');
+    modal.style.height='';
+    modal.style.top='';
+    hmUnlockScroll();
+  },250);
+}
+
+function neCopyCode(ev){
+  const inp=document.getElementById('neInput');
+  if(!inp||!inp.value)return;
+  const btn=(ev&&ev.currentTarget)||document.querySelector('.ne-copy-btn');
+  const showResult=(ok)=>{
+    if(!btn)return;
+    const old=btn.innerHTML;
+    btn.innerHTML=ok?'<i class="fa-solid fa-check"></i> TERSALIN!':'<i class="fa-solid fa-xmark"></i> GAGAL, SALIN MANUAL';
+    setTimeout(()=>{btn.innerHTML=old;},1600);
+    if(ok)neShowCopyModal();
+  };
+
+  // Primary method: execCommand (paling kompatibel di webview/APK & konteks non-https)
+  let copied=false;
+  try{
+    inp.focus();
+    inp.setSelectionRange(0,inp.value.length);
+    copied=document.execCommand('copy');
+  }catch(e){ copied=false; }
+
+  if(copied){
+    inp.setSelectionRange(inp.value.length,inp.value.length);
+    inp.blur();
+    showResult(true);
+    return;
+  }
+
+  // Fallback: Clipboard API modern (butuh secure context)
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(inp.value).then(()=>showResult(true)).catch(()=>showResult(false));
+  }else{
+    showResult(false);
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('neInput');
+  if(inp){ inp.addEventListener('input',neUpdatePreview); }
+});
 </script>
 
 <!-- JOIN GUILD Z SHADOWS PAGE -->
@@ -6467,7 +7050,8 @@ const NEW_BADGE_CONFIG={
   suntiklike:{launch:'2026-08-11'},
   botglory:{launch:'2026-08-11'},
   nickhijau:{launch:'2026-08-15'},
-  joinguild:{launch:'2026-08-17'}
+  joinguild:{launch:'2026-08-17'},
+  nickeditor:{launch:'2026-08-25'}
 };
 const NEW_BADGE_DURATION_DAYS=20;
 
