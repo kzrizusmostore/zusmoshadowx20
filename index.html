@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><title>KZRIZUSMO</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><title>KZRIZUSMO</title><link href="manifest.json" rel="manifest"/><meta content="#ff2b2b" name="theme-color"/><link href="icon-192.png" rel="icon" type="image/png"/><link href="icon-192.png" rel="apple-touch-icon"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://files.catbox.moe" rel="preconnect"/><link href="https://files.catbox.moe" rel="dns-prefetch"/><link href="https://img1.pixhost.to" rel="preconnect"/><link href="https://img1.pixhost.to" rel="dns-prefetch"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Outfit',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
 ::selection{background:#ff2b2b;color:#fff}
 ::-moz-selection{background:#ff2b2b;color:#fff}
@@ -2923,12 +2923,13 @@ function orderBotGlory(){
   border:1px solid rgba(255,255,255,.08);
   border-radius:14px;
   padding:18px 16px;
-  display:flex;align-items:center;justify-content:center;
   text-align:center;
-  font-size:19px;font-weight:800;
+  font-size:14.5px;font-weight:600;
   word-break:break-word;
-  line-height:1.5;
+  white-space:pre-wrap;
+  line-height:1.55;
 }
+.ne-output b{font-weight:800;}
 .ne-output span.ne-empty{color:#444;font-size:12.5px;font-weight:600;letter-spacing:.5px;}
 .ne-toolbar{
   display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;
@@ -3035,23 +3036,25 @@ function orderBotGlory(){
   transition:.17s;
 }
 .ne-apply-btn:active{transform:scale(.97);background:rgba(255,43,43,.2);}
-.ne-input-wrap{position:relative;margin-bottom:6px;}
+.ne-input-wrap{position:relative;margin-bottom:6px;padding:1.5px;border-radius:14px;overflow:hidden;isolation:isolate;}
+.ne-input-wrap::before{content:'';position:absolute;top:50%;left:50%;width:1500px;height:1500px;margin:-750px 0 0 -750px;background:conic-gradient(from 0deg,#ff0000,#ff8c00,#ffeb00,#00c853,#2979ff,#9b30ff,#ff2fa0,#ff0000);animation:neInputSpin 5s linear infinite;z-index:0;}
+@keyframes neInputSpin{to{transform:rotate(360deg);}}
+.ne-input-wrap:focus-within{box-shadow:0 0 16px rgba(255,43,43,.35);}
 .ne-textarea{
+  position:relative;z-index:1;
   width:100%;min-height:92px;resize:none;
   padding:14px 15px 20px;
   border-radius:13px;
-  background:rgba(255,43,43,.05);
-  border:1.5px solid rgba(255,43,43,.38);
+  background:linear-gradient(rgba(20,6,6,.93),rgba(20,6,6,.93)),rgba(255,43,43,.05);
+  border:none;
   color:#fff;font-size:14.5px;font-weight:600;
   outline:none;letter-spacing:.2px;line-height:1.55;
-  transition:border .2s,box-shadow .2s,background .2s;
+  transition:box-shadow .2s,background .2s;
   font-family:inherit;
 }
 .ne-textarea::placeholder{color:#444;font-size:12.5px;font-weight:400;}
 .ne-textarea:focus{
-  border-color:#ff2b2b;
-  box-shadow:0 0 0 3px rgba(255,43,43,.13),0 0 18px rgba(255,43,43,.14);
-  background:rgba(255,43,43,.09);
+  background:linear-gradient(rgba(32,8,8,.95),rgba(32,8,8,.95)),rgba(255,43,43,.09);
 }
 .ne-count{
   text-align:right;font-size:10.5px;color:#666;
@@ -3070,6 +3073,8 @@ function orderBotGlory(){
 }
 .ne-copy-btn:active{transform:scale(.975);}
 .ne-copy-btn:hover{box-shadow:0 7px 26px rgba(255,43,43,.4),inset 0 1px 0 rgba(255,255,255,.14);}
+.ne-copy-btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
+.ne-copy-btn:disabled:active{transform:none;}
 .ne-clear-btn{
   width:100%;padding:12px;border-radius:13px;margin-top:8px;
   background:rgba(255,255,255,.04);
@@ -3078,11 +3083,13 @@ function orderBotGlory(){
   cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
 }
 .ne-clear-btn i{color:#777;}
+.ne-banner{width:100%;aspect-ratio:12/5;object-fit:cover;display:block;border-radius:16px;margin:14px 0 20px;}
 
 </style>
 
 <p class="pc-title"><span class="red">EDITOR</span>&nbsp;<span class="wht">BIO</span></p>
 <p class="pc-sub">Warna, Bold, Italic &amp; Underline Bio</p>
+<img class="ne-banner" loading="lazy" decoding="async" src="https://files.catbox.moe/h50rmn.png" alt="Editor Bio Banner"/>
 
 <!-- Toolbar + Input -->
 <div class="pc-card">
@@ -3095,9 +3102,9 @@ function orderBotGlory(){
   </div>
 
   <div class="ne-toolbar">
-    <div class="ne-tbtn" onclick="neWrap('[b]')"><i class="fa-solid fa-bold"></i></div>
-    <div class="ne-tbtn" onclick="neWrap('[i]')"><i class="fa-solid fa-italic"></i></div>
-    <div class="ne-tbtn" onclick="neWrap('[u]')"><i class="fa-solid fa-underline"></i></div>
+    <div class="ne-tbtn" onclick="neWrap('[b]','[/b]')"><i class="fa-solid fa-bold"></i></div>
+    <div class="ne-tbtn" onclick="neWrap('[i]','[/i]')"><i class="fa-solid fa-italic"></i></div>
+    <div class="ne-tbtn" onclick="neWrap('[u]','[/u]')"><i class="fa-solid fa-underline"></i></div>
   </div>
 
   <div class="ne-section-lbl">Pilih Warna</div>
@@ -3120,8 +3127,11 @@ function orderBotGlory(){
   </div>
   <div class="ne-output" id="neOutput"><span class="ne-empty">Preview akan muncul di sini...</span></div>
 
-  <button class="ne-copy-btn" onclick="neCopyCode(event)" style="margin-top:14px;">
+  <button class="ne-copy-btn" id="neCopyBtn" onclick="neCopyCode(event)" style="margin-top:14px;" disabled>
     <i class="fa-solid fa-copy"></i> SALIN KODE
+  </button>
+  <button class="ne-clear-btn" onclick="neClearInput()">
+    <i class="fa-solid fa-trash"></i> HAPUS SEMUA
   </button>
 </div>
 
@@ -3240,6 +3250,17 @@ function neUpdatePreview(){
   cnt.textContent=val.length+' / 250';
   cnt.classList.toggle('warn',val.length>=250);
   out.innerHTML=val.trim()===''?'<span class="ne-empty">Preview akan muncul di sini...</span>':neParse(val);
+  const copyBtn=document.getElementById('neCopyBtn');
+  if(copyBtn)copyBtn.disabled=val.trim()==='';
+}
+
+function neClearInput(){
+  const inp=document.getElementById('neInput');
+  if(!inp||!inp.value)return;
+  inp.value='';
+  inp._neLastStart=0;inp._neLastEnd=0;
+  neUpdatePreview();
+  inp.focus();
 }
 
 function neWrap(open,close){
@@ -3253,8 +3274,8 @@ function neWrap(open,close){
   const newVal=val.slice(0,start)+insertText+val.slice(end);
   if(newVal.length>250){
     inp.classList.remove('pc-shake');void inp.offsetWidth;inp.classList.add('pc-shake');
-    inp.style.borderColor='#ff2b2b';inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
-    setTimeout(()=>{inp.style.boxShadow='';inp.style.borderColor='rgba(255,43,43,.38)';},900);
+    inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.35)';
+    setTimeout(()=>{inp.style.boxShadow='';},900);
     return;
   }
   inp.value=newVal;
@@ -3276,8 +3297,8 @@ function neInsertColor(hexColor){
   const newVal=val.slice(0,start)+tag+val.slice(end);
   if(newVal.length>250){
     inp.classList.remove('pc-shake');void inp.offsetWidth;inp.classList.add('pc-shake');
-    inp.style.borderColor='#ff2b2b';inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.22)';
-    setTimeout(()=>{inp.style.boxShadow='';inp.style.borderColor='rgba(255,43,43,.38)';},900);
+    inp.style.boxShadow='0 0 0 3px rgba(255,43,43,.35)';
+    setTimeout(()=>{inp.style.boxShadow='';},900);
     return;
   }
   inp.value=newVal;
@@ -4724,6 +4745,7 @@ setTimeout(()=>t.classList.remove('show'),800);
 function showHome(){showPage('home')}
 
 function showPage(id){
+window.scrollTo(0,0);
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 if(id==='notifikasi' && typeof markNotifSeen==='function') markNotifSeen();
@@ -7478,6 +7500,19 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
     <p class="nh-proof-desc" style="margin:10px 0 0;">Silahkan cek akun dengan nickname hijau Gradiasi diatas ini secara langsung di game Free fire kamu.</p>
   </div>
 </div>
+<script>
+/* ================= MEDIA CACHE (Service Worker) =================
+   Nyimpen gambar/video/audio di cache browser biar pas dibuka lagi
+   loading-nya langsung instan, gak download ulang dari internet.
+   WAJIB: upload file sw.js di folder yang SAMA dengan index.html ini. */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').catch(function(err){
+      console.warn('SW gagal daftar (media cache nonaktif):',err);
+    });
+  });
+}
+</script>
 </body></html>
 <style>
 .loaderLogo{
