@@ -3266,6 +3266,7 @@ function neClearInput(){
 function neWrap(open,close){
   const inp=document.getElementById('neInput');
   if(!inp)return;
+  close=close||'';
   const start=inp._neLastStart!=null?inp._neLastStart:inp.value.length;
   const end=inp._neLastEnd!=null?inp._neLastEnd:inp.value.length;
   const val=inp.value;
