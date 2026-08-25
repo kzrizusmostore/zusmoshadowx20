@@ -1434,7 +1434,7 @@ object-fit:contain;
       <img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/>
       <div class="sd-name" id="sdName">Guest</div>
       <div class="sd-role" id="sdRole">FREE</div>
-      <div class="sd-diamond"><img src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
+      <div class="sd-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
     </div>
     <div class="sd-nav">
       <div class="sd-nav-divider">Menu Utama</div>
@@ -6116,7 +6116,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   <div class="banner-detail-header">
     <button class="banner-detail-back" onclick="closeBannerDetail()"><i class="fa-solid fa-arrow-left"></i></button>
     <h2 data-i18n="settings.chooseBanner">Pilih Banner</h2>
-    <div class="banner-detail-diamond"><img src="https://files.catbox.moe/onzrii.png" alt="diamond" width="14" height="14" style="width:14px;height:14px;object-fit:contain;display:block"/><span id="bannerDetailDiamondBalance">0</span></div>
+    <div class="banner-detail-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond" width="14" height="14" style="width:14px;height:14px;object-fit:contain;display:block"/><span id="bannerDetailDiamondBalance">0</span></div>
   </div>
   <div class="banner-detail-body" id="bannerDetailBody">
     <div class="banner-detail-hint"><i class="fa-solid fa-wifi"></i><span>Jika gambar/video tidak muncul, coba pindahkan jaringan (WiFi ke Data Seluler atau sebaliknya) yang paling stabil.</span></div>
@@ -6126,10 +6126,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 
 <div class="zx-modal-overlay" id="buyBannerOverlay">
   <div class="zx-modal" id="buyBannerModal">
-    <div class="zx-modal-thumb"><img id="buyBannerImg" src="" alt=""/></div>
+    <div class="zx-modal-thumb"><img id="buyBannerImg" loading="lazy" decoding="async" src="" alt=""/></div>
     <h3 id="buyBannerName">Banner</h3>
     <p data-i18n="shop.buyDesc">Beli banner ini secara permanen menggunakan Diamond kamu.</p>
-    <div class="zx-price-row"><img src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="buyBannerPrice">0</span></div>
+    <div class="zx-price-row"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="buyBannerPrice">0</span></div>
     <div class="zx-actions">
       <button class="zx-btn-cancel" onclick="closeBuyBanner()" data-i18n="shop.cancel">Batal</button>
       <button class="zx-btn-confirm" id="buyBannerConfirmBtn" onclick="confirmBuyBanner()" data-i18n="shop.buy">Beli</button>
@@ -6141,12 +6141,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 <div class="zx-modal-overlay" id="dailyClaimOverlay">
   <div class="zx-modal claim-modal">
     <button type="button" class="redeem-corner-btn" id="redeemCornerBtn" onclick="openRedeemModal()"><i class="fa-solid fa-ticket"></i><span>Redeem</span></button>
-    <div class="claim-header-icon"><img src="https://files.catbox.moe/onzrii.png" alt="diamond"/></div>
+    <div class="claim-header-icon"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/></div>
     <h3 data-i18n="claim.title">Klaim Diamond Harian</h3>
     <p data-i18n="claim.desc">Klaim 60 Diamond gratis setiap hari. Reset setiap pukul 00:00 WIB.</p>
     <div class="claim-week" id="claimWeekGrid"></div>
     <button class="claim-btn-main" id="claimMainBtn" onclick="doClaimDaily()">
-      <img src="https://files.catbox.moe/onzrii.png" alt=""/>
+      <img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt=""/>
       <span id="claimMainBtnText">Klaim 60 Diamond</span>
     </button>
     <div class="claim-countdown" id="claimCountdownText"></div>
@@ -6517,7 +6517,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       var owned = isBannerOwned(b.id);
       var extra = owned ? '' :
         '<div class="bd-lock"><i class="fa-solid fa-lock"></i></div>'+
-        '<div class="bd-price"><img src="'+DIAMOND_ICON+'" alt=""/>'+b.price+'</div>';
+        '<div class="bd-price"><img loading="lazy" decoding="async" src="'+DIAMOND_ICON+'" alt=""/>'+b.price+'</div>';
       return '<div class="banner-detail-card'+(b.id===activeId?' active':'')+(owned?'':' locked')+'" data-banner-id="'+b.id+'" onclick="onSelectBannerDetail(\''+b.id+'\')" title="'+b.name+'">'+
         '<img loading="lazy" decoding="async" class="bd-img" data-src="'+b.img+'" alt=""/>'+
         '<video class="bd-video" muted loop playsinline preload="none" data-src="'+b.video+'"></video>'+
