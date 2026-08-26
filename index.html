@@ -1264,7 +1264,7 @@ object-fit:contain;
 /* STATS ROW */
 .hm-stats-row{
   display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-  margin-bottom:18px;
+  margin-bottom:22px;
 }
 .hm-stat{
   background:rgba(10,10,10,.85);
@@ -1294,7 +1294,91 @@ object-fit:contain;
   background:linear-gradient(90deg,rgba(255,43,43,.2),transparent);
 }
 
-/* MENU ITEMS */
+/* SPOTLIGHT (featured highlight card) */
+.hm-spotlight{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:14px;
+  padding:16px 16px 14px;margin-bottom:14px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(42,16,0,.92),rgba(10,10,10,.98));
+  border:1px solid rgba(255,180,60,.4);
+  box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 26px rgba(255,150,40,.1),inset 0 1px 0 rgba(255,255,255,.05);
+  cursor:pointer;transition:.2s;
+}
+.hm-spotlight:active{transform:scale(.98);border-color:rgba(255,190,90,.6);}
+.hm-spotlight-glow{
+  position:absolute;top:-55%;right:-15%;width:210px;height:210px;
+  background:radial-gradient(circle,rgba(255,180,60,.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hm-spotlight-tag{
+  position:absolute;top:10px;left:16px;z-index:2;
+  display:none;align-items:center;gap:5px;
+  font-family:'Audiowide',sans-serif;font-size:8px;letter-spacing:1.5px;
+  color:#ffcf7a;
+}
+.hm-new-dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:#00ff88;
+  box-shadow:0 0 6px #00ff88,0 0 2px #00ff88;
+  animation:hmNewPulse 1.3s ease-in-out infinite;
+}
+.hm-spotlight-icon{
+  width:54px;height:54px;border-radius:16px;flex-shrink:0;margin-top:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,150,40,.1);border:1px solid rgba(255,180,60,.35);
+  box-shadow:0 0 18px rgba(255,150,40,.15),inset 0 0 10px rgba(255,150,40,.08);
+}
+.hm-spotlight-icon i{font-size:23px;color:#ffb347;text-shadow:0 0 12px rgba(255,150,40,.6);}
+.hm-spotlight-body{flex:1;min-width:0;margin-top:12px;}
+.hm-spotlight-body h3{
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#fff;
+  letter-spacing:.3px;margin-bottom:3px;
+}
+.hm-spotlight-body p{font-size:10.5px;color:rgba(255,255,255,.5);line-height:1.4;}
+.hm-spotlight-cta{
+  flex-shrink:0;margin-top:12px;align-self:center;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-family:'Audiowide',sans-serif;font-size:8px;letter-spacing:.6px;color:#ffb347;
+}
+.hm-spotlight-cta i{font-size:11px;}
+
+/* TILE GRID (quick actions) */
+.hm-tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
+.hm-tile{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:16px 6px 14px;border-radius:18px;text-align:center;
+  background:rgba(8,8,8,.85);
+  border:1px solid rgba(255,43,43,.14);
+  box-shadow:0 2px 14px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);
+  cursor:pointer;transition:.2s;
+}
+.hm-tile:active{
+  transform:scale(.95);
+  border-color:rgba(255,43,43,.45);
+  box-shadow:0 0 16px rgba(255,43,43,.15);
+}
+.hm-tile-icon{
+  width:42px;height:42px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,43,43,.08);
+  border:1px solid rgba(255,43,43,.25);
+  box-shadow:0 0 14px rgba(255,43,43,.1),inset 0 0 8px rgba(255,43,43,.07);
+}
+.hm-tile-icon i{font-size:17px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.6);}
+.hm-tile-label{font-size:9.5px;font-weight:800;color:#ddd;letter-spacing:.3px;font-family:'Outfit',sans-serif;line-height:1.25;}
+.hm-tile-badge{
+  position:absolute;top:9px;right:9px;display:none;
+  width:8px;height:8px;border-radius:50%;
+  background:#00ff88;box-shadow:0 0 6px #00ff88,0 0 2px #00ff88;
+  animation:hmNewPulse 1.3s ease-in-out infinite;
+}
+@keyframes hmNewPulse{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.5);opacity:.55;}
+}
+
+/* MENU ITEMS (secondary list) */
 .hm-menu{
   display:flex;align-items:center;gap:14px;
   padding:14px 15px;margin-bottom:9px;
@@ -1332,32 +1416,6 @@ object-fit:contain;
 }
 .hm-menu-body small{font-size:11px;color:#444;}
 .hm-menu-arrow{color:#2a2a2a;font-size:13px;flex-shrink:0;}
-
-.hm-new-badge{
-  position:absolute;
-  top:9px;right:12px;
-  display:none;
-  align-items:center;gap:4px;
-  background:rgba(255,43,43,.15);
-  border:1px solid #ff2b2b;
-  color:#ff5c5c;
-  font-size:9px;font-weight:800;
-  letter-spacing:.6px;
-  padding:2px 8px 2px 6px;
-  border-radius:20px;
-  z-index:2;
-  font-family:'Outfit',sans-serif;
-}
-.hm-new-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:#ff2b2b;
-  box-shadow:0 0 6px #ff2b2b,0 0 2px #ff2b2b;
-  animation:hmNewPulse 1.3s ease-in-out infinite;
-}
-@keyframes hmNewPulse{
-  0%,100%{transform:scale(1);opacity:1;}
-  50%{transform:scale(1.5);opacity:.55;}
-}
 
 /* SOCIAL ROW */
 .hm-social-row{display:flex;gap:10px;margin-bottom:0;}
@@ -1401,25 +1459,188 @@ object-fit:contain;
 .topbar-pro .center{position:absolute;left:50%;transform:translateX(-50%);text-align:center}
 .vipbadge{background:gold;color:#000;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold}
 
-.side-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:1000000;display:none;opacity:0;transition:opacity .3s ease}
+.side-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);z-index:1000000;display:none;opacity:0;transition:opacity .3s ease}
 .side-drawer-overlay.open{display:block;opacity:1}
-.side-drawer{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:#141414;border-right:1px solid rgba(255,255,255,.12);z-index:1000001;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+.side-drawer{
+  position:fixed;top:0;left:0;bottom:0;width:82%;max-width:320px;
+  background:linear-gradient(165deg,#120606 0%,#0a0303 45%,#000 100%);
+  border-right:1px solid rgba(255,43,43,.3);
+  box-shadow:0 0 60px rgba(255,43,43,.14),inset -1px 0 0 rgba(255,255,255,.03);
+  z-index:1000001;transform:translateX(-100%);
+  transition:transform 1s cubic-bezier(.22,1,.36,1);
+  display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;
+}
 .side-drawer-overlay.open .side-drawer{transform:translateX(0)}
-.sd-header{background:linear-gradient(135deg,#b30000,#e00000);padding:28px 20px 20px;position:relative}
-.sd-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.sd-avatar{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);margin-bottom:10px;display:block}
-.sd-name{font-size:1.05rem;font-weight:800;color:#fff;line-height:1.2}
-.sd-role{display:inline-block;margin-top:6px;font-size:.62rem;font-weight:700;letter-spacing:.5px;background:rgba(0,0,0,.3);color:#ffe27a;padding:3px 10px;border-radius:10px}
-.sd-diamond{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:.82rem;font-weight:700;color:#fff;background:rgba(0,0,0,.25);padding:6px 12px;border-radius:14px;width:fit-content}
-.sd-diamond img{width:13px;height:13px;object-fit:contain}
-.sd-nav{padding:14px 10px;flex:1}
-.sd-nav-item{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:16px;color:#eee;cursor:pointer;font-size:.83rem;font-weight:600;transition:.2s}
-.sd-nav-item i{width:18px;text-align:center;color:#ff4747;font-size:15px}
-.sd-nav-item:hover,.sd-nav-item:active{background:rgba(255,255,255,.08)}
-.sd-nav-divider{margin:16px 12px 8px;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.4);font-weight:700}
-.sd-nav-divider:first-child{margin-top:4px}
-.sd-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.63rem;color:rgba(255,255,255,.4);line-height:1.6}
+
+.sd-header{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(135deg,#8a0000 0%,#d60000 45%,#ff2b2b 80%,#b31212 130%);
+  padding:40px 20px;
+  box-shadow:0 12px 40px rgba(200,0,0,.35),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.3);
+}
+.sd-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 85% 0%,rgba(255,255,255,.28) 0%,transparent 55%),
+              linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 30%);
+  pointer-events:none;
+}
+.sd-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,#b31212,#ff2b2b,#b31212,transparent);
+  box-shadow:0 0 16px rgba(255,43,43,.8);
+}
+.sd-header-glow{
+  position:absolute;top:-45%;right:-20%;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);
+  pointer-events:none;
+  animation:sdGlowPulse 4s ease-in-out infinite;
+}
+@keyframes sdGlowPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.sd-close{
+  position:absolute;top:14px;right:14px;z-index:2;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.3);
+  color:#fff;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-size:12px;transition:.18s;
+  backdrop-filter:blur(8px);
+}
+.sd-close:active{transform:scale(.9);background:rgba(0,0,0,.5);}
+.sd-avatar-wrap{position:relative;flex-shrink:0;width:64px;height:64px;}
+.sd-avatar-wrap::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  background:conic-gradient(from 0deg,#ff2b2b,#ffffff,#ff2b2b,#7a0000,#ff2b2b);
+  animation:sdRingSpin 5s linear infinite;
+  z-index:0;
+}
+@keyframes sdRingSpin{to{transform:rotate(360deg)}}
+.sd-avatar{
+  position:relative;z-index:1;flex-shrink:0;
+  width:64px;height:64px;border-radius:50%;object-fit:cover;
+  border:none;
+  box-shadow:0 6px 22px rgba(0,0,0,.55),0 0 24px rgba(255,210,63,.4);
+}
+.sd-header-info{position:relative;z-index:1;flex:1;min-width:0;}
+.sd-name{
+  font-family:'Audiowide',sans-serif;
+  font-size:1rem;font-weight:700;color:#fff;line-height:1.3;
+  letter-spacing:.5px;
+  text-shadow:0 2px 12px rgba(0,0,0,.6);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
+  margin-bottom:9px;
+}
+.sd-pill-row{display:flex;gap:6px;flex-wrap:wrap;}
+.sd-role{
+  font-size:.6rem;font-weight:800;letter-spacing:.6px;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);
+  color:#fff;padding:4px 10px;border-radius:999px;
+  backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+}
+.sd-diamond{
+  display:flex;align-items:center;gap:6px;
+  font-size:.68rem;font-weight:800;color:#fff;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.5);
+  padding:4px 11px;border-radius:999px;
+  backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 10px rgba(255,210,63,.25);
+  animation:sdDiamondPulse 2.6s ease-in-out infinite;
+}
+@keyframes sdDiamondPulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 8px rgba(255,210,63,.2)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 16px rgba(255,210,63,.5)}}
+.sd-diamond img{width:12px;height:12px;object-fit:contain}
+
+.sd-nav{padding:16px 12px;flex:1}
+@keyframes sdNavIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+.sd-nav-item{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 12px 11px 10px;margin-bottom:9px;
+  border-radius:16px 8px 16px 8px;
+  background:linear-gradient(135deg,rgba(255,43,43,.05),rgba(0,0,0,.25));
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,43,43,.12);
+  border-left:2px solid rgba(255,43,43,.35);
+  color:#ddd;cursor:pointer;font-size:.78rem;font-weight:600;
+  font-family:'Outfit',sans-serif;
+  transition:.2s;
+  box-shadow:0 2px 10px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,43,43,.05);
+  animation:sdNavIn .4s ease backwards;
+}
+.side-drawer-overlay.open .sd-nav-item:nth-child(1){animation-delay:.03s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(2){animation-delay:.06s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(3){animation-delay:.09s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(4){animation-delay:.12s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(5){animation-delay:.15s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(6){animation-delay:.18s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(7){animation-delay:.21s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(8){animation-delay:.24s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(9){animation-delay:.27s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(10){animation-delay:.3s}
+.sd-nav-item::before{
+  content:'';position:absolute;top:-40%;left:-10%;width:50%;height:180%;
+  background:linear-gradient(115deg,transparent,rgba(255,60,60,.1),transparent);
+  transform:rotate(8deg);
+  opacity:0;transition:opacity .25s ease, transform .5s ease;
+  pointer-events:none;
+}
+.sd-nav-item:hover,.sd-nav-item:active{
+  background:linear-gradient(135deg,rgba(255,43,43,.22),rgba(90,0,0,.15));
+  border-color:rgba(255,43,43,.4);
+  border-left-color:#ff2b2b;
+  box-shadow:0 4px 18px rgba(255,43,43,.2);
+}
+.sd-nav-item:active{transform:scale(.98);}
+.sd-nav-item.sd-pressed{
+  transform:scale(.94);
+  background:linear-gradient(135deg,rgba(255,43,43,.32),rgba(90,0,0,.2))!important;
+  border-color:rgba(255,43,43,.55)!important;
+  box-shadow:0 0 22px rgba(255,43,43,.35)!important;
+  transition:transform .12s ease,background .12s ease,box-shadow .12s ease;
+}
+.sd-nav-item:hover::before,.sd-nav-item:active::before{opacity:1;transform:translateX(220%) rotate(8deg);}
+.sd-nav-icon{
+  position:relative;
+  flex-shrink:0;width:34px;height:34px;border-radius:11px 5px 11px 5px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,rgba(255,43,43,.22),rgba(0,0,0,.3));
+  border:1px solid rgba(255,43,43,.3);
+  box-shadow:inset 0 1px 0 rgba(255,43,43,.1),inset 0 -6px 10px rgba(0,0,0,.3);
+}
+.sd-nav-icon i{font-size:13px;color:#ff5959;text-shadow:0 0 10px rgba(255,43,43,.6);}
+.sd-nav-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sd-nav-arrow{flex-shrink:0;font-size:10px;color:#3a3a3a;transition:.2s;}
+.sd-nav-item:hover .sd-nav-arrow,.sd-nav-item:active .sd-nav-arrow{color:#ffd23f;transform:translateX(2px);}
+.sd-nav-divider{
+  display:flex;align-items:center;gap:8px;
+  margin:20px 8px 10px;
+  font-family:'Audiowide',sans-serif;
+  font-size:.58rem;text-transform:uppercase;letter-spacing:2px;
+  color:#555;font-weight:700;
+  text-shadow:0 0 8px rgba(255,43,43,.15);
+}
+.sd-nav-divider::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(255,43,43,.35),transparent);
+}
+.sd-nav-divider:first-child{margin-top:2px}
+
+.sd-footer{
+  position:relative;
+  padding:18px 20px;border-top:1px solid rgba(255,43,43,.18);
+  background:linear-gradient(180deg,transparent,rgba(255,43,43,.03));
+  text-align:center;font-size:.62rem;color:rgba(255,255,255,.35);line-height:1.7;
+  font-family:'Audiowide',sans-serif;letter-spacing:.5px;
+}
+.sd-footer span{color:#ff2b2b;text-shadow:0 0 8px rgba(255,43,43,.4);}
+.sd-footer-dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:#ff2b2b;margin-right:6px;
+  box-shadow:0 0 8px rgba(255,43,43,.8);
+  animation:sdDotBlink 1.8s ease-in-out infinite;
+}
+@keyframes sdDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
 </style>
+
 <div class="topbar-pro" id="topbarPro">
 <button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
 <div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
@@ -1430,24 +1651,37 @@ object-fit:contain;
 <div class="side-drawer-overlay" id="sideDrawerOverlay" onclick="if(event.target===this)closeSideDrawer()">
   <div class="side-drawer" id="sideDrawer">
     <div class="sd-header">
+      <div class="sd-header-glow"></div>
       <button class="sd-close" onclick="closeSideDrawer()" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
-      <img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/>
-      <div class="sd-name" id="sdName">Guest</div>
-      <div class="sd-role" id="sdRole">FREE</div>
-      <div class="sd-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
+      <div class="sd-avatar-wrap"><img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/></div>
+      <div class="sd-header-info">
+        <div class="sd-name" id="sdName">Guest</div>
+        <div class="sd-pill-row">
+          <div class="sd-role" id="sdRole">FREE</div>
+          <div class="sd-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
+        </div>
+      </div>
     </div>
     <div class="sd-nav">
       <div class="sd-nav-divider">Menu Utama</div>
-      <div class="sd-nav-item" onclick="sdGo('home')"><i class="fa-solid fa-house"></i>Beranda</div>
-      <div class="sd-nav-item" onclick="sdGo('shadowmenu')"><i class="fa-solid fa-shield-halved"></i>Semua Layanan Shadow</div>
-      <div class="sd-nav-item" onclick="sdGo('toko')"><i class="fa-solid fa-store"></i>Toko</div>
-      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openDailyClaim==='function')openDailyClaim();"><i class="fa-solid fa-gift"></i>Klaim Harian</div>
+      <div class="sd-nav-item" onclick="sdGo('home',this)"><span class="sd-nav-icon"><i class="fa-solid fa-house"></i></span><span class="sd-nav-label">Beranda</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('primecalc',this)"><span class="sd-nav-icon"><i class="fa-solid fa-calculator"></i></span><span class="sd-nav-label">Prime Calculator</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGoDismiss('suntiklike','suntiklike',this)"><span class="sd-nav-icon"><i class="fa-solid fa-heart"></i></span><span class="sd-nav-label">Suntik Like FF</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGoDismiss('nickhijau','nickhijau',this)"><span class="sd-nav-icon"><i class="fa-solid fa-leaf"></i></span><span class="sd-nav-label">Nickname Hijau</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGoDismiss('botglory','botglory',this)"><span class="sd-nav-icon"><i class="fa-solid fa-robot"></i></span><span class="sd-nav-label">Bot Glory Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGoDismiss('nickeditor','nickeditor',this)"><span class="sd-nav-icon"><i class="fa-solid fa-pen-nib"></i></span><span class="sd-nav-label">Editor Bio</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGoDismiss('joinguild','joinguild',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Join Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('shadowmenu',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Semua Layanan Shadow</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('toko',this)"><span class="sd-nav-icon"><i class="fa-solid fa-store"></i></span><span class="sd-nav-label">Toko Zusmo</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('apk',this)"><span class="sd-nav-icon"><i class="fa-solid fa-mobile-screen"></i></span><span class="sd-nav-label">APK Zusmo</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){window.open('https://kzrizusmostore.gamesquad.id','_blank')})"><span class="sd-nav-icon"><i class="fa-solid fa-gamepad"></i></span><span class="sd-nav-label">Topup Game</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openDailyClaim==='function')openDailyClaim();})"><span class="sd-nav-icon"><i class="fa-solid fa-gift"></i></span><span class="sd-nav-label">Klaim Harian</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
       <div class="sd-nav-divider">Akun</div>
-      <div class="sd-nav-item" onclick="sdGo('notifikasi')"><i class="fa-solid fa-bell"></i>Notifikasi</div>
-      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openSettings==='function')openSettings();"><i class="fa-solid fa-gear"></i>Pengaturan</div>
-      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openNameEditModal==='function')openNameEditModal();"><i class="fa-solid fa-pen"></i>Ganti Nama</div>
+      <div class="sd-nav-item" onclick="sdGo('notifikasi',this)"><span class="sd-nav-icon"><i class="fa-solid fa-bell"></i></span><span class="sd-nav-label">Notifikasi</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openSettings==='function')openSettings();})"><span class="sd-nav-icon"><i class="fa-solid fa-gear"></i></span><span class="sd-nav-label">Pengaturan</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openNameEditModal==='function')openNameEditModal();})"><span class="sd-nav-icon"><i class="fa-solid fa-pen"></i></span><span class="sd-nav-label">Ganti Nama</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
     </div>
-    <div class="sd-footer">KZRIZUSMO &bull; Zusmo Shadow<br/>Versi 1.0</div>
+    <div class="sd-footer"><span class="sd-footer-dot"></span><span>KZRIZUSMO</span> &bull; Zusmo Shadow<br/>Versi 1.0</div>
   </div>
 </div>
 <div class="app-bottombar">
@@ -1537,49 +1771,56 @@ object-fit:contain;
 
 <div class="hm-section-lbl"><span data-i18n="home.mainMenu">⚡ Menu Utama</span></div>
 
-<div class="hm-menu" onclick="showPage('primecalc')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-calculator"></i></div>
-  <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small data-i18n="home.primeCalcDesc">Hitung harga Prime Free Fire</small></div>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+<!-- SPOTLIGHT: featured tool -->
+<div class="hm-spotlight" onclick="showPage('apk')">
+  <div class="hm-spotlight-glow"></div>
+  <span class="hm-spotlight-tag" style="display:flex;"><span class="hm-new-dot"></span>UNGGULAN</span>
+  <div class="hm-spotlight-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+  <div class="hm-spotlight-body">
+    <h3 data-i18n="home.apkTitle">APK ZUSMO</h3>
+    <p data-i18n="home.apkDesc">Download semua versi aplikasi</p>
+  </div>
+  <div class="hm-spotlight-cta"><i class="fa-solid fa-chevron-right"></i><span data-i18n="home.open">Buka</span></div>
 </div>
-<div class="hm-menu" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-heart"></i></div>
-  <div class="hm-menu-body"><h4 data-i18n="home.suntikLikeTitle">SUNTIK LIKE FF</h4><small data-i18n="home.suntikLikeDesc">Tambah like profile Free Fire</small></div>
-  <span class="hm-new-badge" id="newBadge_suntiklike"><span class="hm-new-dot"></span>NEW</span>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+
+<!-- QUICK ACTION TILES -->
+<div class="hm-tile-grid">
+  <div class="hm-tile" onclick="showPage('primecalc')">
+    <div class="hm-tile-icon"><i class="fa-solid fa-calculator"></i></div>
+    <span class="hm-tile-label" data-i18n="home.primeCalcTitle">PRIME CALC</span>
+  </div>
+  <div class="hm-tile" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
+    <span class="hm-tile-badge" id="newBadge_suntiklike"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-heart"></i></div>
+    <span class="hm-tile-label" data-i18n="home.suntikLikeTitle">SUNTIK LIKE</span>
+  </div>
+  <div class="hm-tile" onclick="dismissNewBadge('botglory');showPage('botglory')">
+    <span class="hm-tile-badge" id="newBadge_botglory"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-robot"></i></div>
+    <span class="hm-tile-label" data-i18n="home.botGloryTitle">BOT GLORY</span>
+  </div>
+  <div class="hm-tile" onclick="dismissNewBadge('nickhijau');showPage('nickhijau')">
+    <span class="hm-tile-badge" id="newBadge_nickhijau"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-leaf"></i></div>
+    <span class="hm-tile-label">NICK HIJAU</span>
+  </div>
+  <div class="hm-tile" onclick="dismissNewBadge('nickeditor');showPage('nickeditor')">
+    <span class="hm-tile-badge" id="newBadge_nickeditor"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-pen-nib"></i></div>
+    <span class="hm-tile-label">EDITOR BIO</span>
+  </div>
+  <div class="hm-tile" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
+    <span class="hm-tile-badge" id="newBadge_joinguild"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <span class="hm-tile-label">JOIN GUILD</span>
+  </div>
 </div>
-<div class="hm-menu" onclick="dismissNewBadge('nickhijau');showPage('nickhijau')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-leaf"></i></div>
-  <div class="hm-menu-body"><h4>NICKNAME HIJAU</h4><small>Suntik followers Craftland</small></div>
-  <span class="hm-new-badge" id="newBadge_nickhijau"><span class="hm-new-dot"></span>NEW</span>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
-<div class="hm-menu" onclick="dismissNewBadge('botglory');showPage('botglory')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
-  <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small data-i18n="home.botGloryDesc">Bot booster keaktifan guild Free Fire</small></div>
-  <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
-<div class="hm-menu" onclick="dismissNewBadge('nickeditor');showPage('nickeditor')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-pen-nib"></i></div>
-  <div class="hm-menu-body"><h4>EDITOR BIO</h4><small>Warna, bold, italic &amp; underline bio</small></div>
-  <span class="hm-new-badge" id="newBadge_nickeditor"><span class="hm-new-dot"></span>NEW</span>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
-<div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-shield-halved"></i></div>
-  <div class="hm-menu-body"><h4>JOIN GUILD</h4><small>Daftar Guild Z SHADOWS</small></div>
-  <span class="hm-new-badge" id="newBadge_joinguild"><span class="hm-new-dot"></span>NEW</span>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
+
+<!-- SECONDARY LIST -->
+<div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.moreMenu">📥 Lainnya</span></div>
 <div class="hm-menu" onclick="showPage('toko')">
   <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
   <div class="hm-menu-body"><h4 data-i18n="home.tokoTitle">TOKO ZUSMO</h4><small data-i18n="home.tokoDesc">Topup &amp; marketplace</small></div>
-  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-</div>
-<div class="hm-menu" onclick="showPage('apk')">
-  <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-  <div class="hm-menu-body"><h4 data-i18n="home.apkTitle">APK ZUSMO</h4><small data-i18n="home.apkDesc">Download semua versi aplikasi</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')">
@@ -1588,7 +1829,7 @@ object-fit:contain;
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 
-<div class="hm-section-lbl" style="margin-top:16px;"><span data-i18n="home.community">🌐 Komunitas</span></div>
+<div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.community">🌐 Komunitas</span></div>
 <div class="hm-social-row">
   <div class="hm-social wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
     <i class="fa-brands fa-whatsapp"></i>
@@ -3266,7 +3507,6 @@ function neClearInput(){
 function neWrap(open,close){
   const inp=document.getElementById('neInput');
   if(!inp)return;
-  close=close||'';
   const start=inp._neLastStart!=null?inp._neLastStart:inp.value.length;
   const end=inp._neLastEnd!=null?inp._neLastEnd:inp.value.length;
   const val=inp.value;
@@ -5846,7 +6086,51 @@ document.querySelectorAll('.shadow-banner, .banner.shadow, .preview.shadow, .car
 });
 </script>
 <script>
-function toggleMenu(){alert('Menu akan segera tersedia');}
+function openSideDrawer(){
+  var overlay=document.getElementById('sideDrawerOverlay');
+  if(!overlay) return;
+  var name=document.getElementById('hmNameText');
+  var role=document.getElementById('roleBadge');
+  var avatar=document.querySelector('.hm-avatar');
+  var diamond=document.getElementById('diamondBalanceTop');
+  var sdName=document.getElementById('sdName');
+  var sdRole=document.getElementById('sdRole');
+  var sdAvatar=document.getElementById('sdAvatar');
+  var sdDiamond=document.getElementById('sdDiamond');
+  if(sdName && name) sdName.textContent=name.textContent;
+  if(sdRole && role) sdRole.textContent=role.textContent;
+  if(sdAvatar && avatar && avatar.src) sdAvatar.src=avatar.src;
+  if(sdDiamond && diamond) sdDiamond.textContent=diamond.textContent;
+  overlay.classList.add('open');
+}
+function closeSideDrawer(){
+  var overlay=document.getElementById('sideDrawerOverlay');
+  if(overlay) overlay.classList.remove('open');
+}
+function toggleMenu(){
+  var overlay=document.getElementById('sideDrawerOverlay');
+  if(!overlay) return;
+  if(overlay.classList.contains('open')) closeSideDrawer(); else openSideDrawer();
+}
+function sdPressAndClose(el,cb){
+  if(el){
+    el.classList.add('sd-pressed');
+    setTimeout(function(){ el.classList.remove('sd-pressed'); },200);
+  }
+  setTimeout(function(){
+    closeSideDrawer();
+    setTimeout(function(){ if(cb) cb(); },1000);
+  },120);
+}
+function sdGo(page,el){
+  sdPressAndClose(el,function(){ showPage(page); });
+}
+function sdGoDismiss(key,page,el){
+  sdPressAndClose(el,function(){
+    if(typeof dismissNewBadge==='function') dismissNewBadge(key);
+    showPage(page);
+  });
+}
 function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } if(typeof markSettingsSeen==='function') markSettingsSeen(); }
 </script>
 
@@ -6849,8 +7133,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.user':'USER',
       'home.safe':'AMAN',
       'home.mainMenu':'⚡ Menu Utama',
+      'home.moreMenu':'📥 Lainnya',
+      'home.open':'Buka',
+      'home.botGloryTitle':'BOT GLORY',
+      'home.primeCalcTitle':'PRIME CALC',
       'home.primeCalcDesc':'Hitung harga Prime Free Fire',
-      'home.suntikLikeTitle':'SUNTIK LIKE FF',
+      'home.suntikLikeTitle':'SUNTIK LIKE',
       'home.suntikLikeDesc':'Tambah like profile Free Fire',
       'home.botGloryDesc':'Bot booster keaktifan guild Free Fire',
       'home.tokoTitle':'TOKO ZUSMO',
@@ -6909,8 +7197,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.user':'USERS',
       'home.safe':'SAFE',
       'home.mainMenu':'⚡ Main Menu',
+      'home.moreMenu':'📥 More',
+      'home.open':'Open',
+      'home.botGloryTitle':'BOT GLORY',
+      'home.primeCalcTitle':'PRIME CALC',
       'home.primeCalcDesc':'Calculate Free Fire Prime price',
-      'home.suntikLikeTitle':'FF LIKE BOOST',
+      'home.suntikLikeTitle':'LIKE BOOST',
       'home.suntikLikeDesc':'Add likes to your Free Fire profile',
       'home.botGloryDesc':'Free Fire guild activity booster bot',
       'home.tokoTitle':'ZUSMO STORE',
