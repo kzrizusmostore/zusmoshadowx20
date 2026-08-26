@@ -5,7 +5,6 @@
 ::selection{background:#ff2b2b;color:#fff}
 ::-moz-selection{background:#ff2b2b;color:#fff}
 body{background:#000;color:#fff;min-height:100vh;overflow-x:hidden}body.wallpaper-loaded{background:url('https://files.catbox.moe/jk23mr.jpg') center/cover fixed no-repeat}
-#zusmoWallpaperBg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;display:none;pointer-events:none}
 body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.75));backdrop-filter:blur(4px);z-index:-1}
 .container{max-width:900px;margin:auto;padding:20px}
 .logo{width:150px;height:150px;border-radius:50%;display:block;margin:10px auto;object-fit:cover;border:4px solid #ff2b2b;box-shadow:none;animation:float 4s ease-in-out infinite}
@@ -652,7 +651,7 @@ img#shadowBanner,
 .app-bottombar .tab{
   text-align:center;
   color:#aaa;
-  font-size:9.5px;
+  font-size:11px;
   cursor:pointer;
   flex:1;
 }
@@ -1265,7 +1264,7 @@ object-fit:contain;
 /* STATS ROW */
 .hm-stats-row{
   display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-  margin-bottom:22px;
+  margin-bottom:18px;
 }
 .hm-stat{
   background:rgba(10,10,10,.85);
@@ -1295,91 +1294,7 @@ object-fit:contain;
   background:linear-gradient(90deg,rgba(255,43,43,.2),transparent);
 }
 
-/* SPOTLIGHT (featured highlight card) */
-.hm-spotlight{
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;gap:14px;
-  padding:16px 16px 14px;margin-bottom:14px;
-  border-radius:22px;
-  background:linear-gradient(135deg,rgba(42,16,0,.92),rgba(10,10,10,.98));
-  border:1px solid rgba(255,180,60,.4);
-  box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 26px rgba(255,150,40,.1),inset 0 1px 0 rgba(255,255,255,.05);
-  cursor:pointer;transition:.2s;
-}
-.hm-spotlight:active{transform:scale(.98);border-color:rgba(255,190,90,.6);}
-.hm-spotlight-glow{
-  position:absolute;top:-55%;right:-15%;width:210px;height:210px;
-  background:radial-gradient(circle,rgba(255,180,60,.2) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hm-spotlight-tag{
-  position:absolute;top:10px;left:16px;z-index:2;
-  display:none;align-items:center;gap:5px;
-  font-family:'Audiowide',sans-serif;font-size:8px;letter-spacing:1.5px;
-  color:#ffcf7a;
-}
-.hm-new-dot{
-  width:6px;height:6px;border-radius:50%;flex-shrink:0;
-  background:#00ff88;
-  box-shadow:0 0 6px #00ff88,0 0 2px #00ff88;
-  animation:hmNewPulse 1.3s ease-in-out infinite;
-}
-.hm-spotlight-icon{
-  width:54px;height:54px;border-radius:16px;flex-shrink:0;margin-top:12px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,150,40,.1);border:1px solid rgba(255,180,60,.35);
-  box-shadow:0 0 18px rgba(255,150,40,.15),inset 0 0 10px rgba(255,150,40,.08);
-}
-.hm-spotlight-icon i{font-size:23px;color:#ffb347;text-shadow:0 0 12px rgba(255,150,40,.6);}
-.hm-spotlight-body{flex:1;min-width:0;margin-top:12px;}
-.hm-spotlight-body h3{
-  font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#fff;
-  letter-spacing:.3px;margin-bottom:3px;
-}
-.hm-spotlight-body p{font-size:10.5px;color:rgba(255,255,255,.5);line-height:1.4;}
-.hm-spotlight-cta{
-  flex-shrink:0;margin-top:12px;align-self:center;
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  font-family:'Audiowide',sans-serif;font-size:8px;letter-spacing:.6px;color:#ffb347;
-}
-.hm-spotlight-cta i{font-size:11px;}
-
-/* TILE GRID (quick actions) */
-.hm-tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
-.hm-tile{
-  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:8px;padding:16px 6px 14px;border-radius:18px;text-align:center;
-  background:rgba(8,8,8,.85);
-  border:1px solid rgba(255,43,43,.14);
-  box-shadow:0 2px 14px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);
-  cursor:pointer;transition:.2s;
-}
-.hm-tile:active{
-  transform:scale(.95);
-  border-color:rgba(255,43,43,.45);
-  box-shadow:0 0 16px rgba(255,43,43,.15);
-}
-.hm-tile-icon{
-  width:42px;height:42px;border-radius:13px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,43,43,.08);
-  border:1px solid rgba(255,43,43,.25);
-  box-shadow:0 0 14px rgba(255,43,43,.1),inset 0 0 8px rgba(255,43,43,.07);
-}
-.hm-tile-icon i{font-size:17px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.6);}
-.hm-tile-label{font-size:9.5px;font-weight:800;color:#ddd;letter-spacing:.3px;font-family:'Outfit',sans-serif;line-height:1.25;}
-.hm-tile-badge{
-  position:absolute;top:9px;right:9px;display:none;
-  width:8px;height:8px;border-radius:50%;
-  background:#00ff88;box-shadow:0 0 6px #00ff88,0 0 2px #00ff88;
-  animation:hmNewPulse 1.3s ease-in-out infinite;
-}
-@keyframes hmNewPulse{
-  0%,100%{transform:scale(1);opacity:1;}
-  50%{transform:scale(1.5);opacity:.55;}
-}
-
-/* MENU ITEMS (secondary list) */
+/* MENU ITEMS */
 .hm-menu{
   display:flex;align-items:center;gap:14px;
   padding:14px 15px;margin-bottom:9px;
@@ -1418,6 +1333,32 @@ object-fit:contain;
 .hm-menu-body small{font-size:11px;color:#444;}
 .hm-menu-arrow{color:#2a2a2a;font-size:13px;flex-shrink:0;}
 
+.hm-new-badge{
+  position:absolute;
+  top:9px;right:12px;
+  display:none;
+  align-items:center;gap:4px;
+  background:rgba(255,43,43,.15);
+  border:1px solid #ff2b2b;
+  color:#ff5c5c;
+  font-size:9px;font-weight:800;
+  letter-spacing:.6px;
+  padding:2px 8px 2px 6px;
+  border-radius:20px;
+  z-index:2;
+  font-family:'Outfit',sans-serif;
+}
+.hm-new-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#ff2b2b;
+  box-shadow:0 0 6px #ff2b2b,0 0 2px #ff2b2b;
+  animation:hmNewPulse 1.3s ease-in-out infinite;
+}
+@keyframes hmNewPulse{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.5);opacity:.55;}
+}
+
 /* SOCIAL ROW */
 .hm-social-row{display:flex;gap:10px;margin-bottom:0;}
 .hm-social{
@@ -1452,7 +1393,6 @@ object-fit:contain;
 .hm-footer span{color:#ff2b2b;text-shadow:0 0 8px rgba(255,43,43,.4);}
 </style>
 </head><body>
-<video id="zusmoWallpaperBg" muted loop autoplay playsinline preload="none"></video>
 <audio id="bgMusic" src="https://files.catbox.moe/mbkpbs.mp3" loop autoplay></audio>
 <audio id="clickSound" preload="auto" src="data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
 
@@ -1461,188 +1401,27 @@ object-fit:contain;
 .topbar-pro .center{position:absolute;left:50%;transform:translateX(-50%);text-align:center}
 .vipbadge{background:gold;color:#000;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold}
 
-.side-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);z-index:1000000;display:none;opacity:0;transition:opacity .3s ease}
+.side-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:1000000;display:none;opacity:0;transition:opacity .3s ease}
 .side-drawer-overlay.open{display:block;opacity:1}
-.side-drawer{
-  position:fixed;top:0;left:0;bottom:0;width:82%;max-width:320px;
-  background:linear-gradient(165deg,#120606 0%,#0a0303 45%,#000 100%);
-  z-index:1000001;transform:translateX(-100%);
-  transition:transform 1s cubic-bezier(.22,1,.36,1);
-  display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;
-}
+.side-drawer{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:#141414;border-right:1px solid rgba(255,255,255,.12);z-index:1000001;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
 .side-drawer-overlay.open .side-drawer{transform:translateX(0)}
-
-.sd-header{
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;gap:16px;
-  background:linear-gradient(135deg,#8a0000 0%,#d60000 45%,#ff2b2b 80%,#b31212 130%);
-  padding:40px 20px;
-  box-shadow:0 12px 40px rgba(200,0,0,.35),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.3);
-}
-.sd-header::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 85% 0%,rgba(255,255,255,.28) 0%,transparent 55%),
-              linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 30%);
-  pointer-events:none;
-}
-.sd-header::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,transparent,#b31212,#ff2b2b,#b31212,transparent);
-  box-shadow:0 0 16px rgba(255,43,43,.8);
-}
-.sd-header-glow{
-  position:absolute;top:-45%;right:-20%;width:220px;height:220px;
-  background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);
-  pointer-events:none;
-  animation:sdGlowPulse 4s ease-in-out infinite;
-}
-@keyframes sdGlowPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
-.sd-close{
-  position:absolute;top:14px;right:14px;z-index:2;
-  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.3);
-  color:#fff;width:30px;height:30px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  font-size:12px;transition:.18s;
-  backdrop-filter:blur(8px);
-}
-.sd-close:active{transform:scale(.9);background:rgba(0,0,0,.5);}
-.sd-avatar-wrap{position:relative;flex-shrink:0;width:64px;height:64px;}
-.sd-avatar-wrap::before{
-  content:'';position:absolute;inset:-4px;border-radius:50%;
-  background:conic-gradient(from 0deg,#ff2b2b,#ffffff,#ff2b2b,#7a0000,#ff2b2b);
-  animation:sdRingSpin 5s linear infinite;
-  z-index:0;
-}
-@keyframes sdRingSpin{to{transform:rotate(360deg)}}
-.sd-avatar{
-  position:relative;z-index:1;flex-shrink:0;
-  width:64px;height:64px;border-radius:50%;object-fit:cover;
-  border:none;
-  box-shadow:0 6px 22px rgba(0,0,0,.55),0 0 24px rgba(255,210,63,.4);
-}
-.sd-header-info{position:relative;z-index:1;flex:1;min-width:0;}
-.sd-name{
-  font-family:'Audiowide',sans-serif;
-  font-size:1rem;font-weight:700;color:#fff;line-height:1.3;
-  letter-spacing:.5px;
-  text-shadow:0 2px 12px rgba(0,0,0,.6);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
-  margin-bottom:9px;
-}
-.sd-pill-row{display:flex;gap:6px;flex-wrap:wrap;}
-.sd-role{
-  font-size:.6rem;font-weight:800;letter-spacing:.6px;
-  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);
-  color:#fff;padding:4px 10px;border-radius:999px;
-  backdrop-filter:blur(6px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
-}
-.sd-diamond{
-  display:flex;align-items:center;gap:6px;
-  font-size:.68rem;font-weight:800;color:#fff;
-  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.5);
-  padding:4px 11px;border-radius:999px;
-  backdrop-filter:blur(6px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 10px rgba(255,210,63,.25);
-  animation:sdDiamondPulse 2.6s ease-in-out infinite;
-}
-@keyframes sdDiamondPulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 8px rgba(255,210,63,.2)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 16px rgba(255,210,63,.5)}}
-.sd-diamond img{width:12px;height:12px;object-fit:contain}
-
-.sd-nav{padding:16px 12px;flex:1}
-@keyframes sdNavIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
-.sd-nav-item{
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;gap:12px;
-  padding:11px 12px 11px 10px;margin-bottom:9px;
-  border-radius:16px 8px 16px 8px;
-  background:linear-gradient(135deg,rgba(255,43,43,.05),rgba(0,0,0,.25));
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,43,43,.12);
-  border-left:2px solid rgba(255,43,43,.35);
-  color:#ddd;cursor:pointer;font-size:.78rem;font-weight:600;
-  font-family:'Outfit',sans-serif;
-  transition:.2s;
-  box-shadow:0 2px 10px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,43,43,.05);
-  animation:sdNavIn .4s ease backwards;
-}
-.side-drawer-overlay.open .sd-nav-item:nth-child(1){animation-delay:.03s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(2){animation-delay:.06s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(3){animation-delay:.09s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(4){animation-delay:.12s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(5){animation-delay:.15s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(6){animation-delay:.18s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(7){animation-delay:.21s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(8){animation-delay:.24s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(9){animation-delay:.27s}
-.side-drawer-overlay.open .sd-nav-item:nth-child(10){animation-delay:.3s}
-.sd-nav-item::before{
-  content:'';position:absolute;top:-40%;left:-10%;width:50%;height:180%;
-  background:linear-gradient(115deg,transparent,rgba(255,60,60,.1),transparent);
-  transform:rotate(8deg);
-  opacity:0;transition:opacity .25s ease, transform .5s ease;
-  pointer-events:none;
-}
-.sd-nav-item:hover,.sd-nav-item:active{
-  background:linear-gradient(135deg,rgba(255,43,43,.22),rgba(90,0,0,.15));
-  border-color:rgba(255,43,43,.4);
-  border-left-color:#ff2b2b;
-  box-shadow:0 4px 18px rgba(255,43,43,.2);
-}
-.sd-nav-item:active{transform:scale(.98);}
-.sd-nav-item.sd-pressed{
-  transform:scale(.94);
-  background:linear-gradient(135deg,rgba(255,43,43,.32),rgba(90,0,0,.2))!important;
-  border-color:rgba(255,43,43,.55)!important;
-  box-shadow:0 0 22px rgba(255,43,43,.35)!important;
-  transition:transform .12s ease,background .12s ease,box-shadow .12s ease;
-}
-.sd-nav-item:hover::before,.sd-nav-item:active::before{opacity:1;transform:translateX(220%) rotate(8deg);}
-.sd-nav-icon{
-  position:relative;
-  flex-shrink:0;width:34px;height:34px;border-radius:11px 5px 11px 5px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(145deg,rgba(255,43,43,.22),rgba(0,0,0,.3));
-  border:1px solid rgba(255,43,43,.3);
-  box-shadow:inset 0 1px 0 rgba(255,43,43,.1),inset 0 -6px 10px rgba(0,0,0,.3);
-}
-.sd-nav-icon i{font-size:13px;color:#ff5959;text-shadow:0 0 10px rgba(255,43,43,.6);}
-.sd-nav-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sd-nav-arrow{flex-shrink:0;font-size:10px;color:#3a3a3a;transition:.2s;}
-.sd-nav-item:hover .sd-nav-arrow,.sd-nav-item:active .sd-nav-arrow{color:#ffd23f;transform:translateX(2px);}
-.sd-nav-divider{
-  display:flex;align-items:center;gap:8px;
-  margin:20px 8px 10px;
-  font-family:'Audiowide',sans-serif;
-  font-size:.58rem;text-transform:uppercase;letter-spacing:2px;
-  color:#555;font-weight:700;
-  text-shadow:0 0 8px rgba(255,43,43,.15);
-}
-.sd-nav-divider::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,rgba(255,43,43,.35),transparent);
-}
-.sd-nav-divider:first-child{margin-top:2px}
-
-.sd-footer{
-  position:relative;
-  padding:18px 20px;border-top:1px solid rgba(255,43,43,.18);
-  background:linear-gradient(180deg,transparent,rgba(255,43,43,.03));
-  text-align:center;font-size:.62rem;color:rgba(255,255,255,.35);line-height:1.7;
-  font-family:'Audiowide',sans-serif;letter-spacing:.5px;
-}
-.sd-footer span{color:#ff2b2b;text-shadow:0 0 8px rgba(255,43,43,.4);}
-.sd-footer-dot{
-  display:inline-block;width:6px;height:6px;border-radius:50%;
-  background:#ff2b2b;margin-right:6px;
-  box-shadow:0 0 8px rgba(255,43,43,.8);
-  animation:sdDotBlink 1.8s ease-in-out infinite;
-}
-@keyframes sdDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
+.sd-header{background:linear-gradient(135deg,#b30000,#e00000);padding:28px 20px 20px;position:relative}
+.sd-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sd-avatar{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);margin-bottom:10px;display:block}
+.sd-name{font-size:1.05rem;font-weight:800;color:#fff;line-height:1.2}
+.sd-role{display:inline-block;margin-top:6px;font-size:.62rem;font-weight:700;letter-spacing:.5px;background:rgba(0,0,0,.3);color:#ffe27a;padding:3px 10px;border-radius:10px}
+.sd-diamond{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:.82rem;font-weight:700;color:#fff;background:rgba(0,0,0,.25);padding:6px 12px;border-radius:14px;width:fit-content}
+.sd-diamond img{width:13px;height:13px;object-fit:contain}
+.sd-nav{padding:14px 10px;flex:1}
+.sd-nav-item{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:16px;color:#eee;cursor:pointer;font-size:.83rem;font-weight:600;transition:.2s}
+.sd-nav-item i{width:18px;text-align:center;color:#ff4747;font-size:15px}
+.sd-nav-item:hover,.sd-nav-item:active{background:rgba(255,255,255,.08)}
+.sd-nav-divider{margin:16px 12px 8px;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.4);font-weight:700}
+.sd-nav-divider:first-child{margin-top:4px}
+.sd-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.63rem;color:rgba(255,255,255,.4);line-height:1.6}
 </style>
-
 <div class="topbar-pro" id="topbarPro">
-<button id="topbarBackBtn" class="tb-backbtn" onclick="goBackPage()" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
+<button id="topbarBackBtn" class="tb-backbtn" onclick="showPage('home')" style="display:none"><i class="fa-solid fa-arrow-left"></i><span data-i18n="nav.back">Kembali</span></button>
 <div class="left" id="topbarLeft"><button onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
 <div class="center" id="topbarCenter"></div>
 <div class="right" id="topbarRight"><button class="diamond-widget" onclick="openDailyClaim()"><img src="https://files.catbox.moe/onzrii.png" alt="diamond" width="11" height="11" style="width:11px;height:11px;object-fit:contain;display:block"/><span id="diamondBalanceTop">0</span><span class="notif-dot" id="diamondDot"></span></button><button onclick="toggleMusic()"><i id="musicIcon" class="fa-solid fa-music"></i></button><button onclick="showPage('notifikasi')"><i class="fa-solid fa-bell"></i><span class="notif-dot" id="notifDot"></span></button><button onclick="openSettings()"><i class="fa-solid fa-gear"></i><span class="notif-dot" id="settingsDot"></span></button></div>
@@ -1651,59 +1430,46 @@ object-fit:contain;
 <div class="side-drawer-overlay" id="sideDrawerOverlay" onclick="if(event.target===this)closeSideDrawer()">
   <div class="side-drawer" id="sideDrawer">
     <div class="sd-header">
-      <div class="sd-header-glow"></div>
       <button class="sd-close" onclick="closeSideDrawer()" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
-      <div class="sd-avatar-wrap"><img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/></div>
-      <div class="sd-header-info">
-        <div class="sd-name" id="sdName">Guest</div>
-        <div class="sd-pill-row">
-          <div class="sd-role" id="sdRole">FREE</div>
-          <div class="sd-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
-        </div>
-      </div>
+      <img class="sd-avatar" id="sdAvatar" loading="lazy" decoding="async" src="https://img1.pixhost.to/images/11283/677288085_miwamikadono.jpg" alt="Avatar"/>
+      <div class="sd-name" id="sdName">Guest</div>
+      <div class="sd-role" id="sdRole">FREE</div>
+      <div class="sd-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="sdDiamond">0</span></div>
     </div>
     <div class="sd-nav">
       <div class="sd-nav-divider">Menu Utama</div>
-      <div class="sd-nav-item" onclick="sdGo('home',this)"><span class="sd-nav-icon"><i class="fa-solid fa-house"></i></span><span class="sd-nav-label">Beranda</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('primecalc',this)"><span class="sd-nav-icon"><i class="fa-solid fa-calculator"></i></span><span class="sd-nav-label">Prime Calculator</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('suntiklike','suntiklike',this)"><span class="sd-nav-icon"><i class="fa-solid fa-heart"></i></span><span class="sd-nav-label">Suntik Like FF</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('nickhijau','nickhijau',this)"><span class="sd-nav-icon"><i class="fa-solid fa-leaf"></i></span><span class="sd-nav-label">Nickname Hijau</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('botglory','botglory',this)"><span class="sd-nav-icon"><i class="fa-solid fa-robot"></i></span><span class="sd-nav-label">Bot Glory Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('nickeditor','nickeditor',this)"><span class="sd-nav-icon"><i class="fa-solid fa-pen-nib"></i></span><span class="sd-nav-label">Editor Bio</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('joinguild','joinguild',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Join Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('shadowmenu',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Semua Layanan Shadow</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('toko',this)"><span class="sd-nav-icon"><i class="fa-solid fa-store"></i></span><span class="sd-nav-label">Toko Zusmo</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('apk',this)"><span class="sd-nav-icon"><i class="fa-solid fa-mobile-screen"></i></span><span class="sd-nav-label">APK Zusmo</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){window.open('https://kzrizusmostore.gamesquad.id','_blank')})"><span class="sd-nav-icon"><i class="fa-solid fa-gamepad"></i></span><span class="sd-nav-label">Topup Game</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openDailyClaim==='function')openDailyClaim();})"><span class="sd-nav-icon"><i class="fa-solid fa-gift"></i></span><span class="sd-nav-label">Klaim Harian</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('home')"><i class="fa-solid fa-house"></i>Beranda</div>
+      <div class="sd-nav-item" onclick="sdGo('shadowmenu')"><i class="fa-solid fa-shield-halved"></i>Semua Layanan Shadow</div>
+      <div class="sd-nav-item" onclick="sdGo('toko')"><i class="fa-solid fa-store"></i>Toko</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openDailyClaim==='function')openDailyClaim();"><i class="fa-solid fa-gift"></i>Klaim Harian</div>
       <div class="sd-nav-divider">Akun</div>
-      <div class="sd-nav-item" onclick="sdGo('notifikasi',this)"><span class="sd-nav-icon"><i class="fa-solid fa-bell"></i></span><span class="sd-nav-label">Notifikasi</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openSettings==='function')openSettings();})"><span class="sd-nav-icon"><i class="fa-solid fa-gear"></i></span><span class="sd-nav-label">Pengaturan</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openNameEditModal==='function')openNameEditModal();})"><span class="sd-nav-icon"><i class="fa-solid fa-pen"></i></span><span class="sd-nav-label">Ganti Nama</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('notifikasi')"><i class="fa-solid fa-bell"></i>Notifikasi</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openSettings==='function')openSettings();"><i class="fa-solid fa-gear"></i>Pengaturan</div>
+      <div class="sd-nav-item" onclick="closeSideDrawer();if(typeof openNameEditModal==='function')openNameEditModal();"><i class="fa-solid fa-pen"></i>Ganti Nama</div>
     </div>
-    <div class="sd-footer"><span class="sd-footer-dot"></span><span>KZRIZUSMO</span> &bull; Zusmo Shadow<br/>Versi 1.0</div>
+    <div class="sd-footer">KZRIZUSMO &bull; Zusmo Shadow<br/>Versi 1.0</div>
   </div>
 </div>
 <div class="app-bottombar">
-<div class="tab" onclick="showPage('eventTab')">
-<i class="fa-solid fa-calendar-days"></i>
-    EVENT
+<div class="tab" onclick="showPage('shadowmenu')">
+<i class="fa fa-shield"></i>
+    SHADOW
   </div>
-<div class="tab" onclick="showPage('shopTab')">
-<i class="fa-solid fa-store"></i>
-    SHOP
+<div class="tab" onclick="showPage('beta')">
+<i class="fa fa-mobile"></i>
+    BETA
   </div>
 <div class="tab home-center active" onclick="showPage('home')">
 <div class="home-circle"><i class="fa fa-home"></i></div>
     <span data-i18n="nav.home">HOME</span>
   </div>
-<div class="tab" onclick="showPage('progressTab')">
-<i class="fa-solid fa-chart-line"></i>
-    PROGRESS
+<div class="tab" onclick="showPage('emote')">
+<i class="fa fa-face-smile"></i>
+    EMOTE
   </div>
-<div class="tab" onclick="showPage('communityTab')">
-<i class="fa-solid fa-users"></i>
-    COMMUNITY
+<div class="tab" onclick="showPage('lvl')">
+<i class="fa fa-layer-group"></i>
+    LVL
   </div>
 </div>
 
@@ -1771,56 +1537,49 @@ object-fit:contain;
 
 <div class="hm-section-lbl"><span data-i18n="home.mainMenu">⚡ Menu Utama</span></div>
 
-<!-- SPOTLIGHT: featured tool -->
-<div class="hm-spotlight" onclick="showPage('apk')">
-  <div class="hm-spotlight-glow"></div>
-  <span class="hm-spotlight-tag" style="display:flex;"><span class="hm-new-dot"></span>UNGGULAN</span>
-  <div class="hm-spotlight-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-  <div class="hm-spotlight-body">
-    <h3 data-i18n="home.apkTitle">APK ZUSMO</h3>
-    <p data-i18n="home.apkDesc">Download semua versi aplikasi</p>
-  </div>
-  <div class="hm-spotlight-cta"><i class="fa-solid fa-chevron-right"></i><span data-i18n="home.open">Buka</span></div>
+<div class="hm-menu" onclick="showPage('primecalc')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-calculator"></i></div>
+  <div class="hm-menu-body"><h4>PRIME CALCULATOR</h4><small data-i18n="home.primeCalcDesc">Hitung harga Prime Free Fire</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
-
-<!-- QUICK ACTION TILES -->
-<div class="hm-tile-grid">
-  <div class="hm-tile" onclick="showPage('primecalc')">
-    <div class="hm-tile-icon"><i class="fa-solid fa-calculator"></i></div>
-    <span class="hm-tile-label" data-i18n="home.primeCalcTitle">PRIME CALC</span>
-  </div>
-  <div class="hm-tile" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
-    <span class="hm-tile-badge" id="newBadge_suntiklike"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-heart"></i></div>
-    <span class="hm-tile-label" data-i18n="home.suntikLikeTitle">SUNTIK LIKE</span>
-  </div>
-  <div class="hm-tile" onclick="dismissNewBadge('botglory');showPage('botglory')">
-    <span class="hm-tile-badge" id="newBadge_botglory"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-robot"></i></div>
-    <span class="hm-tile-label" data-i18n="home.botGloryTitle">BOT GLORY</span>
-  </div>
-  <div class="hm-tile" onclick="dismissNewBadge('nickhijau');showPage('nickhijau')">
-    <span class="hm-tile-badge" id="newBadge_nickhijau"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-leaf"></i></div>
-    <span class="hm-tile-label">NICK HIJAU</span>
-  </div>
-  <div class="hm-tile" onclick="dismissNewBadge('nickeditor');showPage('nickeditor')">
-    <span class="hm-tile-badge" id="newBadge_nickeditor"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-pen-nib"></i></div>
-    <span class="hm-tile-label">EDITOR BIO</span>
-  </div>
-  <div class="hm-tile" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
-    <span class="hm-tile-badge" id="newBadge_joinguild"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-shield-halved"></i></div>
-    <span class="hm-tile-label">JOIN GUILD</span>
-  </div>
+<div class="hm-menu" onclick="dismissNewBadge('suntiklike');showPage('suntiklike')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-heart"></i></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.suntikLikeTitle">SUNTIK LIKE FF</h4><small data-i18n="home.suntikLikeDesc">Tambah like profile Free Fire</small></div>
+  <span class="hm-new-badge" id="newBadge_suntiklike"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
-
-<!-- SECONDARY LIST -->
-<div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.moreMenu">📥 Lainnya</span></div>
+<div class="hm-menu" onclick="dismissNewBadge('nickhijau');showPage('nickhijau')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-leaf"></i></div>
+  <div class="hm-menu-body"><h4>NICKNAME HIJAU</h4><small>Suntik followers Craftland</small></div>
+  <span class="hm-new-badge" id="newBadge_nickhijau"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="dismissNewBadge('botglory');showPage('botglory')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-robot"></i></div>
+  <div class="hm-menu-body"><h4>BOT GLORY GUILD</h4><small data-i18n="home.botGloryDesc">Bot booster keaktifan guild Free Fire</small></div>
+  <span class="hm-new-badge" id="newBadge_botglory"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="dismissNewBadge('nickeditor');showPage('nickeditor')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-pen-nib"></i></div>
+  <div class="hm-menu-body"><h4>EDITOR BIO</h4><small>Warna, bold, italic &amp; underline bio</small></div>
+  <span class="hm-new-badge" id="newBadge_nickeditor"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-shield-halved"></i></div>
+  <div class="hm-menu-body"><h4>JOIN GUILD</h4><small>Daftar Guild Z SHADOWS</small></div>
+  <span class="hm-new-badge" id="newBadge_joinguild"><span class="hm-new-dot"></span>NEW</span>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="showPage('toko')">
   <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
   <div class="hm-menu-body"><h4 data-i18n="home.tokoTitle">TOKO ZUSMO</h4><small data-i18n="home.tokoDesc">Topup &amp; marketplace</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
+<div class="hm-menu" onclick="showPage('apk')">
+  <div class="hm-menu-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+  <div class="hm-menu-body"><h4 data-i18n="home.apkTitle">APK ZUSMO</h4><small data-i18n="home.apkDesc">Download semua versi aplikasi</small></div>
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 <div class="hm-menu" onclick="window.open('https://kzrizusmostore.gamesquad.id','_blank')">
@@ -1829,7 +1588,7 @@ object-fit:contain;
   <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
 </div>
 
-<div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.community">🌐 Komunitas</span></div>
+<div class="hm-section-lbl" style="margin-top:16px;"><span data-i18n="home.community">🌐 Komunitas</span></div>
 <div class="hm-social-row">
   <div class="hm-social wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
     <i class="fa-brands fa-whatsapp"></i>
@@ -3507,6 +3266,7 @@ function neClearInput(){
 function neWrap(open,close){
   const inp=document.getElementById('neInput');
   if(!inp)return;
+  close=close||'';
   const start=inp._neLastStart!=null?inp._neLastStart:inp.value.length;
   const end=inp._neLastEnd!=null?inp._neLastEnd:inp.value.length;
   const val=inp.value;
@@ -4985,20 +4745,13 @@ setTimeout(()=>t.classList.remove('show'),800);
 }
 function showHome(){showPage('home')}
 
-var __pageBackStack=[];
-function showPage(id,fromBack){
+function showPage(id){
 window.scrollTo(0,0);
-var __current=document.querySelector('.page.active');
-var __currentId=__current?__current.id:null;
-if(!fromBack && __currentId && __currentId!==id){
-  __pageBackStack.push(__currentId);
-}
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 if(id==='notifikasi' && typeof markNotifSeen==='function') markNotifSeen();
-if(id==='shopTab' && typeof getDiamond==='function'){ var __sdb=document.getElementById('shopDiamondBalance'); if(__sdb) __sdb.textContent=getDiamond(); }
 
-var homeTabs=['home','eventTab','shopTab','progressTab','communityTab'];
+var homeTabs=['home','shadowmenu','beta','emote','lvl'];
 var bottomBar=document.querySelector('.app-bottombar');
 var backBtn=document.getElementById('topbarBackBtn');
 var tLeft=document.getElementById('topbarLeft');
@@ -5007,23 +4760,16 @@ var tRight=document.getElementById('topbarRight');
 
 if(homeTabs.indexOf(id)!==-1){
   if(bottomBar) bottomBar.style.display='';
+  if(backBtn) backBtn.style.display='none';
+  if(tLeft) tLeft.style.display='';
+  if(tCenter) tCenter.style.display='';
+  if(tRight) tRight.style.display='';
 
   document.querySelectorAll('.app-bottombar .tab').forEach(t=>t.classList.remove('active'));
-  var tabMap={eventTab:0,shopTab:1,home:2,progressTab:3,communityTab:4};
+  var tabMap={shadowmenu:0,beta:1,home:2,emote:3,lvl:4};
   var tabs=document.querySelectorAll('.app-bottombar .tab');
   var idx=tabMap[id];
   if(tabs[idx]) tabs[idx].classList.add('active');
-
-  if(id==='home'){
-    if(backBtn) backBtn.style.display='none';
-    if(tLeft) tLeft.style.display='';
-    __pageBackStack=[];
-  }else{
-    if(backBtn) backBtn.style.display='flex';
-    if(tLeft) tLeft.style.display='none';
-  }
-  if(tCenter) tCenter.style.display='';
-  if(tRight) tRight.style.display='';
 }else{
   if(bottomBar) bottomBar.style.display='none';
   if(backBtn) backBtn.style.display='flex';
@@ -5031,10 +4777,6 @@ if(homeTabs.indexOf(id)!==-1){
   if(tCenter) tCenter.style.display='none';
   if(tRight) tRight.style.display='none';
 }
-}
-function goBackPage(){
-  var prev=__pageBackStack.pop();
-  showPage(prev?prev:'home',true);
 }
 
 
@@ -6104,53 +5846,7 @@ document.querySelectorAll('.shadow-banner, .banner.shadow, .preview.shadow, .car
 });
 </script>
 <script>
-function openSideDrawer(){
-  var overlay=document.getElementById('sideDrawerOverlay');
-  if(!overlay) return;
-  var name=document.getElementById('hmNameText');
-  var role=document.getElementById('roleBadge');
-  var avatar=document.querySelector('.hm-avatar');
-  var diamond=document.getElementById('diamondBalanceTop');
-  var sdName=document.getElementById('sdName');
-  var sdRole=document.getElementById('sdRole');
-  var sdAvatar=document.getElementById('sdAvatar');
-  var sdDiamond=document.getElementById('sdDiamond');
-  if(sdName && name) sdName.textContent=name.textContent;
-  if(sdRole && role) sdRole.textContent=role.textContent;
-  if(sdAvatar && avatar && avatar.src) sdAvatar.src=avatar.src;
-  if(sdDiamond && diamond) sdDiamond.textContent=diamond.textContent;
-  overlay.classList.add('open');
-}
-function closeSideDrawer(){
-  var overlay=document.getElementById('sideDrawerOverlay');
-  if(!overlay) return;
-  overlay.classList.remove('open');
-  setTimeout(function(){
-    if(!overlay.classList.contains('open')) overlay.style.display='';
-  },1000);
-}
-function toggleMenu(){
-  var overlay=document.getElementById('sideDrawerOverlay');
-  if(!overlay) return;
-  if(overlay.classList.contains('open')) closeSideDrawer(); else openSideDrawer();
-}
-function sdPressAndClose(el,cb){
-  if(el){
-    el.classList.add('sd-pressed');
-    setTimeout(function(){ el.classList.remove('sd-pressed'); },200);
-  }
-  if(cb) cb();
-  closeSideDrawer();
-}
-function sdGo(page,el){
-  sdPressAndClose(el,function(){ showPage(page); });
-}
-function sdGoDismiss(key,page,el){
-  sdPressAndClose(el,function(){
-    if(typeof dismissNewBadge==='function') dismissNewBadge(key);
-    showPage(page);
-  });
-}
+function toggleMenu(){alert('Menu akan segera tersedia');}
 function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettingsPanel(); } if(typeof markSettingsSeen==='function') markSettingsSeen(); }
 </script>
 
@@ -6216,9 +5912,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .banner-detail-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 36px}
 .banner-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .banner-detail-card{position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.1);cursor:pointer;aspect-ratio:var(--banner-ratio,16/9);background:#1a1a1a;transition:.2s}
-#wallpaperDetailGrid.banner-detail-grid{grid-template-columns:repeat(3,1fr)}
-#wallpaperDetailGrid .banner-detail-card{aspect-ratio:9/16!important}
-#buyWallpaperModal .zx-modal-thumb{width:90px;height:160px}
 .banner-detail-card:active{transform:scale(.97)}
 .banner-detail-card .bd-img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease}
 .banner-detail-card .bd-img[src]{opacity:1}
@@ -6259,7 +5952,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .zx-modal{width:100%;max-width:340px;background:#161616;border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:22px;text-align:center;animation:successPop .35s ease}
 .zx-modal .zx-modal-thumb{width:78px;height:78px;border-radius:18px;overflow:hidden;margin:0 auto 14px;border:2px solid rgba(255,43,43,.5)}
 .zx-modal .zx-modal-thumb img{width:100%;height:100%;object-fit:cover}
-.zx-modal .zx-modal-thumb video{width:100%;height:100%;object-fit:cover}
 .zx-modal h3{font-size:1.05rem;margin-bottom:6px}
 .zx-modal p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:16px}
 .zx-modal .zx-price-row{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.4);border-radius:14px;padding:10px;margin-bottom:16px;font-weight:800;color:#ffffff;font-size:.95rem}
@@ -6270,26 +5962,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .zx-btn-confirm{background:linear-gradient(90deg,#ff2b2b,#e00000)}
 .zx-btn-confirm:disabled{opacity:.45}
 .zx-modal .zx-balance-note{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:2px}
-
-/* === Buy button micro-interactions (loading / success / confetti / toast) === */
-.zx-modal{position:relative}
-.zx-btn-confirm{position:relative;overflow:hidden;transition:transform .15s ease,background .3s ease,box-shadow .3s ease}
-.zx-btn-confirm:active:not(.loading):not(.success){transform:scale(.93)}
-.zx-btn-confirm.insufficient{opacity:.55}
-.zx-btn-confirm.loading{cursor:wait}
-.zx-btn-confirm.success{background:linear-gradient(90deg,#00c853,#00e676)!important;box-shadow:0 0 18px rgba(0,230,118,.5)}
-.zx-spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:zxSpin .6s linear infinite;vertical-align:middle}
-@keyframes zxSpin{to{transform:rotate(360deg)}}
-.zx-modal.pop-success{animation:zxPopSuccess .5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes zxPopSuccess{0%{transform:scale(1)}30%{transform:scale(1.045)}60%{transform:scale(.99)}100%{transform:scale(1)}}
-.zx-modal-thumb.zx-thumb-bounce{animation:zxThumbBounce .6s ease}
-@keyframes zxThumbBounce{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.18) rotate(-4deg)}55%{transform:scale(.94) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
-.zx-confetti-piece{position:absolute;top:38%;left:50%;width:7px;height:7px;border-radius:2px;opacity:0;pointer-events:none;z-index:6;animation:zxConfettiBurst .9s ease-out forwards}
-@keyframes zxConfettiBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(.6) rotate(0)}100%{opacity:0;transform:translate(var(--zx-x),var(--zx-y)) scale(1) rotate(var(--zx-r))}}
-.zx-toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,20px);background:#161616;border:1px solid rgba(0,230,118,.4);color:#fff;padding:12px 20px;border-radius:16px;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:8px;z-index:1000030;opacity:0;transition:opacity .3s ease,transform .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:88vw;pointer-events:none}
-.zx-toast.show{opacity:1;transform:translate(-50%,0)}
-.zx-toast i{color:#00e676;font-size:1rem}
-.zx-just-bought{animation:zxThumbBounce .6s ease}
 
 /* === Daily claim calendar modal === */
 .claim-modal{max-width:380px}
@@ -6467,32 +6139,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   </div>
 </div>
 
-<div class="banner-detail-overlay" id="wallpaperDetailOverlay">
-  <div class="banner-detail-header">
-    <button class="banner-detail-back" onclick="closeWallpaperDetail()"><i class="fa-solid fa-arrow-left"></i></button>
-    <h2>Pilih Wallpaper</h2>
-    <div class="banner-detail-diamond"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond" width="14" height="14" style="width:14px;height:14px;object-fit:contain;display:block"/><span id="wallpaperDetailDiamondBalance">0</span></div>
-  </div>
-  <div class="banner-detail-body" id="wallpaperDetailBody">
-    <div class="banner-detail-hint"><i class="fa-solid fa-wifi"></i><span>Jika video tidak muncul, coba pindahkan jaringan (WiFi ke Data Seluler atau sebaliknya) yang paling stabil.</span></div>
-    <div class="banner-detail-grid" id="wallpaperDetailGrid"></div>
-  </div>
-</div>
-
-<div class="zx-modal-overlay" id="buyWallpaperOverlay">
-  <div class="zx-modal" id="buyWallpaperModal">
-    <div class="zx-modal-thumb"><video id="buyWallpaperVideo" muted loop playsinline preload="none" src=""></video></div>
-    <h3 id="buyWallpaperName">Wallpaper</h3>
-    <p>Beli wallpaper ini secara permanen menggunakan Diamond kamu.</p>
-    <div class="zx-price-row"><img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/><span id="buyWallpaperPrice">0</span></div>
-    <div class="zx-actions">
-      <button class="zx-btn-cancel" onclick="closeBuyWallpaper()">Batal</button>
-      <button class="zx-btn-confirm" id="buyWallpaperConfirmBtn" onclick="confirmBuyWallpaper()">Beli</button>
-    </div>
-    <div class="zx-balance-note" id="buyWallpaperBalanceNote"></div>
-  </div>
-</div>
-
 <div class="zx-modal-overlay" id="dailyClaimOverlay">
   <div class="zx-modal claim-modal">
     <button type="button" class="redeem-corner-btn" id="redeemCornerBtn" onclick="openRedeemModal()"><i class="fa-solid fa-ticket"></i><span>Redeem</span></button>
@@ -6530,27 +6176,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   </div>
 </div>
 
-<div class="banner-detail-overlay" id="orderHistoryOverlay">
-  <div class="banner-detail-header">
-    <button class="banner-detail-back" onclick="closeOrderHistory()"><i class="fa-solid fa-arrow-left"></i></button>
-    <h2>Riwayat Order</h2>
-  </div>
-  <div class="banner-detail-body">
-    <div class="oh-list" id="orderHistoryList"></div>
-  </div>
-</div>
-
-<div class="zx-modal-overlay" id="clearHistoryOverlay">
-  <div class="zx-modal">
-    <h3>Hapus Riwayat?</h3>
-    <p>Semua riwayat transaksi Diamond kamu akan terhapus permanen dan tidak bisa dikembalikan.</p>
-    <div class="zx-actions">
-      <button class="zx-btn-cancel" onclick="closeClearHistoryConfirm()">Batal</button>
-      <button class="zx-btn-confirm" onclick="doClearHistory()">Hapus</button>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   var BANNERS = [
@@ -6573,134 +6198,14 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   ];
   var LS_BANNER_ID = 'zusmo_settings_banner';
 
-  var WALLPAPERS = [
-    { id:'wp1',  name:'1',  video:'https://files.catbox.moe/p7lti5.mp4', price:500 },
-    { id:'wp2',  name:'2',  video:'https://files.catbox.moe/ba0g44.mp4', price:500 },
-    { id:'wp3',  name:'3',  video:'https://files.catbox.moe/wcofmx.mp4', price:500 },
-    { id:'wp4',  name:'4',  video:'https://files.catbox.moe/husqi0.mp4', price:500 },
-    { id:'wp5',  name:'5',  video:'https://files.catbox.moe/q4vvvh.mp4', price:500 },
-    { id:'wp6',  name:'6',  video:'https://files.catbox.moe/drd4ic.mp4', price:500 },
-    { id:'wp7',  name:'7',  video:'https://files.catbox.moe/jii24i.mp4', price:500 },
-    { id:'wp8',  name:'8',  video:'https://files.catbox.moe/ng408t.mp4', price:500 },
-    { id:'wp9',  name:'9',  video:'https://files.catbox.moe/trf7fv.mp4', price:500 },
-    { id:'wp10', name:'10', video:'https://files.catbox.moe/mecgvf.mp4', price:500 },
-    { id:'wp11', name:'11', video:'https://files.catbox.moe/wz9hw8.mp4', price:500 },
-    { id:'wp12', name:'12', video:'https://files.catbox.moe/mnak9m.mp4', price:500 },
-    { id:'wp13', name:'13', video:'https://files.catbox.moe/7t7wqt.mp4', price:500 },
-    { id:'wp14', name:'14', video:'https://files.catbox.moe/1qblx6.mp4', price:500 },
-    { id:'wp15', name:'15', video:'https://files.catbox.moe/8b6ua3.mp4', price:500 },
-    { id:'wp16', name:'16', video:'https://files.catbox.moe/3cpl4q.mp4', price:500 },
-    { id:'wp17', name:'17', video:'https://files.catbox.moe/imj3qm.mp4', price:500 },
-    { id:'wp18', name:'18', video:'https://files.catbox.moe/yyqtxx.mp4', price:500 },
-    { id:'wp19', name:'19', video:'https://files.catbox.moe/89gtx5.mp4', price:500 },
-    { id:'wp20', name:'20', video:'https://files.catbox.moe/whm7p2.mp4', price:500 },
-    { id:'wp21', name:'21', video:'https://files.catbox.moe/tb6ct2.mp4', price:500 },
-    { id:'wp22', name:'22', video:'https://files.catbox.moe/xenidv.mp4', price:500 },
-    { id:'wp23', name:'23', video:'https://files.catbox.moe/yioir1.mp4', price:500 },
-    { id:'wp24', name:'24', video:'https://files.catbox.moe/0ffq3d.mp4', price:500 },
-    { id:'wp25', name:'25', video:'https://files.catbox.moe/f23chn.mp4', price:500 },
-    { id:'wp26', name:'26', video:'https://files.catbox.moe/x4g8ki.mp4', price:500 },
-    { id:'wp27', name:'27', video:'https://files.catbox.moe/f23chn.mp4', price:500 },
-    { id:'wp28', name:'28', video:'https://files.catbox.moe/467snn.mp4', price:500 },
-    { id:'wp29', name:'29', video:'https://files.catbox.moe/rczedo.mp4', price:500 },
-    { id:'wp30', name:'30', video:'https://files.catbox.moe/wtr1fy.mp4', price:500 }
-  ];
-  var LS_WALLPAPER_ID = 'zusmo_settings_wallpaper';
-
   /* ===================== DIAMOND / SHOP / DAILY CLAIM SYSTEM ===================== */
   var LS_DIAMOND      = 'zusmo_diamond_balance';
   var LS_OWNED        = 'zusmo_owned_banners';
-  var LS_OWNED_WP     = 'zusmo_owned_wallpapers';
   var LS_CLAIM_LAST   = 'zusmo_claim_last_date';
   var LS_CLAIM_STREAK = 'zusmo_claim_streak';
   var LS_REDEEMED     = 'zusmo_redeemed_codes';
   var DIAMOND_ICON    = 'https://files.catbox.moe/onzrii.png';
   var DAILY_CLAIM_AMOUNT = 60;
-
-  /* ===================== RIWAYAT ORDER / TRANSAKSI DIAMOND ===================== */
-  var LS_HISTORY  = 'zusmo_diamond_history';
-  var HISTORY_MAX = 100;
-
-  function getHistory(){
-    try{
-      var raw = JSON.parse(localStorage.getItem(LS_HISTORY) || '[]');
-      if(!Array.isArray(raw)) raw = [];
-      return raw;
-    }catch(e){ return []; }
-  }
-  function addHistoryEntry(type, title, desc, amount){
-    var list = getHistory();
-    list.unshift({ type:type, title:title, desc:desc, amount:amount, ts:Date.now() });
-    if(list.length > HISTORY_MAX) list = list.slice(0, HISTORY_MAX);
-    try{ localStorage.setItem(LS_HISTORY, JSON.stringify(list)); }catch(e){}
-    refreshOrderHistoryDot();
-  }
-  function formatHistoryDate(ts){
-    var d = new Date(ts);
-    var bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-    var hh = d.getHours(), mm = d.getMinutes();
-    return d.getDate()+' '+bulan[d.getMonth()]+' '+d.getFullYear()+', '+(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;
-  }
-  function renderOrderHistory(){
-    var box = document.getElementById('orderHistoryList');
-    if(!box) return;
-    var list = getHistory();
-    if(!list.length){
-      box.innerHTML = '<div class="oh-empty"><i class="fa-solid fa-receipt"></i><p>Belum ada riwayat transaksi Diamond.</p></div>';
-      return;
-    }
-    var iconMap = { buy:'fa-bag-shopping', claim:'fa-gift', redeem:'fa-ticket' };
-    var html = '';
-    for(var i=0;i<list.length;i++){
-      var it = list[i];
-      var plus = it.amount >= 0;
-      html += '<div class="oh-item">'+
-                '<div class="oh-icon '+it.type+'"><i class="fa-solid '+(iconMap[it.type]||'fa-circle-info')+'"></i></div>'+
-                '<div class="oh-body"><h5>'+it.title+'</h5><small>'+it.desc+' &middot; '+formatHistoryDate(it.ts)+'</small></div>'+
-                '<div class="oh-amt '+(plus?'plus':'minus')+'">'+(plus?'+':'')+it.amount+'<img loading="lazy" decoding="async" src="'+DIAMOND_ICON+'" alt=""/></div>'+
-              '</div>';
-    }
-    box.innerHTML = html;
-  }
-  function refreshOrderHistoryDot(){
-    var dot = document.getElementById('orderHistoryDot');
-    if(!dot) return;
-    var seen = parseInt(localStorage.getItem('zusmo_seen_history_count'), 10) || 0;
-    dot.classList.toggle('dot-show', getHistory().length > seen);
-  }
-  window.openOrderHistory = function(){
-    renderOrderHistory();
-    localStorage.setItem('zusmo_seen_history_count', String(getHistory().length));
-    refreshOrderHistoryDot();
-    var ov = document.getElementById('orderHistoryOverlay');
-    if(ov) ov.classList.add('open');
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-  window.closeOrderHistory = function(){
-    var ov = document.getElementById('orderHistoryOverlay');
-    if(ov) ov.classList.remove('open');
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-  window.confirmClearHistory = function(){
-    var ov = document.getElementById('clearHistoryOverlay');
-    if(ov) ov.classList.add('open');
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-  window.closeClearHistoryConfirm = function(){
-    var ov = document.getElementById('clearHistoryOverlay');
-    if(ov) ov.classList.remove('open');
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-  window.doClearHistory = function(){
-    localStorage.removeItem(LS_HISTORY);
-    localStorage.setItem('zusmo_seen_history_count', '0');
-    renderOrderHistory();
-    refreshOrderHistoryDot();
-    window.closeClearHistoryConfirm();
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-  document.addEventListener('DOMContentLoaded', refreshOrderHistoryDot);
-  /* ================= END RIWAYAT ORDER ================= */
 
   /* ===================== REDEEM CODE SYSTEM ===================== */
   // expiresWIB is inclusive end-of-day in "YYYY-M-D" WIB date format, or null for no expiry.
@@ -6750,7 +6255,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       markCodeRedeemed(code);
     }
     setDiamond(getDiamond() + entry.amount);
-    addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Kode ditukar dengan Diamond', entry.amount);
     setRedeemMsg('Berhasil! +'+entry.amount+' Diamond ditambahkan.', 'ok');
     input.value = '';
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -6768,28 +6272,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     if(el) el.textContent = getDiamond();
     var elBd = document.getElementById('bannerDetailDiamondBalance');
     if(elBd) elBd.textContent = getDiamond();
-    var elSd = document.getElementById('shopDiamondBalance');
-    if(elSd) elSd.textContent = getDiamond();
-    var elWd = document.getElementById('wallpaperDetailDiamondBalance');
-    if(elWd) elWd.textContent = getDiamond();
-  }
-  function getOwnedWallpapers(){
-    try{
-      var raw = JSON.parse(localStorage.getItem(LS_OWNED_WP) || '[]');
-      if(!Array.isArray(raw)) raw = [];
-      return raw;
-    }catch(e){ return []; }
-  }
-  function isWallpaperOwned(id){
-    var w = null;
-    for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===id){ w = WALLPAPERS[i]; break; } }
-    if(!w) return false;
-    if(!w.price || w.price<=0) return true;
-    return getOwnedWallpapers().indexOf(id) !== -1;
-  }
-  function ownWallpaper(id){
-    var owned = getOwnedWallpapers();
-    if(owned.indexOf(id)===-1){ owned.push(id); localStorage.setItem(LS_OWNED_WP, JSON.stringify(owned)); }
   }
   function getOwnedBanners(){
     try{
@@ -6862,7 +6344,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     localStorage.setItem(LS_CLAIM_LAST, today);
     localStorage.setItem(LS_CLAIM_STREAK, String(streak));
     setDiamond(getDiamond() + DAILY_CLAIM_AMOUNT);
-    addHistoryEntry('claim', 'Klaim Diamond Harian', 'Hari ke-'+streak, DAILY_CLAIM_AMOUNT);
     renderDailyClaimUI();
     updateDiamondDot();
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -6960,15 +6441,14 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var balance = getDiamond();
     var note = document.getElementById('buyBannerBalanceNote');
     var confirmBtn = document.getElementById('buyBannerConfirmBtn');
-    confirmBtn.classList.remove('loading','success');
     if(balance < b.price){
       note.textContent = 'Diamond kamu tidak cukup (Saldo: '+balance+')';
       note.style.color = '#ff5b5b';
-      confirmBtn.classList.add('insufficient');
+      confirmBtn.disabled = true;
     } else {
       note.textContent = 'Saldo kamu: '+balance+' Diamond';
       note.style.color = 'rgba(255,255,255,.5)';
-      confirmBtn.classList.remove('insufficient');
+      confirmBtn.disabled = false;
     }
     document.getElementById('buyBannerOverlay').classList.add('open');
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -6978,387 +6458,28 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     pendingBuyBannerId = null;
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
-  // Animate a number counting down/up across every diamond balance display
-  function zxAnimateDiamondCount(from, to, duration){
-    var els = [document.getElementById('diamondBalanceTop'), document.getElementById('bannerDetailDiamondBalance'), document.getElementById('shopDiamondBalance')].filter(Boolean);
-    if(!els.length || from === to){ return; }
-    var startTime = null;
-    function step(ts){
-      if(!startTime) startTime = ts;
-      var progress = Math.min((ts - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var current = Math.round(from + (to - from) * eased);
-      els.forEach(function(el){ el.textContent = current; });
-      if(progress < 1) requestAnimationFrame(step); else els.forEach(function(el){ el.textContent = to; });
-    }
-    requestAnimationFrame(step);
-  }
-
-  // Small confetti burst centered on a modal, purely decorative
-  function zxSpawnConfetti(container){
-    if(!container) return;
-    var colors = ['#ff2b2b','#ffd166','#00e676','#4da3ff','#ffffff'];
-    for(var i=0;i<14;i++){
-      var piece = document.createElement('span');
-      piece.className = 'zx-confetti-piece';
-      var angle = Math.random() * Math.PI * 2;
-      var dist = 60 + Math.random() * 70;
-      piece.style.setProperty('--zx-x', (Math.cos(angle) * dist) + 'px');
-      piece.style.setProperty('--zx-y', (Math.sin(angle) * dist - 20) + 'px');
-      piece.style.setProperty('--zx-r', (Math.random() * 360 - 180) + 'deg');
-      piece.style.background = colors[i % colors.length];
-      piece.style.animationDelay = (Math.random() * 0.08) + 's';
-      container.appendChild(piece);
-      (function(el){ setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 1100); })(piece);
-    }
-  }
-
-  // Lightweight reusable toast for quick confirmations
-  var zxToastTimer = null;
-  function zxShowToast(message){
-    var toast = document.getElementById('zxGlobalToast');
-    if(!toast){
-      toast = document.createElement('div');
-      toast.id = 'zxGlobalToast';
-      toast.className = 'zx-toast';
-      toast.innerHTML = '<i class="fa-solid fa-circle-check"></i><span></span>';
-      document.body.appendChild(toast);
-    }
-    toast.querySelector('span').textContent = message;
-    clearTimeout(zxToastTimer);
-    requestAnimationFrame(function(){ toast.classList.add('show'); });
-    zxToastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
-  }
-
   window.confirmBuyBanner = function(){
     if(!pendingBuyBannerId) return;
     var b = null;
     for(var i=0;i<BANNERS.length;i++){ if(BANNERS[i].id===pendingBuyBannerId){ b = BANNERS[i]; break; } }
     if(!b) return;
-
-    var confirmBtn = document.getElementById('buyBannerConfirmBtn');
-    var cancelBtn = document.querySelector('#buyBannerModal .zx-btn-cancel');
-    var modal = document.getElementById('buyBannerModal');
-    if(!confirmBtn || confirmBtn.classList.contains('loading') || confirmBtn.classList.contains('success')) return;
-
-    // Not enough diamond: shake instead of silently doing nothing
-    if(getDiamond() < b.price){
-      var note = document.getElementById('buyBannerBalanceNote');
-      [modal, note].forEach(function(el){
-        if(!el) return;
-        el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
-      });
-      if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-      setTimeout(function(){
-        modal.classList.remove('shake');
-        if(note) note.classList.remove('shake');
-      }, 550);
-      return;
-    }
-
-    var originalBtnHTML = confirmBtn.innerHTML;
-    confirmBtn.classList.add('loading');
-    confirmBtn.innerHTML = '<span class="zx-spinner"></span>';
-    if(cancelBtn) cancelBtn.disabled = true;
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-
-    // Brief "processing" beat before confirming, so it doesn't feel instant/flat
-    setTimeout(function(){
-      var startVal = getDiamond();
-      var endVal = startVal - b.price;
-      setDiamond(endVal);
-      zxAnimateDiamondCount(startVal, endVal, 550);
-
-      addHistoryEntry('buy', 'Beli Banner: '+b.name, 'Pembelian item di Toko Zusmo', -b.price);
-      ownBanner(b.id);
-
-      confirmBtn.classList.remove('loading');
-      confirmBtn.classList.add('success');
-      confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> Berhasil';
-
-      modal.classList.add('pop-success');
-      var thumb = modal.querySelector('.zx-modal-thumb');
-      if(thumb) thumb.classList.add('zx-thumb-bounce');
-      zxSpawnConfetti(modal);
-      if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-
-      var boughtId = b.id;
-
-      setTimeout(function(){
-        document.getElementById('buyBannerOverlay').classList.remove('open');
-        pendingBuyBannerId = null;
-        confirmBtn.classList.remove('success','loading','insufficient');
-        confirmBtn.innerHTML = originalBtnHTML;
-        if(cancelBtn) cancelBtn.disabled = false;
-        modal.classList.remove('pop-success');
-        if(thumb) thumb.classList.remove('zx-thumb-bounce');
-
-        onSelectBanner(boughtId);
-        var dGrid = document.getElementById('bannerDetailGrid');
-        if(dGrid){
-          var card = dGrid.querySelector('[data-banner-id="'+boughtId+'"]');
-          if(card){
-            card.classList.remove('locked');
-            var lockEl = card.querySelector('.bd-lock'); if(lockEl) lockEl.remove();
-            var priceEl = card.querySelector('.bd-price'); if(priceEl) priceEl.remove();
-            card.classList.add('zx-just-bought');
-            setTimeout(function(){ card.classList.remove('zx-just-bought'); }, 700);
-          }
-          updateBannerDetailActiveState();
-        }
-        zxShowToast('Banner "'+b.name+'" berhasil dibeli!');
-      }, 950);
-    }, 550);
-  };
-  // --- Buy wallpaper modal ---
-  var pendingBuyWallpaperId = null;
-  function openBuyWallpaper(id){
-    var w = null;
-    for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===id){ w = WALLPAPERS[i]; break; } }
-    if(!w) return;
-    pendingBuyWallpaperId = id;
-    var vid = document.getElementById('buyWallpaperVideo');
-    if(vid){ vid.src = w.video; vid.play().catch(function(){}); }
-    document.getElementById('buyWallpaperName').textContent = 'Wallpaper '+w.name;
-    document.getElementById('buyWallpaperPrice').textContent = w.price;
-    var balance = getDiamond();
-    var note = document.getElementById('buyWallpaperBalanceNote');
-    var confirmBtn = document.getElementById('buyWallpaperConfirmBtn');
-    confirmBtn.classList.remove('loading','success');
-    if(balance < w.price){
-      note.textContent = 'Diamond kamu tidak cukup (Saldo: '+balance+')';
-      note.style.color = '#ff5b5b';
-      confirmBtn.classList.add('insufficient');
-    } else {
-      note.textContent = 'Saldo kamu: '+balance+' Diamond';
-      note.style.color = 'rgba(255,255,255,.5)';
-      confirmBtn.classList.remove('insufficient');
-    }
-    document.getElementById('buyWallpaperOverlay').classList.add('open');
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  }
-  window.closeBuyWallpaper = function(){
-    document.getElementById('buyWallpaperOverlay').classList.remove('open');
-    var vid = document.getElementById('buyWallpaperVideo');
-    if(vid){ vid.pause(); }
-    pendingBuyWallpaperId = null;
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-
-  window.confirmBuyWallpaper = function(){
-    if(!pendingBuyWallpaperId) return;
-    var w = null;
-    for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===pendingBuyWallpaperId){ w = WALLPAPERS[i]; break; } }
-    if(!w) return;
-
-    var confirmBtn = document.getElementById('buyWallpaperConfirmBtn');
-    var cancelBtn = document.querySelector('#buyWallpaperModal .zx-btn-cancel');
-    var modal = document.getElementById('buyWallpaperModal');
-    if(!confirmBtn || confirmBtn.classList.contains('loading') || confirmBtn.classList.contains('success')) return;
-
-    if(getDiamond() < w.price){
-      var note = document.getElementById('buyWallpaperBalanceNote');
-      [modal, note].forEach(function(el){
-        if(!el) return;
-        el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
-      });
-      if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-      setTimeout(function(){
-        modal.classList.remove('shake');
-        if(note) note.classList.remove('shake');
-      }, 550);
-      return;
-    }
-
-    var originalBtnHTML = confirmBtn.innerHTML;
-    confirmBtn.classList.add('loading');
-    confirmBtn.innerHTML = '<span class="zx-spinner"></span>';
-    if(cancelBtn) cancelBtn.disabled = true;
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-
-    setTimeout(function(){
-      var startVal = getDiamond();
-      var endVal = startVal - w.price;
-      setDiamond(endVal);
-      zxAnimateDiamondCount(startVal, endVal, 550);
-
-      addHistoryEntry('buy', 'Beli Wallpaper: '+w.name, 'Pembelian item di Toko Zusmo', -w.price);
-      ownWallpaper(w.id);
-
-      confirmBtn.classList.remove('loading');
-      confirmBtn.classList.add('success');
-      confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> Berhasil';
-
-      modal.classList.add('pop-success');
-      var thumb = modal.querySelector('.zx-modal-thumb');
-      if(thumb) thumb.classList.add('zx-thumb-bounce');
-      zxSpawnConfetti(modal);
-      if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-
-      var boughtId = w.id;
-
-      setTimeout(function(){
-        document.getElementById('buyWallpaperOverlay').classList.remove('open');
-        var vid = document.getElementById('buyWallpaperVideo');
-        if(vid) vid.pause();
-        pendingBuyWallpaperId = null;
-        confirmBtn.classList.remove('success','loading','insufficient');
-        confirmBtn.innerHTML = originalBtnHTML;
-        if(cancelBtn) cancelBtn.disabled = false;
-        modal.classList.remove('pop-success');
-        if(thumb) thumb.classList.remove('zx-thumb-bounce');
-
-        onSelectWallpaper(boughtId);
-        var dGrid = document.getElementById('wallpaperDetailGrid');
-        if(dGrid){
-          var card = dGrid.querySelector('[data-wallpaper-id="'+boughtId+'"]');
-          if(card){
-            card.classList.remove('locked');
-            var lockEl = card.querySelector('.bd-lock'); if(lockEl) lockEl.remove();
-            var priceEl = card.querySelector('.bd-price'); if(priceEl) priceEl.remove();
-            card.classList.add('zx-just-bought');
-            setTimeout(function(){ card.classList.remove('zx-just-bought'); }, 700);
-          }
-          updateWallpaperDetailActiveState();
-        }
-        zxShowToast('Wallpaper "'+w.name+'" berhasil dibeli!');
-      }, 950);
-    }, 550);
-  };
-
-  function getWallpaperData(){
-    var id = localStorage.getItem(LS_WALLPAPER_ID) || '';
-    for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===id) return WALLPAPERS[i]; }
-    return null;
-  }
-
-  function applyWallpaperState(id){
-    var bgVid = document.getElementById('zusmoWallpaperBg');
-    if(!bgVid) return;
-    var w = null;
-    for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===id){ w = WALLPAPERS[i]; break; } }
-    if(!w){
-      bgVid.pause();
-      bgVid.removeAttribute('src');
-      bgVid.style.display = 'none';
-      return;
-    }
-    if(bgVid.getAttribute('data-current') !== w.id){
-      bgVid.src = w.video;
-      bgVid.setAttribute('data-current', w.id);
-    }
-    bgVid.style.display = 'block';
-    bgVid.play().catch(function(){});
-  }
-
-  var wallpaperDetailInitialized = false;
-  var wallpaperDetailObserver = null;
-
-  function renderWallpaperDetailGrid(){
-    var grid = document.getElementById('wallpaperDetailGrid');
-    if(!grid) return;
-    var activeId = (getWallpaperData()||{}).id;
-    grid.innerHTML = WALLPAPERS.map(function(w){
-      var owned = isWallpaperOwned(w.id);
-      var extra = owned ? '' :
-        '<div class="bd-lock"><i class="fa-solid fa-lock"></i></div>'+
-        '<div class="bd-price"><img loading="lazy" decoding="async" src="'+DIAMOND_ICON+'" alt=""/>'+w.price+'</div>';
-      return '<div class="banner-detail-card'+(w.id===activeId?' active':'')+(owned?'':' locked')+'" data-wallpaper-id="'+w.id+'" onclick="onSelectWallpaperDetail(\''+w.id+'\')" title="Wallpaper '+w.name+'">'+
-        '<video class="bd-video" muted loop playsinline preload="none" data-src="'+w.video+'"></video>'+
-        '<div class="bd-spinner"></div>'+
-        extra+
-        '<div class="bd-check"><i class="fa-solid fa-check"></i></div>'+
-        '<div class="bd-name">Wallpaper '+w.name+'</div>'+
-      '</div>';
-    }).join('');
-
-    if(wallpaperDetailObserver) wallpaperDetailObserver.disconnect();
-
-    function loadCard(card){
-      var video = card.querySelector('.bd-video');
-      if(video && !video.src && video.dataset.src){
-        video.src = video.dataset.src;
-        video.load();
-        var onReady = function(){
-          card.classList.add('video-ready');
-          card.classList.add('loaded');
-          var ov = document.getElementById('wallpaperDetailOverlay');
-          if(ov && ov.classList.contains('open')){
-            video.play().catch(function(){});
-          }
-          video.removeEventListener('canplaythrough', onReady);
-        };
-        video.addEventListener('canplaythrough', onReady);
+    if(getDiamond() < b.price) return;
+    setDiamond(getDiamond() - b.price);
+    ownBanner(b.id);
+    document.getElementById('buyBannerOverlay').classList.remove('open');
+    var boughtId = b.id;
+    pendingBuyBannerId = null;
+    onSelectBanner(boughtId);
+    var dGrid = document.getElementById('bannerDetailGrid');
+    if(dGrid){
+      var card = dGrid.querySelector('[data-banner-id="'+boughtId+'"]');
+      if(card){
+        card.classList.remove('locked');
+        var lockEl = card.querySelector('.bd-lock'); if(lockEl) lockEl.remove();
+        var priceEl = card.querySelector('.bd-price'); if(priceEl) priceEl.remove();
       }
+      updateBannerDetailActiveState();
     }
-
-    if('IntersectionObserver' in window){
-      wallpaperDetailObserver = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            loadCard(entry.target);
-            wallpaperDetailObserver.unobserve(entry.target);
-          }
-        });
-      }, { root: document.getElementById('wallpaperDetailBody') || null, rootMargin: '200px 0px', threshold: 0.01 });
-
-      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
-        wallpaperDetailObserver.observe(card);
-      });
-    }else{
-      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), loadCard);
-    }
-  }
-
-  function updateWallpaperDetailActiveState(){
-    var grid = document.getElementById('wallpaperDetailGrid');
-    if(!grid) return;
-    var activeId = (getWallpaperData()||{}).id;
-    Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card'), function(card){
-      card.classList.toggle('active', card.getAttribute('data-wallpaper-id')===activeId);
-    });
-  }
-
-  window.openWallpaperDetail = function(){
-    var elWd = document.getElementById('wallpaperDetailDiamondBalance');
-    if(elWd) elWd.textContent = getDiamond();
-    if(!wallpaperDetailInitialized){
-      renderWallpaperDetailGrid();
-      wallpaperDetailInitialized = true;
-    }else{
-      updateWallpaperDetailActiveState();
-    }
-    var ov = document.getElementById('wallpaperDetailOverlay');
-    if(ov) ov.classList.add('open');
-    var grid = document.getElementById('wallpaperDetailGrid');
-    if(grid){
-      Array.prototype.forEach.call(grid.querySelectorAll('.banner-detail-card.video-ready .bd-video'), function(v){
-        v.play().catch(function(){});
-      });
-    }
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-
-  window.closeWallpaperDetail = function(){
-    var ov = document.getElementById('wallpaperDetailOverlay');
-    if(ov) ov.classList.remove('open');
-    var grid = document.getElementById('wallpaperDetailGrid');
-    if(grid){
-      Array.prototype.forEach.call(grid.querySelectorAll('.bd-video'), function(v){ v.pause(); });
-    }
-    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
-  };
-
-  window.onSelectWallpaperDetail = function(id){
-    if(!isWallpaperOwned(id)){ openBuyWallpaper(id); return; }
-    onSelectWallpaper(id);
-    updateWallpaperDetailActiveState();
-  };
-
-  window.onSelectWallpaper = function(id){
-    if(!isWallpaperOwned(id)){ openBuyWallpaper(id); return; }
-    localStorage.setItem(LS_WALLPAPER_ID, id);
-    applyWallpaperState(id);
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
   /* ================= END DIAMOND / SHOP / DAILY CLAIM SYSTEM ================= */
@@ -7728,12 +6849,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.user':'USER',
       'home.safe':'AMAN',
       'home.mainMenu':'⚡ Menu Utama',
-      'home.moreMenu':'📥 Lainnya',
-      'home.open':'Buka',
-      'home.botGloryTitle':'BOT GLORY',
-      'home.primeCalcTitle':'PRIME CALC',
       'home.primeCalcDesc':'Hitung harga Prime Free Fire',
-      'home.suntikLikeTitle':'SUNTIK LIKE',
+      'home.suntikLikeTitle':'SUNTIK LIKE FF',
       'home.suntikLikeDesc':'Tambah like profile Free Fire',
       'home.botGloryDesc':'Bot booster keaktifan guild Free Fire',
       'home.tokoTitle':'TOKO ZUSMO',
@@ -7792,12 +6909,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.user':'USERS',
       'home.safe':'SAFE',
       'home.mainMenu':'⚡ Main Menu',
-      'home.moreMenu':'📥 More',
-      'home.open':'Open',
-      'home.botGloryTitle':'BOT GLORY',
-      'home.primeCalcTitle':'PRIME CALC',
       'home.primeCalcDesc':'Calculate Free Fire Prime price',
-      'home.suntikLikeTitle':'LIKE BOOST',
+      'home.suntikLikeTitle':'FF LIKE BOOST',
       'home.suntikLikeDesc':'Add likes to your Free Fire profile',
       'home.botGloryDesc':'Free Fire guild activity booster bot',
       'home.tokoTitle':'ZUSMO STORE',
@@ -7894,8 +7007,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 
   var buyOv = document.getElementById('buyBannerOverlay');
   if(buyOv) buyOv.addEventListener('click', function(e){ if(e.target === this) closeBuyBanner(); });
-  var buyWpOv = document.getElementById('buyWallpaperOverlay');
-  if(buyWpOv) buyWpOv.addEventListener('click', function(e){ if(e.target === this) closeBuyWallpaper(); });
   var claimOv = document.getElementById('dailyClaimOverlay');
   if(claimOv) claimOv.addEventListener('click', function(e){ if(e.target === this) closeDailyClaim(); });
   var redeemOv = document.getElementById('redeemOverlay');
@@ -7908,141 +7019,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     applyVolumeToMusic(getVolume());
     applyLanguage(getLang());
     setDiamond(getDiamond());
-    var savedWpId = localStorage.getItem(LS_WALLPAPER_ID);
-    if(savedWpId) applyWallpaperState(savedWpId);
     if(window.ZKB && typeof window.ZKB.setEnabled==='function') window.ZKB.setEnabled(getCustomKeyboard());
   });
 })();
 </script>
-
-<div class="page" id="eventTab"><div class="dev-card">
-<div class="dev-badge">COMING SOON</div>
-<h1>EVENT</h1>
-<p class="dev-note">Halaman ini masih dalam pengembangan. Konten akan ditambahkan pada pembaruan berikutnya.</p>
-</div></div>
-
-<style>
-.shop-hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 20px;margin:6px 0 18px;background:linear-gradient(145deg,rgba(255,43,43,.18),rgba(255,255,255,.04));border:1px solid rgba(255,43,43,.32);}
-.shop-hero-glow{position:absolute;top:-45%;right:-18%;width:220px;height:220px;background:radial-gradient(circle,rgba(255,43,43,.38),transparent 70%);pointer-events:none;}
-.shop-hero-glow2{position:absolute;bottom:-50%;left:-15%;width:180px;height:180px;background:radial-gradient(circle,rgba(255,43,43,.18),transparent 70%);pointer-events:none;}
-.shop-hero-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.shop-hero-title{display:flex;align-items:center;gap:10px;font-size:1rem;letter-spacing:.5px;color:#fff;}
-.shop-hero-title span{font-family:'Righteous',cursive;font-size:1.15rem;letter-spacing:1px;background:linear-gradient(90deg,#fff,#ffb3b3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 18px rgba(255,43,43,.55);}
-.shop-hero-title i{color:#ff2b2b;font-size:1.05rem;text-shadow:0 0 12px rgba(255,43,43,.7);}
-.shop-diamond-pill{position:relative;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.4);border:1px solid rgba(255,43,43,.5);border-radius:999px;padding:8px 13px;color:#fff;font-weight:800;font-size:.8rem;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 14px rgba(255,43,43,.25);}
-.shop-diamond-pill img{width:15px;height:15px;object-fit:contain;filter:drop-shadow(0 0 4px rgba(255,60,60,.8));}
-.shop-diamond-pill i{font-size:9px;color:#ff2b2b;margin-left:1px;}
-.shop-diamond-pill:active{transform:scale(.96);}
-.shop-hero-desc{position:relative;margin-top:13px;font-size:.72rem;line-height:1.65;color:rgba(255,255,255,.6);max-width:92%;}
-
-.shop-cat-list{display:flex;flex-direction:column;gap:12px;margin-top:2px;margin-bottom:10px;}
-.shop-cat-item{position:relative;display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);cursor:pointer;transition:.25s;overflow:hidden}
-.shop-cat-item:active{transform:scale(.98);border-color:#ff3c3c;box-shadow:0 8px 20px rgba(255,0,0,.2)}
-.shop-cat-item.locked{cursor:default;opacity:.55}
-.shop-cat-item.locked:active{transform:none;box-shadow:none;border-color:rgba(255,255,255,.1)}
-.shop-cat-icon{flex-shrink:0;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(255,43,43,.22),rgba(0,0,0,.3));border:1px solid rgba(255,43,43,.3)}
-.shop-cat-icon i{font-size:19px;color:#ff4747;text-shadow:0 0 10px rgba(255,43,43,.6)}
-.shop-cat-item.locked .shop-cat-icon{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
-.shop-cat-item.locked .shop-cat-icon i{color:rgba(255,255,255,.35);text-shadow:none}
-.shop-cat-body{flex:1;min-width:0}
-.shop-cat-body h4{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:2px;letter-spacing:.2px}
-.shop-cat-body small{font-size:11px;color:rgba(255,255,255,.45);display:block}
-.shop-soon-badge{flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:.5px;color:#ffb347;background:rgba(255,180,60,.12);border:1px solid rgba(255,180,60,.35);padding:5px 9px;border-radius:999px;white-space:nowrap}
-.shop-cat-item .oh-dot{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 6px rgba(255,43,43,.8);display:none}
-.shop-cat-item .oh-dot.dot-show{display:block}
-
-/* === Riwayat Order === */
-.oh-list{display:flex;flex-direction:column;gap:10px}
-.oh-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
-.oh-icon{flex-shrink:0;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.oh-icon.buy{background:rgba(255,43,43,.15);color:#ff4747}
-.oh-icon.claim{background:rgba(0,255,136,.12);color:#00ff88}
-.oh-icon.redeem{background:rgba(255,180,60,.14);color:#ffb347}
-.oh-body{flex:1;min-width:0}
-.oh-body h5{font-size:12.5px;font-weight:800;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.oh-body small{font-size:10.5px;color:rgba(255,255,255,.45);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.oh-amt{flex-shrink:0;font-weight:800;font-size:.78rem;display:flex;align-items:center;gap:4px}
-.oh-amt.plus{color:#00ff88}
-.oh-amt.minus{color:#ff5b5b}
-.oh-amt img{width:12px;height:12px;object-fit:contain}
-.oh-empty{text-align:center;padding:70px 20px;color:rgba(255,255,255,.4)}
-.oh-empty i{font-size:42px;margin-bottom:14px;display:block;color:rgba(255,255,255,.18)}
-.oh-empty p{font-size:.8rem}
-.oh-clear-btn{position:static;flex:none;margin-left:auto}
-</style>
-<div class="page" id="shopTab">
-
-<div class="shop-hero">
-  <div class="shop-hero-glow"></div>
-  <div class="shop-hero-glow2"></div>
-  <div class="shop-hero-top">
-    <div class="shop-hero-title"><i class="fa-solid fa-store"></i><span>TOKO ZUSMO</span></div>
-    <button type="button" class="shop-diamond-pill" onclick="openDailyClaim()">
-      <img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/>
-      <span id="shopDiamondBalance">0</span>
-      <i class="fa-solid fa-plus"></i>
-    </button>
-  </div>
-  <p class="shop-hero-desc">Pakai Diamond kamu buat beli item eksklusif dan bikin tampilan Zusmo kamu makin keren.</p>
-</div>
-
-<div class="hm-section-lbl"><span>🛍️ Kategori Item</span></div>
-
-<div class="shop-cat-list">
-  <div class="shop-cat-item" onclick="openBannerDetail()">
-    <div class="shop-cat-icon"><i class="fa-solid fa-image"></i></div>
-    <div class="shop-cat-body"><h4>Banner</h4><small>Ganti banner tampilan Home kamu</small></div>
-    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-  </div>
-
-  <div class="shop-cat-item" onclick="openWallpaperDetail()">
-    <div class="shop-cat-icon"><i class="fa-solid fa-panorama"></i></div>
-    <div class="shop-cat-body"><h4>Wallpaper</h4><small>Latar belakang aplikasi custom</small></div>
-  </div>
-
-  <div class="shop-cat-item locked">
-    <div class="shop-cat-icon"><i class="fa-solid fa-icons"></i></div>
-    <div class="shop-cat-body"><h4>Logo</h4><small>Ganti logo profil Zusmo</small></div>
-    <span class="shop-soon-badge">SEGERA</span>
-  </div>
-
-  <div class="shop-cat-item locked">
-    <div class="shop-cat-icon"><i class="fa-solid fa-music"></i></div>
-    <div class="shop-cat-body"><h4>Musik</h4><small>Backsound custom aplikasi</small></div>
-    <span class="shop-soon-badge">SEGERA</span>
-  </div>
-
-  <div class="shop-cat-item locked">
-    <div class="shop-cat-icon"><i class="fa-solid fa-ellipsis"></i></div>
-    <div class="shop-cat-body"><h4>Lainnya</h4><small>Item spesial lainnya menyusul</small></div>
-    <span class="shop-soon-badge">SEGERA</span>
-  </div>
-</div>
-
-<div class="hm-section-lbl"><span>📜 Aktivitas Akun</span></div>
-
-<div class="shop-cat-list">
-  <div class="shop-cat-item" onclick="openOrderHistory()">
-    <div class="oh-dot" id="orderHistoryDot"></div>
-    <div class="shop-cat-icon"><i class="fa-solid fa-receipt"></i></div>
-    <div class="shop-cat-body"><h4>Riwayat Order</h4><small>Semua transaksi Diamond kamu (beli, klaim, redeem)</small></div>
-    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
-  </div>
-</div>
-
-</div>
-
-<div class="page" id="progressTab"><div class="dev-card">
-<div class="dev-badge">COMING SOON</div>
-<h1>PROGRESS</h1>
-<p class="dev-note">Halaman ini masih dalam pengembangan. Konten akan ditambahkan pada pembaruan berikutnya.</p>
-</div></div>
-
-<div class="page" id="communityTab"><div class="dev-card">
-<div class="dev-badge">COMING SOON</div>
-<h1>COMMUNITY</h1>
-<p class="dev-note">Halaman ini masih dalam pengembangan. Konten akan ditambahkan pada pembaruan berikutnya.</p>
-</div></div>
 
 <div class="page" id="beta"><div class="dev-card">
 <img loading="lazy" decoding="async" src="https://files.catbox.moe/9dfz0n.png">
