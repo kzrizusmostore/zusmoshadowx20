@@ -6214,7 +6214,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .banner-detail-header h2{font-size:1.02rem;flex:1}
 .banner-detail-diamond{display:flex;align-items:center;gap:5px;font-weight:800;font-size:.85rem;color:#fff;flex:none;margin-left:auto}
 .banner-detail-body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:16px 16px 36px}
-.lg-round-grid.banner-detail-grid{grid-template-columns:repeat(10,1fr)!important;gap:6px!important;min-width:0}
+.lg-round-grid.banner-detail-grid{grid-template-columns:repeat(6,1fr)!important;gap:8px!important;min-width:0}
 .lg-round-grid .banner-detail-card{min-width:0}
 .banner-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .banner-detail-card{position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.1);cursor:pointer;aspect-ratio:var(--banner-ratio,16/9);background:#1a1a1a;transition:.2s}
@@ -6279,8 +6279,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .zx-modal .zx-modal-thumb video{width:100%;height:100%;object-fit:cover}
 .zx-modal h3{font-size:1.05rem;margin-bottom:6px}
 .zx-modal p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:16px}
-.zx-modal .zx-price-row{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.4);border-radius:14px;padding:10px;margin-bottom:16px;font-weight:800;color:#ffffff;font-size:.95rem;box-shadow:0 0 16px rgba(255,43,43,.18);animation:priceRowGlow 2s ease-in-out infinite}
-@keyframes priceRowGlow{0%,100%{box-shadow:0 0 12px rgba(255,43,43,.15)}50%{box-shadow:0 0 22px rgba(255,60,60,.4)}}
+.zx-modal .zx-price-row{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.4);border-radius:14px;padding:10px;margin-bottom:16px;font-weight:800;color:#ffffff;font-size:.95rem}
 .zx-modal .zx-price-row img{width:18px;height:18px}
 .zx-modal .zx-actions{display:flex;gap:10px}
 .zx-modal .zx-actions button{flex:1;padding:14px;border:none;border-radius:14px;font-weight:700;font-size:.85rem;color:#fff;cursor:pointer}
@@ -7629,7 +7628,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var defaultCardHtml = '<div class="banner-detail-card default-card'+(activeId==='default'?' active':'')+'" data-logo-id="default" onclick="onSelectLogoDetail(\'default\')" title="Default">'+
       '<div class="lg-circle"><div class="bd-default-thumb"><i class="fa-solid fa-icons"></i></div>'+
       '<div class="bd-check"><i class="fa-solid fa-check"></i></div></div>'+
-      '<div class="bd-name">Default</div>'+
     '</div>';
     grid.innerHTML = defaultCardHtml + LOGOS.map(function(l){
       var owned = isLogoOwned(l.id);
@@ -7640,7 +7638,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
         '<div class="lg-circle"><img class="bd-img" loading="lazy" decoding="async" src="'+l.img+'" alt="Logo '+l.name+'"/>'+
         extra+
         '<div class="bd-check"><i class="fa-solid fa-check"></i></div></div>'+
-        '<div class="bd-name">'+l.name+'</div>'+
+        ''+
       '</div>';
     }).join('');
   }
@@ -8267,54 +8265,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .shop-diamond-pill:active{transform:scale(.96);}
 .shop-hero-desc{position:relative;margin-top:13px;font-size:.72rem;line-height:1.65;color:rgba(255,255,255,.6);max-width:92%;}
 
-/* === HERO v2 (flashy) === */
-.shop-hero-v2{border-width:1.5px;border-image:linear-gradient(120deg,#ff2b2b,#ff7a7a,#ffd54a,#ff2b2b) 1;animation:heroBorderShift 6s linear infinite;box-shadow:0 12px 34px rgba(255,20,20,.22),inset 0 0 30px rgba(255,60,60,.06);}
-@keyframes heroBorderShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
-.shop-hero-title i{animation:iconPulse 1.8s ease-in-out infinite}
-@keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-.shop-diamond-pill{animation:pillGlow 2.4s ease-in-out infinite}
-@keyframes pillGlow{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 14px rgba(255,43,43,.25)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 24px rgba(255,80,80,.55)}}
-.shop-diamond-pill i{animation:plusSpin 3s linear infinite}
-@keyframes plusSpin{0%,80%,100%{transform:rotate(0)}90%{transform:rotate(180deg)}}
-.shop-hero-spark{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px rgba(255,255,255,.9);pointer-events:none;opacity:0}
-.shop-hero-spark.s1{top:18%;left:65%;animation:sparkFloat 3.2s ease-in-out infinite}
-.shop-hero-spark.s2{top:55%;left:82%;animation:sparkFloat 3.6s ease-in-out .8s infinite}
-.shop-hero-spark.s3{top:75%;left:40%;animation:sparkFloat 2.8s ease-in-out 1.6s infinite}
-@keyframes sparkFloat{0%{opacity:0;transform:translateY(6px) scale(.4)}50%{opacity:1;transform:translateY(-6px) scale(1)}100%{opacity:0;transform:translateY(-14px) scale(.4)}}
-
-/* === Kategori grid (game-ish tiles) === */
-.shop-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:2px;margin-bottom:14px;}
-.shop-cat-tile{position:relative;overflow:hidden;padding:18px 14px 16px;border-radius:22px;background:linear-gradient(155deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.12);cursor:pointer;transition:.22s;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.shop-cat-tile:active{transform:scale(.95)}
-.shop-cat-tile h4{font-size:14px;font-weight:900;color:#fff;letter-spacing:.3px;margin-top:10px}
-.shop-cat-tile small{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600}
-.shop-cat-tile .shop-cat-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center}
-.shop-cat-tile .shop-cat-icon i{font-size:19px}
-.ct-arrow{position:absolute;top:14px;right:14px;font-size:11px;color:rgba(255,255,255,.35)}
-.ct-shine{position:absolute;top:-60%;left:-30%;width:60%;height:220%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);transform:rotate(20deg);animation:tileShine 3.5s ease-in-out infinite}
-@keyframes tileShine{0%{left:-40%}100%{left:130%}}
-
-.ct-glow-red{border-color:rgba(255,60,60,.4);box-shadow:0 8px 22px rgba(255,30,30,.18)}
-.ct-glow-red .shop-cat-icon{background:linear-gradient(145deg,rgba(255,43,43,.35),rgba(0,0,0,.3));border:1px solid rgba(255,43,43,.45)}
-.ct-glow-red .shop-cat-icon i{color:#ff4747;text-shadow:0 0 12px rgba(255,43,43,.8)}
-.ct-glow-red:active{border-color:#ff3c3c;box-shadow:0 10px 26px rgba(255,0,0,.35)}
-
-.ct-glow-blue{border-color:rgba(60,150,255,.4);box-shadow:0 8px 22px rgba(30,120,255,.18)}
-.ct-glow-blue .shop-cat-icon{background:linear-gradient(145deg,rgba(60,150,255,.35),rgba(0,0,0,.3));border:1px solid rgba(80,160,255,.45)}
-.ct-glow-blue .shop-cat-icon i{color:#5cb3ff;text-shadow:0 0 12px rgba(80,160,255,.8)}
-.ct-glow-blue:active{border-color:#4da3ff;box-shadow:0 10px 26px rgba(20,110,255,.35)}
-
-.ct-glow-purple{border-color:rgba(190,90,255,.4);box-shadow:0 8px 22px rgba(150,50,255,.18)}
-.ct-glow-purple .shop-cat-icon{background:linear-gradient(145deg,rgba(190,90,255,.35),rgba(0,0,0,.3));border:1px solid rgba(190,90,255,.45)}
-.ct-glow-purple .shop-cat-icon i{color:#c987ff;text-shadow:0 0 12px rgba(190,90,255,.8)}
-.ct-glow-purple:active{border-color:#b95cff;box-shadow:0 10px 26px rgba(150,30,255,.35)}
-
-.ct-locked{opacity:.5;cursor:default}
-.ct-locked .shop-cat-icon{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-.ct-locked .shop-cat-icon i{color:rgba(255,255,255,.35)}
-.ct-locked .ct-shine{display:none}
-.ct-locked .shop-soon-badge{position:absolute;top:14px;right:14px;margin:0}
-
 .shop-cat-list{display:flex;flex-direction:column;gap:12px;margin-top:2px;margin-bottom:10px;}
 .shop-cat-item{position:relative;display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);cursor:pointer;transition:.25s;overflow:hidden}
 .shop-cat-item:active{transform:scale(.98);border-color:#ff3c3c;box-shadow:0 8px 20px rgba(255,0,0,.2)}
@@ -8327,13 +8277,9 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .shop-cat-body{flex:1;min-width:0}
 .shop-cat-body h4{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:2px;letter-spacing:.2px}
 .shop-cat-body small{font-size:11px;color:rgba(255,255,255,.45);display:block}
-.shop-soon-badge{flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:.5px;color:#ffb347;background:rgba(255,180,60,.12);border:1px solid rgba(255,180,60,.35);padding:5px 9px;border-radius:999px;white-space:nowrap;animation:soonPulse 1.6s ease-in-out infinite}
-@keyframes soonPulse{0%,100%{opacity:1}50%{opacity:.55}}
+.shop-soon-badge{flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:.5px;color:#ffb347;background:rgba(255,180,60,.12);border:1px solid rgba(255,180,60,.35);padding:5px 9px;border-radius:999px;white-space:nowrap}
 .shop-cat-item .oh-dot{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 6px rgba(255,43,43,.8);display:none}
 .shop-cat-item .oh-dot.dot-show{display:block}
-.shop-history-item{border-color:rgba(255,180,60,.28)}
-.shop-history-item .shop-cat-icon{background:linear-gradient(145deg,rgba(255,180,60,.28),rgba(0,0,0,.3));border-color:rgba(255,180,60,.4)}
-.shop-history-item .shop-cat-icon i{color:#ffb347;text-shadow:0 0 10px rgba(255,180,60,.6)}
 
 /* === Riwayat Order === */
 .oh-list{display:flex;flex-direction:column;gap:10px}
@@ -8356,12 +8302,9 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 </style>
 <div class="page" id="shopTab">
 
-<div class="shop-hero shop-hero-v2">
+<div class="shop-hero">
   <div class="shop-hero-glow"></div>
   <div class="shop-hero-glow2"></div>
-  <div class="shop-hero-spark s1"></div>
-  <div class="shop-hero-spark s2"></div>
-  <div class="shop-hero-spark s3"></div>
   <div class="shop-hero-top">
     <div class="shop-hero-title"><i class="fa-solid fa-store"></i><span>TOKO ZUSMO</span></div>
     <button type="button" class="shop-diamond-pill" onclick="openDailyClaim()">
@@ -8375,37 +8318,33 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 
 <div class="hm-section-lbl"><span>🛍️ Kategori Item</span></div>
 
-<div class="shop-cat-grid">
-  <div class="shop-cat-tile ct-glow-red" onclick="openBannerDetail()">
-    <div class="ct-shine"></div>
+<div class="shop-cat-list">
+  <div class="shop-cat-item" onclick="openBannerDetail()">
     <div class="shop-cat-icon"><i class="fa-solid fa-image"></i></div>
-    <h4>Banner</h4><small>Tampilan Home</small>
-    <i class="fa-solid fa-chevron-right ct-arrow"></i>
+    <div class="shop-cat-body"><h4>Banner</h4><small>Ganti banner tampilan Home kamu</small></div>
+    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
 
-  <div class="shop-cat-tile ct-glow-blue" onclick="openWallpaperDetail()">
-    <div class="ct-shine"></div>
+  <div class="shop-cat-item" onclick="openWallpaperDetail()">
     <div class="shop-cat-icon"><i class="fa-solid fa-panorama"></i></div>
-    <h4>Wallpaper</h4><small>Latar aplikasi</small>
-    <i class="fa-solid fa-chevron-right ct-arrow"></i>
+    <div class="shop-cat-body"><h4>Wallpaper</h4><small>Latar belakang aplikasi custom</small></div>
   </div>
 
-  <div class="shop-cat-tile ct-glow-purple" onclick="openLogoDetail()">
-    <div class="ct-shine"></div>
+  <div class="shop-cat-item" onclick="openLogoDetail()">
     <div class="shop-cat-icon"><i class="fa-solid fa-icons"></i></div>
-    <h4>Logo</h4><small>Profil Zusmo</small>
-    <i class="fa-solid fa-chevron-right ct-arrow"></i>
+    <div class="shop-cat-body"><h4>Logo</h4><small>Ganti logo profil Zusmo</small></div>
+    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
 
-  <div class="shop-cat-tile ct-locked">
+  <div class="shop-cat-item locked">
     <div class="shop-cat-icon"><i class="fa-solid fa-music"></i></div>
-    <h4>Musik</h4><small>Backsound</small>
+    <div class="shop-cat-body"><h4>Musik</h4><small>Backsound custom aplikasi</small></div>
     <span class="shop-soon-badge">SEGERA</span>
   </div>
 
-  <div class="shop-cat-tile ct-locked">
+  <div class="shop-cat-item locked">
     <div class="shop-cat-icon"><i class="fa-solid fa-ellipsis"></i></div>
-    <h4>Lainnya</h4><small>Item spesial</small>
+    <div class="shop-cat-body"><h4>Lainnya</h4><small>Item spesial lainnya menyusul</small></div>
     <span class="shop-soon-badge">SEGERA</span>
   </div>
 </div>
@@ -8413,7 +8352,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 <div class="hm-section-lbl"><span>📜 Aktivitas Akun</span></div>
 
 <div class="shop-cat-list">
-  <div class="shop-cat-item shop-history-item" onclick="openOrderHistory()">
+  <div class="shop-cat-item" onclick="openOrderHistory()">
     <div class="oh-dot" id="orderHistoryDot"></div>
     <div class="shop-cat-icon"><i class="fa-solid fa-receipt"></i></div>
     <div class="shop-cat-body"><h4>Riwayat Order</h4><small>Semua transaksi Diamond kamu (beli, klaim, redeem)</small></div>
