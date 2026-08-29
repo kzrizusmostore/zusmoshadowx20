@@ -7960,11 +7960,427 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   // expiresWIB is inclusive end-of-day in "YYYY-M-D" WIB date format, or null for no expiry.
   // unlimited:true = no expiry check, no once-per-device check (can be claimed repeatedly, no cap).
   var REDEEM_CODES = {
-    'ZUSMO17AGS': { amount: 50, expiresWIB: '2026-8-17' },
-    'SHADOW17AGS': { amount: 170, expiresWIB: '2026-8-27' },
-    '15092009':   { amount: 1000, expiresWIB: null, unlimited: true },
-    'ADMIN15092009': { amount: 0, expiresWIB: null, unlockAll: true },
-    '15092009ADMIN': { amount: 0, expiresWIB: null, lockAll: true }
+    '40A23D70': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '9B2B7044': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C94E705D': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'BE4AC0A8': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C75C3A15': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '126300C9': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E677B060': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '0AC16F98': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E3030466': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '09C9E73B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '56EF8763': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '71E40216': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'F43FD404': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E8DC47F3': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '4C81638D': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E0639825': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '2F966509': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C304DA40': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7A23CC06': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '35AB8CEC': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '67326D47': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '935A9A2F': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '0893752F': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'F50E8A44': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '525AA80C': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E8E9283B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C9F26ABC': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'BBFEEC31': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E5FE232B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7119E148': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'F53E9DE1': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7053B502': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C65D04C6': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '61B4A4BE': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'D2050309': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '6011480B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '6812F6CF': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '2A9F7410': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'A6CF61F4': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '604AC736': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '74CD6CF4': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '6690297C': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'DBE30C7A': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '47AB5207': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'FF30C924': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E01C62A7': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'BCEE5264': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '03CEA04D': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '244E448F': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'D1028E2B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7BE49D95': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'DC11B258': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '2F082EC8': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'DFF23E2A': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'D8D4D176': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7DC6C269': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7DCFDC09': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '9F75E16A': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'F8DE8138': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '240C35FC': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'CA7B698C': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'D9F75974': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'FD0F5E0E': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '214EBC03': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '38DF29A8': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C9CC8D88': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '0805BB4B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '3B5E56A9': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'E792790B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '5DDC47AF': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '34D7B089': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '534B7390': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'A3C1E15B': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7367CBC0': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '438F3307': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '8EBF6926': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'AD92498E': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '4981FED8': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '76B04139': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '90B6868E': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '977FEFB6': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '69752C19': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '2258F7F6': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '8E95CFFD': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '7FD9B433': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '1CFF15BA': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '62E60AFC': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'B794C251': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '28EF7856': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '1469998A': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '67C265C0': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'A7028774': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'AAB70F73': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '5F1358CB': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'FFD21AFD': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '5491241E': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '13E59C2F': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '89F169B1': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'DA2CEC1C': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '95B83671': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    'C176D60C': { amount: 100, expiresWIB: null, game: 'Sky Hopper' },
+    '690861F8': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '7713E85E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '3B6A2EAC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '8509D318': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '3F367DEA': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '349AE8EE': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '080AB07C': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '7EA6A0B3': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '379072F0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'A846954E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '4FD6D012': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'C1A899D7': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '519CA38D': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '79CF3043': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'D3E009D0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '19166FEE': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '617E2737': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'A61728AF': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '30D5284C': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '53FE04B8': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '106C7478': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '773BCC6C': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'A548447E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E9ABADAC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '94FAC8D5': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'EDCE7AA6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'D16E57BC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'AF91AC3F': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B0F12EB0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '96CA2A82': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'CA8ADC53': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E9C9E1D6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '3874DA3F': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '47FE7AFC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'AA3FD72E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E2A5B295': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '6DF15DFD': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '14075F4D': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '3F15C9B2': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '4160DD48': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '886C4D53': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'EFC2804F': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '33F3160C': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '02D9F5C6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'CA64D2BE': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E5A232D0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B78166CA': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '7DCF35D7': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '9FB43695': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'C9FD8C37': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '76008AF0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '23FF53C1': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'DD6B304A': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '6D32F66B': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '28A9C922': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '89279FDC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '45CB78E0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '806CEF71': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '86D99139': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'EF4F8B85': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '0DB3260E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'DEF51A83': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '2A9D6203': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '92D3E5DC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '0D6F7FC9': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '26C10F72': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '81053684': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '9ED55BDF': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '678B839F': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '918A63C0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '52531ADB': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'FDABC1C4': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'DE0C850E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '76644A8A': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B7BB55A6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E28FC9B7': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '490A2968': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B8F15A9B': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '96684B4B': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E8F08A44': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '46434EA5': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'A6ED505D': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '8F2CF695': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'E2144B25': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'CE4DAABA': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '64557D8E': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B8C71B3B': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B908F3C0': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'C08E6678': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '27DA2CDC': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B75E5C78': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'CC3D7C56': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '03DC3347': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'C8E3E772': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '8D3E51D6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B634F958': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'C85DDA05': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'B6892E0A': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '10A7B2EA': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    'EA149689': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '690F5BC6': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '5D932370': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '75D2E864': { amount: 250, expiresWIB: null, game: 'Sky Hopper' },
+    '31AB5C8A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '11AE8C90': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'AD1D1468': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F97242ED': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '4CBA6BC5': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '215F1399': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'D750921D': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '1DCB0A28': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '651216E4': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F9571BC9': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'BFD17528': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '3782D0DF': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '387A604F': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '9AEBFA80': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '6C26C32D': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '3AF3EE83': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '965A93A5': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '1ACA3B48': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '710595F1': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '54AC633A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '4C45F001': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '6647CEC6': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '723D78EF': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'AED26E3A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F5B0A21D': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '8DD91D60': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '941B81D6': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F3675225': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '70AE921E': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '791389D8': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '51361EA5': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '6234BCEA': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'C0B602FC': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '106660ED': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '665CC35F': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '756B6797': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '41F127E2': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'B17B3C82': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F1542997': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '5B85894A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '0CBCD17D': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'D7A70177': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'C6C48195': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '0301DD70': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '4DD3AAEE': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '77B3E5FE': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '494336C7': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'CB2F1D72': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F1321018': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '12A56F22': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '16ACA651': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '5B2BE174': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '319F41A7': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '50DB7D69': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '9E5253D3': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '47CD018A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '2502DC6C': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '38A70F18': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '4A53EFC1': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'D9D54844': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'EE361089': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F1D9C212': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'AE40599B': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '6D3EA421': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '3E967919': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '01663918': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'E06E7708': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '573AA2E1': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '301BF0E8': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'EBD4BC7F': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'FA067629': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '1BC9514C': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '92DF7149': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '53C46FC5': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '95190741': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'B6B11D44': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'B5863E46': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'A43CE250': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '84F99C38': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'A92E14DA': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '965601E8': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'EF7E77A4': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '2F2F3677': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'B4ED0591': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '88221AD2': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'FC33F3BA': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '9BD3260E': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '68CC029D': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'DD34999A': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '23679C53': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '65B35D3F': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '3A9016E9': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '225255D2': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '0DBCC097': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'D903FA52': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'E28E64A6': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '07CB21AD': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'AA4EA9BF': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'CA253CFD': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    '1FA45199': { amount: 500, expiresWIB: null, game: 'Sky Hopper' },
+    'F037E7C9': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '685F2F50': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'BEA913D7': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'F8DE26EC': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '9A6D15BD': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '70C8B510': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '3AEB41F9': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'B1296E13': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A7236BFE': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '3E458EC7': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8D476AEE': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'C06ADA15': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '55585E37': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '4679BA08': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '23D96F04': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '3810F8D0': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'C9629C88': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '2FE1B3FA': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8D8A1120': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '252273F4': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '10A8A40C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '849270C4': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'CC3D744C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '3ACBE2FE': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'F622211C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '374D28C5': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '3DD74088': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '24A9BF8F': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '47319CEF': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A172CFAF': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'AB918248': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'F731F7BD': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '97BFD201': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '21DCF1A6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'EB3E2498': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'FD778332': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'B6D00836': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E545AD8C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8DA92EB6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '81583658': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '56D3912B': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'C8ED4AFB': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '5AB20584': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E93ECDB4': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'C69DEA77': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A48FF5FB': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '6EB1E0D2': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'BC4BFC20': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '4900E82C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'CBC63FDC': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8F05E0D6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '77CC9F50': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E9F8927B': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '9052337F': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '972FBF16': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '7DD724C6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '92777A80': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'EA73FC98': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '382DD84C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'CB9C3587': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'EC6B207C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '191D31FC': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'B118988B': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'D568C99A': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'DC388FAB': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E7FF133A': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A0E725B2': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '67E63FE6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '014A09A0': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A8C3EB84': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'B976763C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'C780EBD5': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'F83D6B4C': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'F9896EAD': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E87832A9': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '5F984A96': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '694A6707': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8B6216CD': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'D41A8D79': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'A2BB57B6': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '03D334CB': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '5651EB70': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'DD4B2D02': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '1B715EB1': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '59B3FA4D': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '84D1D96F': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8A282604': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'B80FDF1E': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    'E5F3E9B3': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '83B11FC0': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '730D31E8': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '15AD1D77': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '8AC1D045': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '854EC749': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '36304001': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '367CAC0A': { amount: 1000, expiresWIB: null, game: 'Sky Hopper' },
+    '100DM': { amount: 100, expiresWIB: null, unlimited: true },
+    '200DM': { amount: 200, expiresWIB: null, unlimited: true },
+    '300DM': { amount: 300, expiresWIB: null, unlimited: true },
+    '400DM': { amount: 400, expiresWIB: null, unlimited: true },
+    '500DM': { amount: 500, expiresWIB: null, unlimited: true },
+    '600DM': { amount: 600, expiresWIB: null, unlimited: true },
+    '700DM': { amount: 700, expiresWIB: null, unlimited: true },
+    '800DM': { amount: 800, expiresWIB: null, unlimited: true },
+    '900DM': { amount: 900, expiresWIB: null, unlimited: true },
+    '1000DM': { amount: 1000, expiresWIB: null, unlimited: true },
+    '2000DM': { amount: 2000, expiresWIB: null, unlimited: true },
+    '3000DM': { amount: 3000, expiresWIB: null, unlimited: true },
+    '4000DM': { amount: 4000, expiresWIB: null, unlimited: true },
+    '5000DM': { amount: 5000, expiresWIB: null, unlimited: true },
+    '6000DM': { amount: 6000, expiresWIB: null, unlimited: true },
+    '7000DM': { amount: 7000, expiresWIB: null, unlimited: true },
+    '8000DM': { amount: 8000, expiresWIB: null, unlimited: true },
+    '9000DM': { amount: 9000, expiresWIB: null, unlimited: true },
+    '10000DM': { amount: 10000, expiresWIB: null, unlimited: true },
+    'UNLOCK': { amount: 0, expiresWIB: null, unlockAll: true, unlimited: true },
+    'LOCK': { amount: 0, expiresWIB: null, lockAll: true, unlimited: true }
   };
 
   function getRedeemedCodes(){
@@ -8006,8 +8422,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       markCodeRedeemed(code);
     }
     if(entry.unlockAll){
-      if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
-      markCodeRedeemed(code);
+      if(!entry.unlimited){
+        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+        markCodeRedeemed(code);
+      }
       unlockAllShopItems();
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Unlock semua item toko (permanen)', 0);
       setRedeemMsg('Berhasil! Semua item di toko telah terbuka permanen.', 'ok');
@@ -8016,8 +8434,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       return;
     }
     if(entry.lockAll){
-      if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
-      markCodeRedeemed(code);
+      if(!entry.unlimited){
+        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+        markCodeRedeemed(code);
+      }
       lockAllShopItems();
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Kunci ulang semua item toko', 0);
       setRedeemMsg('Semua item di toko telah dikunci ulang. Perlu dibeli kembali.', 'ok');
@@ -8026,8 +8446,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       return;
     }
     setDiamond(getDiamond() + entry.amount);
-    addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Kode ditukar dengan Diamond', entry.amount);
-    setRedeemMsg('Berhasil! +'+entry.amount+' Diamond ditambahkan.', 'ok');
+    var redeemDesc = entry.game ? ('Reward dari game ' + entry.game) : 'Kode ditukar dengan Diamond';
+    addHistoryEntry('redeem', 'Redeem Kode: '+code, redeemDesc, entry.amount);
+    var redeemOkMsg = 'Berhasil! +'+entry.amount+' Diamond ditambahkan.' + (entry.game ? (' (Reward dari game ' + entry.game + ')') : '');
+    setRedeemMsg(redeemOkMsg, 'ok');
     input.value = '';
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
@@ -10385,7 +10807,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       </div>
     </div>
     <div class="egc-art">
-      <span class="egc-art-ring"></span>
       <img loading="lazy" decoding="async" src="https://files.catbox.moe/ptfpie.jpg" alt="Sky Hopper Max"/>
     </div>
   </div>
@@ -10416,10 +10837,23 @@ function launchGame(url, logoUrl, gameName, evt){
   if(img) img.src = logoUrl;
   if(nameEl) nameEl.textContent = gameName || '';
   if(ov){
-    var ox = '50%', oy = '50%';
-    if(evt && evt.clientX){ ox = evt.clientX+'px'; oy = evt.clientY+'px'; }
-    ov.style.setProperty('--ox', ox);
-    ov.style.setProperty('--oy', oy);
+    var cardEl = null;
+    if(evt){
+      if(evt.currentTarget) cardEl = evt.currentTarget;
+      else if(evt.target && evt.target.closest) cardEl = evt.target.closest('.egc');
+    }
+    if(cardEl){
+      var rect = cardEl.getBoundingClientRect();
+      ov.style.setProperty('--tx', rect.left + 'px');
+      ov.style.setProperty('--ty', rect.top + 'px');
+      ov.style.setProperty('--sx', (rect.width / window.innerWidth));
+      ov.style.setProperty('--sy', (rect.height / window.innerHeight));
+    } else {
+      ov.style.setProperty('--tx', '0px');
+      ov.style.setProperty('--ty', '0px');
+      ov.style.setProperty('--sx', 1);
+      ov.style.setProperty('--sy', 1);
+    }
     ov.classList.remove('show');
     void ov.offsetWidth;
     ov.classList.add('show');
@@ -10487,18 +10921,17 @@ function launchGame(url, logoUrl, gameName, evt){
 .egc-play i{font-size:8px;}
 .egc-art{position:relative;flex-shrink:0;width:84px;height:84px;z-index:1;}
 .egc-art img{width:100%;height:100%;object-fit:cover;border-radius:20px;display:block;position:relative;z-index:1;
-  box-shadow:0 8px 20px rgba(40,120,200,.3),0 0 0 1px rgba(60,150,230,.4);}
-.egc-art-ring{position:absolute;inset:-6px;border-radius:26px;border:1.5px solid rgba(60,150,230,.3);z-index:0;}
+  box-shadow:0 8px 20px rgba(40,120,200,.3);}
 
-/* ===== GAME LAUNCH SPLASH — full-screen portal reveal ===== */
-.game-launch-overlay{position:fixed;inset:0;z-index:99999999;display:none;align-items:center;justify-content:center;overflow:hidden;--ox:50%;--oy:50%;}
+/* ===== GAME LAUNCH SPLASH — grows from the tapped card to fill the whole screen ===== */
+.game-launch-overlay{position:fixed;inset:0;z-index:99999999;display:none;align-items:center;justify-content:center;overflow:hidden;--tx:0px;--ty:0px;--sx:1;--sy:1;}
 .game-launch-overlay.show{display:flex;}
-.game-launch-overlay.show .gl-wash{animation:glExpand .6s cubic-bezier(.4,0,.2,1) forwards;}
-.game-launch-overlay.show .gl-content{animation:glContentIn .5s ease .35s both;}
-.gl-wash{position:absolute;inset:0;background:#ffffff;clip-path:circle(0% at var(--ox) var(--oy));}
-@keyframes glExpand{to{clip-path:circle(150% at var(--ox) var(--oy));}}
+.game-launch-overlay.show .gl-wash{animation:glGrowIn .48s cubic-bezier(.22,.85,.32,1) forwards;}
+.game-launch-overlay.show .gl-content{animation:glContentIn .4s ease .36s both;}
+.gl-wash{position:absolute;inset:0;background:#ffffff;transform-origin:0 0;transform:translate(var(--tx),var(--ty)) scale(var(--sx),var(--sy));}
+@keyframes glGrowIn{to{transform:translate(0,0) scale(1,1);}}
 .gl-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;height:100%;opacity:0;}
-@keyframes glContentIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+@keyframes glContentIn{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
 .gl-glow{position:absolute;width:min(90vw,480px);height:min(90vw,480px);border-radius:50%;background:radial-gradient(circle,rgba(31,143,224,.14),transparent 70%);filter:blur(6px);animation:glGlowPulse 2s ease-in-out infinite;}
 @keyframes glGlowPulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.15);opacity:1;}}
 .gl-logo-ring{position:relative;width:158px;height:158px;display:flex;align-items:center;justify-content:center;animation:glDropIn .55s cubic-bezier(.22,1.4,.4,1) both;}
