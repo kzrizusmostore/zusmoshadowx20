@@ -10360,7 +10360,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   <div class="shop-hero-glow"></div>
   <div class="shop-hero-glow2"></div>
   <div class="shop-hero-top">
-    <div class="shop-hero-title"><i class="fa-solid fa-gamepad"></i><span>EVENT MULUNG DIAMOND</span></div>
+    <div class="shop-hero-title"><i class="fa-solid fa-gamepad"></i><span>EVENT ZUSMO</span></div>
     <button type="button" class="shop-diamond-pill" onclick="openDailyClaim()">
       <img loading="lazy" decoding="async" src="https://files.catbox.moe/onzrii.png" alt="diamond"/>
       <span id="eventDiamondBalance">0</span>
@@ -10373,18 +10373,61 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 <div class="hm-section-lbl"><span>🎮 Pilih Game</span></div>
 
 <div class="event-game-list">
-  <div class="event-game-item" onclick="location.href='skyhoppermax.html'">
-    <div class="event-game-body">
-      <div class="event-game-tag"><i class="fa-solid fa-gem"></i>Mulung Diamond</div>
-      <h4>Sky Hopper Max</h4>
-      <p>Lompat setinggi mungkin dan kumpulkan diamond sebanyak-banyaknya di langit!</p>
-      <div class="event-game-cta">Main Sekarang<i class="fa-solid fa-chevron-right"></i></div>
+  <div class="egc" onclick="launchGame('skyhoppermax.html','https://files.catbox.moe/ptfpie.jpg','Sky Hopper Max', event)">
+    <div class="egc-shine"></div>
+    <div class="egc-body">
+      <span class="egc-eyebrow">EVENT GAME</span>
+      <h4 class="egc-title">Sky Hopper Max</h4>
+      <p class="egc-desc">Lompat setinggi mungkin, kumpulkan diamond di setiap platform!</p>
+      <div class="egc-footer">
+        <span class="egc-reward"><i class="fa-solid fa-gem"></i>Hingga 500</span>
+        <span class="egc-play">Main<i class="fa-solid fa-play"></i></span>
+      </div>
     </div>
-    <div class="event-game-thumb">
+    <div class="egc-art">
+      <span class="egc-art-ring"></span>
       <img loading="lazy" decoding="async" src="https://files.catbox.moe/ptfpie.jpg" alt="Sky Hopper Max"/>
     </div>
   </div>
 </div>
+
+<div class="game-launch-overlay" id="gameLaunchOverlay">
+  <div class="gl-wash"></div>
+  <div class="gl-content">
+    <div class="gl-glow"></div>
+    <div class="gl-logo-ring">
+      <svg class="gl-ring-svg" viewBox="0 0 100 100">
+        <circle class="gl-ring-track" cx="50" cy="50" r="46"/>
+        <circle class="gl-ring-fill" cx="50" cy="50" r="46"/>
+      </svg>
+      <div class="gl-logo-wrap"><img class="gl-logo-img" id="gameLaunchLogoImg" src="" alt=""/></div>
+    </div>
+    <div class="gl-name" id="gameLaunchName"></div>
+    <div class="gl-tagline">Menyiapkan permainan...</div>
+    <div class="gl-progress-track"><div class="gl-progress-fill"></div></div>
+  </div>
+</div>
+
+<script>
+function launchGame(url, logoUrl, gameName, evt){
+  var ov = document.getElementById('gameLaunchOverlay');
+  var img = document.getElementById('gameLaunchLogoImg');
+  var nameEl = document.getElementById('gameLaunchName');
+  if(img) img.src = logoUrl;
+  if(nameEl) nameEl.textContent = gameName || '';
+  if(ov){
+    var ox = '50%', oy = '50%';
+    if(evt && evt.clientX){ ox = evt.clientX+'px'; oy = evt.clientY+'px'; }
+    ov.style.setProperty('--ox', ox);
+    ov.style.setProperty('--oy', oy);
+    ov.classList.remove('show');
+    void ov.offsetWidth;
+    ov.classList.add('show');
+  }
+  if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  setTimeout(function(){ window.location.href = url; }, 1800);
+}
+</script>
 
 </div>
 
@@ -10419,21 +10462,60 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .shop-cat-item .oh-dot{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 6px rgba(255,43,43,.8);display:none}
 .shop-cat-item .oh-dot.dot-show{display:block}
 
-/* ===================== EVENT PAGE — MULUNG DIAMOND GAME LIST ===================== */
+/* ===================== EVENT PAGE — GAME EVENT CARD (poster style, light blue) ===================== */
 .event-game-list{display:flex;flex-direction:column;gap:14px;margin-top:2px;margin-bottom:10px;}
-.event-game-item{position:relative;display:flex;align-items:center;gap:14px;padding:14px;border-radius:22px;background:linear-gradient(135deg,rgba(30,0,0,.95),rgba(10,10,10,.98));border:1px solid rgba(255,43,43,.4);box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 18px rgba(255,43,43,.1),inset 0 1px 0 rgba(255,255,255,.05);cursor:pointer;transition:.2s;overflow:hidden}
-.event-game-item:before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,43,43,.7),transparent);z-index:0;}
-.event-game-item:active{transform:scale(.98);border-color:#ff3c3c;box-shadow:0 6px 16px rgba(255,0,0,.25);}
-.event-game-body{position:relative;flex:1;min-width:0;}
-.event-game-tag{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:800;letter-spacing:.4px;color:#ffd27a;background:rgba(255,180,60,.12);border:1px solid rgba(255,180,60,.35);padding:3px 9px;border-radius:999px;margin-bottom:8px;text-transform:uppercase;}
-.event-game-tag i{font-size:9px;color:#ffb347;}
-.event-game-body h4{font-family:'Righteous',cursive;font-size:15px;font-weight:400;letter-spacing:.3px;color:#fff;margin-bottom:5px;text-shadow:0 0 14px rgba(255,43,43,.35);}
-.event-game-body p{font-size:11px;line-height:1.55;color:rgba(255,255,255,.55);margin-bottom:9px;max-width:96%;}
-.event-game-cta{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#ff4747;letter-spacing:.2px;}
-.event-game-cta i{font-size:9px;transition:transform .2s;}
-.event-game-item:active .event-game-cta i{transform:translateX(3px);}
-.event-game-thumb{position:relative;flex-shrink:0;width:78px;height:78px;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(255,180,60,.4);box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 14px rgba(255,43,43,.15),inset 0 1px 0 rgba(255,255,255,.1);}
-.event-game-thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+.egc{position:relative;display:flex;align-items:center;gap:16px;padding:18px 18px 18px 20px;border-radius:24px;
+  background:radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.55), transparent 55%),
+             linear-gradient(135deg,#eaf6ff 0%,#d3ecff 55%,#b9e0ff 100%);
+  border:1px solid rgba(60,150,230,.35);
+  box-shadow:0 10px 26px rgba(40,120,200,.18),0 0 22px rgba(120,190,255,.25),inset 0 1px 0 rgba(255,255,255,.7);
+  cursor:pointer;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;
+  animation:cmtyCardIn .45s cubic-bezier(.22,.85,.4,1) both;animation-delay:.08s;}
+.egc:active{transform:scale(.97);box-shadow:0 6px 16px rgba(40,120,200,.22),0 0 14px rgba(120,190,255,.3);}
+.egc-shine{position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:egcShine 3.4s ease-in-out infinite;pointer-events:none;}
+@keyframes egcShine{0%{left:-60%;}45%,100%{left:130%;}}
+.egc-body{position:relative;flex:1;min-width:0;z-index:1;}
+.egc-eyebrow{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1.3px;color:#1f7fc1;text-transform:uppercase;margin-bottom:6px;}
+.egc-title{font-family:'Righteous',cursive;font-size:1.05rem;font-weight:400;letter-spacing:.3px;margin:0 0 5px;
+  background:linear-gradient(90deg,#0b3d63,#1f7fc1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 16px rgba(120,190,255,.25);}
+.egc-desc{font-size:11px;line-height:1.5;color:rgba(15,55,90,.65);margin:0 0 12px;max-width:94%;}
+.egc-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.egc-reward{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#1f7fc1;background:rgba(60,150,230,.14);border:1px solid rgba(60,150,230,.4);padding:4px 10px;border-radius:999px;}
+.egc-reward i{font-size:9px;color:#1f8fe0;}
+.egc-play{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.3px;color:#fff;background:linear-gradient(180deg,#5fceff,#1f8fe0);padding:5px 13px;border-radius:999px;box-shadow:0 3px 10px rgba(31,143,224,.4);}
+.egc-play i{font-size:8px;}
+.egc-art{position:relative;flex-shrink:0;width:84px;height:84px;z-index:1;}
+.egc-art img{width:100%;height:100%;object-fit:cover;border-radius:20px;display:block;position:relative;z-index:1;
+  box-shadow:0 8px 20px rgba(40,120,200,.3),0 0 0 1px rgba(60,150,230,.4);}
+.egc-art-ring{position:absolute;inset:-6px;border-radius:26px;border:1.5px solid rgba(60,150,230,.3);z-index:0;}
+
+/* ===== GAME LAUNCH SPLASH — full-screen portal reveal ===== */
+.game-launch-overlay{position:fixed;inset:0;z-index:99999999;display:none;align-items:center;justify-content:center;overflow:hidden;--ox:50%;--oy:50%;}
+.game-launch-overlay.show{display:flex;}
+.game-launch-overlay.show .gl-wash{animation:glExpand .6s cubic-bezier(.4,0,.2,1) forwards;}
+.game-launch-overlay.show .gl-content{animation:glContentIn .5s ease .35s both;}
+.gl-wash{position:absolute;inset:0;background:#ffffff;clip-path:circle(0% at var(--ox) var(--oy));}
+@keyframes glExpand{to{clip-path:circle(150% at var(--ox) var(--oy));}}
+.gl-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;height:100%;opacity:0;}
+@keyframes glContentIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+.gl-glow{position:absolute;width:min(90vw,480px);height:min(90vw,480px);border-radius:50%;background:radial-gradient(circle,rgba(31,143,224,.14),transparent 70%);filter:blur(6px);animation:glGlowPulse 2s ease-in-out infinite;}
+@keyframes glGlowPulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.15);opacity:1;}}
+.gl-logo-ring{position:relative;width:158px;height:158px;display:flex;align-items:center;justify-content:center;animation:glDropIn .55s cubic-bezier(.22,1.4,.4,1) both;}
+@keyframes glDropIn{0%{transform:scale(.5) translateY(-14px);opacity:0;}60%{transform:scale(1.06) translateY(0);opacity:1;}100%{transform:scale(1);opacity:1;}}
+.gl-ring-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+.gl-ring-track{fill:none;stroke:rgba(31,143,224,.14);stroke-width:4;}
+.gl-ring-fill{fill:none;stroke:#1f8fe0;stroke-width:4;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;filter:drop-shadow(0 0 6px rgba(31,143,224,.5));animation:glRingFill 1.3s cubic-bezier(.4,0,.2,1) .3s forwards;}
+@keyframes glRingFill{to{stroke-dashoffset:0;}}
+.gl-logo-wrap{width:114px;height:114px;border-radius:28px;overflow:hidden;box-shadow:0 14px 34px rgba(31,143,224,.22),0 0 0 3px #fff,0 0 0 4px rgba(31,143,224,.3);}
+.gl-logo-img{width:100%;height:100%;object-fit:cover;display:block;}
+.gl-name{font-family:'Righteous',cursive;font-size:1.15rem;letter-spacing:.5px;color:#0b3d63;opacity:0;animation:glFadeUp .4s ease .55s forwards;}
+.gl-tagline{font-size:.75rem;color:rgba(11,61,99,.5);letter-spacing:.3px;opacity:0;animation:glFadeUp .4s ease .65s forwards;}
+@keyframes glFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.gl-progress-track{width:170px;height:4px;border-radius:4px;background:rgba(31,143,224,.12);overflow:hidden;opacity:0;animation:glFadeUp .4s ease .7s forwards;}
+.gl-progress-fill{height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,#5fceff,#1f8fe0);animation:glProgress 1s cubic-bezier(.4,0,.2,1) .7s forwards;}
+@keyframes glProgress{to{width:100%;}}
+
 
 /* ===================== COMMUNITY PAGE — 3D BUBBLE CARDS (no neon) ===================== */
 .cmty-item{
