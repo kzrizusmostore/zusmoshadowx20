@@ -662,6 +662,13 @@
       border-radius: 24px;
       box-shadow: inset 0 -14px 0 var(--belt);
       overflow: hidden;
+      animation: heroIdleBob 2.6s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    @keyframes heroIdleBob {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-5px) scaleY(1.03); }
     }
 
     .hero-stage .stage-avatar.pattern-stripe {
@@ -1396,6 +1403,12 @@
     .skin-preview .special-aura.star {
       background: radial-gradient(circle at 24% 28%, rgba(255,255,255,.55) 0 4%, transparent 5%), radial-gradient(circle at 76% 22%, rgba(255,255,255,.40) 0 4%, transparent 5%), radial-gradient(circle at 58% 66%, rgba(224,231,255,.48) 0 6%, transparent 7%), radial-gradient(circle at 50% 50%, rgba(191,219,254,.32) 0 18%, transparent 19%);
       filter: blur(5px);
+    }
+
+    .skin-preview .special-aura.ghost {
+      background: radial-gradient(circle at 50% 46%, rgba(224,255,255,.42) 0 26%, transparent 27%), radial-gradient(circle at 30% 66%, rgba(255,255,255,.30) 0 10%, transparent 11%), radial-gradient(circle at 68% 30%, rgba(191,243,255,.30) 0 10%, transparent 11%);
+      filter: blur(6px);
+      opacity: .7;
     }
 
     .tap-preview {
@@ -2498,7 +2511,8 @@
       { name:'Grand Warden', bodyTop:'#efe8ff', body:'#c084fc', belt:'#7c3aed', hat:'#facc15', eye:'hero', hatType:'none', pattern:'stripe', special:true, aura:'grandwarden', hover:10, price:198 },
       { name:'Minion Prince', bodyTop:'#38bdf8', body:'#0ea5e9', belt:'#ec4899', hat:'#312e81', eye:'hero', hatType:'none', pattern:'dot', special:true, aura:'minionprince', hover:18, winged:true, price:210 },
       { name:'Phoenix Emperor', bodyTop:'#fed7aa', body:'#dc2626', belt:'#fca5a5', hat:'#450a0a', eye:'hero', hatType:'crown', pattern:'wave', special:true, aura:'emberlite', price:230 },
-      { name:'Purple Kingpin', bodyTop:'#ff4fb0', body:'#27272a', belt:'#f0b494', hat:'#111827', hatLetterColor:'#facc15', eye:'wink', hatType:'cap', hatLetter:'F', pattern:'stripe', hardSplit:true, hardSplitAt:0.63, special:true, aura:'hiphop', price:250 }
+      { name:'Purple Kingpin', bodyTop:'#ff4fb0', body:'#27272a', belt:'#f0b494', hat:'#111827', hatLetterColor:'#facc15', eye:'wink', hatType:'cap', hatLetter:'F', pattern:'stripe', hardSplit:true, hardSplitAt:0.63, special:true, aura:'hiphop', price:250 },
+      { name:'Ghost Wanderer', bodyTop:'#f0feff', body:'#bff3ff', belt:'#ffffff', hat:'#e6faff', eye:'round', hatType:'none', pattern:'none', special:true, aura:'ghost', opacity:0.55, price:165 }
     ];
 
     const themes = [
@@ -3065,7 +3079,7 @@
     };
     if (gamePrefs.level > gamePrefs.unlockedLevel) gamePrefs.level = gamePrefs.unlockedLevel;
 
-    let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
     let w = 0, h = 0, groundY = 0;
     let last = 0;
     let state = 'lobby';
@@ -3118,7 +3132,12 @@
       blinkTimer: 1.2,
       blinkFor: 0,
       flapAngle: 0,
-      invincibleTimer: 0
+      invincibleTimer: 0,
+      runPhase: 0,
+      leanAngle: 0,
+      groundBlend: 1,
+      lastStepIndex: 0,
+      flinch: 0
     };
 
     function difficultyLabel(level) {
@@ -3235,7 +3254,8 @@
         grandwarden: 'rgba(192,132,252,.42)',
         minionprince: 'rgba(56,189,248,.42)',
         emberlite: 'rgba(251,146,60,.26)',
-        hiphop: 'rgba(232,121,249,.26)'
+        hiphop: 'rgba(232,121,249,.26)',
+        ghost: 'rgba(191,243,255,.30)'
       };
       const thinAuras = ['emberlite', 'hiphop'];
       const isThin = thinAuras.includes(skin.aura);
@@ -4065,7 +4085,7 @@
         <div class="stage-cloud"></div>
         ${heroThemeExtras(theme)}
         ${skinAuraPreviewMarkup(skin, 'hero')}
-        <div class="stage-avatar pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--body-top:${skin.bodyTop}; --body:${skin.body}; --belt:${skin.belt}; --hat:${skin.hat}; bottom:${skin.hover ? 54 : 42}px;">
+        <div class="stage-avatar pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--body-top:${skin.bodyTop}; --body:${skin.body}; --belt:${skin.belt}; --hat:${skin.hat}; bottom:${skin.hover ? 54 : 42}px;${skin.opacity != null ? ` opacity:${skin.opacity};` : ''}">
           <div class="stage-hat ${skin.hatType}"></div>
           ${skin.hatLetter ? `<div class="stage-hat-letter" style="color:${skin.hatLetterColor || '#ffffff'};">${skin.hatLetter}</div>` : ''}
           <div class="stage-eyes ${skin.eye}"></div>
@@ -4082,7 +4102,7 @@
           <div class="skin-preview">
             ${skinAuraPreviewMarkup(skin, 'card')}
             <div class="sp-floor"></div>
-            <div class="sp-body pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--sp-top:${skin.bodyTop}; --sp-body:${skin.body}; --sp-belt:${skin.belt}; --sp-hat:${skin.hat}; bottom:${skin.hover ? 22 : 12}px;">
+            <div class="sp-body pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--sp-top:${skin.bodyTop}; --sp-body:${skin.body}; --sp-belt:${skin.belt}; --sp-hat:${skin.hat}; bottom:${skin.hover ? 22 : 12}px;${skin.opacity != null ? ` opacity:${skin.opacity};` : ''}">
               <div class="sp-hat ${skin.hatType}"></div>
               ${skin.hatLetter ? `<div class="sp-hat-letter" style="color:${skin.hatLetterColor || '#ffffff'};">${skin.hatLetter}</div>` : ''}
               <div class="sp-eyes ${skin.eye}"></div>
@@ -4512,10 +4532,16 @@
       player.blinkFor = 0;
       player.flapAngle = 0;
       player.invincibleTimer = 0;
+      player.runPhase = 0;
+      player.leanAngle = 0;
+      player.groundBlend = 1;
+      player.lastStepIndex = 0;
+      player.flinch = 0;
     }
 
     function resize() {
-      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+      const prevW = w, prevH = h;
       w = window.innerWidth;
       h = window.innerHeight;
       groundY = h * 0.82;
@@ -4524,8 +4550,16 @@
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildWorld();
-      resetPlayer();
+      ctx.imageSmoothingEnabled = true;
+      if ('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'high';
+      // Selama lagi main, jangan generate ulang dunia / reset karakter kalau
+      // cuma perubahan ukuran kecil (mis. address bar HP muncul/hilang saat
+      // scroll) - itu bikin karakter tiba-tiba balik ke start di tengah game.
+      const sizeChangedALot = Math.abs(w - prevW) > 60 || Math.abs(h - prevH) > 120;
+      if (state !== 'playing' || sizeChangedALot || !prevW) {
+        buildWorld();
+        if (state !== 'playing') resetPlayer();
+      }
       renderHeroPreview();
     }
 
@@ -4970,6 +5004,7 @@
       if (toastTimer <= 0) toastEl.classList.add('fade');
       shake = Math.max(0, shake - dt * 2.5);
       hurtTimer = Math.max(0, hurtTimer - dt);
+      player.flinch = Math.max(0, player.flinch - dt * 3.4);
       player.invincibleTimer = Math.max(0, player.invincibleTimer - dt);
       finishBannerTimer = Math.max(0, finishBannerTimer - dt);
       freestyleTauntTimer = Math.max(0, freestyleTauntTimer - dt);
@@ -5085,6 +5120,24 @@
       player.squash += (1 - player.squash) * Math.min(1, dt * 10);
       player.flapAngle += (0 - player.flapAngle) * Math.min(1, dt * 8);
 
+      // groundBlend halus 0-1 supaya transisi lari <-> lompat nggak patah
+      const groundTarget = player.onGround ? 1 : 0;
+      player.groundBlend += (groundTarget - player.groundBlend) * Math.min(1, dt * 9);
+
+      if (player.onGround) {
+        const runSpeed = Math.max(3.6, worldSpeed / 34);
+        player.runPhase += dt * runSpeed;
+        if (player.runPhase > Math.PI * 200) { player.runPhase -= Math.PI * 200; player.lastStepIndex -= 200; }
+        player.leanAngle += (0 - player.leanAngle) * Math.min(1, dt * 7);
+        const stepIndex = Math.floor(player.runPhase / Math.PI);
+        if (stepIndex !== player.lastStepIndex) {
+          player.lastStepIndex = stepIndex;
+          addDust(player.x + player.w * 0.3, groundY - 2, 2, getLandEffect().key, 0.3);
+        }
+      } else {
+        player.leanAngle += ((activePower.key === 'fly' ? 0 : -0.12) - player.leanAngle) * Math.min(1, dt * 5);
+      }
+
       if (player.y >= groundY - player.h) {
         if (!player.onGround && player.vy > 90) addDust(player.x + 12, groundY - 4, 8, getLandEffect().key);
         player.y = groundY - player.h;
@@ -5189,6 +5242,7 @@
               lives -= 1;
               hurtTimer = 1.15;
               shake = 0.8;
+              player.flinch = 1;
               addDust(player.x + player.w / 2, player.y + player.h / 2, 14, 'burst', 1.05);
               consumeObstacle(index);
               if (lives <= 0 && activePower.key === 'revive' && !usedAutoRevive) {
@@ -6479,6 +6533,26 @@
       ctx.restore();
     }
 
+    function drawGhostMist(t) {
+      const mist = ctx.createRadialGradient(0, 0, 6, 0, 0, 44);
+      mist.addColorStop(0, 'rgba(224,255,255,.30)');
+      mist.addColorStop(.5, 'rgba(191,243,255,.16)');
+      mist.addColorStop(1, 'rgba(191,243,255,0)');
+      ctx.save();
+      ctx.globalAlpha *= 0.9;
+      ctx.fillStyle = mist;
+      ctx.beginPath(); ctx.arc(0, 0, 44, 0, Math.PI * 2); ctx.fill();
+      for (let i = 0; i < 4; i++) {
+        const wx = Math.sin(t * 1.6 + i * 1.7) * (18 + i * 4);
+        const wy = -6 + Math.cos(t * 1.2 + i * 2.1) * (16 + i * 3);
+        const wr = 5 + Math.sin(t * 2 + i) * 1.8;
+        ctx.globalAlpha = 0.14 + Math.sin(t * 1.8 + i) * 0.06;
+        ctx.fillStyle = 'rgba(255,255,255,.9)';
+        ctx.beginPath(); ctx.arc(wx, wy, Math.max(1, wr), 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+
     function drawSpecialSkinAura(skin, t) {
       if (!skin.special) return;
 
@@ -6514,6 +6588,11 @@
         ctx.stroke();
         ctx.restore();
       };
+
+      if (skin.aura === 'ghost') {
+        drawGhostMist(t);
+        return;
+      }
 
       if (skin.aura === 'fire') {
         const fireGlow = ctx.createRadialGradient(0, 0, 8, 0, 0, 58);
@@ -7837,12 +7916,19 @@
       const skin = getSkin();
       const blinkClosed = player.blinkFor > 0;
       const now = performance.now() * 0.001;
-      const renderLift = skin.hover ? skin.hover + Math.sin(now * 4.2) * 3.2 : 0;
+      const miniActive = activePower.key === 'mini';
+      const miniScale = miniActive ? 0.6 : 1;
+      const bounceCurve = Math.sin(player.runPhase) * Math.sin(player.runPhase); // sin^2: mulus, tanpa patahan di titik nol
+      const runBob = bounceCurve * 3.6 * player.groundBlend;
+      const runWobble = Math.sin(player.runPhase) * 0.05 * player.groundBlend;
+      const runSquashPulse = Math.sin(player.runPhase * 2) * 0.035 * player.groundBlend;
+      const renderLift = (skin.hover ? skin.hover + Math.sin(now * 4.2) * 3.2 : 0) + runBob;
       ctx.save();
       ctx.globalAlpha = skin.hover ? 0.16 : 0.22;
       ctx.fillStyle = '#0f172a';
+      const shadowShrink = 1 - Math.min(0.3, runBob / 14);
       ctx.beginPath();
-      ctx.ellipse(player.x + player.w / 2, groundY + 6, skin.hover ? 28 : 36, skin.hover ? 7 : 10, 0, 0, Math.PI * 2);
+      ctx.ellipse(player.x + player.w / 2, groundY + 6, (skin.hover ? 28 : 36) * miniScale * shadowShrink, (skin.hover ? 7 : 10) * miniScale * shadowShrink, 0, 0, Math.PI * 2);
       ctx.fill();
       if (skin.hover) {
         const glow = ctx.createRadialGradient(player.x + player.w / 2, groundY + 4, 2, player.x + player.w / 2, groundY + 4, 34);
@@ -7851,7 +7937,7 @@
         glow.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.ellipse(player.x + player.w / 2, groundY + 4, 34, 10, 0, 0, Math.PI * 2);
+        ctx.ellipse(player.x + player.w / 2, groundY + 4, 34 * miniScale, 10 * miniScale, 0, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
@@ -7859,10 +7945,17 @@
       ctx.save();
       ctx.translate(player.x + player.w / 2, player.y + player.h / 2 - renderLift);
       if ((hurtTimer > 0 || player.invincibleTimer > 0) && Math.floor(performance.now() * 0.03) % 2 === 0) ctx.globalAlpha = player.invincibleTimer > 0 ? 0.35 : 0.5;
-      ctx.rotate(Math.max(-0.16, Math.min(0.18, player.vy * 0.001)));
-      ctx.scale(1.02, player.squash);
+      const ghostPowerActive = activePower.key === 'ghost';
+      let ghostRenderOpacity = skin.opacity != null ? skin.opacity : 1;
+      if (ghostPowerActive) ghostRenderOpacity = Math.min(ghostRenderOpacity, 0.55);
+      ctx.globalAlpha *= ghostRenderOpacity;
+      const flinchShake = player.flinch > 0.02 ? Math.sin(now * 46) * player.flinch * 5 : 0;
+      ctx.translate(flinchShake, 0);
+      ctx.rotate(Math.max(-0.16, Math.min(0.18, player.vy * 0.001)) + player.leanAngle + runWobble + flinchShake * 0.01);
+      ctx.scale((1.02 - runSquashPulse * 0.5 + player.flinch * 0.16) * miniScale, (player.squash + runSquashPulse - player.flinch * 0.14) * miniScale);
       drawSpecialSkinWings(skin, now);
       drawSpecialSkinAura(skin, now);
+      if (ghostPowerActive && skin.aura !== 'ghost') drawGhostMist(now);
       const renderedReferenceSkin = drawReferenceSkinBase(skin, now, blinkClosed);
       if (!renderedReferenceSkin) {
         applyPatternFill(-25, -26, 50, 54, skin);
@@ -8345,7 +8438,11 @@
 
     document.addEventListener('visibilitychange', () => { if (document.hidden) saveMissionState(); });
     window.addEventListener('beforeunload', () => saveMissionState());
-    window.addEventListener('resize', resize);
+    let resizeDebounceId = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeDebounceId);
+      resizeDebounceId = setTimeout(resize, 120);
+    });
     window.addEventListener('orientationchange', resize);
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { e.preventDefault(); requestJump(); }
@@ -8376,20 +8473,41 @@
     playBtn.addEventListener('pointerdown', () => { audio.unlock(); tryPlayBeautifulVideo(); playBtn.classList.add('pressed'); });
     playBtn.addEventListener('click', () => { audio.unlock(); tryPlayBeautifulVideo(); audio.click(); startGame(); });
     settingsBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openSheet('skin'); });
+    function returnToKzrizusmoApp() {
+      // 1) Coba kembali lewat history browser/webview (paling akurat kalau
+      //    skyhoppermax dibuka dengan navigasi biasa dari aplikasi KZRIZUSMO)
+      if (window.history.length > 1) {
+        window.history.back();
+        setTimeout(() => {
+          if (!document.hidden) fallbackReturnToApp();
+        }, 350);
+        return;
+      }
+      fallbackReturnToApp();
+    }
+
+    function fallbackReturnToApp() {
+      // 2) Kalau tidak ada history, coba pakai referrer (halaman yang
+      //    membuka skyhoppermax ini)
+      if (document.referrer) {
+        location.href = document.referrer;
+        return;
+      }
+      // 3) Terakhir, kalau memang dibuka via window.open() dari script,
+      //    tutup tab/window-nya
+      window.close();
+    }
+
     if (exitGameBtn) exitGameBtn.addEventListener('click', () => {
       audio.unlock(); audio.click();
       const ok = window.confirm('Keluar dari game?');
       if (!ok) return;
-      window.close();
-      setTimeout(() => {
-        if (!document.hidden) {
-          location.href = 'about:blank';
-        }
-      }, 300);
+      returnToKzrizusmoApp();
     });
 
     function positionExitBtn() {
       if (!exitGameBtn || !coinHudWrap) return;
+      if (state !== 'playing') return;
       const r = coinHudWrap.getBoundingClientRect();
       if (r.width === 0 && r.height === 0) return;
       exitGameBtn.style.top = Math.round(r.bottom + 96) + 'px';
