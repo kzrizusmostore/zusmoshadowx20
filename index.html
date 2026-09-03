@@ -1877,15 +1877,21 @@ object-fit:contain;
     <div class="hm-tile-icon"><i class="fa-solid fa-pen-nib"></i></div>
     <span class="hm-tile-label">EDITOR BIO</span>
   </div>
-  <div class="hm-tile" onclick="dismissNewBadge('joinguild');showPage('joinguild')">
-    <span class="hm-tile-badge" id="newBadge_joinguild"></span>
-    <div class="hm-tile-icon"><i class="fa-solid fa-shield-halved"></i></div>
-    <span class="hm-tile-label">JOIN GUILD</span>
+  <div class="hm-tile" onclick="dismissNewBadge('freefile');showPage('freefile')">
+    <span class="hm-tile-badge" id="newBadge_freefile"></span>
+    <div class="hm-tile-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+    <span class="hm-tile-label">FREE FILE</span>
   </div>
 </div>
 
 <!-- SECONDARY LIST -->
 <div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.moreMenu">📥 Lainnya</span></div>
+<div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')" style="position:relative;">
+  <span class="hm-tile-badge" id="newBadge_joinguild" style="top:10px;right:10px;"></span>
+  <div class="hm-menu-icon"><i class="fa-solid fa-shield-halved"></i></div>
+  <div class="hm-menu-body"><h4>JOIN GUILD</h4><small>Gabung member guild resmi Z Shadows</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="showPage('toko')">
   <div class="hm-menu-icon"><i class="fa-solid fa-store"></i></div>
   <div class="hm-menu-body"><h4 data-i18n="home.tokoTitle">ZUSMO SHOP</h4><small data-i18n="home.tokoDesc">Topup &amp; marketplace</small></div>
@@ -2274,6 +2280,362 @@ img#shadowBanner,
 <button class="download-btn" onclick="showStoreDownloadPopup();event.stopPropagation();" style="background:#0a84ff">DOWNLOAD</button>
 </div>
 </div>
+
+<!-- FREE FILE PAGE -->
+<div class="page" id="freefile">
+<style>
+#freefile{padding-bottom:80px;}
+#freefile .pc-card::before{display:none;}
+
+.ff-info-row{display:flex;gap:8px;margin-bottom:18px;}
+.ff-info-pill{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:12px 6px;border-radius:14px;
+  background:rgba(255,43,43,.06);
+  border:1px solid rgba(255,43,43,.22);
+  text-align:center;
+}
+.ff-info-pill i{font-size:16px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.5);}
+.ff-info-pill span{font-size:9px;font-weight:800;color:#ccc;letter-spacing:.4px;font-family:'Outfit',sans-serif;line-height:1.3;}
+
+.ff-file-card{
+  display:flex;align-items:center;gap:13px;
+  padding:14px 15px;margin-bottom:10px;
+  border-radius:18px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,43,43,.16);
+  box-shadow:0 2px 14px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);
+  cursor:pointer;transition:.2s;
+}
+.ff-file-card:last-child{margin-bottom:0;}
+.ff-file-card:active{transform:scale(.98);border-color:rgba(255,43,43,.5);box-shadow:0 0 18px rgba(255,43,43,.16);}
+.ff-file-icon{
+  width:44px;height:44px;border-radius:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,43,43,.09);
+  border:1px solid rgba(255,43,43,.3);
+  box-shadow:0 0 14px rgba(255,43,43,.12),inset 0 0 8px rgba(255,43,43,.08);
+}
+.ff-file-icon i{font-size:18px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.6);}
+.ff-file-body{flex:1;min-width:0;}
+.ff-file-body h4{font-size:13.5px;font-weight:800;color:#fff;margin:0 0 3px;font-family:'Outfit',sans-serif;letter-spacing:.3px;}
+.ff-file-body small{font-size:10.5px;color:#666;font-family:'Space Mono',monospace;letter-spacing:.2px;}
+.ff-file-arrow{color:#ff2b2b;font-size:13px;flex-shrink:0;opacity:.75;}
+
+.ff-file-card.ff-locked{cursor:default;opacity:.5;}
+.ff-file-card.ff-locked:active{transform:scale(.99);border-color:rgba(255,43,43,.16);}
+.ff-file-icon.ff-locked-icon{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);box-shadow:none;}
+.ff-file-icon.ff-locked-icon i{color:#555;text-shadow:none;}
+.ff-soon-badge{
+  font-size:8px;font-weight:800;letter-spacing:1px;color:#888;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  padding:4px 8px;border-radius:8px;flex-shrink:0;font-family:'Audiowide',sans-serif;
+}
+
+/* MODAL */
+.ff-modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:20px;padding-top:9vh;overflow:hidden !important;overscroll-behavior:none;}
+.ff-modal-overlay.show{display:flex !important;animation:hmNameFadeIn .2s ease;}
+.ff-modal{width:calc(100% - 20px);max-width:440px;max-height:92vh;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(28,7,7,.98) 0%,rgba(14,5,5,.99) 50%,rgba(8,8,8,.99) 100%);border:1px solid rgba(255,43,43,.35);border-radius:26px;padding:0;box-shadow:0 0 0 1px rgba(255,43,43,.1),0 30px 80px rgba(0,0,0,.75),0 0 60px rgba(255,43,43,.16),inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden;animation:hmNamePopIn .3s cubic-bezier(.2,.8,.2,1);z-index:9999999;}
+
+.ff-modal-media{position:relative;flex-shrink:0;overflow:hidden;}
+.ff-modal-slider{display:flex;width:200%;transition:transform .35s cubic-bezier(.22,.85,.4,1);}
+.ff-modal-slider .ff-modal-preview{width:50%;flex-shrink:0;}
+.ff-modal-preview{aspect-ratio:2340/1080;object-fit:cover;display:block;}
+.ff-modal-media-fade{position:absolute;left:0;right:0;bottom:0;height:65%;background:linear-gradient(180deg,rgba(10,4,4,0) 0%,rgba(11,4,4,.88) 78%,rgba(8,8,8,1) 100%);pointer-events:none;}
+.ff-modal-media-redfade{position:absolute;top:0;right:0;bottom:0;width:70%;background:linear-gradient(90deg,rgba(255,43,43,0) 0%,rgba(255,43,43,.35) 35%,rgba(255,43,43,.65) 60%,rgba(180,15,30,.88) 82%,rgba(120,6,16,1) 100%);pointer-events:none;}
+.ff-modal-chip{position:absolute;left:14px;bottom:12px;display:flex;align-items:center;gap:5px;background:rgba(255,43,43,.92);color:#fff;font-size:8.5px;font-weight:800;letter-spacing:.7px;padding:5px 10px 5px 8px;border-radius:20px;text-transform:uppercase;font-family:'Audiowide',sans-serif;box-shadow:0 4px 14px rgba(255,43,43,.45);}
+.ff-modal-chip i{font-size:8.5px;}
+
+.ff-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;z-index:3;}
+.ff-modal-close:active{transform:scale(.9);}
+.ff-modal-slide-nav{position:absolute;right:14px;bottom:12px;display:flex;gap:6px;z-index:4;}
+.ff-slide-btn{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;transition:opacity .15s,transform .15s;}
+.ff-slide-btn:active{transform:scale(.88);}
+.ff-slide-btn.disabled{opacity:.3;pointer-events:none;}
+.ff-modal-pclogo{position:absolute;top:52px;right:19px;width:20px;height:20px;object-fit:contain;z-index:3;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));}
+
+.ff-modal-body{padding:14px 18px 18px;position:relative;z-index:1;overflow-y:auto;flex:1;min-height:0;}
+
+.ff-modal-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;position:relative;z-index:2;}
+.ff-modal-head-icon{width:40px;height:40px;border-radius:13px;background:linear-gradient(145deg,#ff2b2b,#7a0d1a);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;}
+.ff-modal-head-text{min-width:0;flex:1;}
+.ff-modal-title{font-family:'Audiowide',sans-serif;font-size:13px;color:#fff;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ff-modal-filename{font-size:9.5px;color:#888;font-family:'Space Mono',monospace;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.ff-modal-desc{display:flex;align-items:flex-start;gap:7px;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.68);background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-left:2.5px solid #ff2b2b;border-radius:10px;padding:9px 10px;margin-bottom:12px;}
+.ff-modal-desc i{color:#ff6b6b;font-size:11px;margin-top:1px;flex-shrink:0;}
+
+.ff-support-wrap{margin-bottom:12px;}
+.ff-support-label{font-size:8.5px;font-weight:800;color:#ff6b6b;text-transform:uppercase;letter-spacing:1.2px;text-align:center;margin-bottom:7px;}
+.ff-support-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.ff-support-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 3px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);font-size:8.5px;font-weight:700;color:#ddd;line-height:1.1;text-align:center;}
+.ff-support-col i{font-size:13px;color:#ff6b6b;}
+.ff-support-icon{width:14px;height:14px;object-fit:contain;}
+
+.ff-modal-linkbox{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,43,43,.4);border-radius:13px;padding:10px 12px;margin-bottom:12px;}
+.ff-modal-linkbox i{color:#ff6b6b;font-size:11px;flex-shrink:0;}
+.ff-modal-linkbox span{flex:1;min-width:0;font-size:10px;color:#ff8f8f;font-family:'Space Mono',monospace;white-space:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.ff-modal-linkbox span::-webkit-scrollbar{display:none;}
+
+.ff-modal-actions{display:flex;gap:8px;}
+.ff-modal-btn{flex:1;padding:12px 6px;border-radius:14px;font-size:10.8px;font-weight:800;letter-spacing:.2px;cursor:pointer;text-align:center;border:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s,background .15s;}
+.ff-modal-btn-copy{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;}
+.ff-modal-btn-copy:active{transform:scale(.96);}
+.ff-modal-btn-copy.copied{background:rgba(0,255,136,.12);border-color:rgba(0,255,136,.45);color:#00ff88;}
+.ff-modal-btn-dl{flex:1.6;background:linear-gradient(145deg,#ff2b2b,#961020);color:#fff;}
+.ff-modal-btn-dl:active{transform:scale(.96);}
+
+.ff-modal-trust{display:flex;align-items:center;justify-content:center;gap:5px;font-size:8.5px;color:#666;margin-top:11px;letter-spacing:.3px;}
+.ff-modal-trust i{color:#00ff88;font-size:9px;}
+</style>
+
+<p class="pc-title"><span class="red">FREE</span>&nbsp;<span class="wht">FILE</span></p>
+<p class="pc-sub">Download File Gratis Dari KZRIZUSMO</p>
+
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-folder-open"></i></div>
+    <div class="pc-head-text">
+      <h3>DAFTAR FILE</h3>
+      <p>1 dari 10 file tersedia &bull; sisanya menyusul</p>
+    </div>
+  </div>
+
+  <div class="ff-file-card" onclick="openFreeFileModal('Logo PC - Android','LogoPC.zip','./LogoPC.zip')">
+    <div class="ff-file-icon"><i class="fa-solid fa-file-code"></i></div>
+    <div class="ff-file-body">
+      <h4>Logo PC - Android</h4>
+      <small>LogoPC.zip</small>
+    </div>
+    <i class="fa-solid fa-chevron-right ff-file-arrow"></i>
+  </div>
+
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
+    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="ff-file-body">
+      <h4>File Segera Hadir</h4>
+      <small>Menyusul update berikutnya</small>
+    </div>
+    <span class="ff-soon-badge">SOON</span>
+  </div>
+</div>
+
+<!-- FREE FILE DOWNLOAD MODAL -->
+<div class="ff-modal-overlay" id="ffModalOverlay" onclick="if(event.target===this)closeFreeFileModal()">
+  <div class="ff-modal">
+    <div class="ff-modal-media">
+      <div class="ff-modal-slider" id="ffSliderTrack">
+        <img class="ff-modal-preview" src="https://files.catbox.moe/7w4vnw.jpg" alt="Preview 1"/>
+        <img class="ff-modal-preview" src="https://files.catbox.moe/jd97y5.jpg" alt="Preview 2"/>
+      </div>
+      <div class="ff-modal-media-redfade"></div>
+      <div class="ff-modal-media-fade"></div>
+      <div class="ff-modal-chip"><i class="fa-solid fa-bolt"></i>Free File</div>
+      <button type="button" class="ff-modal-close" onclick="closeFreeFileModal()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <img class="ff-modal-pclogo" src="https://files.catbox.moe/3r1x9j.png" alt="Logo PC"/>
+      <div class="ff-modal-slide-nav">
+        <button type="button" class="ff-slide-btn" id="ffSlidePrev" onclick="ffSlidePrev()" aria-label="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+        <button type="button" class="ff-slide-btn" id="ffSlideNext" onclick="ffSlideNext()" aria-label="Berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="ff-modal-body">
+      <div class="ff-modal-head">
+        <div class="ff-modal-head-icon"><i class="fa-solid fa-file-code"></i></div>
+        <div class="ff-modal-head-text">
+          <div class="ff-modal-title" id="ffModalTitle">Logo PC - Android</div>
+          <div class="ff-modal-filename" id="ffModalFilename">LogoPC.zip</div>
+        </div>
+      </div>
+      <div class="ff-modal-desc"><i class="fa-solid fa-circle-info"></i><span>Berfungsi untuk menampilkan logo PC di lobby &amp; profile Free Fire, meskipun kamu bermain menggunakan HP.</span></div>
+      <div class="ff-support-wrap">
+        <div class="ff-support-label">Kompatibel Dengan</div>
+        <div class="ff-support-grid">
+          <div class="ff-support-col"><i class="fa-brands fa-android"></i>Android</div>
+          <div class="ff-support-col"><i class="fa-brands fa-apple"></i>iOS</div>
+          <div class="ff-support-col"><img class="ff-support-icon" src="https://files.catbox.moe/bqp2jv.png" alt="FF"/>FF Ori</div>
+          <div class="ff-support-col"><img class="ff-support-icon" src="https://files.catbox.moe/bqp2jv.png" alt="FF"/>FF Max</div>
+        </div>
+      </div>
+      <div class="ff-modal-linkbox" id="ffLinkBox">
+        <i class="fa-solid fa-link"></i>
+        <span id="ffLinkPreview"></span>
+      </div>
+      <div class="ff-modal-actions">
+        <button type="button" class="ff-modal-btn ff-modal-btn-copy" id="ffSalinLinkBtn" onclick="copyFreeFileLink()"><i class="fa-regular fa-copy"></i>Salin Link</button>
+        <button type="button" class="ff-modal-btn ff-modal-btn-dl" onclick="confirmFreeFileDownload()"><i class="fa-solid fa-download"></i>Unduh Langsung</button>
+      </div>
+      <div class="ff-modal-trust"><i class="fa-solid fa-shield-halved"></i>File aman &amp; sudah diverifikasi</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+var ffCurrentLink='';
+var ffSlideIndex=0;
+var ffSlideCount=2;
+
+function ffUpdateSlideUI(){
+  var track=document.getElementById('ffSliderTrack');
+  if(!track) return;
+  track.style.transform='translateX(-'+(ffSlideIndex*(100/ffSlideCount))+'%)';
+  var prevBtn=document.getElementById('ffSlidePrev');
+  var nextBtn=document.getElementById('ffSlideNext');
+  if(prevBtn) prevBtn.classList.toggle('disabled',ffSlideIndex===0);
+  if(nextBtn) nextBtn.classList.toggle('disabled',ffSlideIndex===ffSlideCount-1);
+}
+
+function ffSlidePrev(){
+  if(ffSlideIndex>0){
+    ffSlideIndex--;
+    ffUpdateSlideUI();
+    if(window.ZUSMO&&window.ZUSMO.vibrate) window.ZUSMO.vibrate(20);
+  }
+}
+
+function ffSlideNext(){
+  if(ffSlideIndex<ffSlideCount-1){
+    ffSlideIndex++;
+    ffUpdateSlideUI();
+    if(window.ZUSMO&&window.ZUSMO.vibrate) window.ZUSMO.vibrate(20);
+  }
+}
+
+function openFreeFileModal(name,filename,link){
+  ffCurrentLink=link;
+  document.getElementById('ffModalTitle').textContent=name;
+  document.getElementById('ffModalFilename').textContent=filename;
+  document.getElementById('ffLinkPreview').textContent=link;
+  var salinBtn=document.getElementById('ffSalinLinkBtn');
+  salinBtn.classList.remove('copied');
+  salinBtn.innerHTML='<i class="fa-regular fa-copy"></i>Salin Link';
+  ffSlideIndex=0;
+  ffUpdateSlideUI();
+  document.getElementById('ffModalOverlay').classList.add('show');
+  if(window.ZUSMO&&window.ZUSMO.playClick) window.ZUSMO.playClick();
+}
+
+function closeFreeFileModal(){
+  document.getElementById('ffModalOverlay').classList.remove('show');
+}
+
+function copyFreeFileLink(){
+  var link=ffCurrentLink;
+  var btn=document.getElementById('ffSalinLinkBtn');
+  function done(){
+    btn.classList.add('copied');
+    btn.innerHTML='<i class="fa-solid fa-check"></i>Tersalin!';
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      btn.innerHTML='<i class="fa-regular fa-copy"></i>Salin Link';
+    },1600);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(done).catch(function(){fallbackCopyFreeFileLink(link,done);});
+  }else{
+    fallbackCopyFreeFileLink(link,done);
+  }
+  if(window.ZUSMO&&window.ZUSMO.vibrate) window.ZUSMO.vibrate(30);
+}
+
+function fallbackCopyFreeFileLink(link,cb){
+  var ta=document.createElement('textarea');
+  ta.value=link;
+  ta.style.position='fixed';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{document.execCommand('copy');cb();}catch(e){}
+  document.body.removeChild(ta);
+}
+
+function confirmFreeFileDownload(){
+  if(ffCurrentLink){
+    var a=document.createElement('a');
+    a.href=ffCurrentLink;
+    a.download='LogoPC.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  if(window.ZUSMO&&window.ZUSMO.playClick) window.ZUSMO.playClick();
+}
+
+function ffComingSoon(el){
+  if(window.ZUSMO&&window.ZUSMO.vibrate) window.ZUSMO.vibrate([40,30,40]);
+  if(el){
+    el.classList.remove('shake');
+    void el.offsetWidth;
+    el.classList.add('shake');
+  }
+}
+</script>
+
 
 <!-- SUNTIK LIKE FF PAGE -->
 <div class="page" id="suntiklike">
@@ -12289,7 +12651,8 @@ const NEW_BADGE_CONFIG={
   botglory:{launch:'2026-08-11'},
   nickhijau:{launch:'2026-08-15'},
   joinguild:{launch:'2026-08-17'},
-  nickeditor:{launch:'2026-08-25'}
+  nickeditor:{launch:'2026-08-25'},
+  freefile:{launch:'2026-09-03'}
 };
 const NEW_BADGE_DURATION_DAYS=20;
 
