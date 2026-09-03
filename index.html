@@ -7454,16 +7454,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     { id:'lg164', name:'Random', img:'zusmo-assets/v9z098.png', price:500 },
     { id:'lg165', name:'Random', img:'zusmo-assets/lp7rbc.png', price:500 },
     { id:'lg166', name:'Random', img:'zusmo-assets/6kthi3.png', price:500 },
-    { id:'lg167', name:'Random', img:'zusmo-assets/2dbj2t.png', price:500 },
     { id:'lg168', name:'Random', img:'zusmo-assets/re26zl.png', price:500 },
     { id:'lg169', name:'Random', img:'zusmo-assets/qyq3zq.png', price:500 },
     { id:'lg170', name:'Random', img:'zusmo-assets/747x1v.png', price:500 },
     { id:'lg171', name:'Random', img:'zusmo-assets/iaqabp.png', price:500 },
     { id:'lg172', name:'Random', img:'zusmo-assets/n5nrwh.png', price:500 },
-    { id:'lg173', name:'Random', img:'zusmo-assets/13yt93.png', price:500 },
     { id:'lg174', name:'Random', img:'zusmo-assets/cin0er.png', price:500 },
-    { id:'lg175', name:'Random', img:'zusmo-assets/0wmvg8.png', price:500 },
-    { id:'lg176', name:'Random', img:'zusmo-assets/3as9pd.png', price:500 },
     { id:'lg177', name:'Random', img:'zusmo-assets/ld02qg.png', price:500 },
     { id:'lg178', name:'Random', img:'zusmo-assets/l4xph9.png', price:500 },
     { id:'lg179', name:'Random', img:'zusmo-assets/fjf1jb.png', price:500 },
@@ -7472,7 +7468,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     { id:'lg182', name:'Random', img:'zusmo-assets/dmvzp2.png', price:500 },
     { id:'lg183', name:'Random', img:'zusmo-assets/lluzh7.png', price:500 },
     { id:'lg184', name:'Random', img:'zusmo-assets/tefg91.png', price:500 },
-    { id:'lg185', name:'Random', img:'zusmo-assets/uxwsld.png', price:500 },
     { id:'lg186', name:'Random', img:'zusmo-assets/mqcf9e.png', price:500 },
     { id:'lg187', name:'Random', img:'zusmo-assets/5fvc5t.png', price:500 },
     { id:'lg188', name:'Random', img:'zusmo-assets/s33iws.png', price:500 },
@@ -7529,7 +7524,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     { id:'lg239', name:'Fire Pass', img:'zusmo-assets/50qzow.png', price:500 },
     { id:'lg240', name:'Wasteland FP', img:'zusmo-assets/93h252.png', price:500 },
     { id:'lg241', name:'Franken', img:'zusmo-assets/vtqc95.png', price:500 },
-    { id:'lg242', name:'Panda', img:'zusmo-assets/yt5kxp.png', price:500 },
     { id:'lg243', name:'Egypt FP', img:'zusmo-assets/gnm974.png', price:500 },
     { id:'lg244', name:'Pirate EP1', img:'zusmo-assets/wd2slb.png', price:500 },
     { id:'lg245', name:'Aprilfool24', img:'zusmo-assets/l2r1x9.png', price:500 },
@@ -8013,6 +8007,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
         if(parsed && Array.isArray(parsed.orders) && parsed.orders.length && typeof parsed.ts==='number'){
           var stillFresh = Date.now() - parsed.ts < PROGRESS_RESET_MS;
           var hasLogoField = !!parsed.orders[0].logo; // data lama (sebelum fitur logo) ga punya field ini
+          var hasNewAssetPath = !parsed.orders[0].logo || parsed.orders[0].logo.indexOf('zusmo-assets/')===0; // data lama masih pakai path sebelum pindah ke folder zusmo-assets
+          var hasMatchingLogoPool = parsed.logosCount === LOGOS.length; // data lama dibuat pas LOGOS masih beda jumlah (ada logo yg ditambah/dihapus) -> logo lama bisa nunjuk ke gambar yg udah gaada
           var hasValidProduct = PROGRESS_PRODUCTS.indexOf(parsed.orders[0].product) !== -1; // data lama pakai daftar produk lama
           var hasPriceField = typeof parsed.orders[0].price === 'number'; // data lama (sebelum fitur harga) ga punya field ini
           var hasFullCount = parsed.orders.length >= 175; // data lama cuma sampai 100 pesanan (skema lama), skema baru 175-250 acak per hari
@@ -8028,12 +8024,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
           var hasVipAutoSukses = vipOrders.every(function(o){ return o.status==='sukses'; }); // data lama masih ada proses/pending
           var hasTsField = typeof parsed.orders[0].ts === 'number'; // data lama belum punya field ts buat filter terbaru/terlama
           var hasOrderCode = typeof parsed.orders[0].orderCode === 'number'; // data lama belum punya kode pesanan
-          if(stillFresh && hasLogoField && hasValidProduct && hasPriceField && hasFullCount && hasLikeFields && hasBotGloryFields && hasFollsFields && hasFollsAutoSukses && hasVipAutoSukses && hasTsField && hasOrderCode) return parsed.orders;
+          if(stillFresh && hasLogoField && hasNewAssetPath && hasMatchingLogoPool && hasValidProduct && hasPriceField && hasFullCount && hasLikeFields && hasBotGloryFields && hasFollsFields && hasFollsAutoSukses && hasVipAutoSukses && hasTsField && hasOrderCode) return parsed.orders;
         }
       }
     }catch(e){}
     var fresh = generateProgressOrders(175 + Math.floor(Math.random()*76)); // acak 175-250 pesanan, berganti tiap 24 jam (ganti hari)
-    try{ localStorage.setItem(LS_PROGRESS_ORDERS, JSON.stringify({ ts: Date.now(), orders: fresh })); }catch(e){}
+    try{ localStorage.setItem(LS_PROGRESS_ORDERS, JSON.stringify({ ts: Date.now(), orders: fresh, logosCount: LOGOS.length })); }catch(e){}
     return fresh;
   }
   var progressOrdersCache = null;
