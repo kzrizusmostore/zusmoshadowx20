@@ -13139,8 +13139,9 @@ input[data-ck-attached],textarea[data-ck-attached]{caret-color:transparent}
 </div>
 <script>
 /* ================= MEDIA CACHE (Service Worker) =================
-   Nyimpen gambar/video/audio di cache browser biar pas dibuka lagi
-   loading-nya langsung instan, gak download ulang dari internet.
+   Nyimpen gambar/video/audio/font di cache browser biar pas dibuka
+   lagi loading-nya langsung instan, gak download ulang dari internet
+   sama sekali — walau app ditutup total / dihapus dari recent apps.
    WAJIB: upload file sw.js di folder yang SAMA dengan index.html ini. */
 if('serviceWorker' in navigator){
   window.addEventListener('load',function(){
@@ -13148,6 +13149,11 @@ if('serviceWorker' in navigator){
       console.warn('SW gagal daftar (media cache nonaktif):',err);
     });
   });
+}
+// Minta browser jangan pernah auto-hapus cache ini walau storage device
+// lagi menipis, biar media yang udah ke-cache aman kesimpen selamanya.
+if(navigator.storage && navigator.storage.persist){
+  navigator.storage.persist().catch(function(){});
 }
 </script>
 </body></html>
