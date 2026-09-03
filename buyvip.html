@@ -8,13 +8,13 @@
   <title>ZUSMO SHADOW</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root{
       --red:#ff2b2b;
       --red2:#a80000;
-      --green:#00ff7f;
+      --green:#00ff88;
       --cyan:#00d5ff;
       --gold:#ffd700;
       --bg:#050505;
@@ -25,8 +25,8 @@
       --danger:#ff5555;
       --radius:24px;
     }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
-    html,body{min-height:100%;background:#050505;color:#fff;scroll-behavior:smooth}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter','Outfit',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+    html,body{min-height:100%;background:#000;color:#fff;scroll-behavior:smooth}
     html,body,*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none}
     input,select,button,a{font:inherit;color:#fff;-webkit-user-select:none;user-select:none}
     button{border:0;cursor:pointer;background:none}
@@ -34,10 +34,20 @@
     img{display:block;max-width:100%;-webkit-user-drag:none;user-drag:none;pointer-events:none}
     body{
       overflow-x:hidden;
+      background:#000 url('zusmo-assets/jk23mr.jpg') center/cover fixed no-repeat;
+    }
+    body:before{
+      content:'';
+      position:fixed;
+      inset:0;
       background:
-        radial-gradient(860px 470px at 6% -10%,rgba(255,43,43,.23),transparent 60%),
-        radial-gradient(780px 430px at 100% 3%,rgba(255,215,0,.085),transparent 55%),
-        linear-gradient(180deg,#050505,#070707 55%,#020202);
+        radial-gradient(860px 470px at 6% -10%,rgba(255,43,43,.20),transparent 60%),
+        radial-gradient(780px 430px at 100% 3%,rgba(255,215,0,.07),transparent 55%),
+        linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.78));
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+      z-index:0;
+      pointer-events:none;
     }
     #qrisDisplay,#qrisDisplay *,#qrisImg,.qr-box,.qr-box *{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;-webkit-touch-callout:default;pointer-events:auto}
     .copy-allowed,.copy-allowed *{-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important}
@@ -48,6 +58,9 @@
     .topbar{position:sticky;top:0;z-index:20;margin:-16px -14px 14px;padding:calc(11px + env(safe-area-inset-top)) 16px 11px;background:rgba(5,5,5,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;border:0}
     .brand-row{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0}
     .brand-logo-small{width:38px;height:38px;object-fit:contain;aspect-ratio:1/1;border:0!important;background:transparent!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important}
+    .topbar-back-btn{flex:0 0 auto;width:38px;height:38px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;display:grid;place-items:center;font-size:15px;transition:.16s ease}
+    .topbar-back-btn:hover{border-color:rgba(255,43,43,.38);box-shadow:0 0 24px rgba(255,43,43,.18)}
+    .topbar-back-btn:active{transform:scale(.94)}
     .brand-wordmark{font-size:16px;line-height:1;font-weight:1000;letter-spacing:.08em;white-space:nowrap;color:#fff;text-transform:uppercase}
     .brand-wordmark em{font-style:normal;color:var(--red);text-shadow:0 0 22px rgba(255,43,43,.8)}
 
@@ -541,6 +554,7 @@
       .usage-badge{max-width:62px!important;font-size:8.2px!important}
       .brand-wordmark{font-size:13px!important}
       .brand-logo-small{width:31px!important;height:31px!important}
+      .topbar-back-btn{width:32px!important;height:32px!important;border-radius:11px!important;font-size:13px!important}
       .package-card.max::before{opacity:.72!important;filter:blur(15px)!important;transform:scale(1.035)!important}
       .package-card.max:hover::before,.package-card.max.tapped::before{opacity:.82!important;filter:blur(16px)!important;transform:scale(1.045)!important}
     }
@@ -1202,7 +1216,7 @@
   <main class="app">
     <header class="topbar">
       <div class="brand-row">
-        <img class="brand-logo-small" id="topLogo" alt="ZUSMO SHADOW" />
+        <button class="topbar-back-btn" onclick="goBackApp()" aria-label="Kembali" type="button"><i class="fas fa-arrow-left"></i></button>
         <b class="brand-wordmark">ZUSMO <em>SHADOW</em></b>
       </div>
       <div class="topbar-actions">
@@ -1217,7 +1231,7 @@
 
     <section class="screen" id="screen-menu">
       <div class="page-shell">
-        <button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+        <button class="plain-back" onclick="go('screen-vip')"><i class="fas fa-arrow-left"></i> Kembali</button>
        
         <div class="menu-page-card">
           <div class="menu-status-card">
@@ -1252,59 +1266,8 @@
       </div>
     </section>
 
-    <section class="screen active" id="screen-home">
-      <div class="hero">
-        <div class="hero-card">
-          <div class="logo-wrap"><img class="main-logo" id="mainLogo" alt="ZUSMO SHADOW Logo"></div>
-          <div class="headline">
-            <h1>ZUSMO <span>SHADOW</span></h1>
-            <div class="version-text">Versi Terbaru</div>
-          </div>
-
-         
-
-          <div class="choice-grid">
-            <div class="choice-card free" onclick="pressCard(this)" role="button" tabindex="0" aria-label="FREE">
-              <div>
-                <div class="choice-top">
-                  <div class="choice-icon"><i class="fas fa-cloud-arrow-down"></i></div>
-                  <span class="choice-tag">Normal</span>
-                </div>
-                <h2>FREE</h2>
-                <div class="choice-feature-list">
-                  <div class="no"><i class="fas fa-xmark"></i><span>Jaringan merah</span></div>
-                  <div class="no"><i class="fas fa-xmark"></i><span>Emote tidak bisa dibawa ke loby</span></div>
-                  <div class="no"><i class="fas fa-xmark"></i><span>Evo tidak bisa dibawa ke loby</span></div>
-                </div>
-              </div>
-              <button class="primary-btn mt16" onclick="event.stopPropagation();openFreeDownload()"><i class="fas fa-download"></i> Download Free</button>
-            </div>
-
-            <div class="choice-card vip" onclick="pressCard(this)" role="button" tabindex="0" aria-label="VIP">
-              <div>
-                <div class="choice-top">
-                  <div class="choice-icon"><i class="fas fa-crown"></i></div>
-                  <span class="choice-tag">VIP</span>
-                </div>
-                <h2>VIP</h2>
-                <div class="choice-feature-list">
-                  <div class="yes"><i class="fas fa-check"></i><span>Jaringan lancar</span></div>
-                  <div class="yes"><i class="fas fa-check"></i><span>Emote bisa dibawa ke loby</span></div>
-                  <div class="yes"><i class="fas fa-check"></i><span>Evo bisa dibawa ke loby</span></div>
-                </div>
-              </div>
-              <button class="primary-btn mt16" onclick="event.stopPropagation();go('screen-vip')"><i class="fas fa-arrow-right"></i> Pilih VIP</button>
-            </div>
-          </div>
-
-          <div class="footer">ZUSMO SHADOW 2026</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="screen" id="screen-vip">
+    <section class="screen active" id="screen-vip">
       <div class="page-shell">
-        <button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali</button>
         <div class="page-title"><h2>Pilih Paket VIP</h2></div>
         <div id="upgradeInfo"></div>
         <div class="package-grid" id="packageGrid"></div>
@@ -1358,18 +1321,18 @@
 
     <section class="screen" id="screen-pay-loading"><div class="page-shell"><div class="panel loader-card"><div class="spinner"></div><div class="loader-title">Validasi Pembayaran...</div><p class="loader-text">Mohon tunggu, pembayaran sedang divalidasi.</p></div></div></section>
     <section class="screen" id="screen-pay-failed"><div class="page-shell"><button class="plain-back" onclick="go('screen-payment')"><i class="fas fa-arrow-left"></i> Kembali</button><div class="panel loader-card"><div class="failmark"><i class="fas fa-xmark"></i></div><div class="loader-title">Pembayaran Gagal</div><p class="loader-text">Pembayaran belum terdeteksi. Pastikan pembayaran sudah berhasil, lalu coba konfirmasi kembali.</p><button class="primary-btn mt16" onclick="go('screen-payment')"><i class="fas fa-wallet"></i> Kembali ke Pembayaran</button></div></div></section>
-    <section class="screen" id="screen-pay-success"><div class="page-shell"><button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button><div class="panel loader-card"><div class="checkmark"><i class="fas fa-check"></i></div><div class="loader-title">Pembayaran Sukses</div><p class="loader-text" id="paySuccessText">Pembayaran berhasil divalidasi. Data order akan muncul otomatis.</p><button class="primary-btn mt16" onclick="showOrderStatus()"><i class="fas fa-box"></i> Cek Status Order</button><button class="ghost-btn mt12" onclick="showHistory()"><i class="fas fa-clock-rotate-left"></i> Riwayat Order</button></div></div></section>
+    <section class="screen" id="screen-pay-success"><div class="page-shell"><button class="plain-back" onclick="go('screen-vip')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button><div class="panel loader-card"><div class="checkmark"><i class="fas fa-check"></i></div><div class="loader-title">Pembayaran Sukses</div><p class="loader-text" id="paySuccessText">Pembayaran berhasil divalidasi. Data order akan muncul otomatis.</p><button class="primary-btn mt16" onclick="showOrderStatus()"><i class="fas fa-box"></i> Cek Status Order</button><button class="ghost-btn mt12" onclick="showHistory()"><i class="fas fa-clock-rotate-left"></i> Riwayat Order</button></div></div></section>
 
     <section class="screen" id="screen-wait">
       <div class="page-shell">
-        <button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button>
+        <button class="plain-back" onclick="go('screen-vip')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button>
         <div class="panel loader-card"><div class="spinner"></div><div class="loader-title">Menyiapkan Data Order...</div><p class="loader-text">Order sedang diproses. Kamu boleh kembali, status tetap tersimpan di riwayat.</p><div class="timer mt16" id="orderTimer"><i class="fas fa-hourglass-half"></i><span>--:--</span></div><div class="progress-wrap"><div class="progress-bar" id="orderProgress"></div></div><div class="summary-card mt16"><div class="srow"><span>Paket</span><b id="waitPkg">-</b></div><div class="srow"><span>ID FF</span><b id="waitId">-</b></div><div class="srow"><span>Server</span><b id="waitServer">-</b></div><div class="srow"><span>Status</span><b>Processing</b></div></div><button class="ghost-btn mt12" onclick="showHistory()"><i class="fas fa-clock-rotate-left"></i> Buka Riwayat Order</button></div>
       </div>
     </section>
 
     <section class="screen" id="screen-history">
       <div class="page-shell">
-        <button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+        <button class="plain-back" onclick="go('screen-vip')"><i class="fas fa-arrow-left"></i> Kembali</button>
        
         <div class="history-box" id="historyBox"></div>
       </div>
@@ -1377,7 +1340,7 @@
 
     <section class="screen" id="screen-final">
       <div class="page-shell">
-        <button class="plain-back" onclick="go('screen-home')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button>
+        <button class="plain-back" onclick="go('screen-vip')"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</button>
         <div class="panel loader-card"><div class="checkmark"><i class="fas fa-gift"></i></div><div class="loader-title">Data Order Muncul</div><p class="loader-text">Silahkan dipakai. File Zusmo Shadow V2.1 sudah tersedia.</p><div class="final-file"><img id="finalLogo" alt="Zusmo Shadow V2.1"><div style="flex:1"><b>Zusmo Shadow V2.1.apk</b><span>VIP file siap digunakan</span></div></div><button class="primary-btn mt12" onclick="downloadBeta()"><i class="fas fa-download"></i> Download File</button><div id="finalAccessKeyArea"></div><div class="copy-link-box copy-allowed"><span>Link MediaFire</span><div class="copy-link-text" id="betaLinkText">-</div><button class="ghost-btn" onclick="copyBetaLink()"><i class="fas fa-copy"></i> Salin Link MediaFire</button></div><button class="ghost-btn mt12" onclick="showHistory()"><i class="fas fa-clock-rotate-left"></i> Riwayat Order</button><div class="mini">Terima kasih sudah menggunakan ZUSMO SHADOW.</div></div>
       </div>
     </section>
@@ -1391,8 +1354,8 @@ const DATA={
   freeApk:"https://www.mediafire.com/file/3ggstqsvpf1d341/ZusmoShadowVrs2.1.apk/file",
   betaApk:"https://www.mediafire.com/file/zymra9kbbrwc3mf/ZusmoShadowV2.1.apk/file",
   payments:{
-    qris:{label:"QRIS",type:"image",value:"https://files.catbox.moe/ehzvij.jpg",icon:"fa-qrcode"},
-    dana:{label:"DANA",type:"number",value:"089517049178",icon:"fa-wallet"},
+    qris:{label:"QRIS",type:"image",value:"https://files.catbox.moe/nasi1v.jpg",icon:"fa-qrcode"},
+    dana:{label:"DANA",type:"number",value:"089515092009",icon:"fa-wallet"},
     gopay:{label:"GOPAY",type:"number",value:"089515092009",icon:"fa-wallet"},
     ovo:{label:"OVO",type:"number",value:"089515092009",icon:"fa-wallet"}
   }
@@ -1433,7 +1396,7 @@ const STORAGE_KEY="zusmo_shadow_order_v7";
 const FIFTEEN_MINUTES=15*60*1000;
 const ONE_MINUTE=60*1000;
 const ADMIN_ID="5008131603";
-let currentScreen="screen-home";
+let currentScreen="screen-vip";
 let payTimerInterval=null;
 let orderTimerInterval=null;
 let historyTimerInterval=null;
@@ -1462,6 +1425,7 @@ function closeMoreMenu(){const btn=$("moreBtn");if(btn)btn.classList.remove("act
 function menuOpenHistory(){showHistory()}
 function menuResetOrder(){resetOrder()}
 function markFileUnlocked(){if(order.orderReadyAt&&Date.now()>=Number(order.orderReadyAt)&&!order.fileUnlocked){order.fileUnlocked=true;localStorage.setItem(STORAGE_KEY,JSON.stringify(order))}}
+function goBackApp(){playClick();if(window.history.length>1){window.history.back()}else{window.close()}}
 function go(id){clearInterval(payTimerInterval);clearInterval(orderTimerInterval);clearInterval(historyTimerInterval);document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");currentScreen=id;if(id==="screen-final"){markFileUnlocked();renderFinal()}window.scrollTo({top:0,behavior:"smooth"});if(id==="screen-payment")startPayTimer();if(id==="screen-wait")startOrderTimer();if(id==="screen-history")renderHistory();if(id==="screen-account")renderAccount();renderActiveBanner();updateUsageBadge()}
 function openFreeDownload(){playClick();window.open(DATA.freeApk,"_blank","noopener")}
 function downloadBeta(){playClick();window.open(DATA.betaApk,"_blank","noopener")}
@@ -1530,7 +1494,7 @@ function renderActiveBanner(){const box=$("activeOrderBanner");const st=getOrder
 function formatOrderDate(ts){if(!ts)return"-";try{return new Intl.DateTimeFormat("id-ID",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(Number(ts)))}catch(e){return"-"}}
 function showAccount(){playClick();renderAccount();go("screen-account")}
 function accountActionText(){const st=getOrderStatus().key;if(st==="ready")return order.fileUnlocked?"Buka File VIP":"Munculkan File VIP";if(st==="wait")return"Cek Status Order";if(st==="pay")return"Lanjutkan Pembayaran";if(st==="expired")return"Kembali ke Dashboard";if(order.ffid)return"Lanjut Payment";if(order.packageName)return"Lanjut Verifikasi";return"Pilih Paket VIP"}
-function accountPrimaryAction(){const st=getOrderStatus().key;if(st==="ready"){go("screen-final");return}if(st==="wait"){showOrderStatus();return}if(st==="pay"){renderPaymentDetail();go("screen-payment");startPayTimer();return}if(st==="expired"){go("screen-home");return}if(order.ffid){goPaymentSelect();return}if(order.packageName){renderVerify();go("screen-verify");return}go("screen-vip")}
+function accountPrimaryAction(){const st=getOrderStatus().key;if(st==="ready"){go("screen-final");return}if(st==="wait"){showOrderStatus();return}if(st==="pay"){renderPaymentDetail();go("screen-payment");startPayTimer();return}if(st==="expired"){go("screen-vip");return}if(order.ffid){goPaymentSelect();return}if(order.packageName){renderVerify();go("screen-verify");return}go("screen-vip")}
 function renderAccount(){
   const box=$("accountBox");
   if(!box)return;
@@ -1635,14 +1599,14 @@ function renderHistory(){
   }
 }
 function historyActionText(){const st=getOrderStatus().key;if(st==="ready")return"Buka File Order";if(st==="wait")return"Cek Status Order";if(st==="pay")return"Lanjutkan Pembayaran";if(st==="expired")return"Kembali ke Dashboard";if(order.ffid)return"Lanjut Payment";return"Lanjut Order"}
-function historyPrimaryAction(){const st=getOrderStatus().key;if(st==="ready"){go("screen-final");return}if(st==="wait"){showOrderStatus();return}if(st==="pay"){renderPaymentDetail();go("screen-payment");startPayTimer();return}if(st==="expired"){go("screen-home");return}if(order.ffid){goPaymentSelect();return}go("screen-vip")}
-function resetOrder(){playClick();localStorage.removeItem(STORAGE_KEY);order=emptyOrder();clearInterval(payTimerInterval);clearInterval(orderTimerInterval);clearInterval(historyTimerInterval);renderActiveBanner();updateUsageBadge();go("screen-home")}
+function historyPrimaryAction(){const st=getOrderStatus().key;if(st==="ready"){go("screen-final");return}if(st==="wait"){showOrderStatus();return}if(st==="pay"){renderPaymentDetail();go("screen-payment");startPayTimer();return}if(st==="expired"){go("screen-vip");return}if(order.ffid){goPaymentSelect();return}go("screen-vip")}
+function resetOrder(){playClick();localStorage.removeItem(STORAGE_KEY);order=emptyOrder();clearInterval(payTimerInterval);clearInterval(orderTimerInterval);clearInterval(historyTimerInterval);renderActiveBanner();updateUsageBadge();go("screen-vip")}
 function allowCopyEvent(target){return!!(target&&target.closest&&(target.closest("#qrisDisplay")||target.closest(".copy-allowed")))}
 ["contextmenu","selectstart","copy","cut","dragstart"].forEach(evt=>{document.addEventListener(evt,function(e){if(!allowCopyEvent(e.target)){e.preventDefault();return false}}, {capture:true})});
 document.addEventListener("touchstart",function(e){if(!allowCopyEvent(e.target)&&e.target.tagName==="IMG"){e.preventDefault()}},{capture:true,passive:false});
 document.addEventListener("keydown",function(e){const t=e.target;if((e.key==="Enter"||e.key===" ")&&t&&t.getAttribute&&t.getAttribute("role")==="button"){e.preventDefault();t.click()}});
 document.addEventListener("click",function(e){const interactive=e.target.closest("button,a,.plain-back");if(interactive&&!e.target.closest(".choice-card,.package-card,.method-card")){playClick()}},{capture:true});
-function init(){["topLogo","mainLogo","menuStatusLogo"].forEach(id=>{if($(id))$(id).src=DATA.logo});$("finalLogo").src=DATA.betaLogo;if($("developerLink"))$("developerLink").href=DATA.developer;if($("menuDeveloperLink"))$("menuDeveloperLink").href=DATA.developer;if($("betaLinkText"))$("betaLinkText").innerHTML=maskMediaFireLink(DATA.betaApk);renderFinal();document.querySelectorAll("img").forEach(img=>{img.setAttribute("draggable","false");img.setAttribute("oncontextmenu","return false")});if($("qrisImg")){$("qrisImg").setAttribute("draggable","true");$("qrisImg").removeAttribute("oncontextmenu")}populateCountries();renderPackages();if(order.packageName){renderVerify();renderPaymentSummary();renderMethods()}renderActiveBanner();updateUsageBadge();syncMoreMenu()}
+function init(){["menuStatusLogo"].forEach(id=>{if($(id))$(id).src=DATA.logo});$("finalLogo").src=DATA.betaLogo;if($("developerLink"))$("developerLink").href=DATA.developer;if($("menuDeveloperLink"))$("menuDeveloperLink").href=DATA.developer;if($("betaLinkText"))$("betaLinkText").innerHTML=maskMediaFireLink(DATA.betaApk);renderFinal();document.querySelectorAll("img").forEach(img=>{img.setAttribute("draggable","false");img.setAttribute("oncontextmenu","return false")});if($("qrisImg")){$("qrisImg").setAttribute("draggable","true");$("qrisImg").removeAttribute("oncontextmenu")}populateCountries();renderPackages();if(order.packageName){renderVerify();renderPaymentSummary();renderMethods()}renderActiveBanner();updateUsageBadge();syncMoreMenu()}
 init();
 </script>
 
