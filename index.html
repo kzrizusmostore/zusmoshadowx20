@@ -2397,67 +2397,19 @@ img#shadowBanner,
     <div class="pc-head-icon"><i class="fa-solid fa-folder-open"></i></div>
     <div class="pc-head-text">
       <h3>DAFTAR FILE</h3>
-      <p>1 dari 10 file tersedia &bull; sisanya menyusul</p>
+      <p></p>
     </div>
   </div>
 
-  <div class="ff-file-card" onclick="openFreeFileModal('Logo PC - Android','LogoPC.zip','./LogoPC.zip')">
+  <div class="ff-file-card" onclick="openFreeFileModal('Logo PC - Modal HP','localconfig.json','./LogoPC.zip','https://www.mediafire.com/file/jb705urfivkc2pi/LogoPC.zip/file')">
     <div class="ff-file-icon"><i class="fa-solid fa-file-code"></i></div>
     <div class="ff-file-body">
-      <h4>Logo PC - Android</h4>
-      <small>LogoPC.zip</small>
+      <h4>Logo PC - Modal HP</h4>
+      <small>localconfig.json</small>
     </div>
     <i class="fa-solid fa-chevron-right ff-file-arrow"></i>
   </div>
 
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
-  <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
-    <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
-    <div class="ff-file-body">
-      <h4>File Segera Hadir</h4>
-      <small>Menyusul update berikutnya</small>
-    </div>
-    <span class="ff-soon-badge">SOON</span>
-  </div>
   <div class="ff-file-card ff-locked" onclick="ffComingSoon(this)">
     <div class="ff-file-icon ff-locked-icon"><i class="fa-solid fa-lock"></i></div>
     <div class="ff-file-body">
@@ -2507,7 +2459,7 @@ img#shadowBanner,
         <div class="ff-modal-head-icon"><i class="fa-solid fa-file-code"></i></div>
         <div class="ff-modal-head-text">
           <div class="ff-modal-title" id="ffModalTitle">Logo PC - Android</div>
-          <div class="ff-modal-filename" id="ffModalFilename">LogoPC.zip</div>
+          <div class="ff-modal-filename" id="ffModalFilename">localconfig.json</div>
         </div>
       </div>
       <div class="ff-modal-desc"><i class="fa-solid fa-circle-info"></i><span>Berfungsi untuk menampilkan logo PC di lobby &amp; profile Free Fire, meskipun kamu bermain menggunakan HP.</span></div>
@@ -2537,6 +2489,7 @@ img#shadowBanner,
 
 <script>
 var ffCurrentLink='';
+var ffCurrentCopyLink='';
 var ffSlideIndex=0;
 var ffSlideCount=2;
 
@@ -2566,11 +2519,12 @@ function ffSlideNext(){
   }
 }
 
-function openFreeFileModal(name,filename,link){
+function openFreeFileModal(name,filename,link,copyLink){
   ffCurrentLink=link;
+  ffCurrentCopyLink=copyLink||link;
   document.getElementById('ffModalTitle').textContent=name;
   document.getElementById('ffModalFilename').textContent=filename;
-  document.getElementById('ffLinkPreview').textContent=link;
+  document.getElementById('ffLinkPreview').textContent=ffCurrentCopyLink;
   var salinBtn=document.getElementById('ffSalinLinkBtn');
   salinBtn.classList.remove('copied');
   salinBtn.innerHTML='<i class="fa-regular fa-copy"></i>Salin Link';
@@ -2585,7 +2539,7 @@ function closeFreeFileModal(){
 }
 
 function copyFreeFileLink(){
-  var link=ffCurrentLink;
+  var link=ffCurrentCopyLink;
   var btn=document.getElementById('ffSalinLinkBtn');
   function done(){
     btn.classList.add('copied');
