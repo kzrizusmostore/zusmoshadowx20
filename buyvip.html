@@ -8,7 +8,7 @@
   <title>ZUSMO SHADOW</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Audiowide&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root{
@@ -1208,6 +1208,35 @@
       .history-premium-card{padding:13px!important;border-radius:24px!important}
     }
 
+
+    /* ===== Font system disamakan dengan index.html ===== */
+    body{
+      font-family:'Outfit',system-ui,-apple-system,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      letter-spacing:.2px;
+    }
+    p,.headline p,.page-title p,.method-card span,.upgrade-panel span,
+    .final-file span,.mini,.copy-link-text{
+      font-family:'Inter','Outfit',sans-serif;
+    }
+    .headline h1,.page-title h2,.choice-card h2,.pkg-name,
+    .upgrade-head h3,.loader-title,.method-card b,.final-file b,
+    .brand-wordmark,.compare-title{
+      font-family:'Rajdhani','Outfit',sans-serif;
+      letter-spacing:1px;
+    }
+    .choice-tag,.pkg-badge,.promo-tag,.status-pill,.usage-badge,
+    .compare-cell.head,.srow span,.copy-link-box span,.method-card span,
+    .version-text{
+      font-family:'Rajdhani',sans-serif;
+      letter-spacing:1.2px;
+    }
+    .pkg-price,.number-box code,.access-key-text,.timer,.upgrade-chip .diff{
+      font-family:'Audiowide',sans-serif;
+      letter-spacing:0;
+    }
   </style>
 </head>
 <body>
