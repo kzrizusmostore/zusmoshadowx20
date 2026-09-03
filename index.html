@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><title>KZRIZUSMO</title><link href="manifest.json" rel="manifest"/><meta content="#ff2b2b" name="theme-color"/><link href="zusmo-assets/icon-192.png" rel="icon" type="image/png"/><link href="zusmo-assets/icon-192.png" rel="apple-touch-icon"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><style>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><title>KZRIZUSMO</title><meta content="KZRIZUSMO - Aplikasi web resmi." name="description"/><link href="manifest.json" rel="manifest"/><meta content="#ff2b2b" name="theme-color"/><link href="zusmo-assets/icon-192.png" rel="icon" type="image/png"/><link href="zusmo-assets/icon-192.png" rel="apple-touch-icon"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Outfit',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
 html,body,*{-webkit-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}
 input,textarea,[contenteditable="true"],[contenteditable=""]{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important}
@@ -1998,7 +1998,7 @@ object-fit:contain;
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
-<div class="vip-menu" onclick="location.href='buyvip.html'">
+<div class="vip-menu" onclick="showPage('vippricelist')">
 <div class="vip-icon"><i class="fa-solid fa-key"></i></div>
 <div class="vip-content">
 <h4>BELI KEY VIP</h4>
@@ -2131,6 +2131,478 @@ Untuk emote:<br/>
 </details>
 </div>
 </div>
+<!-- BELI KEY VIP - PRICELIST PAGE -->
+<div class="page" id="vippricelist">
+<h1>Pilih Paket VIP</h1>
+<p class="subtitle">Sentuh kartu untuk lihat detail fitur</p>
+<style>
+#vippricelist{padding-bottom:80px;}
+
+.vpl-grid{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:8px 2px 4px;
+}
+
+@keyframes vplShimmer{
+  0%{background-position:-200% 0;}
+  100%{background-position:200% 0;}
+}
+@keyframes vplGlowPulse{
+  0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 0 color-mix(in srgb, var(--vpl-c) 45%, transparent);}
+  50%{box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06), 0 0 18px 1px color-mix(in srgb, var(--vpl-c) 35%, transparent);}
+}
+
+.vpl-card{
+  --vpl-c:#9a9a9a;
+  --vpl-c2:#6b6b6b;
+  position:relative;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--vpl-c) 14%, transparent) 0%, transparent 55%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid color-mix(in srgb, var(--vpl-c) 55%, transparent);
+  border-radius:20px;
+  padding:0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.45),
+    0 0 0 1px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .16s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.vpl-card:active{transform:scale(.98);}
+.vpl-card:hover{
+  border-color:var(--vpl-c);
+}
+.vpl-card.tier-elite,.vpl-card.tier-max{animation:vplGlowPulse 2.6s ease-in-out infinite;}
+
+/* top accent stripe with shimmer */
+.vpl-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--vpl-c2),var(--vpl-c),var(--vpl-c2));
+  background-size:200% 100%;
+  animation:vplShimmer 3.5s linear infinite;
+  z-index:2;
+}
+.vpl-card.tier-max::before{background:linear-gradient(90deg,#c40000,#ff2b2b,#ff7a45,#ff2b2b,#c40000);background-size:200% 100%;}
+
+.vpl-card.tier-basic{--vpl-c:#a8a8a8;--vpl-c2:#6b6b6b;}
+.vpl-card.tier-elite{--vpl-c:#0a84ff;--vpl-c2:#0057b8;}
+.vpl-card.tier-ultimate{--vpl-c:#a855f7;--vpl-c2:#7e22ce;}
+.vpl-card.tier-max{--vpl-c:#ff3c3c;--vpl-c2:#ff7a45;}
+
+/* corner ribbon for popular/best value tiers */
+.vpl-ribbon{
+  position:absolute;
+  top:12px;right:-30px;
+  transform:rotate(40deg);
+  width:120px;
+  text-align:center;
+  padding:3px 0;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.6px;
+  color:#0a0a0a;
+  background:linear-gradient(135deg,var(--vpl-c),var(--vpl-c2));
+  box-shadow:0 3px 8px rgba(0,0,0,.4);
+  z-index:2;
+  text-transform:uppercase;
+}
+
+.vpl-inner{position:relative;z-index:1;padding:18px 16px 14px;}
+
+.vpl-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+  gap:10px;
+}
+.vpl-left{display:flex;align-items:center;gap:12px;min-width:0;}
+.vpl-icon{
+  width:50px;height:50px;
+  border-radius:15px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,var(--vpl-c),var(--vpl-c2));
+  color:#fff;
+  font-size:21px;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.3),
+    inset 0 -3px 5px rgba(0,0,0,.3),
+    0 4px 12px color-mix(in srgb, var(--vpl-c) 45%, transparent);
+}
+.vpl-title-wrap{min-width:0;}
+.vpl-name{font-size:15.5px;font-weight:900;letter-spacing:.4px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.vpl-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  margin-top:4px;
+  font-size:8.5px;
+  font-weight:800;
+  padding:3px 8px;
+  border-radius:6px;
+  background:var(--vpl-c);
+  color:#0a0a0a;
+  letter-spacing:.5px;
+  white-space:nowrap;
+}
+
+.vpl-price-wrap{
+  text-align:center;
+  flex-shrink:0;
+  background:rgba(0,0,0,.35);
+  border:1px solid color-mix(in srgb, var(--vpl-c) 45%, transparent);
+  border-radius:12px;
+  padding:8px 12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.vpl-price{
+  font-size:19px;
+  font-weight:900;
+  color:#fff;
+  line-height:1.1;
+  white-space:nowrap;
+}
+.vpl-price small{display:block;font-size:8.5px;font-weight:700;color:var(--vpl-c);margin-top:2px;letter-spacing:.3px;}
+
+/* Checklist row — sama seperti kartu VIP di halaman Progress */
+.vpl-checkrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
+  padding:11px 8px;
+  margin-bottom:10px;
+  background:rgba(0,0,0,.3);
+  border:1px solid color-mix(in srgb, var(--vpl-c) 30%, transparent);
+  border-radius:12px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+}
+.vpl-checkrow i{font-size:14px;color:var(--vpl-c);}
+
+.vpl-compat{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.vpl-compat span{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.2px;
+  padding:4px 9px 4px 5px;
+  border-radius:20px;
+  background:rgba(255,255,255,.06);
+  border:1px solid color-mix(in srgb, var(--vpl-c) 25%, rgba(255,255,255,.12));
+  color:rgba(255,255,255,.7);
+  white-space:nowrap;
+  transition:border-color .2s ease, background .2s ease;
+}
+.vpl-card:hover .vpl-compat span{background:rgba(255,255,255,.09);}
+.vpl-compat span i{font-size:8px;color:var(--vpl-c);}
+.vpl-compat span img{
+  width:14px;height:14px;
+  object-fit:contain;
+  border-radius:50%;
+  background:rgba(255,255,255,.9);
+  padding:1.5px;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--vpl-c) 50%, transparent);
+}
+
+.vpl-more{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:.2px;
+  padding:6px 0 2px;
+  margin-bottom:4px;
+  color:rgba(255,255,255,.45);
+}
+.vpl-more i{font-size:8px;transition:transform .25s ease;color:rgba(255,255,255,.35);}
+.vpl-card.open .vpl-more i{transform:rotate(180deg);}
+.vpl-card.open .vpl-more{color:var(--vpl-c);}
+.vpl-card.open .vpl-more i{color:var(--vpl-c);}
+
+.vpl-feat{
+  list-style:none;
+  margin:0 0 12px;
+  padding:0;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .3s ease, opacity .25s ease, margin .3s ease;
+}
+.vpl-card.open .vpl-feat{
+  max-height:260px;
+  opacity:1;
+}
+.vpl-feat li{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:11px;
+  color:#d5d5d5;
+  padding:5px 8px;
+  line-height:1.4;
+  border-radius:8px;
+}
+.vpl-feat li:nth-child(odd){background:rgba(255,255,255,.025);}
+.vpl-feat li i{font-size:9.5px;margin-top:3px;flex-shrink:0;}
+.vpl-feat li.yes i{color:#00ff88;filter:drop-shadow(0 0 3px rgba(0,255,136,.5));}
+.vpl-feat li.no i{color:#ff3c3c;}
+.vpl-feat li.no{color:#7a7a7a;}
+
+.vpl-btn{
+  position:relative;
+  width:100%;
+  border:none;
+  border-radius:13px;
+  padding:13px;
+  font-size:12.5px;
+  font-weight:900;
+  letter-spacing:.5px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--vpl-c),var(--vpl-c2));
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -2px 4px rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.2);
+  transition:filter .15s ease, transform .15s ease;
+  text-transform:uppercase;
+  overflow:hidden;
+}
+.vpl-btn::after{
+  content:'';
+  position:absolute;
+  top:0;left:-60%;
+  width:40%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);
+  animation:vplBtnShine 2.8s ease-in-out infinite;
+}
+@keyframes vplBtnShine{
+  0%{left:-60%;}
+  35%{left:130%;}
+  100%{left:130%;}
+}
+.vpl-btn:active{filter:brightness(1.15);transform:scale(.96);}
+
+.vpl-note{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:12px 14px;
+  margin-top:10px;
+  font-size:11px;
+  color:#bdbdbd;
+  line-height:1.5;
+}
+.vpl-note i{color:#ff3c3c;margin-top:1px;}
+</style>
+
+<div class="vpl-grid">
+
+  <div class="vpl-card tier-basic" data-tier="basic" onclick="toggleVplCard(this)">
+  <div class="vpl-inner">
+    <div class="vpl-top">
+      <div class="vpl-left">
+        <div class="vpl-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="vpl-title-wrap">
+          <div class="vpl-name">VIP BASIC</div>
+          <span class="vpl-tag"><i class="fa-solid fa-shield"></i>HEMAT</span>
+        </div>
+      </div>
+      <div class="vpl-price-wrap">
+        <div class="vpl-price">Rp 3.000<small>/ ORDER</small></div>
+      </div>
+    </div>
+    <div class="vpl-checkrow">
+      <i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="vpl-compat">
+      <span><i class="fa-brands fa-android"></i>Android</span>
+      <span><i class="fa-brands fa-apple"></i>iOS</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+    </div>
+    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat">
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus teman satu loby</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus in game</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+    </ul>
+    <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('BASIC',3000)"><i class="fa-solid fa-bolt"></i> Pilih VIP Basic</button>
+  </div>
+  </div>
+
+  <div class="vpl-card tier-elite" data-tier="elite" onclick="toggleVplCard(this)">
+  <div class="vpl-ribbon">POPULER</div>
+  <div class="vpl-inner">
+    <div class="vpl-top">
+      <div class="vpl-left">
+        <div class="vpl-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="vpl-title-wrap">
+          <div class="vpl-name">VIP ELITE</div>
+          <span class="vpl-tag"><i class="fa-solid fa-fire"></i>POPULER</span>
+        </div>
+      </div>
+      <div class="vpl-price-wrap">
+        <div class="vpl-price">Rp 5.000<small>/ ORDER</small></div>
+      </div>
+    </div>
+    <div class="vpl-checkrow">
+      <i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="vpl-compat">
+      <span><i class="fa-brands fa-android"></i>Android</span>
+      <span><i class="fa-brands fa-apple"></i>iOS</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+    </div>
+    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat">
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus in game</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+    </ul>
+    <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ELITE',5000)"><i class="fa-solid fa-crown"></i> Pilih VIP Elite</button>
+  </div>
+  </div>
+
+  <div class="vpl-card tier-ultimate" data-tier="ultimate" onclick="toggleVplCard(this)">
+  <div class="vpl-inner">
+    <div class="vpl-top">
+      <div class="vpl-left">
+        <div class="vpl-icon"><i class="fa-solid fa-star"></i></div>
+        <div class="vpl-title-wrap">
+          <div class="vpl-name">VIP ULTIMATE</div>
+          <span class="vpl-tag"><i class="fa-solid fa-gem"></i>GOLD ACCESS</span>
+        </div>
+      </div>
+      <div class="vpl-price-wrap">
+        <div class="vpl-price">Rp 8.000<small>/ ORDER</small></div>
+      </div>
+    </div>
+    <div class="vpl-checkrow">
+      <i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="vpl-compat">
+      <span><i class="fa-brands fa-android"></i>Android</span>
+      <span><i class="fa-brands fa-apple"></i>iOS</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+    </div>
+    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat">
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus in game</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+    </ul>
+    <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ULTIMATE',8000)"><i class="fa-solid fa-star"></i> Pilih VIP Ultimate</button>
+  </div>
+  </div>
+
+  <div class="vpl-card tier-max" data-tier="max" onclick="toggleVplCard(this)">
+  <div class="vpl-ribbon">TERBAIK</div>
+  <div class="vpl-inner">
+    <div class="vpl-top">
+      <div class="vpl-left">
+        <div class="vpl-icon"><i class="fa-solid fa-gem"></i></div>
+        <div class="vpl-title-wrap">
+          <div class="vpl-name">VIP MAX</div>
+          <span class="vpl-tag"><i class="fa-solid fa-crown"></i>SUPER PREMIUM</span>
+        </div>
+      </div>
+      <div class="vpl-price-wrap">
+        <div class="vpl-price">Rp 12.000<small>/ ORDER</small></div>
+      </div>
+    </div>
+    <div class="vpl-checkrow">
+      <i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i><i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="vpl-compat">
+      <span><i class="fa-brands fa-android"></i>Android</span>
+      <span><i class="fa-brands fa-apple"></i>iOS</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
+      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+    </div>
+    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat">
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus in game</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tanpa Key Login</li>
+    </ul>
+    <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('MAX',12000)"><i class="fa-solid fa-gem"></i> Pilih VIP Max</button>
+  </div>
+  </div>
+
+</div>
+
+<div class="vpl-note">
+  <i class="fa-solid fa-circle-info"></i>
+  <div>Pembelian diproses <b>manual</b> oleh admin melalui WhatsApp. Key akan dikirim setelah pembayaran dikonfirmasi.</div>
+</div>
+<p class="pc-sub" style="margin:10px 0 0;font-size:9.5px;text-align:center;">Admin : +62 838-0028-7738</p>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<script>
+function toggleVplCard(card){
+  const wasOpen=card.classList.contains('open');
+  document.querySelectorAll('#vippricelist .vpl-card.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
+  card.classList.toggle('open',!wasOpen);
+  const label=card.querySelector('.vpl-more span');
+  if(label) label.textContent=card.classList.contains('open')?'Sembunyikan':'Lihat fitur';
+}
+function orderVipKey(tier,price){
+  const msg='Halo Admin, saya mau order *KEY VIP '+tier+'*\n\n'+
+    '🔑 Paket : VIP '+tier+'\n'+
+    '💰 Harga : Rp '+price.toLocaleString('id-ID')+'\n\n'+
+    'Mohon diproses ya, terima kasih.';
+  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+
 <div class="page" id="manfaatvip">
 <h1>MANFAAT VIP</h1>
 <p class="subtitle">Perbandingan Paket VIP (FREE - MAX)</p>
