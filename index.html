@@ -1645,6 +1645,11 @@ object-fit:contain;
 .side-drawer-overlay.open .sd-nav-item:nth-child(8){animation-delay:.24s}
 .side-drawer-overlay.open .sd-nav-item:nth-child(9){animation-delay:.27s}
 .side-drawer-overlay.open .sd-nav-item:nth-child(10){animation-delay:.3s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(11){animation-delay:.33s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(12){animation-delay:.36s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(13){animation-delay:.39s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(14){animation-delay:.42s}
+.side-drawer-overlay.open .sd-nav-item:nth-child(15){animation-delay:.45s}
 .sd-nav-item::before{
   content:'';position:absolute;top:-40%;left:-10%;width:50%;height:180%;
   background:linear-gradient(115deg,transparent,rgba(255,60,60,.1),transparent);
@@ -1734,23 +1739,17 @@ object-fit:contain;
     <div class="sd-nav">
       <div class="sd-nav-divider">Menu Utama</div>
       <div class="sd-nav-item" onclick="sdGo('home',this)"><span class="sd-nav-icon"><i class="fa-solid fa-house"></i></span><span class="sd-nav-label">Beranda</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('primecalc',this)"><span class="sd-nav-icon"><i class="fa-solid fa-calculator"></i></span><span class="sd-nav-label">Prime Calculator</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('suntiklike','suntiklike',this)"><span class="sd-nav-icon"><i class="fa-solid fa-heart"></i></span><span class="sd-nav-label">Suntik Like FF</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('nickhijau','nickhijau',this)"><span class="sd-nav-icon"><i class="fa-solid fa-leaf"></i></span><span class="sd-nav-label">Nickname Hijau</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('botglory','botglory',this)"><span class="sd-nav-icon"><i class="fa-solid fa-robot"></i></span><span class="sd-nav-label">Bot Glory Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('nickeditor','nickeditor',this)"><span class="sd-nav-icon"><i class="fa-solid fa-pen-nib"></i></span><span class="sd-nav-label">Editor Bio</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGoDismiss('joinguild','joinguild',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Join Guild</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('shadowmenu',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Semua Layanan Shadow</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('toko',this)"><span class="sd-nav-icon"><i class="fa-solid fa-store"></i></span><span class="sd-nav-label">Zusmo Shop=</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdGo('apk',this)"><span class="sd-nav-icon"><i class="fa-solid fa-mobile-screen"></i></span><span class="sd-nav-label">APK Zusmo</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
-      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){window.open('https://kzrizusmostore.gamesquad.id','_blank')})"><span class="sd-nav-icon"><i class="fa-solid fa-gamepad"></i></span><span class="sd-nav-label">Topup Game</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('shadowmenu',this)"><span class="sd-nav-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="sd-nav-label">Zusmo Shadow</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdGo('toko',this)"><span class="sd-nav-icon"><i class="fa-solid fa-store"></i></span><span class="sd-nav-label">Zusmo Shop</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-divider">Reward &amp; Promo</div>
       <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openDailyClaim==='function')openDailyClaim();})"><span class="sd-nav-icon"><i class="fa-solid fa-gift"></i></span><span class="sd-nav-label">Klaim Harian</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
+      <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openMissionModal==='function')openMissionModal();})"><span class="sd-nav-icon"><i class="fa-solid fa-list-check"></i></span><span class="sd-nav-label">Misi Harian</span><span class="notif-dot" id="missionDot" style="position:static;margin-left:6px"></span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
       <div class="sd-nav-divider">Akun</div>
       <div class="sd-nav-item" onclick="sdGo('notifikasi',this)"><span class="sd-nav-icon"><i class="fa-solid fa-bell"></i></span><span class="sd-nav-label">Notifikasi</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
       <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openSettings==='function')openSettings();})"><span class="sd-nav-icon"><i class="fa-solid fa-gear"></i></span><span class="sd-nav-label">Pengaturan</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
       <div class="sd-nav-item" onclick="sdPressAndClose(this,function(){if(typeof openNameEditModal==='function')openNameEditModal();})"><span class="sd-nav-icon"><i class="fa-solid fa-pen"></i></span><span class="sd-nav-label">Ganti Nama</span><i class="fa-solid fa-chevron-right sd-nav-arrow"></i></div>
     </div>
-    <div class="sd-footer"><span class="sd-footer-dot"></span><span>KZRIZUSMO</span> &bull; Zusmo Shadow<br/>Versi 1.0</div>
+    <div class="sd-footer"><span class="sd-footer-dot"></span><span>KZRIZUSMO</span> &bull; Zusmo Shadow<br/>Versi 1.1</div>
   </div>
 </div>
 <div class="app-bottombar">
@@ -3567,6 +3566,7 @@ function neUpdatePreview(){
 function neClearInput(){
   const inp=document.getElementById('neInput');
   if(!inp||!inp.value)return;
+  if(inp.value.trim().length>10 && !confirm('Hapus semua teks bio yang sudah kamu ketik?'))return;
   inp.value='';
   inp._neLastStart=0;inp._neLastEnd=0;
   neUpdatePreview();
@@ -4471,10 +4471,16 @@ function jgCopyNickname(){
       btn.innerHTML='<i class="fa-regular fa-copy"></i>';
     },1400);
   };
+  const fallbackCopy=function(){
+    const ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);done();
+  };
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(done).catch(done);
+    navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
   }else{
-    done();
+    fallbackCopy();
   }
 }
 
@@ -6436,6 +6442,28 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
 .claim-btn-main img{width:18px;height:18px}
 .claim-btn-main:disabled{background:#3a3a3a;color:rgba(255,255,255,.5);cursor:default}
 .claim-countdown{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:10px}
+
+/* === Daily mission modal === */
+.mission-modal{max-width:400px;position:relative}
+.mission-header-icon{width:56px;height:56px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:rgba(255,71,71,.14);border-radius:16px}
+.mission-header-icon i{font-size:26px;color:#ff4747}
+.mission-list{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.mission-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.mission-item.done{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.35)}
+.mission-icon{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mission-icon i{font-size:15px;color:#ffe27a}
+.mission-item.done .mission-icon{background:rgba(0,255,136,.15)}
+.mission-item.done .mission-icon i{color:#00ff88}
+.mission-body{flex:1;min-width:0}
+.mission-title{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:2px}
+.mission-progress{font-size:.66rem;color:rgba(255,255,255,.5);font-weight:600}
+.mission-reward{font-size:.68rem;font-weight:800;color:#ffe27a;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.mission-reward img{width:13px;height:13px;object-fit:contain}
+.mission-claim-btn{flex-shrink:0;background:linear-gradient(90deg,#ff2b2b,#e00000);color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:.68rem;font-weight:800;cursor:pointer}
+.mission-claim-btn:active{transform:scale(.95)}
+.mission-claim-btn.claimed{background:rgba(0,255,136,.15);color:#00ff88;cursor:default}
+.mission-claim-btn.locked{background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);cursor:default}
+.mission-reset-note{font-size:.66rem;color:rgba(255,255,255,.4);text-align:center;margin-top:2px}
 </style>
 
 <div class="settings-overlay" id="settingsOverlay">
@@ -6757,7 +6785,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     <h3>Kode Redeem</h3>
     <p>Masukkan kode redeem untuk mendapatkan Diamond gratis.</p>
     <div class="redeem-row">
-      <input type="text" id="redeemCodeInput" class="redeem-input" placeholder="Masukkan kode redeem" autocomplete="off"/>
+      <input type="text" id="redeemCodeInput" class="redeem-input" placeholder="Masukkan kode redeem" autocomplete="off" enterkeyhint="done"/>
     </div>
     <div class="redeem-msg" id="redeemMsg"></div>
     <div class="zx-actions" style="margin-top:14px;">
@@ -6766,6 +6794,23 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
         <i class="fa-solid fa-gift"></i>
         <span>Klaim Kode</span>
       </button>
+    </div>
+  </div>
+</div>
+
+<div class="zx-modal-overlay" id="missionOverlay">
+  <div class="zx-modal mission-modal">
+    <div class="mission-header-icon"><i class="fa-solid fa-list-check"></i></div>
+    <h3>Misi Harian</h3>
+    <p>Selesaikan misi hari ini untuk dapat Diamond tambahan.</p>
+    <div class="mission-list" id="missionList"></div>
+    <button class="claim-btn-main" id="missionClaimAllBtn" style="width:100%;margin-top:2px;display:none" onclick="doClaimAllMissions()">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Klaim Semua</span>
+    </button>
+    <div class="mission-reset-note" id="missionResetNote"></div>
+    <div class="zx-actions" style="margin-top:14px;">
+      <button class="zx-btn-cancel" style="width:100%" onclick="closeMissionModal()">Tutup</button>
     </div>
   </div>
 </div>
@@ -7903,7 +7948,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       box.innerHTML = '<div class="oh-empty"><i class="fa-solid fa-receipt"></i><p>Belum ada riwayat transaksi Diamond.</p></div>';
       return;
     }
-    var iconMap = { buy:'fa-bag-shopping', claim:'fa-gift', redeem:'fa-ticket' };
+    var iconMap = { buy:'fa-bag-shopping', claim:'fa-gift', redeem:'fa-ticket', mission:'fa-list-check' };
     var html = '';
     for(var i=0;i<list.length;i++){
       var it = list[i];
@@ -8430,6 +8475,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Unlock semua item toko (permanen)', 0);
       setRedeemMsg('Berhasil! Semua item di toko telah terbuka permanen.', 'ok');
       input.value = '';
+      if(typeof progressMission === 'function') progressMission('redeem_code', 1);
       if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
       return;
     }
@@ -8442,6 +8488,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Kunci ulang semua item toko', 0);
       setRedeemMsg('Semua item di toko telah dikunci ulang. Perlu dibeli kembali.', 'ok');
       input.value = '';
+      if(typeof progressMission === 'function') progressMission('redeem_code', 1);
       if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
       return;
     }
@@ -8451,6 +8498,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var redeemOkMsg = 'Berhasil! +'+entry.amount+' Diamond ditambahkan.' + (entry.game ? (' (Reward dari game ' + entry.game + ')') : '');
     setRedeemMsg(redeemOkMsg, 'ok');
     input.value = '';
+    if(typeof progressMission === 'function') progressMission('redeem_code', 1);
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
 
@@ -8531,6 +8579,213 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     if(typeof applyProfileVisuals === 'function') applyProfileVisuals();
   }
   /* ================= END REDEEM CODE SYSTEM ================= */
+
+  /* ===================== DAILY MISSION SYSTEM ===================== */
+  var LS_MISSION_DATE    = 'zusmo_mission_date';
+  var LS_MISSION_PROG    = 'zusmo_mission_progress';
+  var LS_MISSION_CLAIMED = 'zusmo_mission_claimed';
+
+  var DAILY_MISSIONS = [
+    { id:'open_app',    title:'Buka Aplikasi Hari Ini', icon:'fa-door-open',   reward:20, goal:1 },
+    { id:'claim_daily',title:'Klaim Diamond Harian',    icon:'fa-gift',        reward:20, goal:1 },
+    { id:'visit_shop',  title:'Kunjungi Toko',          icon:'fa-store',       reward:15, goal:1 },
+    { id:'redeem_code', title:'Redeem 1 Kode',          icon:'fa-ticket',      reward:25, goal:1 }
+  ];
+
+  function resetMissionsIfNewDay(){
+    var today = getWIBDateStr();
+    try{
+      if(localStorage.getItem(LS_MISSION_DATE) !== today){
+        localStorage.setItem(LS_MISSION_DATE, today);
+        localStorage.setItem(LS_MISSION_PROG, '{}');
+        localStorage.setItem(LS_MISSION_CLAIMED, '[]');
+      }
+    }catch(e){}
+  }
+  function getMissionProgress(){
+    resetMissionsIfNewDay();
+    try{
+      var p = JSON.parse(localStorage.getItem(LS_MISSION_PROG) || '{}');
+      return (p && typeof p === 'object') ? p : {};
+    }catch(e){ return {}; }
+  }
+  function getMissionClaimed(){
+    resetMissionsIfNewDay();
+    try{
+      var c = JSON.parse(localStorage.getItem(LS_MISSION_CLAIMED) || '[]');
+      return Array.isArray(c) ? c : [];
+    }catch(e){ return []; }
+  }
+  function progressMission(id, amount){
+    resetMissionsIfNewDay();
+    var prog = getMissionProgress();
+    var claimed = getMissionClaimed();
+    if(claimed.indexOf(id) !== -1) return;
+    var m = null;
+    for(var i=0;i<DAILY_MISSIONS.length;i++){ if(DAILY_MISSIONS[i].id === id){ m = DAILY_MISSIONS[i]; break; } }
+    if(!m) return;
+    var cur = prog[id] || 0;
+    var wasDone = cur >= m.goal;
+    prog[id] = Math.min(m.goal, cur + (amount || 1));
+    try{ localStorage.setItem(LS_MISSION_PROG, JSON.stringify(prog)); }catch(e){}
+    updateMissionDot();
+    var overlayEl = document.getElementById('missionOverlay');
+    var overlayOpen = overlayEl && overlayEl.classList.contains('open');
+    if(overlayOpen) renderMissionUI();
+    else if(!wasDone && prog[id] >= m.goal && typeof zxShowToast === 'function'){
+      zxShowToast('Misi "'+m.title+'" selesai! Klaim Diamond-nya di menu Misi Harian.');
+    }
+  }
+  window.progressMission = progressMission;
+
+  function hasUnclaimedCompletedMission(){
+    var prog = getMissionProgress();
+    var claimed = getMissionClaimed();
+    for(var i=0;i<DAILY_MISSIONS.length;i++){
+      var m = DAILY_MISSIONS[i];
+      if((prog[m.id]||0) >= m.goal && claimed.indexOf(m.id) === -1) return true;
+    }
+    return false;
+  }
+  function updateMissionDot(){
+    var dot = document.getElementById('missionDot');
+    if(dot) dot.classList.toggle('dot-show', hasUnclaimedCompletedMission());
+    if(typeof updateDiamondDot === 'function') updateDiamondDot();
+  }
+  window.updateMissionDot = updateMissionDot;
+
+  function claimMissionCore(id){
+    var prog = getMissionProgress();
+    var claimed = getMissionClaimed();
+    var m = null;
+    for(var i=0;i<DAILY_MISSIONS.length;i++){ if(DAILY_MISSIONS[i].id === id){ m = DAILY_MISSIONS[i]; break; } }
+    if(!m) return null;
+    if((prog[id]||0) < m.goal) return null;
+    if(claimed.indexOf(id) !== -1) return null;
+    claimed.push(id);
+    try{ localStorage.setItem(LS_MISSION_CLAIMED, JSON.stringify(claimed)); }catch(e){}
+    return m;
+  }
+
+  function allMissionsClaimedToday(){
+    var claimed = getMissionClaimed();
+    for(var i=0;i<DAILY_MISSIONS.length;i++){
+      if(claimed.indexOf(DAILY_MISSIONS[i].id) === -1) return false;
+    }
+    return true;
+  }
+
+  window.doClaimMission = function(id){
+    var m = claimMissionCore(id);
+    if(!m) return;
+    setDiamond(getDiamond() + m.reward);
+    addHistoryEntry('mission', 'Misi Harian: '+m.title, 'Misi selesai', m.reward);
+    renderMissionUI();
+    updateMissionDot();
+    var missionModalEl = document.querySelector('#missionOverlay .zx-modal');
+    if(missionModalEl && typeof zxSpawnConfetti === 'function') zxSpawnConfetti(missionModalEl);
+    if(allMissionsClaimedToday() && typeof zxShowToast === 'function') zxShowToast('Semua misi harian selesai! Sampai jumpa besok 🎉');
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
+  window.doClaimAllMissions = function(){
+    var prog = getMissionProgress();
+    var claimed = getMissionClaimed();
+    var eligible = [];
+    for(var i=0;i<DAILY_MISSIONS.length;i++){
+      var m = DAILY_MISSIONS[i];
+      if((prog[m.id]||0) >= m.goal && claimed.indexOf(m.id) === -1) eligible.push(m);
+    }
+    if(!eligible.length) return;
+    var total = 0;
+    for(var j=0;j<eligible.length;j++){
+      var claimedMission = claimMissionCore(eligible[j].id);
+      if(claimedMission) total += claimedMission.reward;
+    }
+    if(total > 0){
+      setDiamond(getDiamond() + total);
+      addHistoryEntry('mission', 'Klaim Semua Misi Harian', eligible.length+' misi selesai', total);
+    }
+    renderMissionUI();
+    updateMissionDot();
+    var missionModalEl = document.querySelector('#missionOverlay .zx-modal');
+    if(missionModalEl && typeof zxSpawnConfetti === 'function') zxSpawnConfetti(missionModalEl);
+    if(allMissionsClaimedToday() && typeof zxShowToast === 'function') zxShowToast('Semua misi harian selesai! Sampai jumpa besok 🎉');
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
+  function renderMissionUI(){
+    var list = document.getElementById('missionList');
+    if(!list) return;
+    var prog = getMissionProgress();
+    var claimed = getMissionClaimed();
+    var html = '';
+    var claimableCount = 0;
+    for(var i=0;i<DAILY_MISSIONS.length;i++){
+      var m = DAILY_MISSIONS[i];
+      var cur = prog[m.id] || 0;
+      var isDone = cur >= m.goal;
+      var isClaimed = claimed.indexOf(m.id) !== -1;
+      if(isDone && !isClaimed) claimableCount++;
+      var btnHtml;
+      if(isClaimed){
+        btnHtml = '<button class="mission-claim-btn claimed" disabled><i class="fa-solid fa-check"></i></button>';
+      } else if(isDone){
+        btnHtml = '<button class="mission-claim-btn" onclick="doClaimMission(\''+m.id+'\')">Klaim</button>';
+      } else {
+        btnHtml = '<button class="mission-claim-btn locked" disabled>'+cur+'/'+m.goal+'</button>';
+      }
+      html += '<div class="mission-item'+(isClaimed?' done':'')+'">'+
+                '<div class="mission-icon"><i class="fa-solid '+m.icon+'"></i></div>'+
+                '<div class="mission-body">'+
+                  '<div class="mission-title">'+m.title+'</div>'+
+                  '<div class="mission-reward"><img loading="lazy" decoding="async" src="'+DIAMOND_ICON+'" alt=""/>+'+m.reward+' Diamond</div>'+
+                '</div>'+
+                btnHtml+
+              '</div>';
+    }
+    list.innerHTML = html;
+    var allBtn = document.getElementById('missionClaimAllBtn');
+    if(allBtn) allBtn.style.display = claimableCount > 1 ? 'flex' : 'none';
+    var note = document.getElementById('missionResetNote');
+    if(note && typeof startMissionCountdown === 'function') startMissionCountdown();
+  }
+
+  function startMissionCountdown(){
+    var note = document.getElementById('missionResetNote');
+    if(!note) return;
+    if(window._missionCountdownTimer) clearInterval(window._missionCountdownTimer);
+    function tick(){
+      var ms = msUntilNextWIBMidnight();
+      if(ms <= 0){ renderMissionUI(); return; }
+      var h = Math.floor(ms/3600000);
+      var m = Math.floor((ms%3600000)/60000);
+      var s = Math.floor((ms%60000)/1000);
+      note.textContent = 'Misi direset dalam '+(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' (WIB)';
+    }
+    tick();
+    window._missionCountdownTimer = setInterval(tick, 1000);
+  }
+
+  window.openMissionModal = function(){
+    progressMission('open_app', 1);
+    renderMissionUI();
+    var ov = document.getElementById('missionOverlay');
+    if(ov) ov.classList.add('open');
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+  window.closeMissionModal = function(){
+    var ov = document.getElementById('missionOverlay');
+    if(ov) ov.classList.remove('open');
+    if(window._missionCountdownTimer) clearInterval(window._missionCountdownTimer);
+    if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    progressMission('open_app', 1);
+    updateMissionDot();
+  });
+  /* ================= END DAILY MISSION SYSTEM ================= */
 
 
   function getDiamond(){
@@ -8659,7 +8914,8 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   function updateDiamondDot(){
     var dot = document.getElementById('diamondDot');
     if(!dot) return;
-    dot.classList.toggle('dot-show', !hasClaimedToday());
+    var hasReward = !hasClaimedToday() || (typeof hasUnclaimedCompletedMission === 'function' && hasUnclaimedCompletedMission());
+    dot.classList.toggle('dot-show', hasReward);
   }
   window.updateDiamondDot = updateDiamondDot;
   document.addEventListener('DOMContentLoaded', updateDiamondDot);
@@ -8681,6 +8937,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     addHistoryEntry('claim', 'Klaim Diamond Harian', 'Hari ke-'+streak, DAILY_CLAIM_AMOUNT);
     renderDailyClaimUI();
     updateDiamondDot();
+    if(typeof progressMission === 'function') progressMission('claim_daily', 1);
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
   };
 
@@ -8769,6 +9026,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var b = null;
     for(var i=0;i<BANNERS.length;i++){ if(BANNERS[i].id===id){ b = BANNERS[i]; break; } }
     if(!b) return;
+    if(typeof progressMission === 'function') progressMission('visit_shop', 1);
     pendingBuyBannerId = id;
     document.getElementById('buyBannerImg').src = b.img;
     document.getElementById('buyBannerName').textContent = b.name;
@@ -8932,6 +9190,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var w = null;
     for(var i=0;i<WALLPAPERS.length;i++){ if(WALLPAPERS[i].id===id){ w = WALLPAPERS[i]; break; } }
     if(!w) return;
+    if(typeof progressMission === 'function') progressMission('visit_shop', 1);
     pendingBuyWallpaperId = id;
     var vid = document.getElementById('buyWallpaperVideo');
     if(vid){ vid.src = w.video; vid.play().catch(function(){}); }
@@ -9643,6 +9902,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var m = null;
     for(var i=0;i<MUSICS.length;i++){ if(MUSICS[i].id===id){ m = MUSICS[i]; break; } }
     if(!m) return;
+    if(typeof progressMission === 'function') progressMission('visit_shop', 1);
     pendingBuyMusicId = id;
     document.getElementById('buyMusicName').textContent = m.name;
     document.getElementById('buyMusicPrice').textContent = m.price;
@@ -9746,6 +10006,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var l = null;
     for(var i=0;i<LOGOS.length;i++){ if(LOGOS[i].id===id){ l = LOGOS[i]; break; } }
     if(!l) return;
+    if(typeof progressMission === 'function') progressMission('visit_shop', 1);
     pendingBuyLogoId = id;
     var img = document.getElementById('buyLogoImg');
     if(img){ img.src = l.img; }
@@ -10750,6 +11011,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   if(claimOv) claimOv.addEventListener('click', function(e){ if(e.target === this) closeDailyClaim(); });
   var redeemOv = document.getElementById('redeemOverlay');
   if(redeemOv) redeemOv.addEventListener('click', function(e){ if(e.target === this) closeRedeemModal(); });
+  var redeemInputEl = document.getElementById('redeemCodeInput');
+  if(redeemInputEl) redeemInputEl.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); doRedeemCode(); } });
+  var missionOv = document.getElementById('missionOverlay');
+  if(missionOv) missionOv.addEventListener('click', function(e){ if(e.target === this) closeMissionModal(); });
   var buyLogoOv = document.getElementById('buyLogoOverlay');
   if(buyLogoOv) buyLogoOv.addEventListener('click', function(e){ if(e.target === this) closeBuyLogo(); });
   var buyMusicOv = document.getElementById('buyMusicOverlay');
@@ -10982,98 +11247,49 @@ function launchGame(url, logoUrl, gameName, evt){
     inset 0 1px 0 rgba(255,255,255,.08),
     inset 0 -2px 4px rgba(0,0,0,.2);
 }
-/* WhatsApp & Grup WA — gradiasi hijau gelap ke terang, horizontal */
-.cmty-item.cmty-wa,.cmty-item.cmty-grp{
-  background:linear-gradient(90deg,#0a6b38 0%,#1fbf5c 50%,#4be89a 100%) !important;
-  box-shadow:
-    0 2px 0 rgba(6,58,32,.65),
-    0 6px 12px rgba(0,0,0,.3),
-    inset 0 -3px 6px rgba(4,40,22,.35);
-}
-.cmty-item.cmty-wa:active,.cmty-item.cmty-grp:active{
-  box-shadow:
-    0 1px 0 rgba(6,58,32,.65),
-    0 2px 6px rgba(0,0,0,.25),
-    inset 0 -2px 4px rgba(4,40,22,.3);
-}
-.cmty-item.cmty-wa::after,.cmty-item.cmty-grp::after{
-  display:none !important;
-}
-.cmty-item.cmty-wa .shop-cat-body h4,.cmty-item.cmty-grp .shop-cat-body h4{color:#fff;}
-.cmty-item.cmty-wa .shop-cat-body small,.cmty-item.cmty-grp .shop-cat-body small{color:rgba(255,255,255,.82);}
-/* TikTok — dark glossy bubble */
-.cmty-item.cmty-tt{
-  background:linear-gradient(180deg,#3a3a3a 0%,#232323 55%,#151515 100%) !important;
+/* WhatsApp / Grup WA / TikTok / Trakteer — DISAMAKAN PERSIS dengan card Admin (gradiasi gelap solid) */
+.cmty-item.cmty-wa,.cmty-item.cmty-grp,.cmty-item.cmty-tt,.cmty-item.cmty-trakteer{
+  background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%) !important;
   box-shadow:
     0 2px 0 rgba(0,0,0,.4),
-    0 6px 12px rgba(0,0,0,.25),
+    0 6px 12px rgba(0,0,0,.3),
     inset 0 1px 0 rgba(255,255,255,.1),
     inset 0 -3px 6px rgba(0,0,0,.2);
 }
-.cmty-item.cmty-tt:active{
-  box-shadow:0 1px 0 rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.2);
-}
-/* Dukung (Saweria) — gradiasi emas bubble */
-.cmty-item.cmty-gold{
-  background:linear-gradient(180deg,#ffd28a 0%,#ffb347 45%,#c67c15 100%) !important;
+.cmty-item.cmty-wa:active,.cmty-item.cmty-grp:active,.cmty-item.cmty-tt:active,.cmty-item.cmty-trakteer:active{
   box-shadow:
-    0 2px 0 rgba(120,68,4,.6),
-    0 6px 12px rgba(0,0,0,.2),
-    inset 0 1px 0 rgba(255,255,255,.35),
-    inset 0 -3px 6px rgba(90,50,0,.25);
+    0 1px 0 rgba(0,0,0,.35),
+    0 2px 6px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -2px 4px rgba(0,0,0,.2);
 }
-.cmty-item.cmty-gold:active{
-  box-shadow:0 1px 0 rgba(120,68,4,.6),0 2px 6px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -2px 4px rgba(90,50,0,.2);
-}
-.cmty-item.cmty-gold .shop-cat-body h4{color:#2b1a00;}
-.cmty-item.cmty-gold .shop-cat-body small{color:rgba(35,20,0,.7);}
-/* Admin — gradiasi ungu bubble */
+.cmty-item.cmty-wa .shop-cat-body h4,.cmty-item.cmty-grp .shop-cat-body h4,.cmty-item.cmty-tt .shop-cat-body h4,.cmty-item.cmty-trakteer .shop-cat-body h4{color:#fff;}
+.cmty-item.cmty-wa .shop-cat-body small,.cmty-item.cmty-grp .shop-cat-body small,.cmty-item.cmty-tt .shop-cat-body small,.cmty-item.cmty-trakteer .shop-cat-body small{color:rgba(255,255,255,.82);}
+/* Admin — gradiasi gelap solid (referensi utama) */
 .cmty-item.cmty-admin{
-  background:linear-gradient(180deg,#a5a5ff 0%,#7a7aff 45%,#4c4ccc 100%) !important;
+  background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%) !important;
   box-shadow:
-    0 2px 0 rgba(40,40,140,.6),
-    0 6px 12px rgba(0,0,0,.2),
-    inset 0 1px 0 rgba(255,255,255,.3),
-    inset 0 -3px 6px rgba(30,30,110,.3);
+    0 2px 0 rgba(0,0,0,.4),
+    0 6px 12px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.1),
+    inset 0 -3px 6px rgba(0,0,0,.2);
 }
 .cmty-item.cmty-admin:active{
-  box-shadow:0 1px 0 rgba(40,40,140,.6),0 2px 6px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 4px rgba(30,30,110,.25);
+  box-shadow:0 1px 0 rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.2);
 }
 .cmty-item.cmty-admin .shop-cat-body h4{color:#fff;}
 .cmty-item.cmty-admin .shop-cat-body small{color:rgba(255,255,255,.82);}
-/* Icon bubbles — convex, no neon border/glow */
+/* Icon bubbles — semua card pakai bubble putih glossy seperti Admin */
 .cmty-item .shop-cat-icon{
-  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03));
+  background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
   border:none;
-  box-shadow:0 1px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 3px rgba(0,0,0,.2);
+  box-shadow:0 1px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 3px rgba(0,0,0,.08);
 }
-.cmty-item.cmty-wa .shop-cat-icon,.cmty-item.cmty-grp .shop-cat-icon{
-  background:linear-gradient(180deg,#2fd47e,#0a6b38);
-  box-shadow:0 1px 0 rgba(6,60,34,.3),inset 0 1px 0 rgba(160,255,200,.35),inset 0 -1px 3px rgba(0,0,0,.2);
-}
-.cmty-item.cmty-wa .shop-cat-icon i{color:#fff;text-shadow:none;}
-.cmty-item.cmty-tt .shop-cat-icon{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03));box-shadow:0 1px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 3px rgba(0,0,0,.2);}
+.cmty-item.cmty-wa .shop-cat-icon i{color:#25d366;text-shadow:none;}
+.cmty-item.cmty-grp .shop-cat-icon i{color:#25d366;text-shadow:none;}
+.cmty-item.cmty-trakteer .shop-cat-icon i{color:#ff7a3d;text-shadow:none;}
 .cmty-item.cmty-wa .shop-cat-body,.cmty-item.cmty-tt .shop-cat-body{padding-right:50px;}
-.cmty-deco-wa{
-  position:absolute;right:-10px;top:50%;
-  font-size:80px;line-height:1;
-  transform:translateY(-50%) rotate(-16deg) scale(1.1);
-  color:rgba(255,255,255,.28);
-  opacity:.5;pointer-events:none;
-}
-.cmty-deco-tt{
-  position:absolute;right:-2px;top:50%;
-  width:76px;height:76px;
-  transform:translateY(-50%) rotate(-15deg) scale(1.15);
-  opacity:.3;pointer-events:none;overflow:visible;
-  filter:grayscale(1) brightness(1.6);
-}
-.cmty-item.cmty-grp .shop-cat-icon{background:linear-gradient(180deg,#2fd47e,#0a6b38);box-shadow:0 1px 0 rgba(6,60,34,.3),inset 0 1px 0 rgba(160,255,200,.35),inset 0 -1px 3px rgba(0,0,0,.2);}
-.cmty-item.cmty-grp .shop-cat-icon i{color:#fff;text-shadow:none;}
-.cmty-item.cmty-gold .shop-cat-icon{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));box-shadow:0 1px 0 rgba(90,50,0,.3),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 3px rgba(0,0,0,.08);}
-.cmty-item.cmty-gold .shop-cat-icon i{color:#a8620a;text-shadow:none;}
-.cmty-item.cmty-admin .shop-cat-icon{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));box-shadow:0 1px 0 rgba(30,30,110,.3),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 3px rgba(0,0,0,.08);}
-.cmty-item.cmty-admin .shop-cat-icon i{color:#4c4ccc;text-shadow:none;}
+.cmty-deco-wa,.cmty-deco-tt{display:none !important;}
 .cmty-copy-btn{flex-shrink:0;width:34px;height:34px;border-radius:12px;border:none;background:linear-gradient(180deg,#ff6b6b,#e03131);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 0 rgba(140,10,10,.5),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .15s,box-shadow .15s;}
 .cmty-copy-btn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(140,10,10,.5),inset 0 1px 0 rgba(255,255,255,.18);}
 .cmty-copy-btn.copied{background:linear-gradient(180deg,#4ee89b,#00c46f);box-shadow:0 1px 0 rgba(6,90,50,.5),inset 0 1px 0 rgba(255,255,255,.3);}
@@ -11105,6 +11321,7 @@ function launchGame(url, logoUrl, gameName, evt){
 .cmty-admin-item .shop-cat-icon{position:relative;}
 .cmty-hours-pill{display:flex;align-items:center;justify-content:center;gap:7px;margin:14px 0 4px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:.2px;}
 .cmty-hours-pill i{color:#ffb347;}
+
 #communityTab .shop-hero,#communityTab .cmty-panel.active .cmty-item{animation:cmtyCardIn .45s cubic-bezier(.22,.85,.4,1) both;}
 #communityTab .cmty-panel.active .cmty-item:nth-child(1){animation-delay:.03s;}
 #communityTab .cmty-panel.active .cmty-item:nth-child(2){animation-delay:.08s;}
@@ -11141,6 +11358,18 @@ function launchGame(url, logoUrl, gameName, evt){
 .cmty-rules-box.open{grid-template-rows:1fr;}
 .cmty-rules-inner{overflow:hidden;padding:0 18px;}
 .cmty-rules-box.open .cmty-rules-inner{padding:16px 18px;}
+
+/* Per-item card wrapper — sama persis kaya card Admin: satu blok gelap solid, deskripsi hidden ikut warna wrapper (BUKAN transparan) */
+.cmty-item-card{
+  border-radius:24px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%);
+  box-shadow:0 5px 0 rgba(0,0,0,.55),0 12px 20px rgba(0,0,0,.4),inset 0 1.5px 0 rgba(255,255,255,.16);
+}
+.cmty-item-card .cmty-item{background:transparent !important;box-shadow:none !important;border-radius:0 !important;}
+.cmty-item-card .cmty-item::after{display:none !important;}
+.cmty-item-card .cmty-rules-toggle{background:transparent;border-top:1px solid rgba(255,255,255,.1);padding:10px 16px;font-size:11px;}
+.cmty-item-card .cmty-rules-box{background:transparent;border-top:none;font-size:11.5px;}
 
 /* === Progress Page === */
 .prog-hero{position:relative;overflow:hidden;border-radius:24px;padding:16px 16px;margin:6px 0 18px;background:linear-gradient(135deg,rgba(30,0,0,.95),rgba(10,10,10,.98));border:1px solid rgba(255,43,43,.35);box-shadow:0 0 0 1px rgba(255,43,43,.08),0 8px 32px rgba(255,43,43,.12),inset 0 1px 0 rgba(255,255,255,.06);isolation:isolate;}
@@ -11291,6 +11520,7 @@ function launchGame(url, logoUrl, gameName, evt){
 .oh-icon.buy{background:rgba(255,43,43,.15);color:#ff4747}
 .oh-icon.claim{background:rgba(0,255,136,.12);color:#00ff88}
 .oh-icon.redeem{background:rgba(255,180,60,.14);color:#ffb347}
+.oh-icon.mission{background:rgba(122,162,255,.14);color:#7aa2ff}
 .oh-body{flex:1;min-width:0}
 .oh-body h5{font-size:12.5px;font-weight:800;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .oh-body small{font-size:10.5px;color:rgba(255,255,255,.45);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -11682,12 +11912,29 @@ function launchGame(url, logoUrl, gameName, evt){
 <div class="cmty-panel active" data-panel="social">
 <div class="hm-section-lbl"><span>📱 Media Sosial Resmi</span></div>
 <div class="shop-cat-list">
+  <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
     <div class="cmty-deco cmty-deco-wa"><i class="fa-brands fa-whatsapp"></i></div>
     <div class="shop-cat-icon" style="background:linear-gradient(180deg,rgba(37,211,102,.22),rgba(0,0,0,.3));border-color:rgba(37,211,102,.35)"><i class="fa-brands fa-whatsapp" style="color:#25d366;text-shadow:0 0 10px rgba(37,211,102,.6)"></i></div>
     <div class="shop-cat-body"><h4>Saluran WhatsApp<i class="fa-solid fa-circle-check cmty-verified" aria-hidden="true"></i></h4><small>Update, kode redeem &amp; pengumuman resmi</small></div>
     <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
+  <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
+    <span><i class="fa-solid fa-circle-exclamation"></i>Info Saluran WhatsApp</span>
+    <i class="fa-solid fa-chevron-down cmty-rules-chev"></i>
+  </button>
+  <div class="cmty-rules-box">
+    <div class="cmty-rules-inner">
+      <ol style="margin:0 0 8px 18px;padding:0;">
+        <li>Semua pengumuman &amp; kode redeem resmi HANYA lewat saluran ini.</li>
+        <li>Waspada akun tiruan yang mengatasnamakan Zusmo.</li>
+        <li>Admin tidak pernah minta password/OTP lewat DM.</li>
+      </ol>
+      <p style="margin:0;font-weight:600;color:#ffb347;">Aktifkan notifikasi biar gak ketinggalan update.</p>
+    </div>
+  </div>
+  </div>
+  <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-tt" onclick="window.open('https://www.tiktok.com/@kzrizusmo_store','_blank')">
     <div class="cmty-deco cmty-deco-tt">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
@@ -11706,21 +11953,68 @@ function launchGame(url, logoUrl, gameName, evt){
     <div class="shop-cat-body"><h4>TikTok<i class="fa-solid fa-circle-check cmty-verified" aria-hidden="true"></i></h4><small>Konten tutorial &amp; tips dari admin</small></div>
     <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
+  <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
+    <span><i class="fa-solid fa-circle-exclamation"></i>Info TikTok</span>
+    <i class="fa-solid fa-chevron-down cmty-rules-chev"></i>
+  </button>
+  <div class="cmty-rules-box">
+    <div class="cmty-rules-inner">
+      <ol style="margin:0 0 8px 18px;padding:0;">
+        <li>Konten tutorial &amp; tips resmi dari admin Zusmo.</li>
+        <li>Cek tanda centang biru buat mastiin akun resmi.</li>
+        <li>Follow biar gak ketinggalan konten terbaru.</li>
+      </ol>
+      <p style="margin:0;font-weight:600;color:#ffb347;">Waspada akun tiruan yang niru-niru konten Zusmo.</p>
+    </div>
+  </div>
+  </div>
 </div>
 </div>
 
 <div class="cmty-panel" data-panel="group">
 <div class="hm-section-lbl"><span>👥 Grup WhatsApp</span></div>
 <div class="shop-cat-list">
+  <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-grp cmty-grp-item" data-link="https://chat.whatsapp.com/ECT06FXiivsL8kI0Jhecdj?s=cl&amp;p=a&amp;ilr=4" onclick="window.open('https://chat.whatsapp.com/ECT06FXiivsL8kI0Jhecdj?s=cl&amp;p=a&amp;ilr=4','_blank')">
     <div class="shop-cat-icon"><i class="fa-solid fa-comments"></i></div>
     <div class="shop-cat-body"><h4>Grup Diskusi Utama</h4><small>Sharing tips, tanya jawab &amp; sesama pengguna Zusmo</small></div>
     <button type="button" class="cmty-copy-btn" onclick="event.stopPropagation();copyCmtyLink(this)" aria-label="Salin link grup"><i class="fa-regular fa-copy"></i></button>
   </div>
+  <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
+    <span><i class="fa-solid fa-circle-exclamation"></i>Aturan Grup Diskusi</span>
+    <i class="fa-solid fa-chevron-down cmty-rules-chev"></i>
+  </button>
+  <div class="cmty-rules-box">
+    <div class="cmty-rules-inner">
+      <ol style="margin:0 0 8px 18px;padding:0;">
+        <li>Dilarang promosi/jualan produk di luar Zusmo.</li>
+        <li>Dilarang spam chat maupun broadcast berlebihan.</li>
+        <li>Wajib sopan &amp; saling menghargai sesama member.</li>
+      </ol>
+      <p style="margin:0;font-weight:600;color:#ffb347;">Member yang melanggar bisa dikeluarkan tanpa peringatan.</p>
+    </div>
+  </div>
+  </div>
+  <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-grp cmty-grp-item" data-link="https://chat.whatsapp.com/KxF1644zngD9ZBNq6M5Ise?s=cl&amp;p=a&amp;ilr=4" onclick="window.open('https://chat.whatsapp.com/KxF1644zngD9ZBNq6M5Ise?s=cl&amp;p=a&amp;ilr=4','_blank')">
     <div class="shop-cat-icon"><i class="fa-solid fa-gift"></i></div>
     <div class="shop-cat-body"><h4>Grup Info &amp; Giveaway</h4><small>Info promo, event, dan giveaway diamond</small></div>
     <button type="button" class="cmty-copy-btn" onclick="event.stopPropagation();copyCmtyLink(this)" aria-label="Salin link grup"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
+    <span><i class="fa-solid fa-circle-exclamation"></i>Aturan Grup Info &amp; Giveaway</span>
+    <i class="fa-solid fa-chevron-down cmty-rules-chev"></i>
+  </button>
+  <div class="cmty-rules-box">
+    <div class="cmty-rules-inner">
+      <ol style="margin:0 0 8px 18px;padding:0;">
+        <li>Grup khusus info promo, event &amp; giveaway diamond.</li>
+        <li>Dilarang chat di luar topik info/giveaway.</li>
+        <li>Pantau terus biar gak ketinggalan giveaway.</li>
+      </ol>
+      <p style="margin:0;font-weight:600;color:#ffb347;">Dipantau admin, bukan tempat jualan pihak luar.</p>
+    </div>
+  </div>
   </div>
 </div>
 </div>
@@ -11728,14 +12022,31 @@ function launchGame(url, logoUrl, gameName, evt){
 <div class="cmty-panel" data-panel="support">
 <div class="hm-section-lbl"><span>💛 Dukung Kami</span></div>
 <div class="shop-cat-list">
-  <!-- GANTI link Saweria di bawah ini dengan link Saweria asli kamu -->
-  <div class="shop-cat-item cmty-item cmty-gold" onclick="window.open('https://saweria.co/kzrizusmo','_blank')">
-    <div class="shop-cat-icon" style="background:linear-gradient(180deg,rgba(255,180,60,.22),rgba(0,0,0,.3));border-color:rgba(255,180,60,.35)"><i class="fa-solid fa-mug-hot" style="color:#ffb347;text-shadow:0 0 10px rgba(255,180,60,.6)"></i></div>
-    <div class="shop-cat-body"><h4>Saweria</h4><small>Traktir admin, dukung pengembangan aplikasi ini</small></div>
+  <!-- GANTI link Trakteer di bawah ini dengan link Trakteer asli kamu -->
+  <div class="cmty-item-card">
+  <div class="shop-cat-item cmty-item cmty-trakteer" onclick="window.open('https://trakteer.id/GANTI_USERNAME_TRAKTEER','_blank')">
+    <div class="shop-cat-icon" style="background:linear-gradient(180deg,rgba(255,140,60,.24),rgba(0,0,0,.3));border-color:rgba(255,110,50,.35)"><i class="fa-solid fa-mug-hot" style="color:#ff7a3d;text-shadow:0 0 10px rgba(255,110,50,.6)"></i></div>
+    <div class="shop-cat-body"><h4>Trakteer</h4><small>Traktir admin, dukung pengembangan aplikasi ini</small></div>
     <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+  </div>
+  <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
+    <span><i class="fa-solid fa-circle-exclamation"></i>Info Dukungan</span>
+    <i class="fa-solid fa-chevron-down cmty-rules-chev"></i>
+  </button>
+  <div class="cmty-rules-box">
+    <div class="cmty-rules-inner">
+      <ol style="margin:0 0 8px 18px;padding:0;">
+        <li>Dukungan dipakai buat biaya server, domain &amp; fitur baru.</li>
+        <li>Nominal bebas, seikhlasnya, gak ada minimum.</li>
+        <li>Sukarela, bukan syarat buat pakai aplikasi.</li>
+      </ol>
+      <p style="margin:0;font-weight:600;color:#ffb347;">Terima kasih buat semua yang udah &amp; akan dukung Zusmo 💛</p>
+    </div>
+  </div>
   </div>
 </div>
 </div>
+
 
 <div class="cmty-panel" data-panel="admin">
 <div class="hm-section-lbl"><span>🎧 Hubungi Admin</span></div>
