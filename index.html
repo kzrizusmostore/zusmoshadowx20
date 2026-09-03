@@ -1886,6 +1886,12 @@ object-fit:contain;
 
 <!-- SECONDARY LIST -->
 <div class="hm-section-lbl" style="margin-top:18px;"><span data-i18n="home.moreMenu">📥 Lainnya</span></div>
+<div class="hm-menu" onclick="dismissNewBadge('redeemPage');showPage('redeemPage')" style="position:relative;">
+  <span class="hm-tile-badge" id="newBadge_redeemPage" style="top:10px;right:10px;"></span>
+  <div class="hm-menu-icon"><i class="fa-solid fa-ticket"></i></div>
+  <div class="hm-menu-body"><h4>REDEEM KODE</h4><small>Tukar kode redeem untuk hadiah gratis</small></div>
+  <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
+</div>
 <div class="hm-menu" onclick="dismissNewBadge('joinguild');showPage('joinguild')" style="position:relative;">
   <span class="hm-tile-badge" id="newBadge_joinguild" style="top:10px;right:10px;"></span>
   <div class="hm-menu-icon"><i class="fa-solid fa-shield-halved"></i></div>
@@ -4092,6 +4098,77 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+<!-- REDEEM KODE PAGE -->
+<div class="page" id="redeemPage">
+<style>
+#redeemPage{padding-bottom:80px;}
+#redeemPage .pc-card::before{display:none;}
+
+.rdp-row{display:flex;gap:8px;margin-top:4px;}
+.rdp-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 15px;color:#fff;font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;min-width:0;outline:none;font-family:inherit;transition:border .2s;}
+.rdp-input::placeholder{color:rgba(255,255,255,.4);text-transform:none;letter-spacing:normal;font-weight:400;}
+.rdp-input:focus{border-color:#ff4747;}
+.rdp-msg{margin-top:10px;font-size:.78rem;line-height:1.5;min-height:1.2em;}
+.rdp-msg.err{color:#ff5757;}
+.rdp-msg.ok{color:#00ff88;}
+.rdp-claim-btn{width:100%;margin-top:14px;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff4747,#961020);color:#fff;font-size:13.5px;font-weight:800;letter-spacing:.4px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s;box-shadow:0 5px 20px rgba(255,71,71,.25),inset 0 1px 0 rgba(255,255,255,.12);}
+.rdp-claim-btn:active{transform:scale(.97);}
+
+.rdp-info-box{background:rgba(255,180,0,.07);border:1px solid rgba(255,180,0,.28);border-radius:14px;padding:13px 14px;font-size:11.5px;color:#e8c877;line-height:1.65;margin-top:16px;display:flex;gap:10px;align-items:flex-start;}
+.rdp-info-box i{color:#ffb300;font-size:14px;margin-top:1px;flex-shrink:0;}
+
+.rdp-history{margin-top:10px;}
+.rdp-history-item{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,.06);}
+.rdp-history-item:last-child{border-bottom:none;}
+.rdp-history-icon{width:36px;height:36px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:#00ff88;font-size:14px;}
+.rdp-history-body{flex:1;min-width:0;}
+.rdp-history-body h5{font-size:12.5px;font-weight:700;color:#fff;margin:0 0 2px;}
+.rdp-history-body small{font-size:10.5px;color:#777;}
+.rdp-history-empty{text-align:center;padding:24px 10px;color:#666;font-size:11.5px;}
+.rdp-history-empty i{display:block;font-size:26px;margin-bottom:8px;color:#444;}
+</style>
+
+<p class="pc-title"><span class="red">REDEEM</span>&nbsp;<span class="wht">KODE</span></p>
+<p class="pc-sub">Tukarkan kode redeem untuk mendapatkan hadiah gratis</p>
+
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-ticket"></i></div>
+    <div class="pc-head-text">
+      <h3>MASUKKAN KODE</h3>
+      <p>Klaim reward dari kode redeem resmi</p>
+    </div>
+  </div>
+
+  <div class="rdp-row">
+    <input type="text" id="redeemPageCodeInput" class="rdp-input" placeholder="Masukkan kode redeem" autocomplete="off" enterkeyhint="done"/>
+  </div>
+  <div class="rdp-msg" id="redeemPageMsg"></div>
+
+  <button type="button" class="rdp-claim-btn" onclick="doRedeemCode('redeemPage')">
+    <i class="fa-solid fa-gift"></i>
+    <span>Klaim Kode</span>
+  </button>
+
+  <div class="rdp-info-box">
+    <i class="fa-solid fa-circle-info"></i>
+    <span>Kode redeem resmi hanya dibagikan lewat saluran WhatsApp KZRIZUSMO.</span>
+  </div>
+</div>
+
+<div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-head-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+    <div class="pc-head-text">
+      <h3>RIWAYAT REDEEM</h3>
+      <p>Semua kode yang pernah kamu klaim</p>
+    </div>
+  </div>
+
+  <div class="rdp-history" id="redeemPageHistoryList"></div>
+</div>
+</div>
+
 <!-- JOIN GUILD Z SHADOWS PAGE -->
 <div class="page" id="joinguild">
 <style>
@@ -5390,6 +5467,7 @@ if(id==='notifikasi' && typeof markNotifSeen==='function') markNotifSeen();
 if(id==='shopTab' && typeof getDiamond==='function'){ var __sdb=document.getElementById('shopDiamondBalance'); if(__sdb) __sdb.textContent=getDiamond(); }
 if(id==='eventTab' && typeof getDiamond==='function'){ var __edb=document.getElementById('eventDiamondBalance'); if(__edb) __edb.textContent=getDiamond(); }
 if(id==='progressTab' && typeof renderProgressOrders==='function') renderProgressOrders();
+if(id==='redeemPage' && typeof renderRedeemPageHistory==='function') renderRedeemPageHistory();
 
 var homeTabs=['home','eventTab','shopTab','progressTab','communityTab'];
 var bottomBar=document.querySelector('.app-bottombar');
@@ -8277,6 +8355,28 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     }
     box.innerHTML = html;
   }
+  function renderRedeemPageHistory(){
+    var box = document.getElementById('redeemPageHistoryList');
+    if(!box) return;
+    var list = getHistory().filter(function(it){ return it.type === 'redeem'; });
+    if(!list.length){
+      box.innerHTML = '<div class="rdp-history-empty"><i class="fa-solid fa-ticket"></i><p>Belum ada kode redeem yang diklaim.</p></div>';
+      return;
+    }
+    var html = '';
+    for(var i=0;i<list.length;i++){
+      var it = list[i];
+      var plus = it.amount >= 0;
+      var amtHtml = it.amount === 0 ? '' :
+        '<div class="oh-amt '+(plus?'plus':'minus')+'" style="margin-left:auto;flex-shrink:0;">'+(plus?'+':'')+it.amount+'<img loading="lazy" decoding="async" src="'+DIAMOND_ICON+'" alt=""/></div>';
+      html += '<div class="rdp-history-item">'+
+                '<div class="rdp-history-icon"><i class="fa-solid fa-ticket"></i></div>'+
+                '<div class="rdp-history-body"><h5>'+it.title+'</h5><small>'+it.desc+' &middot; '+formatHistoryDate(it.ts)+'</small></div>'+
+                amtHtml+
+              '</div>';
+    }
+    box.innerHTML = html;
+  }
   function refreshOrderHistoryDot(){
     var dot = document.getElementById('orderHistoryDot');
     if(!dot) return;
@@ -8764,32 +8864,39 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     var nowUTCms = nowWIB.getTime() - 7*3600000; // back to real UTC ms
     return nowUTCms >= endOfDayUTC;
   }
-  function setRedeemMsg(text, type){
-    var msg = document.getElementById('redeemMsg');
+  function getRedeemUIIds(source){
+    if(source === 'redeemPage') return { input:'redeemPageCodeInput', msg:'redeemPageMsg', msgClass:'rdp-msg' };
+    return { input:'redeemCodeInput', msg:'redeemMsg', msgClass:'redeem-msg' };
+  }
+  function setRedeemMsg(text, type, source){
+    var ids = getRedeemUIIds(source);
+    var msg = document.getElementById(ids.msg);
     if(!msg) return;
     msg.textContent = text;
-    msg.className = 'redeem-msg' + (type ? ' '+type : '');
+    msg.className = ids.msgClass + (type ? ' '+type : '');
   }
-  window.doRedeemCode = function(){
-    var input = document.getElementById('redeemCodeInput');
+  window.doRedeemCode = function(source){
+    var ids = getRedeemUIIds(source);
+    var input = document.getElementById(ids.input);
     if(!input) return;
     var code = (input.value || '').trim().toUpperCase();
-    if(!code){ setRedeemMsg('Masukkan kode redeem terlebih dahulu.', 'err'); return; }
+    if(!code){ setRedeemMsg('Masukkan kode redeem terlebih dahulu.', 'err', source); return; }
     var entry = REDEEM_CODES[code];
-    if(!entry){ setRedeemMsg('Kode redeem tidak valid.', 'err'); return; }
+    if(!entry){ setRedeemMsg('Kode redeem tidak valid.', 'err', source); return; }
     if(!entry.unlimited && !entry.unlockAll && !entry.lockAll){
-      if(isCodeExpired(entry.expiresWIB)){ setRedeemMsg('Kode redeem sudah kedaluwarsa.', 'err'); return; }
-      if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+      if(isCodeExpired(entry.expiresWIB)){ setRedeemMsg('Kode redeem sudah kedaluwarsa.', 'err', source); return; }
+      if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err', source); return; }
       markCodeRedeemed(code);
     }
     if(entry.unlockAll){
       if(!entry.unlimited){
-        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err', source); return; }
         markCodeRedeemed(code);
       }
       unlockAllShopItems();
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Unlock semua item toko (permanen)', 0);
-      setRedeemMsg('Berhasil! Semua item di toko telah terbuka permanen.', 'ok');
+      if(typeof renderRedeemPageHistory === 'function') renderRedeemPageHistory();
+      setRedeemMsg('Berhasil! Semua item di toko telah terbuka permanen.', 'ok', source);
       input.value = '';
       if(typeof progressMission === 'function') progressMission('redeem_code', 1);
       if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -8797,12 +8904,13 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     }
     if(entry.lockAll){
       if(!entry.unlimited){
-        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err'); return; }
+        if(getRedeemedCodes().indexOf(code) !== -1){ setRedeemMsg('Kode redeem ini sudah pernah kamu klaim.', 'err', source); return; }
         markCodeRedeemed(code);
       }
       lockAllShopItems();
       addHistoryEntry('redeem', 'Redeem Kode: '+code, 'Kunci ulang semua item toko', 0);
-      setRedeemMsg('Semua item di toko telah dikunci ulang. Perlu dibeli kembali.', 'ok');
+      if(typeof renderRedeemPageHistory === 'function') renderRedeemPageHistory();
+      setRedeemMsg('Semua item di toko telah dikunci ulang. Perlu dibeli kembali.', 'ok', source);
       input.value = '';
       if(typeof progressMission === 'function') progressMission('redeem_code', 1);
       if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -8811,8 +8919,9 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     setDiamond(getDiamond() + entry.amount);
     var redeemDesc = entry.game ? ('Reward dari game ' + entry.game) : 'Kode ditukar dengan Diamond';
     addHistoryEntry('redeem', 'Redeem Kode: '+code, redeemDesc, entry.amount);
+    if(typeof renderRedeemPageHistory === 'function') renderRedeemPageHistory();
     var redeemOkMsg = 'Berhasil! +'+entry.amount+' Diamond ditambahkan.' + (entry.game ? (' (Reward dari game ' + entry.game + ')') : '');
-    setRedeemMsg(redeemOkMsg, 'ok');
+    setRedeemMsg(redeemOkMsg, 'ok', source);
     input.value = '';
     if(typeof progressMission === 'function') progressMission('redeem_code', 1);
     if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
@@ -11329,6 +11438,15 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   if(redeemOv) redeemOv.addEventListener('click', function(e){ if(e.target === this) closeRedeemModal(); });
   var redeemInputEl = document.getElementById('redeemCodeInput');
   if(redeemInputEl) redeemInputEl.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); doRedeemCode(); } });
+  var redeemPageInputEl = document.getElementById('redeemPageCodeInput');
+  if(redeemPageInputEl){
+    redeemPageInputEl.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); doRedeemCode('redeemPage'); } });
+    redeemPageInputEl.addEventListener('input', function(){
+      var pos = this.selectionStart;
+      this.value = this.value.toUpperCase();
+      this.setSelectionRange(pos, pos);
+    });
+  }
   var missionOv = document.getElementById('missionOverlay');
   if(missionOv) missionOv.addEventListener('click', function(e){ if(e.target === this) closeMissionModal(); });
   var buyLogoOv = document.getElementById('buyLogoOverlay');
@@ -11563,35 +11681,25 @@ function launchGame(url, logoUrl, gameName, evt){
     inset 0 1px 0 rgba(255,255,255,.08),
     inset 0 -2px 4px rgba(0,0,0,.2);
 }
-/* WhatsApp / Grup WA / TikTok / Trakteer — DISAMAKAN PERSIS dengan card Admin (gradiasi gelap solid) */
-.cmty-item.cmty-wa,.cmty-item.cmty-grp,.cmty-item.cmty-tt,.cmty-item.cmty-trakteer{
-  background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%) !important;
-  box-shadow:
-    0 2px 0 rgba(0,0,0,.4),
-    0 6px 12px rgba(0,0,0,.3),
-    inset 0 1px 0 rgba(255,255,255,.1),
-    inset 0 -3px 6px rgba(0,0,0,.2);
+/* WhatsApp / Grup WA / TikTok / Trakteer — gradiasi warna per kategori, hanya sampai baris deskripsi (.cmty-item), BUKAN seluruh kartu. Simple, tanpa efek 3D/emboss. */
+.cmty-item.cmty-wa,.cmty-item.cmty-grp{
+  background:linear-gradient(165deg,#3ee88f 0%,#1fa35c 55%,#0d5c35 100%) !important;
+  box-shadow:none !important;
 }
-.cmty-item.cmty-wa:active,.cmty-item.cmty-grp:active,.cmty-item.cmty-tt:active,.cmty-item.cmty-trakteer:active{
-  box-shadow:
-    0 1px 0 rgba(0,0,0,.35),
-    0 2px 6px rgba(0,0,0,.25),
-    inset 0 1px 0 rgba(255,255,255,.08),
-    inset 0 -2px 4px rgba(0,0,0,.2);
+.cmty-item.cmty-tt{
+  background:linear-gradient(165deg,#3a3a3a 0%,#1c1c1c 55%,#050505 100%) !important;
+  box-shadow:none !important;
+}
+.cmty-item.cmty-trakteer{
+  background:linear-gradient(165deg,#ffab5c 0%,#ff7a3d 55%,#c9500f 100%) !important;
+  box-shadow:none !important;
 }
 .cmty-item.cmty-wa .shop-cat-body h4,.cmty-item.cmty-grp .shop-cat-body h4,.cmty-item.cmty-tt .shop-cat-body h4,.cmty-item.cmty-trakteer .shop-cat-body h4{color:#fff;}
 .cmty-item.cmty-wa .shop-cat-body small,.cmty-item.cmty-grp .shop-cat-body small,.cmty-item.cmty-tt .shop-cat-body small,.cmty-item.cmty-trakteer .shop-cat-body small{color:rgba(255,255,255,.82);}
-/* Admin — gradiasi gelap solid (referensi utama) */
+/* Admin — gradiasi ungu, hanya sampai baris deskripsi. Simple, tanpa efek 3D/emboss. */
 .cmty-item.cmty-admin{
-  background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%) !important;
-  box-shadow:
-    0 2px 0 rgba(0,0,0,.4),
-    0 6px 12px rgba(0,0,0,.3),
-    inset 0 1px 0 rgba(255,255,255,.1),
-    inset 0 -3px 6px rgba(0,0,0,.2);
-}
-.cmty-item.cmty-admin:active{
-  box-shadow:0 1px 0 rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.2);
+  background:linear-gradient(165deg,#8a6cff 0%,#5a3fd6 55%,#392999 100%) !important;
+  box-shadow:none !important;
 }
 .cmty-item.cmty-admin .shop-cat-body h4{color:#fff;}
 .cmty-item.cmty-admin .shop-cat-body small{color:rgba(255,255,255,.82);}
@@ -11601,15 +11709,15 @@ function launchGame(url, logoUrl, gameName, evt){
   border:none;
   box-shadow:0 1px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 3px rgba(0,0,0,.08);
 }
-.cmty-item.cmty-wa .shop-cat-icon i{color:#25d366;text-shadow:none;}
-.cmty-item.cmty-grp .shop-cat-icon i{color:#25d366;text-shadow:none;}
+.cmty-item.cmty-wa .shop-cat-icon i{color:#25d366;text-shadow:none;font-size:23px;}
+.cmty-item.cmty-grp .shop-cat-icon i{color:#1fa35c;text-shadow:none;}
 .cmty-item.cmty-trakteer .shop-cat-icon i{color:#ff7a3d;text-shadow:none;}
 .cmty-item.cmty-wa .shop-cat-body,.cmty-item.cmty-tt .shop-cat-body{padding-right:50px;}
 .cmty-deco-wa,.cmty-deco-tt{display:none !important;}
 .cmty-copy-btn{flex-shrink:0;width:34px;height:34px;border-radius:12px;border:none;background:linear-gradient(180deg,#ff6b6b,#e03131);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 0 rgba(140,10,10,.5),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .15s,box-shadow .15s;}
 .cmty-copy-btn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(140,10,10,.5),inset 0 1px 0 rgba(255,255,255,.18);}
 .cmty-copy-btn.copied{background:linear-gradient(180deg,#4ee89b,#00c46f);box-shadow:0 1px 0 rgba(6,90,50,.5),inset 0 1px 0 rgba(255,255,255,.3);}
-.cmty-admin-item{background:transparent !important;box-shadow:none !important;border-radius:0 !important;}
+.cmty-admin-item{box-shadow:none !important;border-radius:0 !important;}
 .cmty-admin-item::after{display:none;}
 .cmty-admin-item .shop-cat-body{cursor:pointer;}
 .cmty-admin-item .shop-cat-body h4{color:#fff;}
@@ -11682,7 +11790,7 @@ function launchGame(url, logoUrl, gameName, evt){
   background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%);
   box-shadow:0 5px 0 rgba(0,0,0,.55),0 12px 20px rgba(0,0,0,.4),inset 0 1.5px 0 rgba(255,255,255,.16);
 }
-.cmty-item-card .cmty-item{background:transparent !important;box-shadow:none !important;border-radius:0 !important;}
+.cmty-item-card .cmty-item{border-radius:0 !important;}
 .cmty-item-card .cmty-item::after{display:none !important;}
 .cmty-item-card .cmty-rules-toggle{background:transparent;border-top:1px solid rgba(255,255,255,.1);padding:10px 16px;font-size:11px;}
 .cmty-item-card .cmty-rules-box{background:transparent;border-top:none;font-size:11.5px;}
@@ -12231,7 +12339,7 @@ function launchGame(url, logoUrl, gameName, evt){
   <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-wa" onclick="window.open('https://whatsapp.com/channel/0029VbDOVUJIHphDqJoiNH1L','_blank')">
     <div class="cmty-deco cmty-deco-wa"><i class="fa-brands fa-whatsapp"></i></div>
-    <div class="shop-cat-icon" style="background:linear-gradient(180deg,rgba(37,211,102,.22),rgba(0,0,0,.3));border-color:rgba(37,211,102,.35)"><i class="fa-brands fa-whatsapp" style="color:#25d366;text-shadow:0 0 10px rgba(37,211,102,.6)"></i></div>
+    <div class="shop-cat-icon"><i class="fa-brands fa-whatsapp"></i></div>
     <div class="shop-cat-body"><h4>Saluran WhatsApp<i class="fa-solid fa-circle-check cmty-verified" aria-hidden="true"></i></h4><small>Update, kode redeem &amp; pengumuman resmi</small></div>
     <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
@@ -12294,7 +12402,7 @@ function launchGame(url, logoUrl, gameName, evt){
   <div class="shop-cat-item cmty-item cmty-grp cmty-grp-item" data-link="https://chat.whatsapp.com/ECT06FXiivsL8kI0Jhecdj?s=cl&amp;p=a&amp;ilr=4" onclick="window.open('https://chat.whatsapp.com/ECT06FXiivsL8kI0Jhecdj?s=cl&amp;p=a&amp;ilr=4','_blank')">
     <div class="shop-cat-icon"><i class="fa-solid fa-comments"></i></div>
     <div class="shop-cat-body"><h4>Grup Diskusi Utama</h4><small>Sharing tips, tanya jawab &amp; sesama pengguna Zusmo</small></div>
-    <button type="button" class="cmty-copy-btn" onclick="event.stopPropagation();copyCmtyLink(this)" aria-label="Salin link grup"><i class="fa-regular fa-copy"></i></button>
+    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
   <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
     <span><i class="fa-solid fa-circle-exclamation"></i>Aturan Grup Diskusi</span>
@@ -12315,7 +12423,7 @@ function launchGame(url, logoUrl, gameName, evt){
   <div class="shop-cat-item cmty-item cmty-grp cmty-grp-item" data-link="https://chat.whatsapp.com/KxF1644zngD9ZBNq6M5Ise?s=cl&amp;p=a&amp;ilr=4" onclick="window.open('https://chat.whatsapp.com/KxF1644zngD9ZBNq6M5Ise?s=cl&amp;p=a&amp;ilr=4','_blank')">
     <div class="shop-cat-icon"><i class="fa-solid fa-gift"></i></div>
     <div class="shop-cat-body"><h4>Grup Info &amp; Giveaway</h4><small>Info promo, event, dan giveaway diamond</small></div>
-    <button type="button" class="cmty-copy-btn" onclick="event.stopPropagation();copyCmtyLink(this)" aria-label="Salin link grup"><i class="fa-regular fa-copy"></i></button>
+    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
   <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
     <span><i class="fa-solid fa-circle-exclamation"></i>Aturan Grup Info &amp; Giveaway</span>
@@ -12341,7 +12449,7 @@ function launchGame(url, logoUrl, gameName, evt){
   <!-- GANTI link Trakteer di bawah ini dengan link Trakteer asli kamu -->
   <div class="cmty-item-card">
   <div class="shop-cat-item cmty-item cmty-trakteer" onclick="window.open('https://trakteer.id/GANTI_USERNAME_TRAKTEER','_blank')">
-    <div class="shop-cat-icon" style="background:linear-gradient(180deg,rgba(255,140,60,.24),rgba(0,0,0,.3));border-color:rgba(255,110,50,.35)"><i class="fa-solid fa-mug-hot" style="color:#ff7a3d;text-shadow:0 0 10px rgba(255,110,50,.6)"></i></div>
+    <div class="shop-cat-icon"><i class="fa-solid fa-mug-hot"></i></div>
     <div class="shop-cat-body"><h4>Trakteer</h4><small>Traktir admin, dukung pengembangan aplikasi ini</small></div>
     <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
@@ -12367,10 +12475,10 @@ function launchGame(url, logoUrl, gameName, evt){
 <div class="cmty-panel" data-panel="admin">
 <div class="hm-section-lbl"><span>🎧 Hubungi Admin</span></div>
 <div class="cmty-admin-combined" style="background:linear-gradient(180deg,#3c3c3c 0%,#262626 55%,#1a1a1a 100%);border:none;border-radius:24px;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.55),0 12px 20px rgba(0,0,0,.4),inset 0 1.5px 0 rgba(255,255,255,.16);">
-  <div class="shop-cat-item cmty-item cmty-admin cmty-admin-item" data-number="6283800287738" style="border:none;border-radius:0;background:transparent;">
+  <div class="shop-cat-item cmty-item cmty-admin cmty-admin-item" data-number="6283800287738" style="border:none;border-radius:0;">
     <div class="shop-cat-icon"><i class="fa-solid fa-headset"></i><span class="cmty-online-dot"></span></div>
     <div class="shop-cat-body" onclick="window.open('https://wa.me/6283800287738','_blank')"><h4>Admin CS</h4><small>+62 838-0028-7738</small></div>
-    <button type="button" class="cmty-copy-btn" onclick="event.stopPropagation();copyAdminNumber(this)" aria-label="Salin nomor admin"><i class="fa-regular fa-copy"></i></button>
+    <i class="fa-solid fa-chevron-right hm-menu-arrow"></i>
   </div>
   <div class="cmty-hours-pill" style="margin:0;border-radius:0;border-top:1px solid rgba(255,255,255,.1);"><i class="fa-solid fa-clock"></i><span>Jam operasional admin: 09.00 - 22.00 WIB</span></div>
   <button type="button" class="cmty-rules-toggle" onclick="toggleCmtyRules(this)" aria-expanded="false">
