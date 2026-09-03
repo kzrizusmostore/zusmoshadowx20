@@ -1472,6 +1472,7 @@
     }
 
     .skin-preview .sp-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: linear-gradient(180deg, #34d399, #15803d); }
+    .skin-preview .sp-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .skin-preview .sp-body { position: absolute; left: 50%; bottom: 12px; width: 34px; height: 40px; transform: translateX(-50%); border-radius: 12px; box-shadow: inset 0 -8px 0 var(--sp-belt); overflow: hidden; }
     .skin-preview .sp-body.pattern-stripe { background-image: linear-gradient(135deg, rgba(255,255,255,.24) 0 10%, transparent 10% 20%, rgba(255,255,255,.12) 20% 30%, transparent 30% 100%), linear-gradient(180deg, var(--sp-top), var(--sp-body)); }
     .skin-preview .sp-body.hard-split { background-image: linear-gradient(135deg, rgba(255,255,255,.24) 0 10%, transparent 10% 20%, rgba(255,255,255,.12) 20% 30%, transparent 30% 100%), linear-gradient(180deg, var(--sp-top) 0%, var(--sp-top) 63%, var(--sp-body) 63%, var(--sp-body) 100%); }
@@ -1515,6 +1516,7 @@
       margin-bottom: 8px;
       position: relative;
     }
+    .theme-preview .tp-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
     .theme-preview.meadow { background: radial-gradient(circle at 75% 20%, rgba(255,255,255,.95) 0 10%, rgba(255,255,255,.28) 10% 24%, transparent 24%), linear-gradient(180deg, #7fd0ff, #f4fbff 70%), linear-gradient(180deg, transparent 60%, #34d399 60%, #15803d 100%); }
     .theme-preview.ocean { background: radial-gradient(circle at 72% 20%, rgba(255,255,255,.92) 0 10%, rgba(255,255,255,.24) 10% 24%, transparent 24%), linear-gradient(180deg, #7dd3fc 0 46%, #38bdf8 46% 58%, #0ea5e9 58% 100%); }
@@ -1918,6 +1920,57 @@
     .toggle-btn.warn { background: linear-gradient(180deg, #f59e0b, #d97706); color: white; }
     .toggle-btn.warn .btn-sub { color: rgba(255,255,255,.88); }
     .toggle-btn.ghost { background: rgba(255,255,255,.72); color: var(--text); border: 1px solid rgba(15,23,42,.08); }
+    .toggle-btn.danger { background: linear-gradient(180deg, #ff6b6b, #d31414); color: #fff; box-shadow: 0 10px 22px rgba(211,20,20,.32); }
+    .toggle-btn.danger .btn-sub { color: rgba(255,255,255,.88); }
+
+    .exit-dialog {
+      justify-items: center;
+      text-align: center;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,241,241,.95));
+      border-color: rgba(220,38,38,.16);
+    }
+
+    .exit-dialog-avatar.skin-preview {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    }
+    .exit-dialog-avatar .sp-floor { display: none; }
+    .exit-dialog-avatar .sp-body {
+      bottom: 6px;
+      transform: translateX(-50%) scale(1.3);
+      transform-origin: center bottom;
+    }
+    .exit-dialog-note {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 260px;
+    }
+    .exit-dialog .purchase-dialog-actions {
+      width: 100%;
+      gap: 10px;
+    }
+    .exit-dialog .toggle-btn {
+      padding: 13px 8px;
+      min-height: 48px;
+      border-radius: 16px;
+    }
+    .exit-dialog .toggle-btn .btn-top {
+      font-size: 13.5px;
+    }
+    .exit-dialog .toggle-btn .btn-main {
+      white-space: nowrap;
+    }
 
     .result-card {
       width: min(420px, calc(100vw - 24px));
@@ -2245,6 +2298,18 @@
       </div>
     </div>
 
+    <div class="purchase-dialog-backdrop hidden" id="exitConfirmDialog">
+      <div class="glass purchase-dialog exit-dialog" role="dialog" aria-modal="true" aria-labelledby="exitConfirmTitle">
+        <div class="skin-preview exit-dialog-avatar" id="exitConfirmAvatar"></div>
+        <div class="purchase-dialog-title" id="exitConfirmTitle">Keluar dari Game?</div>
+        <div class="exit-dialog-note" id="exitConfirmNote">Progress run ini belum kesimpan sebagai skor akhir.</div>
+        <div class="purchase-dialog-actions">
+          <button class="toggle-btn active" id="exitConfirmStayBtn"><span class="btn-top"><span class="btn-main">Lanjut Main</span></span></button>
+          <button class="toggle-btn danger" id="exitConfirmOkBtn"><span class="btn-top"><span class="btn-main">Ya, Keluar</span></span></button>
+        </div>
+      </div>
+    </div>
+
     <div class="purchase-dialog-backdrop hidden" id="redeemConfirmDialog">
       <div class="glass purchase-dialog" role="dialog" aria-modal="true" aria-labelledby="redeemConfirmTitle">
         <div class="purchase-dialog-head">
@@ -2331,7 +2396,7 @@
 
   <script>
     const canvas = document.getElementById('game');
-    const ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
     const BGM_TRACK_URL = 'https://files.catbox.moe/uol84a.mp3';
     const HORROR_JUMPSCARE_SFX_URL = 'https://cdn.yupra.my.id/yp/t8jmyexj.mp3';
     const FREESTYLE_KRETEK_SFX_URL = 'https://files.catbox.moe/5vg0qe.mp3';
@@ -2439,6 +2504,12 @@
     const redeemConfirmGet = document.getElementById('redeemConfirmGet');
     const redeemConfirmCancelBtn = document.getElementById('redeemConfirmCancelBtn');
     const redeemConfirmOkBtn = document.getElementById('redeemConfirmOkBtn');
+
+    const exitConfirmDialog = document.getElementById('exitConfirmDialog');
+    const exitConfirmAvatar = document.getElementById('exitConfirmAvatar');
+    const exitConfirmNote = document.getElementById('exitConfirmNote');
+    const exitConfirmStayBtn = document.getElementById('exitConfirmStayBtn');
+    const exitConfirmOkBtn2 = document.getElementById('exitConfirmOkBtn');
 
     const openMissionBtn = document.getElementById('openMissionBtn');
     const missionSheet = document.getElementById('missionSheet');
@@ -4100,13 +4171,8 @@
         return `
         <button class="skin-card${skin.special ? ' special-choice' : ''}${owned ? '' : ' locked-card'}${i === selectedSkin ? ' active' : ''}" data-skin="${i}">
           <div class="skin-preview">
-            ${skinAuraPreviewMarkup(skin, 'card')}
             <div class="sp-floor"></div>
-            <div class="sp-body pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--sp-top:${skin.bodyTop}; --sp-body:${skin.body}; --sp-belt:${skin.belt}; --sp-hat:${skin.hat}; bottom:${skin.hover ? 22 : 12}px;${skin.opacity != null ? ` opacity:${skin.opacity};` : ''}">
-              <div class="sp-hat ${skin.hatType}"></div>
-              ${skin.hatLetter ? `<div class="sp-hat-letter" style="color:${skin.hatLetterColor || '#ffffff'};">${skin.hatLetter}</div>` : ''}
-              <div class="sp-eyes ${skin.eye}"></div>
-            </div>
+            <canvas class="sp-canvas" data-skin-canvas="${i}"></canvas>
           </div>
           <div class="skin-name">${skin.name}</div>
           ${skinSpecialBadgeMarkup(skin)}
@@ -4130,7 +4196,119 @@
           }, renderSkinCards);
         });
       });
+      renderSkinCardCanvases(skinGrid);
+      renderSkinCardCanvases(skinPanel);
+    }
 
+    function drawThemePreview(targetCtx, theme, w, h, t) {
+      const prevCtx = ctx;
+      ctx = targetCtx;
+      ctx.clearRect(0, 0, w, h);
+      const groundY = h * 0.72;
+
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, theme.sky[0]);
+      grad.addColorStop(.55, theme.sky[1]);
+      grad.addColorStop(1, theme.sky[2]);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      if (theme.key !== 'horror') {
+        const sunX = w * 0.78, sunY = h * 0.22, sunR = h * 0.32;
+        const sun = ctx.createRadialGradient(sunX, sunY, 2, sunX, sunY, sunR);
+        sun.addColorStop(0, theme.sun);
+        sun.addColorStop(.5, 'rgba(255,255,255,.30)');
+        sun.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = sun;
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (theme.key === 'space' || theme.key === 'aurora' || theme.key === 'cyber' || theme.key === 'horror' || theme.key === 'obsidian' || theme.key === 'eclipse' || theme.key === 'imperium') {
+        ctx.fillStyle = 'rgba(255,255,255,.9)';
+        for (let i = 0; i < 14; i++) {
+          const sx = (i * 37 + t * 6) % w;
+          const sy = (i * 19) % (groundY * 0.8);
+          ctx.beginPath();
+          ctx.arc(sx, sy, i % 3 === 0 ? 1.3 : 0.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      if (theme.key === 'city') {
+        for (let i = 0; i < 5; i++) {
+          const bw = w * 0.12;
+          const bx = i * (w / 5) + w * 0.02;
+          const bh = h * (0.18 + (i % 3) * 0.09);
+          ctx.fillStyle = i % 2 ? 'rgba(51,65,85,.85)' : 'rgba(15,23,42,.85)';
+          ctx.fillRect(bx, groundY - bh, bw, bh);
+        }
+      } else if (theme.key === 'ocean') {
+        // gunung/hills dilewati, laut digambar di ground
+      } else {
+        for (let i = 0; i < 3; i++) {
+          const mw = w * 0.42;
+          const mx = w * 0.2 + i * w * 0.32;
+          const peak = groundY - h * (0.22 + (i % 2) * 0.08);
+          ctx.fillStyle = i % 2 ? 'rgba(255,255,255,.30)' : 'rgba(255,255,255,.18)';
+          ctx.beginPath();
+          ctx.moveTo(mx - mw / 2, groundY);
+          ctx.lineTo(mx, peak);
+          ctx.lineTo(mx + mw / 2, groundY);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+
+      const groundGrad = ctx.createLinearGradient(0, groundY, 0, h);
+      groundGrad.addColorStop(0, theme.groundTop);
+      groundGrad.addColorStop(1, theme.ground);
+      ctx.fillStyle = groundGrad;
+      ctx.fillRect(0, groundY, w, h - groundY);
+
+      if (theme.key === 'ocean') {
+        ctx.strokeStyle = 'rgba(255,255,255,.32)';
+        ctx.lineWidth = Math.max(1, h * 0.02);
+        for (let y = groundY + h * 0.08; y < h; y += h * 0.14) {
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += w * 0.12) {
+            const yy = y + Math.sin((x + t * 60) * 0.05) * h * 0.02;
+            if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+          }
+          ctx.stroke();
+        }
+      } else if (theme.key === 'snow') {
+        ctx.fillStyle = 'rgba(255,255,255,.85)';
+        for (let i = 0; i < 8; i++) {
+          const sx = (i * 41 + t * 12) % w;
+          const sy = ((i * 27 + t * 22) % (h - groundY)) + groundY;
+          ctx.beginPath();
+          ctx.arc(sx, sy, 1.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx = prevCtx;
+    }
+
+    function renderThemeCardCanvases(root) {
+      if (!root) return;
+      root.querySelectorAll('canvas[data-theme-canvas]').forEach(cv => {
+        const idx = Number(cv.dataset.themeCanvas);
+        const theme = themes[idx];
+        if (!theme) return;
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        const w = cv.clientWidth || 78;
+        const h = cv.clientHeight || 78;
+        if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
+          cv.width = Math.round(w * dpr);
+          cv.height = Math.round(h * dpr);
+        }
+        const cctx = cv.getContext('2d');
+        cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawThemePreview(cctx, theme, w, h, performance.now() * 0.001);
+      });
     }
 
     function renderThemeCards() {
@@ -4139,15 +4317,7 @@
         return `
         <button class="theme-card${theme.key === 'beautiful' ? ' beautiful-choice' : ''}${theme.special ? ' special-choice' : ''}${owned ? '' : ' locked-card'}${i === selectedTheme ? ' active' : ''}" data-theme="${i}">
           <div class="theme-preview ${theme.key}">
-            <div class="mini-hill"></div>
-            <div class="mini-wave"></div>
-            <div class="mini-island"></div>
-            <div class="mini-skyline"></div>
-            <div class="mini-road"></div>
-            <div class="mini-pine"></div>
-            <div class="mini-dune"></div>
-            <div class="mini-snow"></div>
-            <div class="mini-star"></div>
+            <canvas class="tp-canvas" data-theme-canvas="${i}"></canvas>
           </div>
           <div class="theme-name">${theme.name}</div>
           ${themeBadgeMarkup(theme)}
@@ -4173,6 +4343,8 @@
           }, renderThemeCards);
         });
       });
+      renderThemeCardCanvases(themeGrid);
+      renderThemeCardCanvases(themePanel);
     }
 
     function renderFXCards() {
@@ -4436,6 +4608,8 @@
       if (weaponPanel) weaponPanel.classList.toggle('hidden', tab !== 'weapon');
       updateSheetSubtitle(tab);
       updateQuickResumeButton();
+      if (tab === 'skin') renderSkinCardCanvases(skinPanel);
+      if (tab === 'theme') renderThemeCardCanvases(themePanel);
     }
 
     function openSheet(tab = 'skin') {
@@ -7912,6 +8086,55 @@
       ctx.restore();
     }
 
+    function drawSkinFigure(targetCtx, skin, w, h, t) {
+      const prevCtx = ctx;
+      ctx = targetCtx;
+      const blinkClosed = false;
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(w / 2, h / 2 + h * 0.08);
+      const scale = h / 96;
+      ctx.scale(scale, scale);
+      const bob = Math.sin(t * 1.6) * 2.2;
+      ctx.translate(0, skin.hover ? -6 + bob : bob * 0.4);
+      drawSpecialSkinWings(skin, t);
+      drawSpecialSkinAura(skin, t);
+      const renderedReferenceSkin = drawReferenceSkinBase(skin, t, blinkClosed);
+      if (!renderedReferenceSkin) {
+        applyPatternFill(-25, -26, 50, 54, skin);
+        drawHat(skin);
+        drawEyeStyle(skin.eye, blinkClosed);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(0, 8, 8, 0.15, Math.PI - 0.15);
+        ctx.stroke();
+        ctx.fillStyle = skin.belt;
+        ctx.fillRect(-25, 8, 50, 10);
+      }
+      ctx.restore();
+      ctx = prevCtx;
+    }
+
+    function renderSkinCardCanvases(root) {
+      if (!root) return;
+      root.querySelectorAll('canvas[data-skin-canvas]').forEach(cv => {
+        const idx = Number(cv.dataset.skinCanvas);
+        const skin = skins[idx];
+        if (!skin) return;
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        const w = cv.clientWidth || 78;
+        const h = cv.clientHeight || 78;
+        if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
+          cv.width = Math.round(w * dpr);
+          cv.height = Math.round(h * dpr);
+        }
+        const cctx = cv.getContext('2d');
+        cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawSkinFigure(cctx, skin, w, h, performance.now() * 0.001);
+      });
+    }
+
     function drawPlayer() {
       const skin = getSkin();
       const blinkClosed = player.blinkFor > 0;
@@ -8498,11 +8721,53 @@
       window.close();
     }
 
+    function renderExitConfirmAvatar() {
+      if (!exitConfirmAvatar) return;
+      const skin = getSkin();
+      exitConfirmAvatar.innerHTML = `
+        ${skinAuraPreviewMarkup(skin, 'card')}
+        <div class="sp-body pattern-${skin.pattern}${skin.hardSplit ? ' hard-split' : ''}" style="--sp-top:${skin.bodyTop}; --sp-body:${skin.body}; --sp-belt:${skin.belt}; --sp-hat:${skin.hat};${skin.opacity != null ? ` opacity:${skin.opacity};` : ''}">
+          <div class="sp-hat ${skin.hatType}"></div>
+          ${skin.hatLetter ? `<div class="sp-hat-letter" style="color:${skin.hatLetterColor || '#ffffff'};">${skin.hatLetter}</div>` : ''}
+          <div class="sp-eyes ${skin.eye}"></div>
+        </div>
+      `;
+    }
+
+    let exitDialogPrevState = null;
+    function openExitConfirmDialog() {
+      if (!exitConfirmDialog) { returnToKzrizusmoApp(); return; }
+      renderExitConfirmAvatar();
+      exitDialogPrevState = state;
+      if (state === 'playing') state = 'paused';
+      exitConfirmNote.textContent = exitDialogPrevState === 'playing'
+        ? 'Progress run ini belum kesimpan sebagai skor akhir.'
+        : 'Kamu bisa balik lagi kapan aja buat lanjut main.';
+      exitConfirmDialog.classList.remove('hidden');
+    }
+    function closeExitConfirmDialog(resume) {
+      if (exitConfirmDialog) exitConfirmDialog.classList.add('hidden');
+      if (resume && exitDialogPrevState === 'playing' && state === 'paused') state = 'playing';
+      exitDialogPrevState = null;
+    }
     if (exitGameBtn) exitGameBtn.addEventListener('click', () => {
       audio.unlock(); audio.click();
-      const ok = window.confirm('Keluar dari game?');
-      if (!ok) return;
+      openExitConfirmDialog();
+    });
+    if (exitConfirmStayBtn) exitConfirmStayBtn.addEventListener('click', () => {
+      audio.unlock(); audio.click();
+      closeExitConfirmDialog(true);
+    });
+    if (exitConfirmOkBtn2) exitConfirmOkBtn2.addEventListener('click', () => {
+      audio.unlock(); audio.click();
+      closeExitConfirmDialog(false);
       returnToKzrizusmoApp();
+    });
+    if (exitConfirmDialog) exitConfirmDialog.addEventListener('click', (event) => {
+      if (event.target === exitConfirmDialog) {
+        audio.unlock(); audio.click();
+        closeExitConfirmDialog(true);
+      }
     });
 
     function positionExitBtn() {
