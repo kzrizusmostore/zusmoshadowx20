@@ -2908,7 +2908,7 @@ function copyVpayNumber(e,number){
 const vpayMethodMeta={
   qris:{name:'QRIS',icon:'fa-qrcode',iconType:'fa',class:'m-qris'},
   dana:{name:'DANA',iconSrc:'zusmo-assets/logodana.png',iconType:'img',class:'m-dana'},
-  gopay:{name:'GoPay',iconSrc:'zusmo-assets/logpgopay.png',iconType:'img',class:'m-gopay'},
+  gopay:{name:'GoPay',iconSrc:'zusmo-assets/logogopay.png',iconType:'img',class:'m-gopay'},
   shopee:{name:'ShopeePay',iconSrc:'zusmo-assets/logospay.png',iconType:'img',class:'m-shopee'}
 };
 let vpayTimerInterval=null;
@@ -3219,7 +3219,7 @@ function contactAdminVpaySuccess(){
       <i class="fa-solid fa-hashtag vuv-field-icon"></i>
       <input class="vuv-input" id="vuvUidInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="13" placeholder="Contoh: 1234567890" oninput="vuvCleanUid(this)"/>
     </div>
-    <div class="vuv-hint">UID harus 8-13 karakter angka, sesuai akun Free Fire kamu</div>
+    <div class="vuv-hint">Masukkan UID sesuai akun Free Fire kamu</div>
   </div>
 
   <div class="vuv-group">
@@ -3349,10 +3349,10 @@ function contactAdminVpaySuccess(){
   border:1px solid rgba(255,255,255,.25);
   box-shadow:inset 0 2px 3px rgba(255,255,255,.3), inset 0 -3px 5px rgba(0,0,0,.3);
 }
-.vpay-icon img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;}
+.vpay-icon img{width:60%;height:60%;object-fit:contain;display:block;}
 .vpay-method.m-dana .vpay-icon,
 .vpay-method.m-gopay .vpay-icon,
-.vpay-method.m-shopee .vpay-icon{background:#fff;padding:0;overflow:hidden;}
+.vpay-method.m-shopee .vpay-icon{padding:0;overflow:hidden;}
 .vpay-info{flex:1;min-width:0;}
 .vpay-name{font-size:14.5px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .vpay-badge{
@@ -3435,19 +3435,17 @@ function contactAdminVpaySuccess(){
     <div class="vpay-icon"><img src="zusmo-assets/logodana.png" alt="DANA"/></div>
     <div class="vpay-info">
       <div class="vpay-name">DANA</div>
-      <div class="vpay-number">089515092009</div>
+      <div class="vpay-number">Bayar langsung dari saldo DANA kamu</div>
     </div>
-    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
   </div>
 
   <div class="vpay-method m-gopay" data-method="gopay" onclick="selectVpayMethod(this,'gopay')">
-    <div class="vpay-icon"><img src="zusmo-assets/logpgopay.png" alt="GoPay"/></div>
+    <div class="vpay-icon"><img src="zusmo-assets/logogopay.png" alt="GoPay"/></div>
     <div class="vpay-info">
       <div class="vpay-name">GoPay</div>
-      <div class="vpay-number">089515092009</div>
+      <div class="vpay-number">Bayar langsung dari saldo GoPay kamu</div>
     </div>
-    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
   </div>
 
@@ -3455,17 +3453,11 @@ function contactAdminVpaySuccess(){
     <div class="vpay-icon"><img src="zusmo-assets/logospay.png" alt="ShopeePay"/></div>
     <div class="vpay-info">
       <div class="vpay-name">ShopeePay</div>
-      <div class="vpay-number">089515092009</div>
+      <div class="vpay-number">Bayar langsung dari saldo ShopeePay kamu</div>
     </div>
-    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
   </div>
 
-</div>
-
-<div class="vpl-note" style="margin:16px 2px 0;">
-  <i class="fa-solid fa-circle-info"></i>
-  <div>Pilih metode bayar, transfer sesuai nominal ke nomor di atas, lalu tekan tombol di bawah untuk konfirmasi ke Admin via WhatsApp.</div>
 </div>
 
 <div class="vpay-confirmbar">
@@ -3540,8 +3532,7 @@ function contactAdminVpaySuccess(){
 .vpd-icon.m-gopay{background:linear-gradient(150deg,#00aa5b,#00753e);}
 .vpd-icon.m-shopee{background:linear-gradient(150deg,#ee4d2d,#c73a1e);}
 .vpd-icon.m-qris{background:linear-gradient(150deg,#e8c877,#a8863f);}
-.vpd-icon img{width:100%;height:100%;object-fit:cover;border-radius:13px;display:block;}
-.vpd-icon.m-dana,.vpd-icon.m-gopay,.vpd-icon.m-shopee{background:#fff;padding:0;overflow:hidden;}
+.vpd-icon img{width:60%;height:60%;object-fit:contain;display:block;}
 .vpd-method-name{font-size:14px;font-weight:900;color:#fff;}
 .vpd-method-sub{font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px;}
 
