@@ -574,12 +574,41 @@ text-transform:uppercase;
 .zs-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,43,43,.4),transparent)}
 .zs-section-label i{color:#ff2b2b;font-size:11px}
 
+.vip-menu-gold{box-shadow:0 0 0 1px rgba(255,215,0,.4),0 0 22px rgba(255,215,0,.12) !important;}
+.vip-menu-gold:hover{box-shadow:0 0 0 1px rgba(255,215,0,.55),0 0 26px rgba(255,215,0,.18) !important;}
+.vip-menu-gold::before{background:#ffd700 !important;box-shadow:0 0 12px #ffd700 !important;}
+
 .vip-badge-inline{
 position:static;display:inline-block;vertical-align:middle;margin-left:4px;white-space:nowrap;
 font-size:7.5px;font-weight:800;letter-spacing:.2px;
 padding:2px 6px;border-radius:20px;color:#1a1400;
 background:linear-gradient(135deg,#ffe07a,#c99400);
 box-shadow:0 0 8px rgba(255,215,0,.35);
+}
+
+/* === ZS BANNER TECH CORNERS === */
+.zs-corner{position:absolute;width:26px;height:26px;pointer-events:none;animation:zsHudPulse 2.4s ease-in-out infinite;}
+.zs-corner::before,.zs-corner::after{content:'';position:absolute;background:#ff2b2b;box-shadow:0 0 10px rgba(255,43,43,.95),0 0 20px rgba(255,43,43,.5);}
+.zs-corner::before{width:22px;height:2.5px;border-radius:2px;}
+.zs-corner::after{width:2.5px;height:22px;border-radius:2px;}
+.zs-corner-tl{top:-8px;left:-8px;}
+.zs-corner-tl::before{top:0;left:0;}
+.zs-corner-tl::after{top:0;left:0;}
+.zs-corner-tr{top:-8px;right:-8px;}
+.zs-corner-tr::before{top:0;right:0;}
+.zs-corner-tr::after{top:0;right:0;}
+.zs-corner-bl{bottom:-8px;left:-8px;}
+.zs-corner-bl::before{bottom:0;left:0;}
+.zs-corner-bl::after{bottom:0;left:0;}
+.zs-corner-br{bottom:-8px;right:-8px;}
+.zs-corner-br::before{bottom:0;right:0;}
+.zs-corner-br::after{bottom:0;right:0;}
+.zs-corner-tr{animation-delay:.2s}
+.zs-corner-br{animation-delay:.4s}
+.zs-corner-bl{animation-delay:.6s}
+@keyframes zsHudPulse{
+0%,100%{opacity:.55;filter:drop-shadow(0 0 2px rgba(255,43,43,.5));}
+50%{opacity:1;filter:drop-shadow(0 0 8px rgba(255,43,43,1));}
 }
 
 .faq-search-wrap{position:relative;margin-bottom:16px}
@@ -2093,13 +2122,13 @@ object-fit:contain;
 </h1>
 <!-- BIG LOGO PREMIUM -->
 <div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
-<div style="position:relative;width:99%;margin:4px auto;height:auto;overflow:hidden;">
-<img loading="lazy" decoding="async" id="shadowBanner" src="zusmo-assets/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
+<div style="position:relative;width:99%;margin:4px auto;aspect-ratio:1280/720;overflow:hidden;background:rgba(255,255,255,.03);">
+<img loading="lazy" decoding="async" id="shadowBanner" src="zusmo-assets/azd7bw.jpg" style="width:100%;height:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
 </div>
-<div style="position:absolute;top:-1px;left:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
-<div style="position:absolute;top:-1px;right:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
-<div style="position:absolute;bottom:-1px;left:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
-<div style="position:absolute;bottom:-1px;right:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
+<div class="zs-corner zs-corner-tl"></div>
+<div class="zs-corner zs-corner-tr"></div>
+<div class="zs-corner zs-corner-bl"></div>
+<div class="zs-corner zs-corner-br"></div>
 </div>
 <!-- MAIN CARDS -->
 <div style="display:flex;gap:16px;margin-top:18px;">
@@ -2120,11 +2149,11 @@ object-fit:contain;
 <div class="zs-section-label"><i class="fa-solid fa-bolt"></i>MENU UTAMA</div>
 <!-- MENU BUTTONS -->
 <div>
-<div class="vip-menu" onclick="showPage('vippricelist')">
+<div class="vip-menu vip-menu-gold" onclick="showPage('vippricelist')" style="margin-bottom:26px;">
 <div class="vip-icon" style="border-color:rgba(255,215,0,.55);box-shadow:0 0 14px rgba(255,215,0,.3),inset 0 0 12px rgba(255,215,0,.12);"><i class="fa-solid fa-key" style="color:#ffd700;text-shadow:0 0 10px rgba(255,215,0,.9),0 0 20px rgba(255,215,0,.6);"></i></div>
 <div class="vip-content">
-<h4 style="font-size:12.5px;letter-spacing:0;">BUY VIP ZUSMO SHADOW <span class="vip-badge-inline">POPULER</span></h4>
-<small>Dapatkan akses premium ZUSMO SHADOW VIP</small>
+<h4 style="font-size:15.5px;letter-spacing:.2px;">BUY VIP ZUSMO SHADOW <span class="vip-badge-inline">POPULER</span></h4>
+<small>Dapatkan akses premium<br>ZUSMO SHADOW VIP</small>
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
