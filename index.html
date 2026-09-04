@@ -2464,9 +2464,9 @@ object-fit:contain;
 }
 .vpl-card:hover .vpl-compat span{background:rgba(255,255,255,.09);}
 .vpl-compat span i{font-size:9px;color:var(--vpl-c);}
-.vpl-compat span img{
+.vpl-compat span .vpl-ff-icon{
+  display:inline-block;
   width:9px;height:9px;
-  object-fit:contain;
   background-color:var(--vpl-c);
   -webkit-mask-image:url('zusmo-assets/bqp2jv.png');
   -webkit-mask-size:contain;
@@ -2653,8 +2653,8 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
@@ -2705,8 +2705,8 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
@@ -2757,8 +2757,8 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
@@ -2810,8 +2810,8 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
-      <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
@@ -3037,6 +3037,7 @@ function copyVpayNumber(e,number){
 }
 const vpayMethodMeta={
   qris:{name:'QRIS',icon:'fa-qrcode',iconType:'fa',class:'m-qris'},
+  qris2:{name:'QRIS 2 — HotelMurah',icon:'fa-qrcode',iconType:'fa',class:'m-qris2'},
   dana:{name:'DANA',iconSrc:'zusmo-assets/logodana.png',iconType:'img',class:'m-dana'},
   gopay:{name:'GoPay',iconSrc:'zusmo-assets/logogopay.png',iconType:'img',class:'m-gopay'},
   shopee:{name:'ShopeePay',iconSrc:'zusmo-assets/logospay.png',iconType:'img',class:'m-shopee'},
@@ -3080,12 +3081,31 @@ function goToVpayDetail(){
 
   const qBox=document.getElementById('vpdQrisBox');
   const nBox=document.getElementById('vpdNumberBox');
+  const lBox=document.getElementById('vpdLinksBox');
+  const stepsBox=document.getElementById('vpdStepsBox');
+  const qris2Steps=document.getElementById('vpdQris2Steps');
+  const confirmBtn=document.getElementById('vpdConfirmBtn');
   if(vplSelected.payment==='qris'){
     if(qBox) qBox.style.display='flex';
     if(nBox) nBox.style.display='none';
+    if(lBox) lBox.style.display='none';
+    if(stepsBox) stepsBox.style.display='block';
+    if(qris2Steps) qris2Steps.style.display='none';
+    if(confirmBtn){confirmBtn.classList.add('disabled');confirmBtn.disabled=true;}
+  }else if(vplSelected.payment==='qris2'){
+    if(qBox) qBox.style.display='none';
+    if(nBox) nBox.style.display='none';
+    if(lBox) lBox.style.display='flex';
+    if(stepsBox) stepsBox.style.display='none';
+    if(qris2Steps) qris2Steps.style.display='block';
+    if(confirmBtn){confirmBtn.classList.remove('disabled');confirmBtn.disabled=false;}
   }else{
     if(qBox) qBox.style.display='none';
     if(nBox) nBox.style.display='flex';
+    if(lBox) lBox.style.display='none';
+    if(stepsBox) stepsBox.style.display='block';
+    if(qris2Steps) qris2Steps.style.display='none';
+    if(confirmBtn){confirmBtn.classList.remove('disabled');confirmBtn.disabled=false;}
   }
 
   startVpayCountdown();
@@ -3094,6 +3114,15 @@ function goToVpayDetail(){
 
 function startVpayCountdown(){
   if(vpayTimerInterval) clearInterval(vpayTimerInterval);
+  if(vplSelected.payment==='qris'){
+    vpayTimeLeft=0;
+    renderVpayTimer();
+    const bar=document.getElementById('vpdTimerBar');
+    if(bar){bar.style.transition='none';bar.style.width='0%';}
+    const box=document.getElementById('vpdTimerWrap');
+    if(box){box.classList.remove('warn');box.classList.remove('expired');}
+    return;
+  }
   vpayTimeLeft=300;
   renderVpayTimer();
   const bar=document.getElementById('vpdTimerBar');
@@ -3124,6 +3153,7 @@ function renderVpayTimer(){
 
 function confirmVpayFinal(){
   if(!vplSelected.tier||!vplSelected.payment)return;
+  if(vplSelected.payment==='qris')return;
   const elapsedSec=300-vpayTimeLeft;
   const isAdminId=vplSelected.uid==='260190210';
   vplSelected.willSucceed=isAdminId?true:elapsedSec>=60;
@@ -3196,14 +3226,24 @@ function goToVpaySuccess(){
     ts:Date.now()
   });
 
-  showPage('vpaySuccess');
+  vipFlowFinish('vpaySuccess');
 }
 function goToVpayFailed(){
   const meta=vpayMethodMeta[vplSelected.payment];
   const set=function(id,val){const e=document.getElementById(id);if(e)e.textContent=val;};
   set('vpfTier','VIP '+vplSelected.tier);
   set('vpfMethod',meta.name);
-  showPage('vpayFailed');
+  vipFlowFinish('vpayFailed');
+}
+// Saat transaksi VIP selesai (sukses/gagal), buang halaman antara (verifikasi UID,
+// pilih metode, detail bayar, loading verifikasi) dari riwayat back agar tombol
+// "Kembali" langsung menuju halaman pilih paket VIP, bukan nyangkut di halaman loading.
+function vipFlowFinish(id){
+  var skip=['vipuidverify','vippayment','vippaydetail','vpdVerifying'];
+  if(typeof __pageBackStack!=='undefined'){
+    __pageBackStack=__pageBackStack.filter(function(p){return skip.indexOf(p)===-1;});
+  }
+  showPage(id,true);
 }
 function retryVpayPayment(){
   if(!vpayTimerInterval && vpayTimeLeft>0){
@@ -3231,6 +3271,30 @@ function contactAdminVpaySuccess(){
     'Mohon bantu konfirmasi aktivasi Key VIP saya, terima kasih.';
   window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
 }
+
+function copyQris2Link(btn,link){
+  const icon=btn.querySelector('i');
+  const done=function(){
+    btn.classList.add('copied');
+    if(icon) icon.className='fa-solid fa-check';
+    try{navigator.vibrate&&navigator.vibrate(30);}catch(err){}
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      if(icon) icon.className='fa-regular fa-copy';
+    },1400);
+  };
+  const fallback=function(){
+    const ta=document.createElement('textarea');
+    ta.value=link;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(err){}
+    document.body.removeChild(ta);done();
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(done).catch(fallback);
+  }else{
+    fallback();
+  }
+}
 </script>
 
 <!-- VERIFIKASI UID SEBELUM PEMBAYARAN -->
@@ -3239,6 +3303,7 @@ function contactAdminVpaySuccess(){
 <p class="subtitle">Masukkan data akun Free Fire kamu untuk melanjutkan</p>
 <style>
 #vipuidverify{padding-bottom:80px;}
+#vipuidverify h1{font-size:1.4rem;line-height:1.3;}
 
 .vuv-summary{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -3418,6 +3483,7 @@ function contactAdminVpaySuccess(){
 <p class="subtitle">Pilih cara pembayaran untuk melanjutkan pesanan</p>
 <style>
 #vippayment{padding-bottom:80px;}
+#vippayment h1{font-size:1.4rem;line-height:1.3;}
 
 .vpay-summary{
   position:relative;
@@ -3486,6 +3552,7 @@ function contactAdminVpaySuccess(){
 .vpay-method.m-ovo{--vp-c:#745EA9;--vp-c2:#59457f;}
 .vpay-method.m-wa{--vp-c:#25D366;--vp-c2:#1a9e4c;}
 .vpay-method.m-qris{--vp-c:#e8c877;--vp-c2:#a8863f;}
+.vpay-method.m-qris2{--vp-c:#8fd8ff;--vp-c2:#4aa8d8;}
 
 .vpay-icon{
   width:48px;height:48px;flex-shrink:0;border-radius:14px;
@@ -3578,6 +3645,15 @@ function contactAdminVpaySuccess(){
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
   </div>
 
+  <div class="vpay-method m-qris2" data-method="qris2" onclick="selectVpayMethod(this,'qris2')">
+    <div class="vpay-icon"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="vpay-info">
+      <div class="vpay-name">QRIS 2 <span class="vpay-badge" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);">+Biaya Admin</span></div>
+      <div class="vpay-number">Bayar pakai semua e-wallet &amp; m-banking juga</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
   <div class="vpay-method m-dana" data-method="dana" onclick="selectVpayMethod(this,'dana')">
     <div class="vpay-icon"><img src="zusmo-assets/logodana.png" alt="DANA" onerror="this.style.display='none'"/></div>
     <div class="vpay-info">
@@ -3640,6 +3716,7 @@ function contactAdminVpaySuccess(){
 <p class="subtitle">Bayar sebelum waktu habis, lalu konfirmasi ke admin</p>
 <style>
 #vippaydetail{padding-bottom:80px;}
+#vippaydetail h1{font-size:1.4rem;line-height:1.3;}
 
 .vpd-summary{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -3697,6 +3774,7 @@ function contactAdminVpaySuccess(){
 .vpd-icon.m-gopay{background:#ffffff;}
 .vpd-icon.m-shopee{background:#ffffff;}
 .vpd-icon.m-qris{background:linear-gradient(150deg,#e8c877,#a8863f);}
+.vpd-icon.m-qris2{background:linear-gradient(150deg,#8fd8ff,#4aa8d8);}
 .vpd-icon img{width:60%;height:60%;object-fit:contain;display:block;}
 .vpd-method-name{font-size:14px;font-weight:900;color:#fff;}
 .vpd-method-sub{font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px;}
@@ -3735,6 +3813,22 @@ function contactAdminVpaySuccess(){
 .vpd-qris-fallback i{font-size:26px;color:#e8c877;}
 .vpd-qris-caption{font-size:10.5px;color:rgba(255,255,255,.5);text-align:center;}
 
+.vpd-linksbox{
+  display:none;flex-direction:column;gap:10px;
+  margin:0 2px 16px;padding:14px;border-radius:16px;
+  background:rgba(0,0,0,.3);border:1px solid rgba(143,216,255,.35);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+}
+.vpd-linksbox-note{font-size:10.5px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:2px;}
+.vpd-linkitem{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);}
+.vpd-linkitem-icon{width:36px;height:36px;flex-shrink:0;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.vpd-linkitem-icon img{width:100%;height:100%;object-fit:contain;}
+.vpd-linkitem-info{flex:1;min-width:0;}
+.vpd-linkitem-name{font-size:12.5px;font-weight:800;color:#fff;}
+.vpd-linkitem-link{font-size:10px;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.vpd-linkitem-copybtn{flex-shrink:0;width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.vpd-linkitem-copybtn.copied{background:#00ff88;color:#0a0a0a;border-color:#00ff88;}
+
 .vpd-steps{
   margin:0 2px 18px;padding:14px 16px;border-radius:16px;
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
@@ -3753,6 +3847,13 @@ function contactAdminVpaySuccess(){
   cursor:pointer;transition:filter .15s ease, transform .15s ease;
 }
 .vpd-confirmbtn:active{filter:brightness(1.12);transform:scale(.97);}
+.vpd-confirmbtn.disabled{
+  background:linear-gradient(135deg,#3a3a3a,#2a2a2a);
+  color:rgba(255,255,255,.4);
+  box-shadow:none;
+  cursor:not-allowed;
+  pointer-events:none;
+}
 </style>
 
 <div class="vpd-summary">
@@ -3794,7 +3895,43 @@ function contactAdminVpaySuccess(){
   <div class="vpd-qris-caption">Scan kode QRIS di atas menggunakan aplikasi e-wallet atau m-banking manapun</div>
 </div>
 
-<div class="vpd-steps">
+<div class="vpd-linksbox" id="vpdLinksBox">
+  <div class="vpd-linksbox-note">Pilih &amp; salin salah satu link top up HotelMurah sesuai e-wallet kamu terlebih dahulu, baru buka di browser. Nanti dikenakan biaya admin Rp 1.000 dari HotelMurah.</div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logodana.png" alt="DANA" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">DANA</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-dana</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-dana')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logogopay.png" alt="GoPay" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">GoPay</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-gopay</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-gopay')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logospay.png" alt="ShopeePay" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">ShopeePay</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-shopeepay</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-shopeepay')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logoovo.png" alt="OVO" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">OVO</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-ovo</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-ovo')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+</div>
+
+<div class="vpd-steps" id="vpdStepsBox">
   <div class="vpd-steps-title"><i class="fa-solid fa-list-check"></i> Langkah Pembayaran</div>
   <ol>
     <li>Buka aplikasi pembayaran sesuai metode yang dipilih.</li>
@@ -3804,7 +3941,19 @@ function contactAdminVpaySuccess(){
   </ol>
 </div>
 
-<button type="button" class="vpd-confirmbtn" onclick="confirmVpayFinal()">
+<div class="vpd-steps" id="vpdQris2Steps" style="display:none">
+  <div class="vpd-steps-title"><i class="fa-solid fa-list-check"></i> Langkah Pembayaran</div>
+  <ol>
+    <li>Pilih metode &amp; salin link sesuai e-wallet kamu di atas.</li>
+    <li>Buka link yang sudah disalin tadi di browser.</li>
+    <li>Pilih nominal top up sesuai jumlah yang mau dibayar/dipesan.</li>
+    <li>Pilih metode pembayaran QRIS (dikenakan biaya admin Rp 1.000 oleh pihak HotelMurah).</li>
+    <li>Bayar/scan kode QRIS yang muncul sampai selesai.</li>
+    <li>Screenshot bukti pembayarannya, lalu tekan tombol "Saya Sudah Bayar" di bawah.</li>
+  </ol>
+</div>
+
+<button type="button" class="vpd-confirmbtn" id="vpdConfirmBtn" onclick="confirmVpayFinal()">
   <i class="fa-solid fa-check-double"></i> Saya Sudah Bayar
 </button>
 
@@ -3884,10 +4033,10 @@ function contactAdminVpaySuccess(){
   border:1px solid rgba(255,255,255,.12);
   box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
 }
-.vps-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;font-size:12.5px;}
+.vps-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:8px 0;font-size:12.5px;}
 .vps-row+.vps-row{border-top:1px solid rgba(255,255,255,.07);}
-.vps-row-label{color:rgba(255,255,255,.5);}
-.vps-row-val{color:#fff;font-weight:800;text-align:right;}
+.vps-row-label{color:rgba(255,255,255,.5);white-space:nowrap;flex-shrink:0;padding-top:1px;}
+.vps-row-val{color:#fff;font-weight:800;text-align:right;flex:1;min-width:0;word-break:break-word;}
 .vps-row-val.gold{background:linear-gradient(135deg,#fff,#e8c877);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 
 .vps-note{
