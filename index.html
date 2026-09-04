@@ -4115,6 +4115,52 @@ img#shadowBanner,
 .ff-modal-chip{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:7px;background:rgba(255,43,43,.92);color:#fff;font-size:12px;font-weight:800;letter-spacing:.7px;padding:8px 15px 8px 13px;border-radius:24px;text-transform:uppercase;font-family:'Audiowide',sans-serif;box-shadow:0 4px 14px rgba(255,43,43,.45);}
 .ff-modal-chip i{font-size:12px;}
 
+/* GLITCH HACKER TEXT — "Free File" */
+.ff-glitch{
+  position:relative;display:inline-block;color:#fff;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:1.4px;
+  text-shadow:0 0 4px rgba(0,255,249,.55),0 0 12px rgba(0,255,249,.25);
+  animation:ffGlitchFlicker 2.2s infinite steps(1);
+}
+.ff-glitch::before,.ff-glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;background:transparent;pointer-events:none;font-family:inherit;font-weight:inherit;letter-spacing:inherit;}
+.ff-glitch::before{color:#00fff9;text-shadow:0 0 6px #00fff9;clip-path:inset(0 0 100% 0);animation:ffGlitchTop 2.2s infinite steps(1);}
+.ff-glitch::after{color:#ff00c1;text-shadow:0 0 6px #ff00c1;clip-path:inset(100% 0 0 0);animation:ffGlitchBottom 2.2s infinite steps(1);}
+@keyframes ffGlitchFlicker{
+  0%,74%{opacity:1;transform:translate(0,0) skew(0deg);}
+  75%{opacity:.4;transform:translate(-4px,1px) skew(-8deg);}
+  76%{opacity:1;transform:translate(3px,0) skew(6deg);}
+  77%{opacity:.3;transform:translate(-2px,-1px) skew(0deg);}
+  78%{opacity:1;transform:translate(0,0) skew(0deg);}
+  86%{opacity:1;transform:translate(0,0);}
+  87%{opacity:.5;transform:translate(4px,-1px) skew(10deg);}
+  88%{opacity:1;transform:translate(-3px,1px) skew(-6deg);}
+  89%,100%{opacity:1;transform:translate(0,0) skew(0deg);}
+}
+@keyframes ffGlitchTop{
+  0%,74%{clip-path:inset(0 0 100% 0);transform:translate(0,0);opacity:0;}
+  74.5%{clip-path:inset(8% 0 68% 0);transform:translate(-6px,-2px);opacity:1;}
+  75.3%{clip-path:inset(35% 0 25% 0);transform:translate(5px,2px);opacity:1;}
+  76.1%{clip-path:inset(0 0 85% 0);transform:translate(-4px,0);opacity:1;}
+  77%{clip-path:inset(55% 0 8% 0);transform:translate(6px,-2px);opacity:1;}
+  77.6%{clip-path:inset(15% 0 45% 0);transform:translate(-3px,1px);opacity:1;}
+  78.4%,86%{clip-path:inset(0 0 100% 0);opacity:0;}
+  86.5%{clip-path:inset(20% 0 55% 0);transform:translate(5px,-1px);opacity:1;}
+  87.3%{clip-path:inset(60% 0 10% 0);transform:translate(-5px,2px);opacity:1;}
+  88.2%,100%{clip-path:inset(0 0 100% 0);opacity:0;}
+}
+@keyframes ffGlitchBottom{
+  0%,73%{clip-path:inset(100% 0 0 0);transform:translate(0,0);opacity:0;}
+  73.5%{clip-path:inset(45% 0 15% 0);transform:translate(6px,2px);opacity:1;}
+  74.4%{clip-path:inset(18% 0 48% 0);transform:translate(-6px,-1px);opacity:1;}
+  75.2%{clip-path:inset(65% 0 5% 0);transform:translate(4px,1px);opacity:1;}
+  76%{clip-path:inset(28% 0 38% 0);transform:translate(-4px,0);opacity:1;}
+  76.8%{clip-path:inset(70% 0 3% 0);transform:translate(5px,-2px);opacity:1;}
+  77.6%,85.5%{clip-path:inset(100% 0 0 0);opacity:0;}
+  86%{clip-path:inset(50% 0 12% 0);transform:translate(-5px,1px);opacity:1;}
+  86.9%{clip-path:inset(22% 0 40% 0);transform:translate(6px,-1px);opacity:1;}
+  87.8%,100%{clip-path:inset(100% 0 0 0);opacity:0;}
+}
+
 .ff-modal-pclogo{position:absolute;top:16px;right:16px;width:40px;height:40px;object-fit:contain;z-index:3;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));}
 .ff-modal-slide-nav{position:absolute;right:16px;bottom:16px;display:flex;gap:8px;z-index:4;}
 .ff-slide-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:opacity .15s,transform .15s;}
@@ -4218,7 +4264,7 @@ img#shadowBanner,
       </div>
       <div class="ff-modal-media-redfade"></div>
       <div class="ff-modal-media-fade"></div>
-      <div class="ff-modal-chip"><i class="fa-solid fa-bolt"></i>Free File</div>
+      <div class="ff-modal-chip"><i class="fa-solid fa-bolt"></i><span class="ff-glitch" data-text="Free File">Free File</span></div>
       <img class="ff-modal-pclogo" src="zusmo-assets/3r1x9j.png" alt="Logo PC"/>
       <div class="ff-modal-slide-nav">
         <button type="button" class="ff-slide-btn" id="ffSlidePrev" onclick="ffSlidePrev()" aria-label="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
