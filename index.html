@@ -46,6 +46,40 @@ margin-top:16px;
 border-radius:24px;
 }
 
+/* ZUSMO SHADOW animated title */
+#shadowmenu .zs-title{
+  text-align:center;
+  white-space:nowrap;
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  letter-spacing:1px;
+  font-size:clamp(22px,7vw,34px);
+  margin:4px 0 2px;
+  animation:zsTitleIn .7s cubic-bezier(.2,.8,.2,1) both;
+}
+#shadowmenu .zs-word-1{
+  color:#ffffff;
+  text-shadow:0 0 12px rgba(255,255,255,.9),0 0 25px rgba(255,255,255,.6);
+  animation:zsGlowWhite 2.6s ease-in-out infinite;
+}
+#shadowmenu .zs-word-2{
+  color:#ff2b2b;
+  text-shadow:0 0 12px rgba(255,43,43,.9),0 0 25px rgba(255,43,43,.6);
+  animation:zsGlowRed 2.6s ease-in-out infinite;
+}
+@keyframes zsTitleIn{
+  0%{opacity:0;transform:translateY(-14px) scale(.92)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes zsGlowWhite{
+  0%,100%{text-shadow:0 0 12px rgba(255,255,255,.9),0 0 25px rgba(255,255,255,.6)}
+  50%{text-shadow:0 0 20px rgba(255,255,255,1),0 0 42px rgba(255,255,255,.85),0 0 60px rgba(255,255,255,.4)}
+}
+@keyframes zsGlowRed{
+  0%,100%{text-shadow:0 0 12px rgba(255,43,43,.9),0 0 25px rgba(255,43,43,.6)}
+  50%{text-shadow:0 0 22px rgba(255,60,60,1),0 0 46px rgba(255,43,43,.9),0 0 66px rgba(255,0,0,.5)}
+}
+
 
 .download-box{max-width:420px;margin:20px auto;background:rgba(255,255,255,.08);border-radius:24px;padding:20px;border:1px solid rgba(255,255,255,.12)}
 .download-header{text-align:center;margin-bottom:20px}
@@ -2004,8 +2038,8 @@ object-fit:contain;
 </div></div>
 
 <div class="page" id="shadowmenu">
-<h1 style="color:#fff;font-weight:900;letter-spacing:1px;font-size:34px;">
-<span><span style="color:#ffffff;text-shadow:0 0 12px rgba(255,255,255,.9),0 0 25px rgba(255,255,255,.6)">ZUSMO</span> <span style="color:#ff2b2b;text-shadow:0 0 12px rgba(255,43,43,.9),0 0 25px rgba(255,43,43,.6)">SHADOW</span></span>
+<h1 class="zs-title">
+<span class="zs-word-1">ZUSMO</span> <span class="zs-word-2">SHADOW</span>
 </h1>
 <!-- BIG LOGO PREMIUM -->
 <div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
