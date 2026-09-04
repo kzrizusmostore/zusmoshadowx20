@@ -464,31 +464,39 @@ pointer-events:none;
 }
 
 .vip-menu{
-display:flex;align-items:center;gap:18px;padding:7px 16px;margin-bottom:10px;
-border-radius:10px;background:rgba(0,0,0,.72);
+display:flex;align-items:center;gap:14px;padding:14px 16px;margin-bottom:14px;
+border-radius:16px;background:rgba(0,0,0,.72);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(16px);position:relative;overflow:hidden;cursor:pointer;
-transition:.25s;box-shadow:0 0 0 1px rgba(255,0,0,.15),0 0 30px rgba(255,0,0,.08);
+transition:.25s;box-shadow:0 0 0 1px rgba(255,0,0,.15),0 0 18px rgba(255,0,0,.06);
 }
+.vip-menu:last-child{margin-bottom:0}
 .vip-menu:hover{
 transform:translateY(-2px);
-box-shadow:0 0 0 1px rgba(255,0,0,.4),0 0 35px rgba(255,0,0,.18);
+box-shadow:0 0 0 1px rgba(255,0,0,.4),0 0 24px rgba(255,0,0,.14);
 }
 .vip-icon{
-width:52px;height:52px;border-radius:8px;display:flex;align-items:center;
+width:48px;height:48px;min-width:48px;border-radius:10px;display:flex;align-items:center;
 justify-content:center;background:rgba(0,0,0,.85);
 border:1px solid rgba(255,0,0,.55);
-box-shadow:0 0 20px rgba(255,0,0,.35),inset 0 0 15px rgba(255,0,0,.15);
+box-shadow:0 0 14px rgba(255,0,0,.3),inset 0 0 12px rgba(255,0,0,.12);
 flex-shrink:0;
 }
-.vip-icon i{font-size:22px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.9),0 0 20px rgba(255,43,43,.6);}
-.vip-content{flex:1}
-.vip-content h4{font-size:16px;font-weight:800;letter-spacing:.5px;margin-bottom:4px;color:#fff}
-.vip-content small{font-size:11px;color:#bdbdbd}
-.vip-arrow{font-size:16px;color:#8d8d8d}
+.vip-icon i{font-size:19px;color:#ff2b2b;text-shadow:0 0 10px rgba(255,43,43,.9),0 0 20px rgba(255,43,43,.6);}
+.vip-content{flex:1;min-width:0}
+.vip-content h4{font-size:15px;font-weight:800;letter-spacing:.3px;margin-bottom:3px;color:#fff;line-height:1.3}
+.vip-content small{font-size:11px;color:#bdbdbd;line-height:1.4;display:block}
+.vip-arrow{font-size:15px;color:#8d8d8d;flex-shrink:0}
 .vip-menu::before{
 content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
-background:#ff2b2b;box-shadow:0 0 18px #ff2b2b;
+background:#ff2b2b;box-shadow:0 0 12px #ff2b2b;
+}
+@media (max-width:360px){
+.vip-menu{gap:11px;padding:12px 13px}
+.vip-icon{width:42px;height:42px;min-width:42px}
+.vip-icon i{font-size:17px}
+.vip-content h4{font-size:13.5px}
+.vip-content small{font-size:10.5px}
 }
 
 
@@ -7909,9 +7917,7 @@ setInterval(()=>{
   background:#ff2b2b !important;
 }
 
-.vip-menu{
-  border-radius:16px !important;
-}
+/* border-radius vip-menu sudah diatur di rule utama, override lama dihapus supaya tidak bentrok */
 
 /* remove duplicated visual overrides */
 
@@ -14533,18 +14539,26 @@ function copyCmtyLink(btn){
   if(window.ZUSMO && window.ZUSMO.playClick) window.ZUSMO.playClick();
 }
 const bgMusicEl=document.getElementById('bgMusic');
-document.addEventListener('click',()=>bgMusicEl.play().catch(()=>{}),{once:true});
+var MP_LS_ON = 'zusmo_settings_music_on';
+function mpIsMusicOn(){
+  var v = localStorage.getItem(MP_LS_ON);
+  return v===null ? true : v==='1';
+}
+function mpSetMusicOn(on){
+  localStorage.setItem(MP_LS_ON, on ? '1' : '0');
+}
+document.addEventListener('click',()=>{ if(mpIsMusicOn()) bgMusicEl.play().catch(()=>{}); },{once:true});
 function playClick(){ if(window.ZUSMO) window.ZUSMO.playClick(); }
 document.addEventListener('click',e=>{
  if(e.target.closest('button,.tab,.vip-menu,.long-btn,.card,.apk-image,.download-btn,summary')) playClick();
 },true);
 function toggleMusic(){
- if(bgMusicEl.paused){bgMusicEl.play();}
- else{bgMusicEl.pause();}
+ if(bgMusicEl.paused){bgMusicEl.play(); mpSetMusicOn(true);}
+ else{bgMusicEl.pause(); mpSetMusicOn(false);}
  syncAllMusicIcons();
  syncMpSwitch();
 }
-document.addEventListener('pointerdown',()=>{bgMusicEl.play().catch(()=>{});},{once:true});
+document.addEventListener('pointerdown',()=>{ if(mpIsMusicOn()) bgMusicEl.play().catch(()=>{}); },{once:true});
 
 /* ===== Music popup (volume + on/off) — works for multiple topbar instances ===== */
 var MP_LS_VOLUME = 'zusmo_settings_volume';
@@ -14591,7 +14605,7 @@ window.onMpVolumeInput=function(val){
   }
   document.querySelectorAll('.mp-volume-value').forEach(function(v){ v.textContent = val+'%'; });
   document.querySelectorAll('.mp-volume-slider').forEach(function(sl){ sl.value = val; });
-  if(val>0 && bgMusicEl.paused){ bgMusicEl.play().catch(function(){}); }
+  if(val>0 && bgMusicEl.paused){ bgMusicEl.play().catch(function(){}); mpSetMusicOn(true); }
   syncMpSwitch();
   syncAllMusicIcons();
 };
@@ -14603,6 +14617,7 @@ document.addEventListener('click', function(e){
 });
 bgMusicEl.volume = mpGetVolume()/100;
 syncMpVolumeUI();
+if(!mpIsMusicOn()){ bgMusicEl.pause(); bgMusicEl.removeAttribute('autoplay'); }
 syncMpSwitch();
 syncAllMusicIcons();
 bgMusicEl.addEventListener('play', function(){ syncMpSwitch(); syncAllMusicIcons(); });
