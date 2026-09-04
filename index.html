@@ -1299,6 +1299,24 @@ object-fit:contain;
   50%{filter:drop-shadow(0 0 18px rgba(255,60,60,1)) drop-shadow(0 2px 8px rgba(0,0,0,.85));}
 }
 
+/* GLITCH OVERLAY — hanya nambah efek, font/warna/gaya asli ZUSMO SHADOW tidak diubah */
+.hm-video-label .vl-w,.hm-video-label .vl-r{position:relative;}
+.hm-video-label .vl-w{animation:ffGlitchFlicker 2.2s infinite steps(1);}
+.hm-video-label .vl-r{animation:vlGlowPulse 2.4s ease-in-out infinite,ffGlitchFlicker 2.2s infinite steps(1);}
+.hm-video-label .vl-w::before,.hm-video-label .vl-w::after,
+.hm-video-label .vl-r::before,.hm-video-label .vl-r::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+  overflow:hidden;background:transparent;pointer-events:none;-webkit-text-stroke:0;
+}
+.hm-video-label .vl-w::before,.hm-video-label .vl-r::before{
+  color:#00fff9;text-shadow:0 0 6px #00fff9;clip-path:inset(0 0 100% 0);
+  animation:ffGlitchTop 2.2s infinite steps(1);
+}
+.hm-video-label .vl-w::after,.hm-video-label .vl-r::after{
+  color:#ff00c1;text-shadow:0 0 6px #ff00c1;clip-path:inset(100% 0 0 0);
+  animation:ffGlitchBottom 2.2s infinite steps(1);
+}
+
 /* STATS ROW */
 .hm-stats-row{
   display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
@@ -1814,7 +1832,7 @@ object-fit:contain;
 <div class="hm-video-wrap shine-card">
   <video loop muted playsinline preload="none" data-src="zusmo-assets/wdw2yd.mp4"></video>
   <div class="hm-video-label">
-    <span class="vl-w">ZUSMO</span>&nbsp;<span class="vl-r">SHADOW</span>
+    <span class="vl-w" data-text="ZUSMO">ZUSMO</span>&nbsp;<span class="vl-r" data-text="SHADOW">SHADOW</span>
   </div>
 </div>
 
@@ -1840,12 +1858,12 @@ object-fit:contain;
 <div class="hm-section-lbl"><span data-i18n="home.mainMenu">⚡ Menu Utama</span></div>
 
 <!-- SPOTLIGHT: featured tool -->
-<div class="hm-spotlight" onclick="showPage('apk')">
+<div class="hm-spotlight" onclick="showPage('shadowmenu')">
   <div class="hm-spotlight-glow"></div>
   <span class="hm-spotlight-tag" style="display:flex;"><span class="hm-new-dot"></span>UNGGULAN</span>
   <div class="hm-spotlight-icon"><i class="fa-solid fa-mobile-screen"></i></div>
   <div class="hm-spotlight-body">
-    <h3 data-i18n="home.apkTitle">APK ZUSMO</h3>
+    <h3 data-i18n="home.apkTitle">ZUSMO SHADOW</h3>
     <p data-i18n="home.apkDesc">Download semua versi aplikasi</p>
   </div>
   <div class="hm-spotlight-cta"><i class="fa-solid fa-chevron-right"></i><span data-i18n="home.open">Buka</span></div>
@@ -3350,9 +3368,9 @@ function contactAdminVpaySuccess(){
   box-shadow:inset 0 2px 3px rgba(255,255,255,.3), inset 0 -3px 5px rgba(0,0,0,.3);
 }
 .vpay-icon img{width:60%;height:60%;object-fit:contain;display:block;}
-.vpay-method.m-dana .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#008CEB 100%);padding:0;overflow:hidden;}
-.vpay-method.m-gopay .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#01ADD5 100%);padding:0;overflow:hidden;}
-.vpay-method.m-shopee .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#ED4D2D 100%);padding:0;overflow:hidden;}
+.vpay-method.m-dana .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#008CEB 68%,#008CEB 100%);padding:0;overflow:hidden;}
+.vpay-method.m-gopay .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#01ADD5 68%,#01ADD5 100%);padding:0;overflow:hidden;}
+.vpay-method.m-shopee .vpay-icon{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#ED4D2D 68%,#ED4D2D 100%);padding:0;overflow:hidden;}
 .vpay-info{flex:1;min-width:0;}
 .vpay-name{font-size:14.5px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .vpay-badge{
@@ -3528,9 +3546,9 @@ function contactAdminVpaySuccess(){
   border:1px solid rgba(255,255,255,.25);
   box-shadow:inset 0 2px 3px rgba(255,255,255,.3), inset 0 -3px 5px rgba(0,0,0,.3);
 }
-.vpd-icon.m-dana{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#008CEB 100%);}
-.vpd-icon.m-gopay{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#01ADD5 100%);}
-.vpd-icon.m-shopee{background:linear-gradient(180deg,#ffffff 0%,#ffffff 60%,#ED4D2D 100%);}
+.vpd-icon.m-dana{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#008CEB 68%,#008CEB 100%);}
+.vpd-icon.m-gopay{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#01ADD5 68%,#01ADD5 100%);}
+.vpd-icon.m-shopee{background:linear-gradient(180deg,#ffffff 0%,#ffffff 42%,#ED4D2D 68%,#ED4D2D 100%);}
 .vpd-icon.m-qris{background:linear-gradient(150deg,#e8c877,#a8863f);}
 .vpd-icon img{width:60%;height:60%;object-fit:contain;display:block;}
 .vpd-method-name{font-size:14px;font-weight:900;color:#fff;}
@@ -13219,7 +13237,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.botGloryDesc':'Bot booster keaktifan guild Free Fire',
       'home.tokoTitle':'TOKO ZUSMO',
       'home.tokoDesc':'Topup & marketplace',
-      'home.apkTitle':'APK ZUSMO',
+      'home.apkTitle':'ZUSMO SHADOW',
       'home.apkDesc':'Download semua versi aplikasi',
       'home.topupTitle':'TOPUP GAME',
       'home.topupDesc':'Game favorit kamu',
@@ -13283,7 +13301,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       'home.botGloryDesc':'Free Fire guild activity booster bot',
       'home.tokoTitle':'ZUSMO STORE',
       'home.tokoDesc':'Top up & marketplace',
-      'home.apkTitle':'ZUSMO APK',
+      'home.apkTitle':'ZUSMO SHADOW',
       'home.apkDesc':'Download all app versions',
       'home.topupTitle':'GAME TOP UP',
       'home.topupDesc':'Your favorite games',
