@@ -510,7 +510,7 @@ img#shadowBanner,
 </style>
 <style>
 .faq-premium{
-margin-top:18px;
+margin-top:0;
 }
 .faq-item{
 background:rgba(0,0,0,.55);
@@ -533,6 +533,11 @@ padding:0 14px 14px;
 color:#d9d9d9;
 line-height:1.6;
 }
+.faq-cmd-list{display:flex;flex-direction:column;gap:10px;margin-top:2px}
+.faq-cmd-item{padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.faq-cmd-item:last-child{border-bottom:none;padding-bottom:0}
+.faq-cmd-item b{display:block;color:#ff2b2b;font-family:'Space Mono',monospace;font-size:13px;margin-bottom:3px;letter-spacing:.3px}
+.faq-cmd-item span{display:block;font-size:12px;color:#bdbdbd;line-height:1.5}
 
 /* === FIX: Disable ONLY banner clicks === */
 img#shadowBanner,
@@ -1994,9 +1999,16 @@ object-fit:contain;
 <h1 style="color:#fff;font-weight:900;letter-spacing:1px;font-size:34px;">
 <span><span style="color:#ffffff;text-shadow:0 0 12px rgba(255,255,255,.9),0 0 25px rgba(255,255,255,.6)">ZUSMO</span> <span style="color:#ff2b2b;text-shadow:0 0 12px rgba(255,43,43,.9),0 0 25px rgba(255,43,43,.6)">SHADOW</span></span>
 </h1>
-<p class="subtitle" style="margin-top:6px;font-size:14px;opacity:.8;">
-    PILIH VERSI YANG DIINGINKAN
-  </p>
+<!-- BIG LOGO PREMIUM -->
+<div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
+<div style="position:relative;width:99%;margin:4px auto;height:auto;overflow:hidden;">
+<img loading="lazy" decoding="async" id="shadowBanner" src="zusmo-assets/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
+</div>
+<div style="position:absolute;top:-1px;left:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
+<div style="position:absolute;top:-1px;right:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
+<div style="position:absolute;bottom:-1px;left:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
+<div style="position:absolute;bottom:-1px;right:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
+</div>
 <!-- MAIN CARDS -->
 <div style="display:flex;gap:16px;margin-top:18px;">
 <div class="shine-card" onclick="showPage('downloadui')" style="flex:1;cursor:pointer;">
@@ -2008,6 +2020,14 @@ object-fit:contain;
 </div>
 <!-- MENU BUTTONS -->
 <div style="margin-top:18px">
+<div class="vip-menu" onclick="showPage('vippricelist')">
+<div class="vip-icon"><i class="fa-solid fa-key"></i></div>
+<div class="vip-content">
+<h4>BUY VIP ZUSMO SHADOW</h4>
+<small>Dapatkan akses premium SHADOW VIP</small>
+</div>
+<i class="fa-solid fa-chevron-right vip-arrow"></i>
+</div>
 <div class="vip-menu" onclick="showPage('manfaatvip')">
 <div class="vip-icon"><i class="fa-solid fa-chart-simple"></i></div>
 <div class="vip-content">
@@ -2016,19 +2036,11 @@ object-fit:contain;
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
-<div class="vip-menu" onclick="showPage('vippricelist')">
-<div class="vip-icon"><i class="fa-solid fa-key"></i></div>
-<div class="vip-content">
-<h4>BELI KEY VIP</h4>
-<small>Dapatkan akses premium SHADOW VIP</small>
-</div>
-<i class="fa-solid fa-chevron-right vip-arrow"></i>
-</div>
 <div class="vip-menu" onclick="showPage('vipKeyHistoryPage')">
 <div class="vip-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
 <div class="vip-content">
 <h4>RIWAYAT KEY VIP</h4>
-<small>Lihat semua Key VIP yang pernah kamu dapat</small>
+<small>Riwayat Key VIP kamu</small>
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
@@ -2040,19 +2052,21 @@ object-fit:contain;
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
+<div class="vip-menu" onclick="showPage('faqPage')">
+<div class="vip-icon"><i class="fa-solid fa-circle-question"></i></div>
+<div class="vip-content">
+<h4>PERTANYAAN UMUM</h4>
+<small>FAQ seputar Zusmo Shadow</small>
 </div>
-<!-- BIG LOGO PREMIUM -->
-<div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
-<div style="position:relative;width:99%;margin:4px auto;height:auto;overflow:hidden;">
-<img loading="lazy" decoding="async" id="shadowBanner" src="zusmo-assets/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
+<i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
-<div style="position:absolute;top:-1px;left:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
-<div style="position:absolute;top:-1px;right:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
-<div style="position:absolute;bottom:-1px;left:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
-<div style="position:absolute;bottom:-1px;right:-8px;width:30px;height:30px;border-bottom:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
 </div>
-<!-- FAQ PREMIUM -->
-<div class="faq-premium">
+</div>
+<!-- PERTANYAAN UMUM (FAQ) PAGE -->
+<div class="page" id="faqPage">
+<h1 style="color:#fff;font-weight:900;letter-spacing:1px;font-size:28px;">PERTANYAAN UMUM</h1>
+<p class="subtitle" style="margin-top:6px;font-size:12px;opacity:.7;">FAQ seputar Zusmo Shadow</p>
+<div class="faq-premium" style="margin-top:16px;">
 <details class="faq-item">
 <summary>🛡️ Apakah Zusmo Shadow aman digunakan?</summary>
 <p>YA, 100% aman. Zusmo Shadow menggunakan sistem VPN/Proxy dan tidak memodifikasi file game pengguna.</p>
@@ -2064,56 +2078,19 @@ object-fit:contain;
 <details class="faq-item">
 <summary>❔ Apa saja perintah/command Zusmo Shadow? </summary>
 <p>
-<hr/>
-<hr/>
-Untuk menambahkan pemain ke daftar teman lewat ID :<br/>
-→ /id<br/>
-contoh : /id5008131603
-<hr/>
-Untuk mengubah loby menjadi 5 pemain :<br/>
-→ /5s<br/>
-Untuk mengubah loby menjadi 6 pemain :<br/>
-→ /6s
-<hr/>
-Untuk tampilan Join clan<br/>
-→ /clanxxxx<br/>
-contoh : /clan987654321<br/>
-<hr/>
-Untuk emot diloby :<br/>
-→ /dance<br/>
-Ada 432 emot yang tersedia.<br/>
-Gunakan seperti ini :<br/>
-→ /fd1 → /fd432<br/>
-contoh : /fd100
-<hr/>
-Untuk animasi masuk diloby:<br/>
-→ /q<br/>
-Ada 60 animasi yang tersedia.<br/>
-Gunakan seperti ini :<br/>
-→ /q1 → /q60<br/>
-contoh : /q10<br/>
-<hr/>
-Untuk membuka skin senjata EVO :<br/>
-→ /x
-<hr/>
-Untuk mengaktifkan lencana badge tim loby :<br/>
-→ /sq1<br/>
-→ /sq2<br/>
-→ /sq3<br/>
-→ /sq4
-<hr/>
-Untuk spam undangan join tim :<br/>
-→ /inv<br/>
-Untuk menonaktifkannya :<br/>
-→ /-inv
-<hr/>
-Untuk mengaktifkan set bundle :<br/>
-→ /stream ( tanpa diamond ) <br/>
-→ /proxy ( dengan diamond ) 
-<hr/>
-Untuk emote:<br/>
-→ /super
-<hr/></p>
+<div class="faq-cmd-list">
+<div class="faq-cmd-item"><b>/id&lt;ID&gt;</b><span>Tambah pemain ke daftar teman lewat ID. Contoh: /id5008131603</span></div>
+<div class="faq-cmd-item"><b>/5s &nbsp;·&nbsp; /6s</b><span>Ubah lobby jadi 5 pemain / 6 pemain</span></div>
+<div class="faq-cmd-item"><b>/clan&lt;ID&gt;</b><span>Tampilkan Join Clan. Contoh: /clan987654321</span></div>
+<div class="faq-cmd-item"><b>/dance</b><span>Emot di lobby — 432 emot tersedia. Format: /fd1 sampai /fd432. Contoh: /fd100</span></div>
+<div class="faq-cmd-item"><b>/q</b><span>Animasi masuk lobby — 60 animasi tersedia. Format: /q1 sampai /q60. Contoh: /q10</span></div>
+<div class="faq-cmd-item"><b>/x</b><span>Buka skin senjata EVO</span></div>
+<div class="faq-cmd-item"><b>/sq1 · /sq2 · /sq3 · /sq4</b><span>Aktifkan lencana badge tim lobby</span></div>
+<div class="faq-cmd-item"><b>/inv &nbsp;·&nbsp; /-inv</b><span>Spam undangan join tim / nonaktifkan spam</span></div>
+<div class="faq-cmd-item"><b>/stream &nbsp;·&nbsp; /proxy</b><span>Aktifkan set bundle tanpa diamond / dengan diamond</span></div>
+<div class="faq-cmd-item"><b>/super</b><span>Emote</span></div>
+</div>
+</p>
 </details>
 <details class="faq-item">
 <summary>💎 Bisakah saya mendapatkan diamond?</summary>
