@@ -2145,15 +2145,6 @@ Untuk emote:<br/>
   padding:8px 2px 4px;
 }
 
-@keyframes vplShimmer{
-  0%{background-position:-200% 0;}
-  100%{background-position:200% 0;}
-}
-@keyframes vplGlowPulse{
-  0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 0 color-mix(in srgb, var(--vpl-c) 45%, transparent);}
-  50%{box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06), 0 0 18px 1px color-mix(in srgb, var(--vpl-c) 35%, transparent);}
-}
-
 .vpl-card{
   --vpl-c:#9a9a9a;
   --vpl-c2:#6b6b6b;
@@ -2178,19 +2169,16 @@ Untuk emote:<br/>
 .vpl-card:hover{
   border-color:var(--vpl-c);
 }
-.vpl-card.tier-elite,.vpl-card.tier-max{animation:vplGlowPulse 2.6s ease-in-out infinite;}
 
-/* top accent stripe with shimmer */
+/* top accent stripe */
 .vpl-card::before{
   content:'';
   position:absolute;
   top:0;left:0;right:0;height:4px;
   background:linear-gradient(90deg,var(--vpl-c2),var(--vpl-c),var(--vpl-c2));
-  background-size:200% 100%;
-  animation:vplShimmer 3.5s linear infinite;
   z-index:2;
 }
-.vpl-card.tier-max::before{background:linear-gradient(90deg,#c40000,#ff2b2b,#ff7a45,#ff2b2b,#c40000);background-size:200% 100%;}
+.vpl-card.tier-max::before{background:linear-gradient(90deg,#c40000,#ff2b2b,#ff7a45,#ff2b2b,#c40000);}
 
 .vpl-card.tier-basic{--vpl-c:#a8a8a8;--vpl-c2:#6b6b6b;}
 .vpl-card.tier-elite{--vpl-c:#0a84ff;--vpl-c2:#0057b8;}
@@ -2200,14 +2188,17 @@ Untuk emote:<br/>
 /* corner ribbon for popular/best value tiers */
 .vpl-ribbon{
   position:absolute;
-  top:12px;right:-30px;
+  top:14px;right:-32px;
   transform:rotate(40deg);
-  width:120px;
-  text-align:center;
-  padding:3px 0;
+  width:130px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 0;
   font-size:9px;
   font-weight:900;
   letter-spacing:.6px;
+  line-height:1;
   color:#0a0a0a;
   background:linear-gradient(135deg,var(--vpl-c),var(--vpl-c2));
   box-shadow:0 3px 8px rgba(0,0,0,.4);
@@ -2236,8 +2227,13 @@ Untuk emote:<br/>
   border:1px solid rgba(255,255,255,.25);
   box-shadow:
     inset 0 2px 3px rgba(255,255,255,.3),
-    inset 0 -3px 5px rgba(0,0,0,.3),
-    0 4px 12px color-mix(in srgb, var(--vpl-c) 45%, transparent);
+    inset 0 -3px 5px rgba(0,0,0,.3);
+  padding:9px;
+}
+.vpl-icon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
 }
 .vpl-title-wrap{min-width:0;}
 .vpl-name{font-size:15.5px;font-weight:900;letter-spacing:.4px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);}
@@ -2257,22 +2253,37 @@ Untuk emote:<br/>
 }
 
 .vpl-price-wrap{
-  text-align:center;
+  text-align:right;
   flex-shrink:0;
-  background:rgba(0,0,0,.35);
-  border:1px solid color-mix(in srgb, var(--vpl-c) 45%, transparent);
-  border-radius:12px;
-  padding:8px 12px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:3px;
 }
 .vpl-price{
-  font-size:19px;
+  font-size:21px;
   font-weight:900;
-  color:#fff;
-  line-height:1.1;
+  line-height:1;
   white-space:nowrap;
+  background:linear-gradient(135deg,#fff,color-mix(in srgb, var(--vpl-c) 70%, white));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-.vpl-price small{display:block;font-size:8.5px;font-weight:700;color:var(--vpl-c);margin-top:2px;letter-spacing:.3px;}
+.vpl-price-order{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.6px;
+  color:#0a0a0a;
+  background:linear-gradient(135deg,var(--vpl-c),var(--vpl-c2));
+  padding:3px 9px;
+  border-radius:20px;
+  text-transform:uppercase;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+}
 
 /* Checklist row — sama seperti kartu VIP di halaman Progress */
 .vpl-checkrow{
@@ -2314,14 +2325,10 @@ Untuk emote:<br/>
   transition:border-color .2s ease, background .2s ease;
 }
 .vpl-card:hover .vpl-compat span{background:rgba(255,255,255,.09);}
-.vpl-compat span i{font-size:8px;color:var(--vpl-c);}
+.vpl-compat span i{font-size:9px;color:var(--vpl-c);}
 .vpl-compat span img{
-  width:14px;height:14px;
+  width:9px;height:9px;
   object-fit:contain;
-  border-radius:50%;
-  background:rgba(255,255,255,.9);
-  padding:1.5px;
-  box-shadow:0 0 0 1px color-mix(in srgb, var(--vpl-c) 50%, transparent);
 }
 
 .vpl-more{
@@ -2366,7 +2373,7 @@ Untuk emote:<br/>
 }
 .vpl-feat li:nth-child(odd){background:rgba(255,255,255,.025);}
 .vpl-feat li i{font-size:9.5px;margin-top:3px;flex-shrink:0;}
-.vpl-feat li.yes i{color:#00ff88;filter:drop-shadow(0 0 3px rgba(0,255,136,.5));}
+.vpl-feat li.yes i{color:#00ff88;}
 .vpl-feat li.no i{color:#ff3c3c;}
 .vpl-feat li.no{color:#7a7a7a;}
 
@@ -2393,21 +2400,6 @@ Untuk emote:<br/>
   border:1px solid rgba(255,255,255,.2);
   transition:filter .15s ease, transform .15s ease;
   text-transform:uppercase;
-  overflow:hidden;
-}
-.vpl-btn::after{
-  content:'';
-  position:absolute;
-  top:0;left:-60%;
-  width:40%;height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
-  transform:skewX(-20deg);
-  animation:vplBtnShine 2.8s ease-in-out infinite;
-}
-@keyframes vplBtnShine{
-  0%{left:-60%;}
-  35%{left:130%;}
-  100%{left:130%;}
 }
 .vpl-btn:active{filter:brightness(1.15);transform:scale(.96);}
 
@@ -2433,14 +2425,15 @@ Untuk emote:<br/>
   <div class="vpl-inner">
     <div class="vpl-top">
       <div class="vpl-left">
-        <div class="vpl-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="vpl-icon"><img src="zusmo-assets/20260904_073401.png" alt="VIP"/></div>
         <div class="vpl-title-wrap">
           <div class="vpl-name">VIP BASIC</div>
           <span class="vpl-tag"><i class="fa-solid fa-shield"></i>HEMAT</span>
         </div>
       </div>
       <div class="vpl-price-wrap">
-        <div class="vpl-price">Rp 3.000<small>/ ORDER</small></div>
+        <div class="vpl-price">Rp 3.000</div>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2452,32 +2445,35 @@ Untuk emote:<br/>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
     </div>
-    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
-      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
-      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus teman satu loby</li>
-      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus in game</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Bundle Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Emote Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Evogun Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan Anti Merah</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 356 Hari</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus Lobi Teman</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus In Game</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
     </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('BASIC',3000)"><i class="fa-solid fa-bolt"></i> Pilih VIP Basic</button>
   </div>
   </div>
 
   <div class="vpl-card tier-elite" data-tier="elite" onclick="toggleVplCard(this)">
-  <div class="vpl-ribbon">POPULER</div>
   <div class="vpl-inner">
     <div class="vpl-top">
       <div class="vpl-left">
-        <div class="vpl-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="vpl-icon"><img src="zusmo-assets/20260904_073401.png" alt="VIP"/></div>
         <div class="vpl-title-wrap">
           <div class="vpl-name">VIP ELITE</div>
           <span class="vpl-tag"><i class="fa-solid fa-fire"></i>POPULER</span>
         </div>
       </div>
       <div class="vpl-price-wrap">
-        <div class="vpl-price">Rp 5.000<small>/ ORDER</small></div>
+        <div class="vpl-price">Rp 5.000</div>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2489,14 +2485,17 @@ Untuk emote:<br/>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
     </div>
-    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
-      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
-      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus in game</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Bundle Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Emote Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Evogun Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan Anti Merah</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 356 Hari</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus Lobi Teman</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Tembus In Game</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
     </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ELITE',5000)"><i class="fa-solid fa-crown"></i> Pilih VIP Elite</button>
   </div>
@@ -2506,14 +2505,15 @@ Untuk emote:<br/>
   <div class="vpl-inner">
     <div class="vpl-top">
       <div class="vpl-left">
-        <div class="vpl-icon"><i class="fa-solid fa-star"></i></div>
+        <div class="vpl-icon"><img src="zusmo-assets/20260904_073401.png" alt="VIP"/></div>
         <div class="vpl-title-wrap">
           <div class="vpl-name">VIP ULTIMATE</div>
           <span class="vpl-tag"><i class="fa-solid fa-gem"></i>GOLD ACCESS</span>
         </div>
       </div>
       <div class="vpl-price-wrap">
-        <div class="vpl-price">Rp 8.000<small>/ ORDER</small></div>
+        <div class="vpl-price">Rp 8.000</div>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2525,14 +2525,17 @@ Untuk emote:<br/>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
     </div>
-    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
-      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Tembus in game</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Bundle Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Emote Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Evogun Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan Anti Merah</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 356 Hari</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus Lobi Teman</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus In Game</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
+      <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
     </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ULTIMATE',8000)"><i class="fa-solid fa-star"></i> Pilih VIP Ultimate</button>
   </div>
@@ -2543,14 +2546,15 @@ Untuk emote:<br/>
   <div class="vpl-inner">
     <div class="vpl-top">
       <div class="vpl-left">
-        <div class="vpl-icon"><i class="fa-solid fa-gem"></i></div>
+        <div class="vpl-icon"><img src="zusmo-assets/20260904_073401.png" alt="VIP"/></div>
         <div class="vpl-title-wrap">
           <div class="vpl-name">VIP MAX</div>
           <span class="vpl-tag"><i class="fa-solid fa-crown"></i>SUPER PREMIUM</span>
         </div>
       </div>
       <div class="vpl-price-wrap">
-        <div class="vpl-price">Rp 12.000<small>/ ORDER</small></div>
+        <div class="vpl-price">Rp 12.000</div>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2562,14 +2566,17 @@ Untuk emote:<br/>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Original</span>
       <span><img src="zusmo-assets/bqp2jv.png" alt="FF"/>FF Max</span>
     </div>
-    <div class="vpl-more"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
     <ul class="vpl-feat">
-      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan lancar</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Akses 1 tahun</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Emote &amp; Evo dibawa loby</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Tembus teman satu loby</li>
-      <li class="yes"><i class="fa-solid fa-check"></i>Tembus in game</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Bundle Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Emote Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Skin Evogun Tembus Lobi</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Jaringan Anti Merah</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Akses 356 Hari</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus Lobi Teman</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Tembus In Game</li>
       <li class="yes"><i class="fa-solid fa-check"></i>Tanpa Key Login</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Full Update</li>
     </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('MAX',12000)"><i class="fa-solid fa-gem"></i> Pilih VIP Max</button>
   </div>
@@ -2592,7 +2599,7 @@ function toggleVplCard(card){
   document.querySelectorAll('#vippricelist .vpl-card.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
   card.classList.toggle('open',!wasOpen);
   const label=card.querySelector('.vpl-more span');
-  if(label) label.textContent=card.classList.contains('open')?'Sembunyikan':'Lihat fitur';
+  if(label) label.textContent=card.classList.contains('open')?'Sembunyikan':'Lihat manfaat';
 }
 function orderVipKey(tier,price){
   const msg='Halo Admin, saya mau order *KEY VIP '+tier+'*\n\n'+
