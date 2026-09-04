@@ -2136,7 +2136,7 @@ object-fit:contain;
 <div class="shine-card" onclick="showPage('downloadui')" style="cursor:pointer;">
 <img loading="lazy" decoding="async" src="zusmo-assets/kcxby8.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
-<div class="zs-card-cap">Download Gratis<small>Versi original tanpa VIP</small></div>
+<div class="zs-card-cap">Download Gratis<small>Versi tanpa VIP</small></div>
 </div>
 <div style="flex:1;">
 <div class="shine-card" onclick="showPage('downloadvip')" style="cursor:pointer;">
@@ -2644,7 +2644,7 @@ object-fit:contain;
       </div>
       <div class="vpl-price-wrap">
         <div class="vpl-price">Rp 3.000</div>
-        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ UID</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2696,7 +2696,7 @@ object-fit:contain;
       </div>
       <div class="vpl-price-wrap">
         <div class="vpl-price">Rp 5.000</div>
-        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ UID</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2748,7 +2748,7 @@ object-fit:contain;
       </div>
       <div class="vpl-price-wrap">
         <div class="vpl-price">Rp 8.000</div>
-        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ UID</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2801,7 +2801,7 @@ object-fit:contain;
       </div>
       <div class="vpl-price-wrap">
         <div class="vpl-price">Rp 12.000</div>
-        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ Order</span>
+        <span class="vpl-price-order"><i class="fa-solid fa-cart-shopping"></i>/ UID</span>
       </div>
     </div>
     <div class="vpl-checkrow">
@@ -2843,10 +2843,6 @@ object-fit:contain;
 
 </div>
 
-<div class="vpl-note">
-  <i class="fa-solid fa-circle-info"></i>
-  <div>Pembelian diproses <b>manual</b> oleh admin melalui WhatsApp. Key akan dikirim setelah pembayaran dikonfirmasi.</div>
-</div>
 <p class="pc-sub" style="margin:10px 0 0;font-size:9.5px;text-align:center;">Admin : +62 838-0028-7738</p>
 
 <div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
@@ -3039,7 +3035,8 @@ const vpayMethodMeta={
   qris:{name:'QRIS',icon:'fa-qrcode',iconType:'fa',class:'m-qris'},
   dana:{name:'DANA',iconSrc:'zusmo-assets/logodana.png',iconType:'img',class:'m-dana'},
   gopay:{name:'GoPay',iconSrc:'zusmo-assets/logogopay.png',iconType:'img',class:'m-gopay'},
-  shopee:{name:'ShopeePay',iconSrc:'zusmo-assets/logospay.png',iconType:'img',class:'m-shopee'}
+  shopee:{name:'ShopeePay',iconSrc:'zusmo-assets/logospay.png',iconType:'img',class:'m-shopee'},
+  ovo:{name:'Ovo',iconSrc:'zusmo-assets/logoovo.png',iconType:'img',class:'m-ovo'}
 };
 let vpayTimerInterval=null;
 let vpayTimeLeft=300;
@@ -3588,6 +3585,15 @@ function contactAdminVpaySuccess(){
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
   </div>
 
+  <div class="vpay-method m-ovo" data-method="ovo" onclick="selectVpayMethod(this,'ovo')">
+    <div class="vpay-icon"><img src="zusmo-assets/logoovo.png" alt="Ovo" onerror="this.style.display='none'"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">Ovo</div>
+      <div class="vpay-number">Bayar langsung dari saldo Ovo kamu</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+  
 </div>
 
 <div class="vpay-confirmbar">
@@ -3602,7 +3608,7 @@ function contactAdminVpaySuccess(){
 <!-- HALAMAN KONFIRMASI PEMBAYARAN -->
 <div class="page" id="vippaydetail">
 <h1>Selesaikan Pembayaran</h1>
-<p class="subtitle">Bayar sebelum waktu habis, lalu konfirmasi ke admin</p>
+<p class="subtitle">Bayar sebelum waktu habis, lalu konfirmasi klik saya sudah bayar</p>
 <style>
 #vippaydetail{padding-bottom:80px;}
 
@@ -3917,10 +3923,9 @@ function contactAdminVpaySuccess(){
 
   <div class="vps-note">
     <i class="fa-solid fa-circle-info"></i>
-    <div>Simpan Key VIP &amp; Order ID di atas. Masukkan Key ini di halaman "Masukkan Key VIP" untuk aktivasi. Jika ada kendala, hubungi Admin dan sertakan Order ID ini.</div>
+    <div>Simpan Key VIP di atas. Masukkan Key ini di halaman "Masukkan Key VIP" untuk aktivasi. Jika ada kendala, hubungi Admin dan sertakan Order ID ini.</div>
   </div>
 
-  <button type="button" class="vps-btn vps-btn-primary" onclick="contactAdminVpaySuccess()"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin</button>
   <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('vipKeyHistoryPage')"><i class="fa-solid fa-clock-rotate-left"></i> Lihat Riwayat Key VIP</button>
   <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
 
