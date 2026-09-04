@@ -561,6 +561,65 @@ img#shadowBanner,
   pointer-events: none !important;
 }
 
+/* === SHADOW UI OVERHAUL === */
+.zs-banner-badge{
+position:absolute;top:10px;left:10px;z-index:2;
+display:flex;align-items:center;gap:5px;
+background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+border:1px solid rgba(255,43,43,.5);border-radius:20px;
+padding:4px 10px 4px 8px;font-size:10px;font-weight:800;letter-spacing:.5px;color:#fff;
+box-shadow:0 0 12px rgba(255,0,0,.25);
+}
+.zs-banner-badge i{font-size:9px;color:#ff2b2b}
+.zs-status-badge{
+position:absolute;top:10px;right:10px;z-index:2;
+display:flex;align-items:center;gap:5px;
+background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+border:1px solid rgba(50,220,120,.5);border-radius:20px;
+padding:4px 10px;font-size:10px;font-weight:800;letter-spacing:.4px;color:#8ff5b0;
+box-shadow:0 0 12px rgba(40,220,120,.2);
+}
+.zs-status-dot{width:6px;height:6px;border-radius:50%;background:#3ee87a;box-shadow:0 0 6px #3ee87a;animation:zsPulseDot 1.6s infinite}
+@keyframes zsPulseDot{0%,100%{opacity:1}50%{opacity:.35}}
+
+.zs-card-cap{margin-top:8px;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.3px;color:#e6e6e6}
+.zs-card-cap small{display:block;margin-top:1px;font-size:10px;font-weight:500;color:#8d8d8d}
+
+.zs-section-label{
+display:flex;align-items:center;gap:8px;
+margin:22px 0 12px;
+font-size:11.5px;font-weight:800;letter-spacing:1.5px;color:#8d8d8d;
+text-transform:uppercase;
+}
+.zs-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,43,43,.4),transparent)}
+.zs-section-label i{color:#ff2b2b;font-size:11px}
+
+.vip-badge{
+position:absolute;top:8px;right:10px;
+font-size:8.5px;font-weight:800;letter-spacing:.4px;
+padding:2px 7px;border-radius:20px;color:#fff;
+background:linear-gradient(135deg,#ff2b2b,#7a0000);
+box-shadow:0 0 8px rgba(255,0,0,.4);
+}
+.vip-badge.zs-new{background:linear-gradient(135deg,#00d9ff,#005f7a);box-shadow:0 0 8px rgba(0,217,255,.4)}
+
+.faq-search-wrap{position:relative;margin-bottom:16px}
+.faq-search-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8d8d8d;font-size:13px}
+.faq-search-wrap input{
+width:100%;padding:12px 14px 12px 38px;border-radius:14px;
+background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);
+color:#fff;font-size:13px;outline:none;transition:.2s;
+}
+.faq-search-wrap input:focus{border-color:rgba(255,43,43,.5);box-shadow:0 0 12px rgba(255,0,0,.15)}
+.faq-search-wrap input::placeholder{color:#7a7a7a}
+.faq-count-pill{
+display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+font-size:10.5px;color:#9a9a9a;font-weight:600;
+}
+.faq-count-pill b{color:#ff2b2b}
+.faq-item.zs-hide{display:none}
+.faq-empty-state{display:none;text-align:center;padding:30px 10px;color:#7a7a7a;font-size:12.5px}
+.faq-empty-state.zs-show{display:block}
 </style>
 <style>
 .faq-premium{
@@ -2057,6 +2116,8 @@ object-fit:contain;
 <div style="margin:18px auto;padding:6px 0;max-width:376px;position:relative">
 <div style="position:relative;width:99%;margin:4px auto;height:auto;overflow:hidden;">
 <img loading="lazy" decoding="async" id="shadowBanner" src="zusmo-assets/azd7bw.jpg" style="width:100%;display:block;cursor:pointer;border-radius:0;object-fit:cover;transition:opacity 1s ease;"/>
+<div class="zs-banner-badge"><i class="fa-solid fa-certificate"></i>OFFICIAL</div>
+<div class="zs-status-badge"><span class="zs-status-dot"></span>ONLINE</div>
 </div>
 <div style="position:absolute;top:-1px;left:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-left:3px solid #ff2b2b"></div>
 <div style="position:absolute;top:-1px;right:-8px;width:30px;height:30px;border-top:3px solid #ff2b2b;border-right:3px solid #ff2b2b"></div>
@@ -2065,16 +2126,25 @@ object-fit:contain;
 </div>
 <!-- MAIN CARDS -->
 <div style="display:flex;gap:16px;margin-top:18px;">
-<div class="shine-card" onclick="showPage('downloadui')" style="flex:1;cursor:pointer;">
+<div style="flex:1;">
+<div class="shine-card" onclick="showPage('downloadui')" style="cursor:pointer;">
 <img loading="lazy" decoding="async" src="zusmo-assets/kcxby8.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
-<div class="shine-card" onclick="showPage('downloadvip')" style="flex:1;cursor:pointer;">
+<div class="zs-card-cap">Download UI<small>Ambil tampilan terbaru</small></div>
+</div>
+<div style="flex:1;">
+<div class="shine-card" onclick="showPage('downloadvip')" style="cursor:pointer;">
 <img loading="lazy" decoding="async" src="zusmo-assets/edczch.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
+<div class="zs-card-cap">Download VIP<small>Akses fitur premium</small></div>
 </div>
+</div>
+<!-- SECTION LABEL -->
+<div class="zs-section-label"><i class="fa-solid fa-bolt"></i>MENU UTAMA</div>
 <!-- MENU BUTTONS -->
-<div style="margin-top:18px">
-<div class="vip-menu" onclick="showPage('vippricelist')">
+<div>
+<div class="vip-menu" onclick="showPage('vippricelist')" style="position:relative;">
+<span class="vip-badge">POPULER</span>
 <div class="vip-icon"><i class="fa-solid fa-key"></i></div>
 <div class="vip-content">
 <h4>BUY VIP ZUSMO SHADOW</h4>
@@ -2106,7 +2176,8 @@ object-fit:contain;
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
-<div class="vip-menu" onclick="showPage('faqPage')">
+<div class="vip-menu" onclick="showPage('faqPage')" style="position:relative;">
+<span class="vip-badge zs-new">BARU</span>
 <div class="vip-icon"><i class="fa-solid fa-circle-question"></i></div>
 <div class="vip-content">
 <h4>PERTANYAAN UMUM</h4>
@@ -2120,7 +2191,13 @@ object-fit:contain;
 <div class="page" id="faqPage">
 <h1 style="color:#fff;font-weight:900;letter-spacing:1px;font-size:28px;">PERTANYAAN UMUM</h1>
 <p class="subtitle" style="margin-top:6px;font-size:12px;opacity:.7;">FAQ seputar Zusmo Shadow</p>
+<div class="faq-search-wrap" style="margin-top:16px;">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" id="faqSearchInput" placeholder="Cari pertanyaan..." oninput="zsFilterFaq(this.value)"/>
+</div>
+<div class="faq-count-pill"><i class="fa-solid fa-list-ul"></i>Menampilkan <b id="faqVisibleCount">0</b> dari <b id="faqTotalCount">0</b> pertanyaan</div>
 <div class="faq-premium" style="margin-top:16px;">
+<div class="faq-empty-state" id="faqEmptyState"><i class="fa-solid fa-magnifying-glass" style="font-size:20px;display:block;margin-bottom:8px;opacity:.5"></i>Tidak ada pertanyaan yang cocok</div>
 <details class="faq-item">
 <summary>🛡️ Apakah Zusmo Shadow aman digunakan?</summary>
 <p>YA, 100% aman. Zusmo Shadow menggunakan sistem VPN/Proxy dan tidak memodifikasi file game pengguna.</p>
@@ -7310,6 +7387,27 @@ document.getElementById(id).classList.add('active');
 setTimeout(()=>t.classList.remove('show'),800);
 }
 function showHome(){showPage('home')}
+document.addEventListener('DOMContentLoaded',function(){
+if(document.getElementById('faqVisibleCount'))zsFilterFaq('');
+});
+
+function zsFilterFaq(q){
+var items=document.querySelectorAll('#faqPage .faq-item');
+var query=(q||'').trim().toLowerCase();
+var visible=0;
+items.forEach(function(item){
+var text=item.textContent.toLowerCase();
+var match=!query||text.indexOf(query)!==-1;
+item.classList.toggle('zs-hide',!match);
+if(match)visible++;
+});
+var vc=document.getElementById('faqVisibleCount');
+var tc=document.getElementById('faqTotalCount');
+if(vc)vc.textContent=visible;
+if(tc)tc.textContent=items.length;
+var empty=document.getElementById('faqEmptyState');
+if(empty)empty.classList.toggle('zs-show',visible===0);
+}
 
 var __pageBackStack=[];
 function showPage(id,fromBack){
