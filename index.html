@@ -7871,6 +7871,11 @@ shadowBanners.forEach(url=>{
  img.src=url;
 });
 
+banner.onerror=function(){
+ bannerIndex=(bannerIndex+1)%shadowBanners.length;
+ banner.src=shadowBanners[bannerIndex];
+};
+
 setInterval(()=>{
  banner.style.opacity='0';
 
@@ -7884,29 +7889,6 @@ setInterval(()=>{
 
 });
 
-</script>
-<script>
-const banners = [
-  "zusmo-assets/azd7bw.jpg",
-  "zusmo-assets/qv7019.jpg",
-  "zusmo-assets/kl35y3.jpg",
-  "zusmo-assets/jromt0.jpg"
-];
-
-let i = 0;
-const banner = document.getElementById("shadowBanner");
-
-function nextBanner(){
-  if(!banner) return;
-  banner.style.opacity = "0";
-  setTimeout(() => {
-    i = (i + 1) % banners.length;
-    banner.src = banners[i];
-    banner.style.opacity = "1";
-  }, 400);
-}
-
-setInterval(nextBanner, 3000);
 </script>
 <style>
 /* ===== FINAL CLEAN UI PATCH ===== */
