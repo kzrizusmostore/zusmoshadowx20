@@ -2006,6 +2006,14 @@ object-fit:contain;
 </div>
 <i class="fa-solid fa-chevron-right vip-arrow"></i>
 </div>
+<div class="vip-menu" onclick="showPage('vipKeyHistoryPage')">
+<div class="vip-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+<div class="vip-content">
+<h4>RIWAYAT KEY VIP</h4>
+<small>Lihat semua Key VIP yang pernah kamu dapat</small>
+</div>
+<i class="fa-solid fa-chevron-right vip-arrow"></i>
+</div>
 <div class="vip-menu" onclick="showPage('vipverify')">
 <div class="vip-icon"><i class="fa-solid fa-users"></i></div>
 <div class="vip-content">
@@ -2299,7 +2307,7 @@ Untuk emote:<br/>
   border-radius:12px;
   box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
 }
-.vpl-checkrow i{font-size:14px;color:var(--vpl-c);}
+.vpl-checkrow i{font-size:14px;color:#00ff88;}
 
 .vpl-compat{
   display:flex;
@@ -2329,6 +2337,15 @@ Untuk emote:<br/>
 .vpl-compat span img{
   width:9px;height:9px;
   object-fit:contain;
+  background-color:var(--vpl-c);
+  -webkit-mask-image:url('zusmo-assets/bqp2jv.png');
+  -webkit-mask-size:contain;
+  -webkit-mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-image:url('zusmo-assets/bqp2jv.png');
+  mask-size:contain;
+  mask-repeat:no-repeat;
+  mask-position:center;
 }
 
 .vpl-more{
@@ -2376,6 +2393,70 @@ Untuk emote:<br/>
 .vpl-feat li.yes i{color:#00ff88;}
 .vpl-feat li.no i{color:#ff3c3c;}
 .vpl-feat li.no{color:#7a7a7a;}
+
+/* Sub-toggle "Lihat fitur" — hanya bisa dibuka setelah manfaat dibuka */
+.vpl-more2{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:.2px;
+  padding:6px 0 2px;
+  margin-bottom:4px;
+  color:rgba(255,255,255,.45);
+  cursor:pointer;
+}
+.vpl-card.open .vpl-more2{display:flex;}
+.vpl-more2 i{font-size:8px;transition:transform .25s ease;color:rgba(255,255,255,.35);}
+.vpl-more2.open2 i{transform:rotate(180deg);}
+.vpl-more2.open2{color:var(--vpl-c);}
+.vpl-more2.open2 i{color:var(--vpl-c);}
+
+.vpl-feat2{
+  list-style:none;
+  margin:0;
+  padding:0;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .3s ease, opacity .25s ease, margin .3s ease;
+}
+.vpl-feat2.open2{
+  max-height:280px;
+  opacity:1;
+  margin:0 0 12px;
+}
+.vpl-feat2 li{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:11px;
+  color:#d5d5d5;
+  padding:5px 8px;
+  line-height:1.4;
+  border-radius:8px;
+}
+.vpl-feat2 li:nth-child(odd){background:rgba(255,255,255,.025);}
+.vpl-feat2 li i{font-size:9.5px;margin-top:3px;flex-shrink:0;}
+.vpl-feat2 li.yes i{color:#00ff88;}
+.vpl-feat2 li.no i{color:#ff3c3c;}
+.vpl-feat2 li.no{color:#7a7a7a;}
+.vpl-feat-count{
+  display:inline-flex;
+  align-items:center;
+  margin-left:5px;
+  font-size:8.5px;
+  font-weight:800;
+  letter-spacing:.2px;
+  color:var(--vpl-c);
+  background:color-mix(in srgb, var(--vpl-c) 16%, transparent);
+  border:1px solid color-mix(in srgb, var(--vpl-c) 40%, transparent);
+  border-radius:20px;
+  padding:1px 7px;
+  vertical-align:middle;
+}
 
 .vpl-btn{
   position:relative;
@@ -2457,6 +2538,18 @@ Untuk emote:<br/>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
     </ul>
+    <div class="vpl-more2" onclick="event.stopPropagation();toggleVplFeat2(this)"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat2">
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin Vault <span class="vpl-feat-count">600+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote Lainnya <span class="vpl-feat-count">400+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 3</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 5</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 6</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spam Invite Mufiz</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spy Mode</li>
+    </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('BASIC',3000)"><i class="fa-solid fa-bolt"></i> Pilih VIP Basic</button>
   </div>
   </div>
@@ -2497,6 +2590,18 @@ Untuk emote:<br/>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
     </ul>
+    <div class="vpl-more2" onclick="event.stopPropagation();toggleVplFeat2(this)"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat2">
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin Vault <span class="vpl-feat-count">600+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote Lainnya <span class="vpl-feat-count">400+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 3</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 5</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 6</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spam Invite Mufiz</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spy Mode</li>
+    </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ELITE',5000)"><i class="fa-solid fa-crown"></i> Pilih VIP Elite</button>
   </div>
   </div>
@@ -2536,6 +2641,18 @@ Untuk emote:<br/>
       <li class="yes"><i class="fa-solid fa-check"></i>Tembus In Game</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Tanpa Key Login</li>
       <li class="no"><i class="fa-solid fa-xmark"></i>Full Update</li>
+    </ul>
+    <div class="vpl-more2" onclick="event.stopPropagation();toggleVplFeat2(this)"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat2">
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin Vault <span class="vpl-feat-count">600+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote Lainnya <span class="vpl-feat-count">400+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 3</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 5</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 6</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spam Invite Mufiz</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spy Mode</li>
     </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('ULTIMATE',8000)"><i class="fa-solid fa-star"></i> Pilih VIP Ultimate</button>
   </div>
@@ -2578,6 +2695,18 @@ Untuk emote:<br/>
       <li class="yes"><i class="fa-solid fa-check"></i>Tanpa Key Login</li>
       <li class="yes"><i class="fa-solid fa-check"></i>Full Update</li>
     </ul>
+    <div class="vpl-more2" onclick="event.stopPropagation();toggleVplFeat2(this)"><span>Lihat fitur</span><i class="fa-solid fa-chevron-down"></i></div>
+    <ul class="vpl-feat2">
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin Vault <span class="vpl-feat-count">600+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Skin EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote EvoGun <span class="vpl-feat-count">23</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Unlock Emote Lainnya <span class="vpl-feat-count">400+</span></li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 3</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 5</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Loby Ber 6</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spam Invite Mufiz</li>
+      <li class="yes"><i class="fa-solid fa-check"></i>Spy Mode</li>
+    </ul>
     <button class="vpl-btn" onclick="event.stopPropagation();orderVipKey('MAX',12000)"><i class="fa-solid fa-gem"></i> Pilih VIP Max</button>
   </div>
   </div>
@@ -2596,19 +2725,1183 @@ Untuk emote:<br/>
 <script>
 function toggleVplCard(card){
   const wasOpen=card.classList.contains('open');
-  document.querySelectorAll('#vippricelist .vpl-card.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
+  document.querySelectorAll('#vippricelist .vpl-card.open').forEach(c=>{
+    if(c!==card){
+      c.classList.remove('open');
+      resetVplFeat2(c);
+    }
+  });
   card.classList.toggle('open',!wasOpen);
   const label=card.querySelector('.vpl-more span');
   if(label) label.textContent=card.classList.contains('open')?'Sembunyikan':'Lihat manfaat';
+  if(wasOpen) resetVplFeat2(card);
 }
+function resetVplFeat2(card){
+  const more2=card.querySelector('.vpl-more2');
+  const feat2=card.querySelector('.vpl-feat2');
+  if(more2){
+    more2.classList.remove('open2');
+    const label2=more2.querySelector('span');
+    if(label2) label2.textContent='Lihat fitur';
+  }
+  if(feat2) feat2.classList.remove('open2');
+}
+function toggleVplFeat2(more2){
+  const feat2=more2.nextElementSibling;
+  const isOpen=more2.classList.contains('open2');
+  more2.classList.toggle('open2',!isOpen);
+  if(feat2) feat2.classList.toggle('open2',!isOpen);
+  const label2=more2.querySelector('span');
+  if(label2) label2.textContent=isOpen?'Lihat fitur':'Sembunyikan';
+}
+const vplServers=[
+  {code:'ID',flag:'🇮🇩',name:'Indonesia'},
+  {code:'IND',flag:'🇮🇳',name:'India'},
+  {code:'BR',flag:'🇧🇷',name:'Brazil'},
+  {code:'BD',flag:'🇧🇩',name:'Bangladesh'},
+  {code:'TH',flag:'🇹🇭',name:'Thailand'},
+  {code:'VN',flag:'🇻🇳',name:'Vietnam'},
+  {code:'PK',flag:'🇵🇰',name:'Pakistan'},
+  {code:'SG',flag:'🇸🇬',name:'Singapore'},
+  {code:'MY',flag:'🇲🇾',name:'Malaysia'},
+  {code:'TW',flag:'🇹🇼',name:'Taiwan'},
+  {code:'EU',flag:'🇪🇺',name:'Europe'},
+  {code:'RU',flag:'🇷🇺',name:'Russia/CIS'},
+  {code:'NA',flag:'🇺🇸',name:'North America'}
+];
+let vplSelected={tier:null,price:null,payment:null,uid:'',server:'ID'};
 function orderVipKey(tier,price){
-  const msg='Halo Admin, saya mau order *KEY VIP '+tier+'*\n\n'+
-    '🔑 Paket : VIP '+tier+'\n'+
-    '💰 Harga : Rp '+price.toLocaleString('id-ID')+'\n\n'+
-    'Mohon diproses ya, terima kasih.';
+  vplSelected.tier=tier;
+  vplSelected.price=price;
+  vplSelected.payment=null;
+  vplSelected.uid='';
+  vplSelected.server='ID';
+
+  const vT=document.getElementById('vuvSummaryTier');
+  const vP=document.getElementById('vuvSummaryPrice');
+  if(vT) vT.textContent='VIP '+tier;
+  if(vP) vP.textContent='Rp '+price.toLocaleString('id-ID');
+
+  const uidInput=document.getElementById('vuvUidInput');
+  if(uidInput) uidInput.value='';
+  const serverSelect=document.getElementById('vuvServerSelect');
+  if(serverSelect) serverSelect.value='ID';
+  const errBox=document.getElementById('vuvError');
+  if(errBox) errBox.style.display='none';
+  const uidField=document.getElementById('vuvUidField');
+  if(uidField) uidField.classList.remove('vuv-shake');
+  resetVuvButton();
+
+  document.querySelectorAll('.vpay-method').forEach(m=>m.classList.remove('selected'));
+  const confirmBtn=document.getElementById('vpayConfirmBtn');
+  if(confirmBtn){confirmBtn.classList.remove('ready');confirmBtn.disabled=true;}
+
+  showPage('vipuidverify');
+}
+function vuvCleanUid(el){
+  el.value=el.value.replace(/[^0-9]/g,'').slice(0,13);
+}
+function resetVuvButton(){
+  const btn=document.getElementById('vuvSubmitBtn');
+  if(!btn)return;
+  btn.disabled=false;
+  btn.classList.remove('loading');
+  btn.innerHTML='<i class="fa-solid fa-shield-halved"></i> Verifikasi &amp; Lanjutkan';
+}
+function submitVuvVerify(){
+  const uidInput=document.getElementById('vuvUidInput');
+  const serverSelect=document.getElementById('vuvServerSelect');
+  const errBox=document.getElementById('vuvError');
+  const uidField=document.getElementById('vuvUidField');
+  const uid=uidInput?uidInput.value.trim():'';
+
+  if(uid.length<8||uid.length>13){
+    if(errBox){errBox.textContent='UID harus terdiri dari 8-13 karakter angka.';errBox.style.display='flex';}
+    if(uidField){uidField.classList.remove('vuv-shake');void uidField.offsetWidth;uidField.classList.add('vuv-shake');uidField.classList.add('error');}
+    try{navigator.vibrate&&navigator.vibrate([30,40,30]);}catch(e){}
+    return;
+  }
+  if(errBox) errBox.style.display='none';
+  if(uidField) uidField.classList.remove('error');
+
+  vplSelected.uid=uid;
+  vplSelected.server=serverSelect?serverSelect.value:'ID';
+
+  const btn=document.getElementById('vuvSubmitBtn');
+  if(btn){
+    btn.disabled=true;
+    btn.classList.add('loading');
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Memeriksa ID...';
+  }
+
+  setTimeout(function(){
+    showVuvOverlay();
+
+    setTimeout(function(){
+      const serverObj=vplServers.find(s=>s.code===vplSelected.server)||vplServers[0];
+      const sT=document.getElementById('vpaySummaryTier');
+      const sP=document.getElementById('vpaySummaryPrice');
+      const sU=document.getElementById('vpaySummaryUid');
+      if(sT) sT.textContent='VIP '+vplSelected.tier;
+      if(sP) sP.textContent='Rp '+vplSelected.price.toLocaleString('id-ID');
+      if(sU) sU.textContent=vplSelected.uid+' • '+serverObj.flag+' '+serverObj.name;
+      resetVuvButton();
+      hideVuvOverlay();
+      showPage('vippayment');
+    },2200);
+  },900);
+}
+const vuvOverlaySteps=['Memeriksa UID...','Menghubungi server game...','UID ditemukan, memuat data...'];
+let vuvOverlayStepInterval=null;
+function showVuvOverlay(){
+  const overlay=document.getElementById('vuvLoadingOverlay');
+  if(!overlay)return;
+  overlay.classList.add('show');
+  let idx=0;
+  const textEl=document.getElementById('vuvOverlayText');
+  if(textEl) textEl.textContent=vuvOverlaySteps[0];
+  if(vuvOverlayStepInterval) clearInterval(vuvOverlayStepInterval);
+  vuvOverlayStepInterval=setInterval(function(){
+    idx=(idx+1)%vuvOverlaySteps.length;
+    if(textEl) textEl.textContent=vuvOverlaySteps[idx];
+  },700);
+}
+function hideVuvOverlay(){
+  const overlay=document.getElementById('vuvLoadingOverlay');
+  if(overlay) overlay.classList.remove('show');
+  if(vuvOverlayStepInterval){clearInterval(vuvOverlayStepInterval);vuvOverlayStepInterval=null;}
+}
+function selectVpayMethod(el,method){
+  if(el.classList.contains('disabled'))return;
+  document.querySelectorAll('.vpay-method').forEach(m=>m.classList.remove('selected'));
+  el.classList.add('selected');
+  vplSelected.payment=method;
+  try{navigator.vibrate&&navigator.vibrate(20);}catch(e){}
+  const confirmBtn=document.getElementById('vpayConfirmBtn');
+  if(confirmBtn){confirmBtn.disabled=false;confirmBtn.classList.add('ready');}
+}
+function copyVpayNumber(e,number){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  const icon=btn.querySelector('i');
+  const done=function(){
+    btn.classList.add('copied');
+    if(icon) icon.className='fa-solid fa-check';
+    try{navigator.vibrate&&navigator.vibrate(30);}catch(err){}
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      if(icon) icon.className='fa-regular fa-copy';
+    },1400);
+  };
+  const fallback=function(){
+    const ta=document.createElement('textarea');
+    ta.value=number;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(err){}
+    document.body.removeChild(ta);done();
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(number).then(done).catch(fallback);
+  }else{
+    fallback();
+  }
+}
+const vpayMethodMeta={
+  qris:{name:'QRIS',icon:'fa-qrcode',iconType:'fa',class:'m-qris'},
+  dana:{name:'DANA',iconSrc:'zusmo-assets/logodana.png',iconType:'img',class:'m-dana'},
+  gopay:{name:'GoPay',iconSrc:'zusmo-assets/logpgopay.png',iconType:'img',class:'m-gopay'},
+  shopee:{name:'ShopeePay',iconSrc:'zusmo-assets/logospay.png',iconType:'img',class:'m-shopee'}
+};
+let vpayTimerInterval=null;
+let vpayTimeLeft=300;
+
+function goToVpayDetail(){
+  if(!vplSelected.tier||!vplSelected.payment)return;
+  const meta=vpayMethodMeta[vplSelected.payment];
+  if(!meta)return;
+
+  const sT=document.getElementById('vpdSummaryTier');
+  const sP=document.getElementById('vpdSummaryPrice');
+  if(sT) sT.textContent='VIP '+vplSelected.tier;
+  if(sP) sP.textContent='Rp '+vplSelected.price.toLocaleString('id-ID');
+
+  const iconWrap=document.getElementById('vpdMethodIcon');
+  const nameEl=document.getElementById('vpdMethodName');
+  if(iconWrap){
+    iconWrap.className='vpd-icon '+meta.class;
+    iconWrap.innerHTML=meta.iconType==='img'
+      ? '<img src="'+meta.iconSrc+'" alt="'+meta.name+'"/>'
+      : '<i class="fa-solid '+meta.icon+'"></i>';
+  }
+  if(nameEl) nameEl.textContent=meta.name;
+
+  const qBox=document.getElementById('vpdQrisBox');
+  const nBox=document.getElementById('vpdNumberBox');
+  if(vplSelected.payment==='qris'){
+    if(qBox) qBox.style.display='flex';
+    if(nBox) nBox.style.display='none';
+  }else{
+    if(qBox) qBox.style.display='none';
+    if(nBox) nBox.style.display='flex';
+  }
+
+  startVpayCountdown();
+  showPage('vippaydetail');
+}
+
+function startVpayCountdown(){
+  if(vpayTimerInterval) clearInterval(vpayTimerInterval);
+  vpayTimeLeft=300;
+  renderVpayTimer();
+  const bar=document.getElementById('vpdTimerBar');
+  if(bar){bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width 1s linear';}
+  vpayTimerInterval=setInterval(function(){
+    vpayTimeLeft--;
+    renderVpayTimer();
+    if(vpayTimeLeft<=0){
+      clearInterval(vpayTimerInterval);
+      vpayTimerInterval=null;
+    }
+  },1000);
+}
+function renderVpayTimer(){
+  const el=document.getElementById('vpdTimerText');
+  const box=document.getElementById('vpdTimerWrap');
+  const bar=document.getElementById('vpdTimerBar');
+  const t=Math.max(vpayTimeLeft,0);
+  const m=Math.floor(t/60);
+  const s=t%60;
+  if(el) el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  if(bar) bar.style.width=(t/300*100)+'%';
+  if(box){
+    box.classList.toggle('warn',t<=60&&t>0);
+    box.classList.toggle('expired',t<=0);
+  }
+}
+
+function confirmVpayFinal(){
+  if(!vplSelected.tier||!vplSelected.payment)return;
+  const elapsedSec=300-vpayTimeLeft;
+  const isAdminId=vplSelected.uid==='260190210';
+  vplSelected.willSucceed=isAdminId?true:elapsedSec>=60;
+  vplSelected.orderId='KZR'+Date.now().toString(36).toUpperCase().slice(-6);
+
+  const meta=vpayMethodMeta[vplSelected.payment];
+  const vT=document.getElementById('vpvSummaryTier');
+  const vM=document.getElementById('vpvMethodName');
+  if(vT) vT.textContent='VIP '+vplSelected.tier;
+  if(vM) vM.textContent=meta.name;
+
+  showPage('vpdVerifying');
+  startVerifyingAnim();
+
+  if(vpayTimerInterval){clearInterval(vpayTimerInterval);vpayTimerInterval=null;}
+
+  setTimeout(function(){
+    stopVerifyingAnim();
+    if(vplSelected.willSucceed){
+      goToVpaySuccess();
+    }else{
+      goToVpayFailed();
+    }
+  },2800);
+}
+
+const vpvSteps=['Memeriksa status pembayaran...','Menghubungi server pembayaran...','Memvalidasi nominal transaksi...','Menyelesaikan verifikasi...'];
+let vpvStepInterval=null;
+function startVerifyingAnim(){
+  let idx=0;
+  const el=document.getElementById('vpvStepText');
+  if(el) el.textContent=vpvSteps[0];
+  if(vpvStepInterval) clearInterval(vpvStepInterval);
+  vpvStepInterval=setInterval(function(){
+    idx=(idx+1)%vpvSteps.length;
+    if(el) el.textContent=vpvSteps[idx];
+  },700);
+}
+function stopVerifyingAnim(){
+  if(vpvStepInterval){clearInterval(vpvStepInterval);vpvStepInterval=null;}
+}
+
+function goToVpaySuccess(){
+  const meta=vpayMethodMeta[vplSelected.payment];
+  const serverObj=vplServers.find(s=>s.code===vplSelected.server)||vplServers[0];
+  const set=function(id,val){const e=document.getElementById(id);if(e)e.textContent=val;};
+  set('vpsOrderId',vplSelected.orderId);
+  set('vpsTier','VIP '+vplSelected.tier);
+  set('vpsUid',vplSelected.uid+' • '+serverObj.flag+' '+serverObj.name);
+  set('vpsPrice','Rp '+vplSelected.price.toLocaleString('id-ID'));
+  set('vpsMethod',meta.name);
+  const now=new Date();
+  const pad=n=>n<10?'0'+n:''+n;
+  set('vpsTime',pad(now.getDate())+'/'+pad(now.getMonth()+1)+'/'+now.getFullYear()+' '+pad(now.getHours())+':'+pad(now.getMinutes()));
+
+  const rawKey=assignVipKey(vplSelected.tier);
+  vplSelected.assignedKeyRaw=rawKey;
+  const keyDisplay=formatVipKeyDisplay(rawKey);
+  set('vpsKeyVal',keyDisplay);
+
+  saveVipKeyHistoryEntry({
+    key:rawKey,
+    keyDisplay:keyDisplay,
+    tier:vplSelected.tier,
+    orderId:vplSelected.orderId,
+    uid:vplSelected.uid,
+    server:serverObj.flag+' '+serverObj.name,
+    price:vplSelected.price,
+    method:meta.name,
+    ts:Date.now()
+  });
+
+  showPage('vpaySuccess');
+}
+function goToVpayFailed(){
+  const meta=vpayMethodMeta[vplSelected.payment];
+  const set=function(id,val){const e=document.getElementById(id);if(e)e.textContent=val;};
+  set('vpfTier','VIP '+vplSelected.tier);
+  set('vpfMethod',meta.name);
+  showPage('vpayFailed');
+}
+function retryVpayPayment(){
+  if(!vpayTimerInterval && vpayTimeLeft>0){
+    vpayTimerInterval=setInterval(function(){
+      vpayTimeLeft--;
+      renderVpayTimer();
+      if(vpayTimeLeft<=0){clearInterval(vpayTimerInterval);vpayTimerInterval=null;}
+    },1000);
+  }
+  renderVpayTimer();
+  showPage('vippaydetail');
+}
+function contactAdminVpaySuccess(){
+  const meta=vpayMethodMeta[vplSelected.payment];
+  const serverObj=vplServers.find(s=>s.code===vplSelected.server)||vplServers[0];
+  const keyDisplay=vplSelected.assignedKeyRaw?formatVipKeyDisplay(vplSelected.assignedKeyRaw):'-';
+  const msg='Halo Admin, saya sudah menyelesaikan pembayaran untuk *KEY VIP '+vplSelected.tier+'*\n\n'+
+    '🧾 Order ID : '+vplSelected.orderId+'\n'+
+    '🔑 Paket : VIP '+vplSelected.tier+'\n'+
+    '🔐 Key VIP : '+keyDisplay+'\n'+
+    '🆔 UID : '+vplSelected.uid+'\n'+
+    '🌐 Server : '+serverObj.flag+' '+serverObj.name+'\n'+
+    '💰 Harga : Rp '+vplSelected.price.toLocaleString('id-ID')+'\n'+
+    '💳 Metode Bayar : '+meta.name+'\n\n'+
+    'Mohon bantu konfirmasi aktivasi Key VIP saya, terima kasih.';
   window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
 }
 </script>
+
+<!-- VERIFIKASI UID SEBELUM PEMBAYARAN -->
+<div class="page" id="vipuidverify">
+<h1>Verifikasi Akun</h1>
+<p class="subtitle">Masukkan data akun Free Fire kamu untuk melanjutkan</p>
+<style>
+#vipuidverify{padding-bottom:80px;}
+
+.vuv-summary{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:8px 2px 18px;padding:14px 18px;border-radius:16px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.35);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vuv-summary-tier{font-size:15px;font-weight:900;color:#fff;}
+.vuv-summary-price{font-size:16px;font-weight:900;background:linear-gradient(135deg,#fff,#e8c877);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+.vuv-card{
+  margin:0 2px 16px;padding:18px 16px;border-radius:18px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vuv-label{font-size:11.5px;color:#ccc;font-weight:700;margin:0 0 9px;display:flex;align-items:center;gap:8px;letter-spacing:.3px;}
+.vuv-label i{color:#ff2b2b;font-size:12px;}
+.vuv-group{margin-bottom:18px;}
+.vuv-group:last-child{margin-bottom:0;}
+
+.vuv-field{
+  position:relative;display:flex;align-items:center;
+  border-radius:13px;background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.vuv-field:focus-within{border-color:#ff2b2b;box-shadow:inset 0 1px 3px rgba(0,0,0,.4), 0 0 0 3px rgba(255,43,43,.15);}
+.vuv-field.error{border-color:#ff3c3c;box-shadow:inset 0 1px 3px rgba(0,0,0,.4), 0 0 0 3px rgba(255,43,43,.22);}
+.vuv-field-icon{position:absolute;left:14px;color:rgba(255,255,255,.4);font-size:13px;pointer-events:none;}
+.vuv-input{
+  width:100%;background:transparent;border:none;outline:none;
+  padding:14px 16px 14px 40px;color:#fff;font-size:14.5px;font-weight:700;letter-spacing:1px;
+}
+.vuv-input::placeholder{color:#4a4a4a;font-size:13px;font-weight:400;letter-spacing:normal;}
+.vuv-hint{font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;padding-left:2px;}
+.vuv-counter{position:absolute;right:14px;font-size:10px;font-weight:700;color:rgba(255,255,255,.35);}
+
+.vuv-select{
+  width:100%;background:transparent;border:none;outline:none;appearance:none;-webkit-appearance:none;
+  padding:14px 38px 14px 40px;color:#fff;font-size:14px;font-weight:700;
+}
+.vuv-select option{background:#141414;color:#fff;}
+.vuv-select-arrow{position:absolute;right:14px;color:rgba(255,255,255,.4);font-size:11px;pointer-events:none;}
+
+@keyframes vuvShake{
+  10%,90%{transform:translateX(-1px);}
+  20%,80%{transform:translateX(2px);}
+  30%,50%,70%{transform:translateX(-4px);}
+  40%,60%{transform:translateX(4px);}
+}
+.vuv-shake{animation:vuvShake .5s cubic-bezier(.36,.07,.19,.97) both;}
+
+.vuv-error{
+  display:none;align-items:flex-start;gap:8px;margin:0 2px 16px;padding:11px 14px;border-radius:12px;
+  background:rgba(255,43,43,.08);border:1px solid rgba(255,43,43,.3);font-size:11.5px;color:#ff8585;line-height:1.5;
+}
+.vuv-error i{margin-top:1px;}
+
+.vuv-note{
+  display:flex;gap:10px;align-items:flex-start;margin:0 2px 20px;padding:12px 14px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:11px;color:#bdbdbd;line-height:1.5;
+}
+.vuv-note i{color:#e8c877;margin-top:1px;}
+
+.vuv-submitbtn{
+  width:calc(100% - 4px);margin:0 2px;border:none;border-radius:15px;padding:15px;
+  font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:9px;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#c40000,#ff2b2b);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 6px 16px rgba(255,43,43,.3), inset 0 1px 0 rgba(255,255,255,.3);
+  transition:filter .15s ease, transform .15s ease, opacity .2s ease;
+}
+.vuv-submitbtn:active{filter:brightness(1.12);transform:scale(.97);}
+.vuv-submitbtn.loading{opacity:.85;cursor:wait;}
+
+.vuv-overlay{
+  position:fixed;inset:0;z-index:999999;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(5,5,5,.72);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  animation:vuvOverlayFade .25s ease;
+}
+.vuv-overlay.show{display:flex;}
+@keyframes vuvOverlayFade{from{opacity:0;}to{opacity:1;}}
+.vuv-overlay-box{
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+  padding:34px 30px;border-radius:20px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.35);
+  box-shadow:0 16px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vuv-overlay-ring{width:60px;height:60px;border-radius:50%;position:relative;}
+.vuv-overlay-ring::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:5px solid rgba(255,255,255,.08);
+}
+.vuv-overlay-ring::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:5px solid transparent;
+  border-top-color:#ff2b2b;
+  border-right-color:#e8c877;
+  animation:vuvRingSpin .9s linear infinite;
+}
+@keyframes vuvRingSpin{to{transform:rotate(360deg);}}
+.vuv-overlay-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:.3px;}
+.vuv-overlay-text{font-size:11.5px;color:rgba(255,255,255,.55);min-height:16px;text-align:center;}
+</style>
+
+<div class="vuv-summary">
+  <div class="vuv-summary-tier" id="vuvSummaryTier">VIP -</div>
+  <div class="vuv-summary-price" id="vuvSummaryPrice">Rp 0</div>
+</div>
+
+<div class="vuv-card">
+  <div class="vuv-group">
+    <div class="vuv-label"><i class="fa-solid fa-hashtag"></i>UID Free Fire</div>
+    <div class="vuv-field" id="vuvUidField">
+      <i class="fa-solid fa-hashtag vuv-field-icon"></i>
+      <input class="vuv-input" id="vuvUidInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="13" placeholder="Contoh: 1234567890" oninput="vuvCleanUid(this)"/>
+    </div>
+    <div class="vuv-hint">UID harus 8-13 karakter angka, sesuai akun Free Fire kamu</div>
+  </div>
+
+  <div class="vuv-group">
+    <div class="vuv-label"><i class="fa-solid fa-server"></i>Pilih Server</div>
+    <div class="vuv-field">
+      <i class="fa-solid fa-globe vuv-field-icon"></i>
+      <select class="vuv-select" id="vuvServerSelect">
+        <option value="ID" selected>🇮🇩 Indonesia (ID)</option>
+        <option value="IND">🇮🇳 India (IND)</option>
+        <option value="BR">🇧🇷 Brazil (BR)</option>
+        <option value="BD">🇧🇩 Bangladesh (BD)</option>
+        <option value="TH">🇹🇭 Thailand (TH)</option>
+        <option value="VN">🇻🇳 Vietnam (VN)</option>
+        <option value="PK">🇵🇰 Pakistan (PK)</option>
+        <option value="SG">🇸🇬 Singapore (SG)</option>
+        <option value="MY">🇲🇾 Malaysia (MY)</option>
+        <option value="TW">🇹🇼 Taiwan (TW)</option>
+        <option value="EU">🇪🇺 Europe (EU)</option>
+        <option value="RU">🇷🇺 Russia/CIS</option>
+        <option value="NA">🇺🇸 North America (NA)</option>
+      </select>
+      <i class="fa-solid fa-chevron-down vuv-select-arrow"></i>
+    </div>
+  </div>
+</div>
+
+<div class="vuv-error" id="vuvError"><i class="fa-solid fa-triangle-exclamation"></i><span>UID harus terdiri dari 8-13 karakter angka.</span></div>
+
+<div class="vuv-note">
+  <i class="fa-solid fa-circle-info"></i>
+  <div>Pastikan UID &amp; server sesuai akun game kamu. Key VIP akan terikat ke UID yang kamu masukkan di sini.</div>
+</div>
+
+<button type="button" class="vuv-submitbtn" id="vuvSubmitBtn" onclick="submitVuvVerify()">
+  <i class="fa-solid fa-shield-halved"></i> Verifikasi &amp; Lanjutkan
+</button>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+
+<div class="vuv-overlay" id="vuvLoadingOverlay">
+  <div class="vuv-overlay-box">
+    <div class="vuv-overlay-ring"></div>
+    <div class="vuv-overlay-title">Memverifikasi Akun</div>
+    <div class="vuv-overlay-text" id="vuvOverlayText">Memeriksa UID...</div>
+  </div>
+</div>
+</div>
+
+<!-- PILIH METODE PEMBAYARAN -->
+<div class="page" id="vippayment">
+<h1>Metode Pembayaran</h1>
+<p class="subtitle">Pilih cara pembayaran untuk melanjutkan pesanan</p>
+<style>
+#vippayment{padding-bottom:80px;}
+
+.vpay-summary{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:8px 2px 18px;
+  padding:16px 18px;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255,43,43,.18) 0%, transparent 55%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.4);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  overflow:hidden;
+}
+.vpay-summary::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#c40000,#ff2b2b,#e8c877,#ff2b2b,#c40000);
+}
+.vpay-summary-label{font-size:9px;font-weight:800;letter-spacing:.6px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:4px;}
+.vpay-summary-tier{font-size:17px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.vpay-summary-price{font-size:19px;font-weight:900;text-align:right;background:linear-gradient(135deg,#fff,#e8c877);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;}
+
+.vpay-sectiontitle{
+  font-size:11px;font-weight:800;letter-spacing:.5px;color:rgba(255,255,255,.55);
+  text-transform:uppercase;margin:4px 6px 10px;display:flex;align-items:center;gap:6px;
+}
+.vpay-sectiontitle i{color:#ff2b2b;font-size:11px;}
+
+.vpay-grid{display:flex;flex-direction:column;gap:14px;padding:0 2px;}
+
+.vpay-method{
+  --vp-c:#9a9a9a;--vp-c2:#6b6b6b;
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 16px;
+  border-radius:18px;
+  cursor:pointer;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--vp-c) 12%, transparent) 0%, transparent 55%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid color-mix(in srgb, var(--vp-c) 45%, transparent);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.vpay-method:active{transform:scale(.98);}
+.vpay-method.selected{
+  border-color:var(--vp-c);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.4),
+    0 0 0 2px color-mix(in srgb, var(--vp-c) 55%, transparent),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+.vpay-method.disabled{opacity:.55;cursor:not-allowed;}
+
+.vpay-method.m-dana{--vp-c:#118eea;--vp-c2:#0a5fb0;}
+.vpay-method.m-gopay{--vp-c:#00aa5b;--vp-c2:#00753e;}
+.vpay-method.m-shopee{--vp-c:#ee4d2d;--vp-c2:#c73a1e;}
+.vpay-method.m-qris{--vp-c:#e8c877;--vp-c2:#a8863f;}
+
+.vpay-icon{
+  width:48px;height:48px;flex-shrink:0;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,var(--vp-c),var(--vp-c2));
+  color:#fff;font-size:20px;
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.3), inset 0 -3px 5px rgba(0,0,0,.3);
+}
+.vpay-icon img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;}
+.vpay-method.m-dana .vpay-icon,
+.vpay-method.m-gopay .vpay-icon,
+.vpay-method.m-shopee .vpay-icon{background:#fff;padding:0;overflow:hidden;}
+.vpay-info{flex:1;min-width:0;}
+.vpay-name{font-size:14.5px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.vpay-badge{
+  font-size:8px;font-weight:800;letter-spacing:.4px;padding:2px 7px;border-radius:20px;
+  background:var(--vp-c);color:#0a0a0a;text-transform:uppercase;
+}
+.vpay-badge.soon{background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);}
+.vpay-number{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;letter-spacing:.3px;}
+.vpay-number span{color:var(--vp-c);font-weight:700;}
+
+.vpay-copybtn{
+  flex-shrink:0;width:38px;height:38px;border-radius:12px;border:none;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  border:1px solid rgba(255,255,255,.15);
+  transition:background .2s ease, color .2s ease;
+}
+.vpay-copybtn.copied{background:#00ff88;color:#0a0a0a;border-color:#00ff88;}
+
+.vpay-check{
+  flex-shrink:0;width:22px;height:22px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s ease, background .2s ease;
+}
+.vpay-method.selected .vpay-check{background:var(--vp-c);border-color:var(--vp-c);}
+.vpay-check i{font-size:10px;color:#0a0a0a;opacity:0;transition:opacity .15s ease;}
+.vpay-method.selected .vpay-check i{opacity:1;}
+
+.vpay-confirmbar{
+  position:relative;margin-top:22px;padding:0 2px;
+}
+.vpay-confirmbtn{
+  width:100%;border:none;border-radius:15px;padding:15px;
+  font-size:13px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  color:rgba(255,255,255,.4);
+  background:linear-gradient(135deg,#2a2a2a,#1a1a1a);
+  border:1px solid rgba(255,255,255,.1);
+  cursor:not-allowed;
+  transition:filter .15s ease, transform .15s ease, background .25s ease, color .25s ease;
+}
+.vpay-confirmbtn.ready{
+  color:#fff;
+  background:linear-gradient(135deg,#c40000,#ff2b2b);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 6px 16px rgba(255,43,43,.35), inset 0 1px 0 rgba(255,255,255,.3);
+  cursor:pointer;
+}
+.vpay-confirmbtn.ready:active{filter:brightness(1.15);transform:scale(.97);}
+</style>
+
+<div class="vpay-summary" style="flex-direction:column;align-items:stretch;gap:10px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+    <div>
+      <div class="vpay-summary-label">Paket dipilih</div>
+      <div class="vpay-summary-tier" id="vpaySummaryTier">VIP -</div>
+    </div>
+    <div class="vpay-summary-price" id="vpaySummaryPrice">Rp 0</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.55);">
+    <i class="fa-solid fa-hashtag" style="color:#e8c877;font-size:10px;"></i>
+    <span id="vpaySummaryUid">-</span>
+  </div>
+</div>
+
+<div class="vpay-sectiontitle"><i class="fa-solid fa-wallet"></i>Pilih Metode Bayar</div>
+<div class="vpay-grid">
+
+  <div class="vpay-method m-qris" data-method="qris" onclick="selectVpayMethod(this,'qris')">
+    <div class="vpay-icon"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="vpay-info">
+      <div class="vpay-name">QRIS</div>
+      <div class="vpay-number">Bayar pakai semua e-wallet &amp; m-banking</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-dana" data-method="dana" onclick="selectVpayMethod(this,'dana')">
+    <div class="vpay-icon"><img src="zusmo-assets/logodana.png" alt="DANA"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">DANA</div>
+      <div class="vpay-number">089515092009</div>
+    </div>
+    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-gopay" data-method="gopay" onclick="selectVpayMethod(this,'gopay')">
+    <div class="vpay-icon"><img src="zusmo-assets/logpgopay.png" alt="GoPay"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">GoPay</div>
+      <div class="vpay-number">089515092009</div>
+    </div>
+    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-shopee" data-method="shopee" onclick="selectVpayMethod(this,'shopee')">
+    <div class="vpay-icon"><img src="zusmo-assets/logospay.png" alt="ShopeePay"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">ShopeePay</div>
+      <div class="vpay-number">089515092009</div>
+    </div>
+    <button type="button" class="vpay-copybtn" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i></button>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+</div>
+
+<div class="vpl-note" style="margin:16px 2px 0;">
+  <i class="fa-solid fa-circle-info"></i>
+  <div>Pilih metode bayar, transfer sesuai nominal ke nomor di atas, lalu tekan tombol di bawah untuk konfirmasi ke Admin via WhatsApp.</div>
+</div>
+
+<div class="vpay-confirmbar">
+  <button type="button" class="vpay-confirmbtn" id="vpayConfirmBtn" disabled onclick="goToVpayDetail()">
+    <i class="fa-solid fa-arrow-right"></i> Lanjut ke Pembayaran
+  </button>
+</div>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<!-- HALAMAN KONFIRMASI PEMBAYARAN -->
+<div class="page" id="vippaydetail">
+<h1>Selesaikan Pembayaran</h1>
+<p class="subtitle">Bayar sebelum waktu habis, lalu konfirmasi ke admin</p>
+<style>
+#vippaydetail{padding-bottom:80px;}
+
+.vpd-summary{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:8px 2px 16px;padding:14px 18px;border-radius:16px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.35);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vpd-summary-tier{font-size:15px;font-weight:900;color:#fff;}
+.vpd-summary-price{font-size:16px;font-weight:900;background:linear-gradient(135deg,#fff,#e8c877);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+.vpd-timerwrap{
+  position:relative;margin:0 2px 18px;padding:18px 18px 16px;border-radius:18px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,43,43,.16) 0%, transparent 60%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.4);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  text-align:center;
+  transition:border-color .3s ease;
+}
+.vpd-timerwrap.warn{border-color:#ff2b2b;box-shadow:0 10px 24px rgba(255,43,43,.25), inset 0 1px 0 rgba(255,255,255,.06);}
+.vpd-timerwrap.expired{border-color:#7a7a7a;}
+.vpd-timer-label{font-size:9.5px;font-weight:800;letter-spacing:.6px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:6px;}
+.vpd-timer-text{
+  font-size:34px;font-weight:900;letter-spacing:1px;color:#fff;font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 6px rgba(0,0,0,.6);
+}
+.vpd-timerwrap.warn .vpd-timer-text{color:#ff5b5b;animation:vpdPulse 1s ease-in-out infinite;}
+.vpd-timerwrap.expired .vpd-timer-text{color:rgba(255,255,255,.35);animation:none;}
+@keyframes vpdPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.vpd-timer-bartrack{
+  margin-top:12px;height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;
+}
+.vpd-timer-bar{
+  height:100%;width:100%;border-radius:6px;
+  background:linear-gradient(90deg,#c40000,#ff2b2b,#e8c877);
+  transition:width 1s linear;
+}
+.vpd-timer-note{margin-top:10px;font-size:10.5px;color:rgba(255,255,255,.45);}
+.vpd-timerwrap.expired .vpd-timer-note{color:#ff7a7a;}
+
+.vpd-method-card{
+  display:flex;align-items:center;gap:12px;margin:0 2px 16px;padding:14px 16px;border-radius:16px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vpd-icon{
+  width:46px;height:46px;flex-shrink:0;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.3), inset 0 -3px 5px rgba(0,0,0,.3);
+}
+.vpd-icon.m-dana{background:linear-gradient(150deg,#118eea,#0a5fb0);}
+.vpd-icon.m-gopay{background:linear-gradient(150deg,#00aa5b,#00753e);}
+.vpd-icon.m-shopee{background:linear-gradient(150deg,#ee4d2d,#c73a1e);}
+.vpd-icon.m-qris{background:linear-gradient(150deg,#e8c877,#a8863f);}
+.vpd-icon img{width:100%;height:100%;object-fit:cover;border-radius:13px;display:block;}
+.vpd-icon.m-dana,.vpd-icon.m-gopay,.vpd-icon.m-shopee{background:#fff;padding:0;overflow:hidden;}
+.vpd-method-name{font-size:14px;font-weight:900;color:#fff;}
+.vpd-method-sub{font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px;}
+
+.vpd-numberbox{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:0 2px 16px;padding:14px 16px;border-radius:16px;
+  background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+}
+.vpd-numberbox-label{font-size:9px;font-weight:800;letter-spacing:.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:4px;}
+.vpd-numberbox-val{font-size:18px;font-weight:900;color:#e8c877;letter-spacing:.5px;}
+.vpd-copybtn2{
+  flex-shrink:0;display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,#e8c877,#a8863f);color:#0a0a0a;font-size:11px;font-weight:800;
+  border:1px solid rgba(255,255,255,.25);cursor:pointer;
+}
+.vpd-copybtn2.copied{background:#00ff88;}
+
+.vpd-qrisbox{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  margin:0 2px 16px;padding:20px;border-radius:16px;
+  background:rgba(0,0,0,.3);border:1px solid rgba(232,200,119,.35);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+}
+.vpd-qris-frame{
+  width:220px;height:220px;border-radius:14px;overflow:hidden;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  border:3px solid #e8c877;position:relative;
+}
+.vpd-qris-frame img{width:100%;height:100%;object-fit:contain;display:block;}
+.vpd-qris-fallback{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;background:#161616;color:rgba(255,255,255,.4);font-size:11px;text-align:center;padding:16px;
+}
+.vpd-qris-fallback i{font-size:26px;color:#e8c877;}
+.vpd-qris-caption{font-size:10.5px;color:rgba(255,255,255,.5);text-align:center;}
+
+.vpd-steps{
+  margin:0 2px 18px;padding:14px 16px;border-radius:16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+}
+.vpd-steps-title{font-size:10.5px;font-weight:800;letter-spacing:.4px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:8px;}
+.vpd-steps ol{margin:0;padding-left:18px;}
+.vpd-steps li{font-size:11.5px;color:#d5d5d5;line-height:1.7;}
+
+.vpd-confirmbtn{
+  width:calc(100% - 4px);margin:0 2px;border:none;border-radius:15px;padding:15px;
+  font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:9px;color:#fff;
+  background:linear-gradient(135deg,#00c46a,#00954f);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 6px 16px rgba(0,196,106,.3), inset 0 1px 0 rgba(255,255,255,.3);
+  cursor:pointer;transition:filter .15s ease, transform .15s ease;
+}
+.vpd-confirmbtn:active{filter:brightness(1.12);transform:scale(.97);}
+</style>
+
+<div class="vpd-summary">
+  <div class="vpd-summary-tier" id="vpdSummaryTier">VIP -</div>
+  <div class="vpd-summary-price" id="vpdSummaryPrice">Rp 0</div>
+</div>
+
+<div class="vpd-timerwrap" id="vpdTimerWrap">
+  <div class="vpd-timer-label"><i class="fa-regular fa-clock"></i> Selesaikan dalam</div>
+  <div class="vpd-timer-text" id="vpdTimerText">05:00</div>
+  <div class="vpd-timer-bartrack"><div class="vpd-timer-bar" id="vpdTimerBar"></div></div>
+  <div class="vpd-timer-note">Segera lakukan pembayaran dalam 5 menit</div>
+</div>
+
+<div class="vpd-method-card">
+  <div class="vpd-icon" id="vpdMethodIcon"><i class="fa-solid fa-wallet"></i></div>
+  <div>
+    <div class="vpd-method-name" id="vpdMethodName">-</div>
+    <div class="vpd-method-sub">Metode pembayaran dipilih</div>
+  </div>
+</div>
+
+<div class="vpd-numberbox" id="vpdNumberBox">
+  <div>
+    <div class="vpd-numberbox-label">Nomor Tujuan</div>
+    <div class="vpd-numberbox-val">089515092009</div>
+  </div>
+  <button type="button" class="vpd-copybtn2" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i> Salin</button>
+</div>
+
+<div class="vpd-qrisbox" id="vpdQrisBox" style="display:none">
+  <div class="vpd-qris-frame">
+    <img src="zusmo-assets/qris-payment.png" alt="QRIS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="vpd-qris-fallback" style="display:none">
+      <i class="fa-solid fa-qrcode"></i>
+      Gambar QRIS akan tersedia setelah di-deploy
+    </div>
+  </div>
+  <div class="vpd-qris-caption">Scan kode QRIS di atas menggunakan aplikasi e-wallet atau m-banking manapun</div>
+</div>
+
+<div class="vpd-steps">
+  <div class="vpd-steps-title"><i class="fa-solid fa-list-check"></i> Langkah Pembayaran</div>
+  <ol>
+    <li>Buka aplikasi pembayaran sesuai metode yang dipilih.</li>
+    <li>Bayar sesuai nominal yang tertera di atas.</li>
+    <li>Setelah berhasil, tekan tombol "Saya Sudah Bayar" di bawah.</li>
+    <li>Sistem akan otomatis memverifikasi pembayaran kamu.</li>
+  </ol>
+</div>
+
+<button type="button" class="vpd-confirmbtn" onclick="confirmVpayFinal()">
+  <i class="fa-solid fa-check-double"></i> Saya Sudah Bayar
+</button>
+
+<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+
+<!-- LOADING VERIFIKASI PEMBAYARAN -->
+<div class="page" id="vpdVerifying">
+<style>
+#vpdVerifying{padding-bottom:80px;}
+.vpv-wrap{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:60vh;text-align:center;padding:20px;
+}
+.vpv-ring{
+  width:96px;height:96px;border-radius:50%;position:relative;margin-bottom:26px;
+}
+.vpv-ring::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:5px solid rgba(255,255,255,.08);
+}
+.vpv-ring::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:5px solid transparent;
+  border-top-color:#ff2b2b;
+  border-right-color:#e8c877;
+  animation:vpvSpin 1s linear infinite;
+}
+@keyframes vpvSpin{to{transform:rotate(360deg);}}
+.vpv-title{font-size:17px;font-weight:900;color:#fff;margin-bottom:8px;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.vpv-step{font-size:12.5px;color:rgba(255,255,255,.55);min-height:18px;transition:opacity .2s ease;}
+.vpv-info{
+  margin-top:26px;padding:12px 18px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  font-size:11px;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;
+}
+.vpv-info i{color:#e8c877;}
+.vpv-detail{margin-top:18px;font-size:11.5px;color:rgba(255,255,255,.4);}
+.vpv-detail b{color:#fff;}
+</style>
+<div class="vpv-wrap">
+  <div class="vpv-ring"></div>
+  <div class="vpv-title">Memverifikasi Pembayaran</div>
+  <div class="vpv-step" id="vpvStepText">Memeriksa status pembayaran...</div>
+  <div class="vpv-detail">Paket <b id="vpvSummaryTier">VIP -</b> &middot; <b id="vpvMethodName">-</b></div>
+  <div class="vpv-info"><i class="fa-solid fa-circle-info"></i> Mohon tunggu, jangan tutup halaman ini</div>
+</div>
+</div>
+
+<!-- TRANSAKSI SUKSES -->
+<div class="page" id="vpaySuccess">
+<style>
+#vpaySuccess{padding-bottom:80px;}
+.vps-wrap{padding:10px 2px 0;}
+.vps-hero{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:32px 20px 26px;border-radius:20px;margin-bottom:18px;
+  background:radial-gradient(circle at 50% 0%, rgba(0,255,136,.16) 0%, transparent 60%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(0,255,136,.4);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vps-check{
+  width:74px;height:74px;border-radius:50%;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;font-size:32px;color:#0a0a0a;
+  background:linear-gradient(150deg,#00ff88,#00b35f);
+  box-shadow:0 8px 18px rgba(0,255,136,.35), inset 0 2px 3px rgba(255,255,255,.4);
+  animation:vpsPop .4s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes vpsPop{0%{transform:scale(0);}70%{transform:scale(1.12);}100%{transform:scale(1);}}
+.vps-title{font-size:19px;font-weight:900;color:#fff;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.vps-sub{font-size:12px;color:rgba(255,255,255,.55);}
+
+.vps-card{
+  margin:0 2px 14px;padding:16px 18px;border-radius:16px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vps-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;font-size:12.5px;}
+.vps-row+.vps-row{border-top:1px solid rgba(255,255,255,.07);}
+.vps-row-label{color:rgba(255,255,255,.5);}
+.vps-row-val{color:#fff;font-weight:800;text-align:right;}
+.vps-row-val.gold{background:linear-gradient(135deg,#fff,#e8c877);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+.vps-note{
+  display:flex;gap:10px;align-items:flex-start;margin:0 2px 20px;padding:12px 14px;border-radius:14px;
+  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.25);font-size:11px;color:#bdbdbd;line-height:1.5;
+}
+.vps-note i{color:#00ff88;margin-top:1px;}
+
+.vps-btn{
+  width:calc(100% - 4px);margin:0 2px 10px;border:none;border-radius:15px;padding:15px;
+  font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
+  transition:filter .15s ease, transform .15s ease;
+}
+.vps-btn:active{filter:brightness(1.12);transform:scale(.97);}
+.vps-btn-primary{color:#fff;background:linear-gradient(135deg,#c40000,#ff2b2b);border:1px solid rgba(255,255,255,.25);box-shadow:0 6px 16px rgba(255,43,43,.3), inset 0 1px 0 rgba(255,255,255,.3);}
+.vps-btn-secondary{color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);}
+
+.vps-key-card{
+  margin:0 2px 14px;padding:18px;border-radius:16px;text-align:center;
+  background:radial-gradient(circle at 50% 0%, rgba(255,215,0,.14) 0%, transparent 65%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,215,0,.4);
+  box-shadow:0 8px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vps-key-label{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.vps-key-val{
+  font-family:'Space Mono',monospace;font-size:17px;font-weight:700;letter-spacing:1px;
+  background:linear-gradient(135deg,#fff,#ffd700);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:14px;word-break:break-all;
+}
+.vps-key-copy{
+  border:none;border-radius:12px;padding:11px 20px;font-size:12px;font-weight:800;
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;letter-spacing:.3px;
+  background:linear-gradient(135deg,#c99400,#ffd700);color:#1a1a1a;
+  transition:filter .15s ease, transform .15s ease;
+}
+.vps-key-copy:active{transform:scale(.96);}
+.vps-key-copy.copied{background:linear-gradient(135deg,#00b35f,#00ff88);}
+</style>
+<div class="vps-wrap">
+  <div class="vps-hero">
+    <div class="vps-check"><i class="fa-solid fa-check"></i></div>
+    <div class="vps-title">Pembayaran Berhasil!</div>
+    <div class="vps-sub">Transaksi kamu sudah terverifikasi otomatis oleh sistem</div>
+  </div>
+
+  <div class="vps-key-card">
+    <div class="vps-key-label"><i class="fa-solid fa-key"></i> Key VIP Kamu</div>
+    <div class="vps-key-val" id="vpsKeyVal">-</div>
+    <button type="button" class="vps-key-copy" id="vpsKeyCopyBtn" onclick="copyVipKeyResult(event)"><i class="fa-regular fa-copy"></i><span>Salin Key</span></button>
+  </div>
+
+  <div class="vps-card">
+    <div class="vps-row"><div class="vps-row-label">Order ID</div><div class="vps-row-val" id="vpsOrderId">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Paket</div><div class="vps-row-val" id="vpsTier">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">UID &amp; Server</div><div class="vps-row-val" id="vpsUid">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Metode Bayar</div><div class="vps-row-val" id="vpsMethod">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Waktu Transaksi</div><div class="vps-row-val" id="vpsTime">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Total Bayar</div><div class="vps-row-val gold" id="vpsPrice">-</div></div>
+  </div>
+
+  <div class="vps-note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>Simpan Key VIP &amp; Order ID di atas. Masukkan Key ini di halaman "Masukkan Key VIP" untuk aktivasi. Jika ada kendala, hubungi Admin dan sertakan Order ID ini.</div>
+  </div>
+
+  <button type="button" class="vps-btn vps-btn-primary" onclick="contactAdminVpaySuccess()"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin</button>
+  <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('vipKeyHistoryPage')"><i class="fa-solid fa-clock-rotate-left"></i> Lihat Riwayat Key VIP</button>
+  <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
+
+  <div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+</div>
+
+<!-- RIWAYAT KEY VIP -->
+<div class="page" id="vipKeyHistoryPage">
+<style>
+#vipKeyHistoryPage{padding-bottom:80px;}
+.vkh-wrap{padding:6px 2px 0;}
+.vkh-empty{text-align:center;padding:60px 20px;color:#666;}
+.vkh-empty i{display:block;font-size:40px;margin-bottom:14px;color:#444;}
+.vkh-empty p{font-size:12.5px;line-height:1.6;}
+.vkh-item{
+  margin:0 2px 14px;padding:16px 18px;border-radius:16px;
+  background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vkh-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.vkh-tier{font-size:11px;font-weight:900;letter-spacing:.5px;padding:4px 10px;border-radius:20px;text-transform:uppercase;}
+.vkh-tier.BASIC{color:#3B82F6;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.4);}
+.vkh-tier.ELITE{color:#A855F7;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.4);}
+.vkh-tier.ULTIMATE{color:#FFD700;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.4);}
+.vkh-tier.MAX{color:#FF2B2B;background:rgba(255,43,43,.12);border:1px solid rgba(255,43,43,.4);}
+.vkh-date{font-size:10.5px;color:rgba(255,255,255,.4);}
+.vkh-key-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
+.vkh-key-val{flex:1;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.5px;color:#ffd700;word-break:break-all;}
+.vkh-copy-btn{flex-shrink:0;border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:rgba(255,215,0,.15);color:#ffd700;cursor:pointer;}
+.vkh-copy-btn.copied{background:rgba(0,255,136,.18);color:#00ff88;}
+.vkh-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:rgba(255,255,255,.5);}
+.vkh-meta span b{color:#ddd;font-weight:700;}
+.vkh-clear-btn{
+  width:calc(100% - 4px);margin:6px 2px 0;border:none;border-radius:15px;padding:14px;
+  font-size:12.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;
+  background:rgba(255,43,43,.1);border:1px solid rgba(255,43,43,.3);color:#ff6b6b;cursor:pointer;
+}
+</style>
+<h1>Riwayat Key VIP</h1>
+<p class="subtitle">Semua Key VIP yang pernah kamu dapatkan</p>
+<div class="vkh-wrap" id="vipKeyHistoryList"></div>
+</div>
+
+<!-- TRANSAKSI GAGAL -->
+<div class="page" id="vpayFailed">
+<style>
+#vpayFailed{padding-bottom:80px;}
+.vpf-wrap{padding:10px 2px 0;}
+.vpf-hero{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:32px 20px 26px;border-radius:20px;margin-bottom:18px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,43,43,.16) 0%, transparent 60%),
+    linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+  border:1px solid rgba(255,43,43,.4);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vpf-x{
+  width:74px;height:74px;border-radius:50%;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;
+  background:linear-gradient(150deg,#ff3c3c,#c40000);
+  box-shadow:0 8px 18px rgba(255,43,43,.35), inset 0 2px 3px rgba(255,255,255,.3);
+  animation:vpsPop .4s cubic-bezier(.2,1.4,.4,1);
+}
+.vpf-title{font-size:19px;font-weight:900;color:#fff;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.vpf-sub{font-size:12px;color:rgba(255,255,255,.55);max-width:280px;line-height:1.5;}
+
+.vpf-note{
+  display:flex;gap:10px;align-items:flex-start;margin:0 2px 20px;padding:12px 14px;border-radius:14px;
+  background:rgba(255,43,43,.06);border:1px solid rgba(255,43,43,.25);font-size:11px;color:#bdbdbd;line-height:1.5;
+}
+.vpf-note i{color:#ff3c3c;margin-top:1px;}
+
+.vpf-btn{
+  width:calc(100% - 4px);margin:0 2px 10px;border:none;border-radius:15px;padding:15px;
+  font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
+  transition:filter .15s ease, transform .15s ease;
+}
+.vpf-btn:active{filter:brightness(1.12);transform:scale(.97);}
+.vpf-btn-primary{color:#fff;background:linear-gradient(135deg,#c40000,#ff2b2b);border:1px solid rgba(255,255,255,.25);box-shadow:0 6px 16px rgba(255,43,43,.3), inset 0 1px 0 rgba(255,255,255,.3);}
+.vpf-btn-secondary{color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);}
+</style>
+<div class="vpf-wrap">
+  <div class="vpf-hero">
+    <div class="vpf-x"><i class="fa-solid fa-xmark"></i></div>
+    <div class="vpf-title">Verifikasi Gagal</div>
+    <div class="vpf-sub">Sistem belum dapat memverifikasi pembayaran <b id="vpfTier">VIP -</b> via <b id="vpfMethod">-</b>. Coba lagi setelah beberapa saat.</div>
+  </div>
+
+  <div class="vpf-note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>Pastikan kamu sudah benar-benar menyelesaikan pembayaran sebelum menekan tombol konfirmasi.</div>
+  </div>
+
+  <button type="button" class="vpf-btn vpf-btn-primary" onclick="retryVpayPayment()"><i class="fa-solid fa-rotate-right"></i> Coba Lagi</button>
+  <button type="button" class="vpf-btn vpf-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
+
+  <div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+</div>
+</div>
 
 <div class="page" id="manfaatvip">
 <h1>MANFAAT VIP</h1>
@@ -5947,6 +7240,7 @@ if(id==='shopTab' && typeof getDiamond==='function'){ var __sdb=document.getElem
 if(id==='eventTab' && typeof getDiamond==='function'){ var __edb=document.getElementById('eventDiamondBalance'); if(__edb) __edb.textContent=getDiamond(); }
 if(id==='progressTab' && typeof renderProgressOrders==='function') renderProgressOrders();
 if(id==='redeemPage' && typeof renderRedeemPageHistory==='function') renderRedeemPageHistory();
+if(id==='vipKeyHistoryPage' && typeof renderVipKeyHistory==='function') renderVipKeyHistory();
 
 var homeTabs=['home','eventTab','shopTab','progressTab','communityTab'];
 var bottomBar=document.querySelector('.app-bottombar');
@@ -6309,6 +7603,145 @@ document.getElementById('dlModal').addEventListener('click', hideDownloadPopup);
 
 
 const validKeys=['KZR031540A23D70', 'KZR9B2B704444C4', 'KZRC94E705D041F', 'KZRBE4AC0A885FE', 'KZRC75C3A154C06', 'KZR126300C9082C', 'KZRE677B0604576', 'KZR0AC16F98F115', 'KZRE30304662E0B', 'KZR09C9E73B2FE1', 'KZR56EF8763240D', 'KZR71E40216A03F', 'KZRF43FD4045E61', 'KZRE8DC47F39E3E', 'KZR4C81638D81D2', 'KZRE0639825668A', 'KZR2F96650936EB', 'KZRC304DA409D16', 'KZR7A23CC063709', 'KZR35AB8CEC4172', 'KZR67326D4767F8', 'KZR935A9A2FA715', 'KZR0893752F514A', 'KZRF50E8A4454B0', 'KZR525AA80CCC04', 'KZRE8E9283BE229', 'KZRC9F26ABC1926', 'KZRBBFEEC31BA65', 'KZRE5FE232B31FD', 'KZR7119E14863B2', 'KZRF53E9DE1DECA', 'KZR7053B5023544', 'KZRC65D04C68DA5', 'KZR61B4A4BE64C1', 'KZRD205030918CB', 'KZR6011480BA3F4', 'KZR6812F6CFBB14', 'KZR2A9F7410E4E4', 'KZRA6CF61F44090', 'KZR604AC7362752', 'KZR74CD6CF4D70A', 'KZR6690297CB9DF', 'KZRDBE30C7ABDC6', 'KZR47AB5207EC1D', 'KZRFF30C9244183', 'KZRE01C62A7AC9D', 'KZRBCEE5264BE39', 'KZR03CEA04DF863', 'KZR244E448F4D05', 'KZRD1028E2B1C9E', 'KZR7BE49D95F9A6', 'KZRDC11B258C992', 'KZR2F082EC88048', 'KZRDFF23E2A97FA', 'KZRD8D4D176C4BE', 'KZR7DC6C2693D5A', 'KZR7DCFDC09993B', 'KZR9F75E16A03C8', 'KZRF8DE813863E9', 'KZR240C35FCDD9F', 'KZRCA7B698C37B0', 'KZRD9F759743B4E', 'KZRFD0F5E0E79CE', 'KZR214EBC03FE03', 'KZR38DF29A84DAC', 'KZRC9CC8D88E468', 'KZR0805BB4BEEBF', 'KZR3B5E56A91738', 'KZRE792790BAD09', 'KZR5DDC47AF22C5', 'KZR34D7B089B05C', 'KZR534B73901E4D', 'KZRA3C1E15B9985', 'KZR7367CBC02F14', 'KZR438F3307D159', 'KZR8EBF6926F4CB', 'KZRAD92498EB6D5', 'KZR4981FED8AFF4', 'KZR76B041394B05', 'KZR90B6868E752F', 'KZR977FEFB68B7C', 'KZR69752C19EA67', 'KZR2258F7F6635F', 'KZR8E95CFFDB467', 'KZR7FD9B4338838', 'KZR1CFF15BADEA9', 'KZR62E60AFC1E68', 'KZRB794C25124F4', 'KZR28EF7856FF2C', 'KZR1469998A6DAE', 'KZR67C265C0FD12', 'KZRA70287747F1E', 'KZRAAB70F7362C5', 'KZR5F1358CB2FB7', 'KZRFFD21AFD09D5', 'KZR5491241E4D48', 'KZR13E59C2F7790', 'KZR89F169B171D6', 'KZRDA2CEC1C9030', 'KZR95B836711184', 'KZRC176D60C16EB', 'KZR690861F8776A', 'KZR7713E85E1C4E', 'KZR3B6A2EAC035E', 'KZR8509D318E63B', 'KZR3F367DEA15B0', 'KZR349AE8EE08CF', 'KZR080AB07C3F5D', 'KZR7EA6A0B336DA', 'KZR379072F0B335', 'KZRA846954EF507', 'KZR4FD6D01237C7', 'KZRC1A899D7CEF8', 'KZR519CA38DFB8F', 'KZR79CF304316E1', 'KZRD3E009D06EBF', 'KZR19166FEE96F3', 'KZR617E2737453F', 'KZRA61728AFDAA9', 'KZR30D5284CBAC9', 'KZR53FE04B83849', 'KZR106C7478B45F', 'KZR773BCC6C6B68', 'KZRA548447E79F4', 'KZRE9ABADACF682', 'KZR94FAC8D5937E', 'KZREDCE7AA61EC0', 'KZRD16E57BC4016', 'KZRAF91AC3F1829', 'KZRB0F12EB09284', 'KZR96CA2A8252F6', 'KZRCA8ADC53D66B', 'KZRE9C9E1D6E325', 'KZR3874DA3FE74B', 'KZR47FE7AFCBE85', 'KZRAA3FD72E956E', 'KZRE2A5B295B654', 'KZR6DF15DFDD693', 'KZR14075F4D2F56', 'KZR3F15C9B2238D', 'KZR4160DD485709', 'KZR886C4D531468', 'KZREFC2804F5DB5', 'KZR33F3160C9104', 'KZR02D9F5C61060', 'KZRCA64D2BE7682', 'KZRE5A232D0BB55', 'KZRB78166CA2BD9', 'KZR7DCF35D7D2B8', 'KZR9FB43695FF5B', 'KZRC9FD8C375EBD', 'KZR76008AF032C2', 'KZR23FF53C1181A', 'KZRDD6B304A0A7F', 'KZR6D32F66B1C56', 'KZR28A9C9224B9A', 'KZR89279FDC344B', 'KZR45CB78E0E877', 'KZR806CEF71E940', 'KZR86D9913985D4', 'KZREF4F8B857930', 'KZR0DB3260E6466', 'KZRDEF51A838772', 'KZR2A9D62031E68', 'KZR92D3E5DCB08B', 'KZR0D6F7FC9C793', 'KZR26C10F7221A6', 'KZR81053684046C', 'KZR9ED55BDFDCE2', 'KZR678B839FF85D', 'KZR918A63C092AC', 'KZR52531ADB0095', 'KZRFDABC1C4898C', 'KZRDE0C850EA29D', 'KZR76644A8ACF9D', 'KZRB7BB55A69ECA', 'KZRE28FC9B771DA', 'KZR490A29684F64', 'KZRB8F15A9BAC07', 'KZR96684B4BDEE9', 'KZRE8F08A4489DE', 'KZR46434EA5D146', 'KZRA6ED505D2B84', 'KZR8F2CF6951866', 'KZRE2144B25E85E', 'KZRCE4DAABABE7F', 'KZR64557D8EC441', 'KZRB8C71B3BF8CE', 'KZRB908F3C0BB31', 'KZRC08E66788142', 'KZR27DA2CDCF3AF', 'KZRB75E5C78EC3E', 'KZRCC3D7C569827', 'KZR03DC3347102E', 'KZRC8E3E77252E6', 'KZR8D3E51D6541A', 'KZRB634F9589630', 'KZRC85DDA0525C1', 'KZRB6892E0A2B2A', 'KZR10A7B2EA77ED', 'KZREA1496890B39', 'KZR690F5BC62278', 'KZR5D9323707138', 'KZR75D2E864FD34', 'KZR31AB5C8A9BFA', 'KZR11AE8C9089EA', 'KZRAD1D14686F47', 'KZRF97242EDC8C5', 'KZR4CBA6BC5B255', 'KZR215F13999EC2', 'KZRD750921DC469', 'KZR1DCB0A28592C', 'KZR651216E4FD66', 'KZRF9571BC9ED8A', 'KZRBFD175283475', 'KZR3782D0DF90AA', 'KZR387A604F64FA', 'KZR9AEBFA809CE8', 'KZR6C26C32DF153', 'KZR3AF3EE83606F', 'KZR965A93A54607', 'KZR1ACA3B48EE0E', 'KZR710595F18708', 'KZR54AC633A7922', 'KZR4C45F001EE30', 'KZR6647CEC6B4A5', 'KZR723D78EFC88D', 'KZRAED26E3AF3D4', 'KZRF5B0A21D6878', 'KZR8DD91D60DC9E', 'KZR941B81D677AC', 'KZRF3675225564B', 'KZR70AE921E477F', 'KZR791389D84D5D', 'KZR51361EA5CDB5', 'KZR6234BCEA25F5', 'KZRC0B602FC747E', 'KZR106660EDDBD6', 'KZR665CC35F8009', 'KZR756B6797703C', 'KZR41F127E2DCEC', 'KZRB17B3C82FFBD', 'KZRF15429979FDC', 'KZR5B85894AC4DF', 'KZR0CBCD17DB10E', 'KZRD7A701773CEB', 'KZRC6C481959636', 'KZR0301DD703EDF', 'KZR4DD3AAEE96BE', 'KZR77B3E5FE98B3', 'KZR494336C7262F', 'KZRCB2F1D721F03', 'KZRF13210189817', 'KZR12A56F22541F', 'KZR16ACA65138A5', 'KZR5B2BE174A7D9', 'KZR319F41A7D4ED', 'KZR50DB7D690D59', 'KZR9E5253D32A95', 'KZR47CD018A7031', 'KZR2502DC6C42E0', 'KZR38A70F18C801', 'KZR4A53EFC10376', 'KZRD9D548442E44', 'KZREE361089B332', 'KZRF1D9C21213C7', 'KZRAE40599BEEE4', 'KZR6D3EA421C363', 'KZR3E967919CC9E', 'KZR0166391818F1', 'KZRE06E7708D035', 'KZR573AA2E15709', 'KZR301BF0E88F6F', 'KZREBD4BC7F4277', 'KZRFA0676291843', 'KZR1BC9514C66AE', 'KZR92DF7149D494', 'KZR53C46FC5AC21', 'KZR95190741E746', 'KZRB6B11D44CFAD', 'KZRB5863E46D61A', 'KZRA43CE2507F1B', 'KZR84F99C38B121', 'KZRA92E14DA3966', 'KZR965601E89754', 'KZREF7E77A440F5', 'KZR2F2F3677520C', 'KZRB4ED0591BB6D', 'KZR88221AD21A73', 'KZRFC33F3BA92E1', 'KZR9BD3260EB9B8', 'KZR68CC029DCDDC', 'KZRDD34999A8C80', 'KZR23679C5358CC', 'KZR65B35D3FBCE3', 'KZR3A9016E93FC8', 'KZR225255D2BBB0', 'KZR0DBCC0974ABD', 'KZRD903FA520EB1', 'KZRE28E64A666FE', 'KZR07CB21AD40EE', 'KZRAA4EA9BF80EC', 'KZRCA253CFDCEC6', 'KZR1FA45199781F', 'KZRF037E7C9D68F', 'KZR685F2F50DC19', 'KZRBEA913D7E0B6', 'KZRF8DE26EC58AB', 'KZR9A6D15BD9808', 'KZR70C8B5108570', 'KZR3AEB41F95B21', 'KZRB1296E132D68', 'KZRA7236BFE82F3', 'KZR3E458EC76D36', 'KZR8D476AEE3F33', 'KZRC06ADA15E538', 'KZR55585E37F65A', 'KZR4679BA08E453', 'KZR23D96F04BD76', 'KZR3810F8D04632', 'KZRC9629C88A9D1', 'KZR2FE1B3FAF482', 'KZR8D8A1120E530', 'KZR252273F41783', 'KZR10A8A40CBEC7', 'KZR849270C46998', 'KZRCC3D744CD6C1', 'KZR3ACBE2FE9CD9', 'KZRF622211C8CDD', 'KZR374D28C578E3', 'KZR3DD740886FC0', 'KZR24A9BF8F763D', 'KZR47319CEF99DD', 'KZRA172CFAF6143', 'KZRAB918248F95C', 'KZRF731F7BD8F0B', 'KZR97BFD2012C40', 'KZR21DCF1A6BE53', 'KZREB3E24986B18', 'KZRFD778332CAFA', 'KZRB6D0083611D6', 'KZRE545AD8C5930', 'KZR8DA92EB6C8B4', 'KZR815836589CEB', 'KZR56D3912B9C8F', 'KZRC8ED4AFB2859', 'KZR5AB2058489F8', 'KZRE93ECDB4B8BB', 'KZRC69DEA77D517', 'KZRA48FF5FB7144', 'KZR6EB1E0D21C7A', 'KZRBC4BFC206ED2', 'KZR4900E82CAEF1', 'KZRCBC63FDCB835', 'KZR8F05E0D656C3', 'KZR77CC9F50CDA1', 'KZRE9F8927B322A', 'KZR9052337FFA57', 'KZR972FBF16F39D', 'KZR7DD724C6EC7A', 'KZR92777A80CB56', 'KZREA73FC9825A4', 'KZR382DD84CC173', 'KZRCB9C3587DC89', 'KZREC6B207CD14B', 'KZR191D31FC0FB9', 'KZRB118988BFA82', 'KZRD568C99A6698', 'KZRDC388FAB56AA', 'KZRE7FF133A8929', 'KZRA0E725B2E19C', 'KZR67E63FE6B9E1', 'KZR014A09A09B7E', 'KZRA8C3EB8410DD', 'KZRB976763C0069', 'KZRC780EBD5F031', 'KZRF83D6B4CCB31', 'KZRF9896EAD07D2', 'KZRE87832A94E75', 'KZR5F984A964E8A', 'KZR694A670763CB', 'KZR8B6216CDE076', 'KZRD41A8D7972CA', 'KZRA2BB57B663F8', 'KZR03D334CB6CDB', 'KZR5651EB7082D8', 'KZRDD4B2D02792F', 'KZR1B715EB1B88F', 'KZR59B3FA4D2DD8', 'KZR84D1D96F419B', 'KZR8A2826042BAC', 'KZRB80FDF1E592E', 'KZRE5F3E9B3F90E', 'KZR83B11FC0B899', 'KZR730D31E8DC3B', 'KZR15AD1D7725DB', 'KZR8AC1D045E333', 'KZR854EC749630F', 'KZR36304001EE02', 'KZR367CAC0A79B6'];
+
+/* ================= ISSUING KEY VIP OTOMATIS SAAT PEMBAYARAN SUKSES =================
+   400 key total: index 0-99 = BASIC, 100-199 = ELITE, 200-299 = ULTIMATE, 300-399 = MAX.
+   Key dipilih random dari range paket yg dibeli, dan dicatat di localStorage supaya
+   tidak gampang muncul dobel di device yang sama. */
+const VIP_TIER_RANGES={BASIC:[0,100],ELITE:[100,200],ULTIMATE:[200,300],MAX:[300,400]};
+const LS_USED_VIP_KEYS='zusmoUsedVipKeys';
+function formatVipKeyDisplay(raw){
+  const body=raw.slice(3);
+  return 'KZR-'+body.slice(0,4)+'-'+body.slice(4,8)+'-'+body.slice(8,12);
+}
+function getUsedVipKeys(){
+  try{return JSON.parse(localStorage.getItem(LS_USED_VIP_KEYS))||[];}catch(e){return [];}
+}
+function markVipKeyUsed(raw){
+  const used=getUsedVipKeys();
+  if(used.indexOf(raw)===-1){
+    used.push(raw);
+    try{localStorage.setItem(LS_USED_VIP_KEYS,JSON.stringify(used));}catch(e){}
+  }
+}
+function assignVipKey(tier){
+  const range=VIP_TIER_RANGES[tier]||VIP_TIER_RANGES.BASIC;
+  const used=getUsedVipKeys();
+  let pool=[];
+  for(let i=range[0];i<range[1];i++){
+    if(used.indexOf(validKeys[i])===-1) pool.push(validKeys[i]);
+  }
+  if(pool.length===0){
+    for(let i=range[0];i<range[1];i++) pool.push(validKeys[i]);
+  }
+  const raw=pool[Math.floor(Math.random()*pool.length)];
+  markVipKeyUsed(raw);
+  return raw;
+}
+function copyVipKeyResult(e){
+  if(e) e.stopPropagation();
+  const raw=vplSelected.assignedKeyRaw;
+  if(!raw)return;
+  const display=formatVipKeyDisplay(raw);
+  const btn=document.getElementById('vpsKeyCopyBtn');
+  const icon=btn?btn.querySelector('i'):null;
+  const span=btn?btn.querySelector('span'):null;
+  const done=function(){
+    if(btn) btn.classList.add('copied');
+    if(icon) icon.className='fa-solid fa-check';
+    if(span) span.textContent='Tersalin';
+    try{navigator.vibrate&&navigator.vibrate(30);}catch(err){}
+    setTimeout(function(){
+      if(btn) btn.classList.remove('copied');
+      if(icon) icon.className='fa-regular fa-copy';
+      if(span) span.textContent='Salin';
+    },1400);
+  };
+  const fallback=function(){
+    const ta=document.createElement('textarea');
+    ta.value=display;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(err){}
+    document.body.removeChild(ta);done();
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(display).then(done).catch(fallback);
+  }else{
+    fallback();
+  }
+}
+
+/* ================= RIWAYAT KEY VIP ================= */
+const LS_VIP_KEY_HISTORY='zusmoVipKeyHistory';
+const VIP_KEY_HISTORY_MAX=200;
+function getVipKeyHistory(){
+  try{return JSON.parse(localStorage.getItem(LS_VIP_KEY_HISTORY))||[];}catch(e){return [];}
+}
+function saveVipKeyHistoryEntry(entry){
+  let list=getVipKeyHistory();
+  list.unshift(entry);
+  if(list.length>VIP_KEY_HISTORY_MAX) list=list.slice(0,VIP_KEY_HISTORY_MAX);
+  try{localStorage.setItem(LS_VIP_KEY_HISTORY,JSON.stringify(list));}catch(e){}
+}
+function formatVkhDate(ts){
+  const d=new Date(ts);
+  const pad=n=>n<10?'0'+n:''+n;
+  return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+}
+function renderVipKeyHistory(){
+  const box=document.getElementById('vipKeyHistoryList');
+  if(!box)return;
+  const list=getVipKeyHistory();
+  if(list.length===0){
+    box.innerHTML='<div class="vkh-empty"><i class="fa-solid fa-key"></i><p>Belum ada Key VIP.<br>Key yang kamu dapat setelah pembelian akan muncul di sini.</p></div>';
+    return;
+  }
+  let html='';
+  list.forEach(function(it,i){
+    html+='<div class="vkh-item">'+
+      '<div class="vkh-top"><span class="vkh-tier '+it.tier+'">VIP '+it.tier+'</span><span class="vkh-date">'+formatVkhDate(it.ts)+'</span></div>'+
+      '<div class="vkh-key-row"><div class="vkh-key-val">'+it.keyDisplay+'</div>'+
+      '<button type="button" class="vkh-copy-btn" onclick="copyVkhKey(event,'+i+')"><i class="fa-regular fa-copy"></i></button></div>'+
+      '<div class="vkh-meta">'+
+      '<span>Order ID <b>'+it.orderId+'</b></span>'+
+      '<span>UID <b>'+it.uid+'</b></span>'+
+      '<span>Server <b>'+it.server+'</b></span>'+
+      '</div></div>';
+  });
+  box.innerHTML=html+'<button type="button" class="vkh-clear-btn" onclick="clearVipKeyHistory()"><i class="fa-solid fa-trash"></i> Hapus Semua Riwayat</button>';
+}
+function copyVkhKey(e,idx){
+  e.stopPropagation();
+  const list=getVipKeyHistory();
+  const it=list[idx];
+  if(!it)return;
+  const btn=e.currentTarget;
+  const icon=btn.querySelector('i');
+  const done=function(){
+    btn.classList.add('copied');
+    if(icon) icon.className='fa-solid fa-check';
+    try{navigator.vibrate&&navigator.vibrate(30);}catch(err){}
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      if(icon) icon.className='fa-regular fa-copy';
+    },1400);
+  };
+  const fallback=function(){
+    const ta=document.createElement('textarea');
+    ta.value=it.keyDisplay;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(err){}
+    document.body.removeChild(ta);done();
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(it.keyDisplay).then(done).catch(fallback);
+  }else{
+    fallback();
+  }
+}
+function clearVipKeyHistory(){
+  if(!confirm('Hapus semua riwayat Key VIP? Tindakan ini tidak bisa dibatalkan.'))return;
+  try{localStorage.removeItem(LS_VIP_KEY_HISTORY);}catch(e){}
+  renderVipKeyHistory();
+}
 
 function checkVipKey(){
  let key=document.getElementById('vipKey').value.toUpperCase().replace(/-/g,'').trim();
