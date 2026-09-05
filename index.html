@@ -3243,7 +3243,7 @@ object-fit:contain;
       left: auto !important;
       text-align: left !important;
     }#vipAppRoot .appbar {
-      justify-content: space-between !important;
+      justify-content: flex-start !important;
       gap: 10px !important;
       padding-right: 12px !important;
     }#vipAppRoot .top-lang-wrap {
@@ -4803,22 +4803,12 @@ object-fit:contain;
 </head><body><div id="vipAppRoot">
   <div class="noise" aria-hidden="true"></div>
   
-  <div class="global-lang-menu" id="globalLangMenu">
-    <button type="button" data-lang="id">Indonesia</button>
-    <button type="button" data-lang="hi">भारत</button>
-    <button type="button" data-lang="ar">العربية</button>
-    <button type="button" data-lang="en">English</button>
-  </div>
-
   <main class="phone">
     <div class="hacker-click-flash" id="hackerClickFlash" aria-hidden="true"></div>
     <section id="loadingScreen" class="screen active">
       <div class="shell loading-shell premium-shell no-select">
         <header class="appbar">
           <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
-          <div class="top-lang-wrap">
-            <button class="lang top-lang-btn" type="button">EN</button>
-          </div>
         </header>
 
         <div class="loading-content">
@@ -4853,9 +4843,6 @@ object-fit:contain;
       <div class="shell auth-shell premium-shell">
         <header class="appbar no-select">
           <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
-          <div class="top-lang-wrap">
-            <button class="lang top-lang-btn" type="button">EN</button>
-          </div>
         </header>
 
         <div class="hacker-rain" id="hackerRain" aria-hidden="true"></div>
@@ -4934,9 +4921,6 @@ object-fit:contain;
       <div class="shell vpn-shell premium-shell no-select">
         <header class="appbar">
           <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
-          <div class="top-lang-wrap">
-            <button class="lang top-lang-btn" type="button">EN</button>
-          </div>
         </header>
 
         <div class="content">
@@ -4956,16 +4940,6 @@ object-fit:contain;
 
           <div class="dash-title-row">
             <h1 class="dash-title"><span class="red" data-i18n="dashboardTitle">ZUSMO SHADOW V.2.1</span></h1>
-
-            <div class="lang-wrap">
-              <button class="lang" id="langBtn" type="button">EN</button>
-              <div class="lang-menu" id="langMenu">
-                <button type="button" data-lang="id">Indonesia</button>
-                <button type="button" data-lang="hi">भारत</button>
-                <button type="button" data-lang="ar">العربية</button>
-                <button type="button" data-lang="en">English</button>
-              </div>
-            </div>
           </div>
 
           <div class="tier-badge" id="tierBadge">
@@ -5009,26 +4983,11 @@ object-fit:contain;
       <div class="shell faq-shell premium-shell no-select">
         <header class="appbar">
           <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
-          <div class="top-lang-wrap">
-            <button class="lang top-lang-btn" type="button">EN</button>
-          </div>
         </header>
 
         <div class="faq-scroll">
           <div class="faq-top">
             <button class="faq-back" id="faqBackBtn" type="button">‹</button>
-
-            <div class="faq-lang-wrap">
-              <button class="faq-lang-btn" id="faqLangBtn" type="button">
-                🌐 <span id="faqLangLabel">English</span>
-              </button>
-              <div class="faq-lang-menu" id="faqLangMenu">
-                <button type="button" data-lang="id">Indonesia</button>
-                <button type="button" data-lang="hi">भारत</button>
-                <button type="button" data-lang="ar">العربية</button>
-                <button type="button" data-lang="en">English</button>
-              </div>
-            </div>
           </div>
 
           <div class="faq-hero glass-card">
@@ -12834,18 +12793,6 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       </label>
     </div>
 
-    <div class="settings-panel-title" data-i18n="settings.language">Bahasa</div>
-
-    <div class="lang-switch" id="langSwitch">
-      <button type="button" class="lang-opt" id="langOptId" onclick="onSetLanguage('id')">
-        <span class="lang-flag">🇮🇩</span>
-        <span class="lang-name">Indonesia</span>
-      </button>
-      <button type="button" class="lang-opt" id="langOptEn" onclick="onSetLanguage('en')">
-        <span class="lang-flag">🇬🇧</span>
-        <span class="lang-name">English</span>
-      </button>
-    </div>
   </div>
 </div>
 
@@ -19055,13 +19002,6 @@ if(navigator.storage && navigator.storage.persist){
     const vpnAccessMessage = document.getElementById('vpnAccessMessage');
     const vpnAccessAction = document.getElementById('vpnAccessAction');
     const faqBackBtn = document.getElementById('faqBackBtn');
-    const faqLangBtn = document.getElementById('faqLangBtn');
-    const faqLangLabel = document.getElementById('faqLangLabel');
-    const faqLangMenu = document.getElementById('faqLangMenu');
-    const langBtn = document.getElementById('langBtn');
-    const langMenu = document.getElementById('langMenu');
-    const topLangBtns = document.getElementById('vipAppRoot').querySelectorAll('.top-lang-btn');
-    const globalLangMenu = document.getElementById('globalLangMenu');
     const proxyPill = document.getElementById('proxyPill');
     const tierBadge = document.getElementById('tierBadge');
     const tierName = document.getElementById('tierName');
@@ -20893,7 +20833,7 @@ if(navigator.storage && navigator.storage.persist){
     let toastTimer = null;
     let proxyPillTimer = null;
     let keyWasPasted = false;
-    let currentLang = localStorage.getItem('zusmo_shadow_language_v2') || 'en';
+    let currentLang = 'id';
 
     const translations = {
       en: {
@@ -21237,9 +21177,6 @@ if(navigator.storage && navigator.storage.persist){
         el.placeholder = t(el.dataset.i18nPlaceholder);
       });
 
-      langBtn.textContent = t('langShort');
-      topLangBtns.forEach(btn => btn.textContent = t('langShort'));
-      if (faqLangLabel) faqLangLabel.textContent = t('faqLangLabel');
       updateKeyStatus();
 
       if (!connected) {
@@ -21263,10 +21200,6 @@ if(navigator.storage && navigator.storage.persist){
       allAppScreens.forEach(hardHideScreen);
       hardShowScreen(targetScreen);
       activeScreenName = screenMap[targetName] ? targetName : 'loading';
-
-      if (globalLangMenu) globalLangMenu.classList.remove('show');
-      if (langMenu) langMenu.classList.remove('show');
-      if (faqLangMenu) faqLangMenu.classList.remove('show');
 
       if (activeScreenName === 'auth') {
         localStorage.setItem(lastScreenStorage, 'auth');
@@ -21518,65 +21451,6 @@ if(navigator.storage && navigator.storage.persist){
       playHackerClick();
       flashHackerTap(event);
     }, { passive: true });
-
-    topLangBtns.forEach(btn => {
-      btn.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const rect = btn.getBoundingClientRect();
-        globalLangMenu.style.top = (rect.bottom + 8) + 'px';
-        globalLangMenu.style.right = '12px';
-        globalLangMenu.style.left = 'auto';
-        globalLangMenu.classList.toggle('show');
-      });
-    });
-
-    globalLangMenu.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', (event) => {
-        event.stopPropagation();
-        applyLanguage(button.dataset.lang);
-        globalLangMenu.classList.remove('show');
-      });
-    });
-
-    langBtn.addEventListener('click', () => {
-      langMenu.classList.toggle('show');
-      langMenu.classList.remove('topbar-floating');
-      langMenu.style.position = '';
-      langMenu.style.top = '';
-      langMenu.style.right = '';
-      langMenu.style.left = '';
-    });
-
-    langMenu.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', () => {
-        applyLanguage(button.dataset.lang);
-        langMenu.classList.remove('show');
-      });
-    });
-
-
-    faqLangBtn.addEventListener('click', () => {
-      faqLangMenu.classList.toggle('show');
-    });
-
-    faqLangMenu.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', () => {
-        applyLanguage(button.dataset.lang);
-        faqLangMenu.classList.remove('show');
-      });
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.lang-wrap')) {
-        langMenu.classList.remove('show');
-      }
-      if (!event.target.closest('.faq-lang-wrap')) {
-        faqLangMenu.classList.remove('show');
-      }
-      if (!event.target.closest('.top-lang-wrap') && !event.target.closest('#globalLangMenu')) {
-        globalLangMenu.classList.remove('show');
-      }
-    });
 
     keyInput.addEventListener('paste', () => {
       keyWasPasted = true;
