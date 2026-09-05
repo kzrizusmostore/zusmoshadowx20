@@ -17365,7 +17365,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   </div>
 </div>
 
-  <div class="egc" onclick="launchGame('kuisff.html','zusmo-assets/kuisff.jpg','Kuis FF', event)">
+  <div class="egc egc-red" onclick="launchGame('kuisff.html','zusmo-assets/kuisff.jpg','Kuis FF', event)">
     <div class="egc-shine"></div>
     <div class="egc-body">
       <span class="egc-eyebrow">REDEEM DIAMOND</span>
@@ -17492,6 +17492,26 @@ function launchGame(url, logoUrl, gameName, evt){
 .egc-art{position:relative;flex-shrink:0;width:84px;height:84px;z-index:1;}
 .egc-art img{width:100%;height:100%;object-fit:cover;border-radius:20px;display:block;position:relative;z-index:1;
   box-shadow:0 8px 20px rgba(40,120,200,.3);}
+
+/* ===== VARIAN MERAH (dipakai kartu Kuis FF) ===== */
+.egc.egc-red{
+  background:radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.55), transparent 55%),
+             linear-gradient(135deg,#fff0ef 0%,#ffd6d3 55%,#ffb3ac 100%);
+  border:1px solid rgba(230,60,60,.4);
+  box-shadow:0 10px 26px rgba(200,30,30,.2),0 0 22px rgba(255,110,110,.3),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.egc.egc-red:active{box-shadow:0 6px 16px rgba(200,30,30,.25),0 0 14px rgba(255,110,110,.35);}
+.egc.egc-red .egc-eyebrow{color:#d32f2f;}
+.egc.egc-red .egc-title{
+  background:linear-gradient(90deg,#6b0000,#e53935);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 16px rgba(255,110,110,.3);
+}
+.egc.egc-red .egc-desc{color:rgba(95,15,15,.68);}
+.egc.egc-red .egc-reward{color:#d32f2f;background:rgba(230,60,60,.16);border:1px solid rgba(230,60,60,.45);}
+.egc.egc-red .egc-reward i{color:#e53935;}
+.egc.egc-red .egc-play{background:linear-gradient(180deg,#ff6b60,#e53935);box-shadow:0 3px 10px rgba(229,57,53,.45);}
+.egc.egc-red .egc-art img{box-shadow:0 8px 20px rgba(200,30,30,.35);}
 
 /* ===== GAME LAUNCH SPLASH — grows from the tapped card to fill the whole screen ===== */
 .game-launch-overlay{position:fixed;inset:0;z-index:99999999;display:none;align-items:center;justify-content:center;overflow:hidden;--tx:0px;--ty:0px;--sx:1;--sy:1;}

@@ -2232,7 +2232,6 @@
           <div class="sheet-subtitle-row" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
             <div class="sheet-subtitle" id="sheetSubtitle"></div>
             <button class="redeem-open-btn" id="openMissionBtn" style="background:linear-gradient(135deg, #10b981, #047857); box-shadow:0 6px 14px rgba(5,150,105,.28);">Misi Harian</button>
-            <button class="redeem-open-btn" id="openRedeemBtn">Tukarkan Diamond</button>
           </div>
         </div>
         <button class="sheet-close" id="closeSheetBtn" aria-label="Tutup menu">✕</button>
@@ -3010,7 +3009,22 @@
     const FLY_SHIELD_BEFORE_END = 0.75;
     const FLY_SHIELD_AFTER_END = 0.75;
     const DEFAULT_PREFS_VERSION = 'sky_bootstrap_defaults_v4';
-    const COIN_BANK_KEY = 'sky_coin_bank_max';
+    /* ===== DIAMOND TERPUSAT: pakai key yang sama dengan KZRIZUSMO & Kuis FF ===== */
+    const COIN_BANK_KEY = 'zusmo_diamond_balance';
+    const LEGACY_COIN_BANK_KEY = 'sky_coin_bank_max';
+    const LEGACY_MIGRATION_FLAG = 'sky_diamond_migrated_v1';
+    (function migrateLegacyDiamond(){
+      try{
+        if(localStorage.getItem(LEGACY_MIGRATION_FLAG) === '1') return;
+        var legacy = Math.max(0, Number(localStorage.getItem(LEGACY_COIN_BANK_KEY) || 0));
+        if(legacy > 0){
+          var current = Math.max(0, Number(localStorage.getItem(COIN_BANK_KEY) || 0));
+          localStorage.setItem(COIN_BANK_KEY, String(current + legacy));
+          localStorage.removeItem(LEGACY_COIN_BANK_KEY);
+        }
+        localStorage.setItem(LEGACY_MIGRATION_FLAG, '1');
+      }catch(e){}
+    })();
     const OWNED_SKINS_KEY = 'sky_owned_skins_max';
     const OWNED_THEMES_KEY = 'sky_owned_themes_max';
     const OWNED_JUMP_FX_KEY = 'sky_owned_jump_fx_max';
