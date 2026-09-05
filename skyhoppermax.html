@@ -599,6 +599,12 @@
       gap: 12px;
     }
 
+    .lobby-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .brand {
       font-size: clamp(30px, 7vw, 48px);
       font-weight: 1000;
@@ -823,7 +829,7 @@
       content: '';
       width: 13px;
       height: 13px;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
+      background: url('onzrii.png') center/contain no-repeat;
       flex-shrink: 0;
     }
 
@@ -1096,7 +1102,7 @@
       top: -18px;
       width: 110px;
       height: 110px;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
+      background: url('onzrii.png') center/contain no-repeat;
       opacity: .28;
       transform: rotate(-12deg);
     }
@@ -1115,7 +1121,7 @@
       display: inline-block;
       width: 13px;
       height: 13px;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
+      background: url('onzrii.png') center/contain no-repeat;
       vertical-align: -2px;
       flex-shrink: 0;
     }
@@ -1134,68 +1140,6 @@
       color: rgba(255,255,255,.8);
       max-width: 82%;
       line-height: 1.45;
-    }
-
-    .redeem-tier-card {
-      position: relative;
-      border-radius: 20px;
-      padding: 16px 12px;
-      text-align: center;
-      cursor: pointer;
-      background: linear-gradient(180deg, #fff, #fff5f5);
-      border: 1px solid rgba(220,38,38,.16);
-      box-shadow: 0 10px 24px rgba(220,38,38,.10);
-      display: grid;
-      justify-items: center;
-      gap: 7px;
-    }
-    .redeem-tier-card:active { transform: scale(.97); }
-    .redeem-tier-icon {
-      width: 38px; height: 38px;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
-    }
-    .redeem-tier-amount {
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -.01em;
-      color: #7f1d1d;
-    }
-    .redeem-tier-cost {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 600;
-      color: rgba(127,29,29,.6);
-      margin-top: -2px;
-    }
-    .redeem-tier-cta {
-      margin-top: 2px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 13px;
-      border-radius: 999px;
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #ef4444, #b91c1c);
-      color: #fff;
-    }
-    .redeem-tier-card.locked-card {
-      opacity: 1;
-      filter: none;
-    }
-    .redeem-tier-card.locked-card .redeem-tier-cta {
-      background: rgba(15,23,42,.08);
-      color: var(--text);
-    }
-    .redeem-tier-need {
-      font-family: var(--font-body);
-      font-size: 10.5px;
-      color: rgba(127,29,29,.75);
-      font-weight: 600;
     }
 
     .mission-card {
@@ -1265,86 +1209,6 @@
     .mission-claim-btn.claimed {
       background: rgba(34,197,94,.18);
       color: #166534;
-    }
-
-    .redeem-code-box {
-      display: grid;
-      justify-items: center;
-      gap: 8px;
-      padding: 20px 16px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff5f5, #ffe4e4);
-      border: 1px dashed rgba(220,38,38,.4);
-    }
-    .redeem-code-icon {
-      width: 32px; height: 32px;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
-    }
-    .redeem-code-label {
-      font-family: var(--font-body);
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(127,29,29,.65);
-    }
-    .redeem-code-text {
-      font-family: var(--font-mono);
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      color: #7f1d1d;
-      word-break: break-all;
-      text-align: center;
-    }
-
-    .redeem-history-empty {
-      padding: 20px 12px;
-      text-align: center;
-      font-family: var(--font-body);
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    .redeem-history-item {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 11px 13px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(15,23,42,.06);
-    }
-    .redeem-history-icon {
-      width: 24px; height: 24px;
-      flex-shrink: 0;
-      background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat;
-    }
-    .redeem-history-info {
-      flex: 1;
-      min-width: 0;
-      display: grid;
-      gap: 3px;
-    }
-    .redeem-history-code {
-      font-family: var(--font-mono);
-      font-size: 14.5px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: .05em;
-    }
-    .redeem-history-date {
-      font-family: var(--font-body);
-      font-size: 10.5px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    .redeem-history-amount {
-      flex-shrink: 0;
-      font-family: var(--font-display);
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #b91c1c;
     }
 
     #settingsSheet .skin-name,
@@ -1630,7 +1494,7 @@
     .fx-preview.cloud .dot { width: 22px; height: 12px; border-radius: 999px; background: rgba(255,255,255,.95); box-shadow: -10px 2px 0 0 rgba(255,255,255,.75), 10px -2px 0 0 rgba(255,255,255,.82), 0 14px 0 -5px rgba(255,255,255,.58); }
     .fx-preview.pixel .dot { width: 16px; height: 16px; background: #a78bfa; box-shadow: -18px -8px 0 -4px #c084fc, 18px -8px 0 -4px #c084fc, -8px 18px 0 -4px #60a5fa, 8px 18px 0 -4px #60a5fa; }
 
-    .coin-preview .coin-shape { width: 34px; height: 34px; background: url('https://files.catbox.moe/onzrii.png') center/contain no-repeat; }
+    .coin-preview .coin-shape { width: 34px; height: 34px; background: url('onzrii.png') center/contain no-repeat; }
 
     .weapon-preview {
       flex: 1;
@@ -1808,16 +1672,6 @@
       background: rgba(15,23,42,.34);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-    }
-
-    #redeemCodeDialog {
-      padding: 18px;
-      padding-top: calc(18px + env(safe-area-inset-top));
-      padding-bottom: calc(18px + env(safe-area-inset-bottom));
-    }
-    #redeemCodeDialog .purchase-dialog {
-      max-height: 100%;
-      overflow-y: auto;
     }
 
     .purchase-dialog {
@@ -2117,7 +1971,7 @@
             <button class="exit-arc-btn" id="exitGameBtn" aria-label="Keluar dari game" title="Keluar">)</button>
           </div>
           <div class="topbar-actions">
-            <button class="icon-btn" id="settingsBtn" aria-label="Buka menu">⚙️</button>
+            <button class="icon-btn" id="settingsBtn" aria-label="Buka menu">👕</button>
             <button class="mini-btn quick-resume-btn hidden" id="quickResumeBtn" aria-hidden="true" tabindex="-1">Lanjut</button>
           </div>
         </div>
@@ -2144,7 +1998,10 @@
               <div class="brand">Sky<br>Hopper</div>
               <div class="subbrand" id="lobbyThemeName">Meadow</div>
             </div>
-            <button class="icon-btn" id="lobbySettingsBtn" aria-label="Buka menu">⚙️</button>
+            <div class="lobby-top-actions">
+              <button class="icon-btn" id="lobbyHomeBtn" aria-label="Kembali ke beranda" title="Beranda">🏠</button>
+              <button class="icon-btn" id="lobbySettingsBtn" aria-label="Buka menu">👕</button>
+            </div>
           </div>
         </div>
 
@@ -2257,28 +2114,6 @@
       </div>
     </div>
 
-    <div class="sheet hidden" id="redeemSheet">
-      <div class="sheet-top">
-        <div class="sheet-title-wrap">
-          <div class="sheet-title">Tukarkan Diamond</div>
-          <div class="sheet-subtitle sheet-subtitle-red" id="redeemSheetSubtitle"></div>
-        </div>
-        <button class="sheet-close" id="closeRedeemBtn" aria-label="Tutup">✕</button>
-      </div>
-      <div class="sheet-body" style="display:flex; flex-direction:column; gap:16px; overflow:hidden;">
-        <div class="redeem-promo">
-          <div class="redeem-promo-app"><span class="diamond-icon-inline"></span> KZRIZUSMO</div>
-          <div class="redeem-promo-title">Tukarkan diamond kamu ke aplikasi KZRIZUSMO</div>
-          <div class="redeem-promo-sub">Pilih jumlah diamond, dapatkan kode redeem unik, lalu tukarkan di aplikasi KZRIZUSMO kamu.</div>
-        </div>
-        <div class="coin-grid" id="redeemTierGrid" style="grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; flex-shrink:0;"></div>
-        <div class="section-line" style="margin-top:6px; flex-shrink:0;">
-          <div class="section-title">Riwayat Penukaran</div>
-        </div>
-        <div id="redeemHistoryList" style="display:grid; gap:8px; overflow-y:auto; min-height:0; flex:1;"></div>
-      </div>
-    </div>
-
     <div class="sheet hidden" id="missionSheet">
       <div class="sheet-top">
         <div class="sheet-title-wrap">
@@ -2303,50 +2138,8 @@
         <div class="purchase-dialog-title" id="exitConfirmTitle">Keluar dari Game?</div>
         <div class="exit-dialog-note" id="exitConfirmNote">Progress run ini belum kesimpan sebagai skor akhir.</div>
         <div class="purchase-dialog-actions">
-          <button class="toggle-btn active" id="exitConfirmStayBtn"><span class="btn-top"><span class="btn-main">Lanjut Main</span></span></button>
+          <button class="toggle-btn active" id="exitConfirmStayBtn"><span class="btn-top"><span class="btn-main" id="exitConfirmStayLabel">Lanjut Main</span></span></button>
           <button class="toggle-btn danger" id="exitConfirmOkBtn"><span class="btn-top"><span class="btn-main">Ya, Keluar</span></span></button>
-        </div>
-      </div>
-    </div>
-
-    <div class="purchase-dialog-backdrop hidden" id="redeemConfirmDialog">
-      <div class="glass purchase-dialog" role="dialog" aria-modal="true" aria-labelledby="redeemConfirmTitle">
-        <div class="purchase-dialog-head">
-          <div class="purchase-dialog-title" id="redeemConfirmTitle">Yakin Mau Tukar?</div>
-          <div class="purchase-dialog-sub" id="redeemConfirmSub">Diamond kamu akan dipotong dan tidak bisa dikembalikan.</div>
-        </div>
-        <div class="purchase-dialog-grid">
-          <div class="purchase-stat">
-            <div class="k">Harga</div>
-            <div class="v" id="redeemConfirmPrice">0 Diamond</div>
-          </div>
-          <div class="purchase-stat">
-            <div class="k">Diamond Kamu</div>
-            <div class="v" id="redeemConfirmCoins">0</div>
-          </div>
-        </div>
-        <div class="purchase-dialog-note" id="redeemConfirmGet">Kamu akan dapat kode 0 Diamond KZRIZUSMO</div>
-        <div class="purchase-dialog-actions">
-          <button class="toggle-btn ghost" id="redeemConfirmCancelBtn"><span class="btn-top"><span class="btn-main">Batal</span></span></button>
-          <button class="toggle-btn active" id="redeemConfirmOkBtn"><span class="btn-top"><span class="btn-main">Ya, Tukar</span></span></button>
-        </div>
-      </div>
-    </div>
-
-    <div class="purchase-dialog-backdrop hidden" id="redeemCodeDialog">
-      <div class="glass purchase-dialog" role="dialog" aria-modal="true" aria-labelledby="redeemCodeTitle">
-        <div class="purchase-dialog-head">
-          <div class="purchase-dialog-title" id="redeemCodeTitle">Berhasil! Ini Kode Redeem Kamu</div>
-          <div class="purchase-dialog-sub">Angka di bawah ini adalah kode redeem kamu. Salin lalu tukarkan di aplikasi KZRIZUSMO. Kode hanya bisa dipakai 1 kali.</div>
-        </div>
-        <div class="redeem-code-box">
-          <div class="redeem-code-icon"></div>
-          <div class="redeem-code-label">Kode Redeem</div>
-          <div class="redeem-code-text" id="redeemCodeValue">000000</div>
-        </div>
-        <div class="purchase-dialog-actions">
-          <button class="toggle-btn ghost" id="redeemCodeCloseBtn"><span class="btn-top"><span class="btn-main">Tutup</span></span></button>
-          <button class="toggle-btn active" id="redeemCodeCopyBtn"><span class="btn-top"><span class="btn-main">Salin Kode</span></span></button>
         </div>
       </div>
     </div>
@@ -2396,10 +2189,10 @@
   <script>
     const canvas = document.getElementById('game');
     let ctx = canvas.getContext('2d');
-    const BGM_TRACK_URL = 'https://files.catbox.moe/uol84a.mp3';
+    const BGM_TRACK_URL = 'uol84a.mp3';
     const HORROR_JUMPSCARE_SFX_URL = 'https://cdn.yupra.my.id/yp/t8jmyexj.mp3';
-    const FREESTYLE_KRETEK_SFX_URL = 'https://files.catbox.moe/5vg0qe.mp3';
-    const RED_DIAMOND_COIN_URL = 'https://files.catbox.moe/onzrii.png';
+    const FREESTYLE_KRETEK_SFX_URL = '5vg0qe.mp3';
+    const RED_DIAMOND_COIN_URL = 'onzrii.png';
     let redDiamondCoinImg = new Image();
     let redDiamondCoinLoaded = false;
     redDiamondCoinImg.onload = () => { redDiamondCoinLoaded = true; };
@@ -2461,6 +2254,7 @@
     const openSkinBtn = document.getElementById('openSkinBtn');
     const openThemeBtn = document.getElementById('openThemeBtn');
     const lobbySettingsBtn = document.getElementById('lobbySettingsBtn');
+    const lobbyHomeBtn = document.getElementById('lobbyHomeBtn');
     const heroStage = document.getElementById('heroStage');
     const heroSkinName = document.getElementById('heroSkinName');
     const heroThemeName = document.getElementById('heroThemeName');
@@ -2488,25 +2282,10 @@
     const purchaseConfirmLabel = document.getElementById('purchaseConfirmLabel');
     const tabBtns = Array.from(document.querySelectorAll('.tab-btn'));
 
-    const openRedeemBtn = document.getElementById('openRedeemBtn');
-    const redeemSheet = document.getElementById('redeemSheet');
-    const closeRedeemBtn = document.getElementById('closeRedeemBtn');
-    const redeemSheetSubtitle = document.getElementById('redeemSheetSubtitle');
-    const redeemTierGrid = document.getElementById('redeemTierGrid');
-    const redeemCodeDialog = document.getElementById('redeemCodeDialog');
-    const redeemCodeValue = document.getElementById('redeemCodeValue');
-    const redeemCodeCopyBtn = document.getElementById('redeemCodeCopyBtn');
-    const redeemCodeCloseBtn = document.getElementById('redeemCodeCloseBtn');
-    const redeemConfirmDialog = document.getElementById('redeemConfirmDialog');
-    const redeemConfirmPrice = document.getElementById('redeemConfirmPrice');
-    const redeemConfirmCoins = document.getElementById('redeemConfirmCoins');
-    const redeemConfirmGet = document.getElementById('redeemConfirmGet');
-    const redeemConfirmCancelBtn = document.getElementById('redeemConfirmCancelBtn');
-    const redeemConfirmOkBtn = document.getElementById('redeemConfirmOkBtn');
-
     const exitConfirmDialog = document.getElementById('exitConfirmDialog');
     const exitConfirmAvatar = document.getElementById('exitConfirmAvatar');
     const exitConfirmNote = document.getElementById('exitConfirmNote');
+    const exitConfirmStayLabel = document.getElementById('exitConfirmStayLabel');
     const exitConfirmStayBtn = document.getElementById('exitConfirmStayBtn');
     const exitConfirmOkBtn2 = document.getElementById('exitConfirmOkBtn');
 
@@ -2515,8 +2294,6 @@
     const closeMissionBtn = document.getElementById('closeMissionBtn');
     const missionSheetSubtitle = document.getElementById('missionSheetSubtitle');
     const missionList = document.getElementById('missionList');
-
-    let pendingRedeemTier = null;
 
     let pendingPurchase = null;
 
@@ -2652,28 +2429,28 @@
 
     const weapons = [
       { key:'none', name:'Tanpa Senjata', image:'' },
-      { key:'kayu', name:'Kayu', image:'https://files.catbox.moe/hf7mkd.png' },
-      { key:'one-punch-man', name:'One Punch Man', image:'https://files.catbox.moe/7yol38.png', special:true },
-      { key:'rapper-underworld', name:'Rapper Underworld', image:'https://files.catbox.moe/5u36vg.png', special:true },
-      { key:'sterling-conqueror', name:'Sterling Conqueror', image:'https://files.catbox.moe/j01t4c.png', special:true },
-      { key:'hand-of-hope', name:'Emerald Power', image:'https://files.catbox.moe/6436xq.png', special:true },
-      { key:'digital-universe', name:'Hand Of Hope', image:'https://files.catbox.moe/zn3lvf.png', special:true },
-      { key:'sandstorm-shimmer', name:'Sandstorm Shimmer', image:'https://files.catbox.moe/un5dkk.png', special:true },
-      { key:'golden-glare', name:'Golden Glare', image:'https://files.catbox.moe/yp8mp9.png', special:true },
-      { key:'incendium-burst', name:'Incendium Burst', image:'https://files.catbox.moe/wfsjb8.png', special:true },
-      { key:'aqua-burst', name:'Solaris Burst', image:'https://files.catbox.moe/1hqczx.png', special:true },
-      { key:'freezing-flame', name:'Aqua Burst', image:'https://files.catbox.moe/vib3yo.png', special:true },
-      { key:'terrano-burst', name:'Terrano Burst', image:'https://files.catbox.moe/1wfsrw.png', special:true },
-      { key:'emerald-power', name:'Ráfaga Esmeralda', image:'https://files.catbox.moe/30hngi.png', special:true },
-      { key:'winterlands', name:'Winterlands', image:'https://files.catbox.moe/mrm391.png', special:true },
-      { key:'trouble-maker', name:'Trouble Maker', image:'https://files.catbox.moe/f00igu.png', special:true },
-      { key:'tropical-parrot', name:'Tropical Parrot', image:'https://files.catbox.moe/qvftov.png', special:true },
-      { key:'eagle-gaze', name:'Freezing Flame', image:'https://files.catbox.moe/45nwwp.png', special:true },
-      { key:'mamba-gnaw', name:'Mamba Gnaw', image:'https://files.catbox.moe/34mohs.png', special:true },
-      { key:'bunnys-order', name:"Bunny's Order", image:'https://files.catbox.moe/qyo2jx.png', special:true },
-      { key:'xtreme-adventure', name:'Xtreme Adventure', image:'https://files.catbox.moe/hlx54b.png', special:true },
-      { key:'glistening-nightstar', name:'Holy Bullet', image:'https://files.catbox.moe/kvysek.png', special:true },
-      { key:'solaris-burst', name:'Eagle Gaze', image:'https://files.catbox.moe/78edku.png', special:true }
+      { key:'kayu', name:'Kayu', image:'hf7mkd.png' },
+      { key:'one-punch-man', name:'One Punch Man', image:'7yol38.png', special:true },
+      { key:'rapper-underworld', name:'Rapper Underworld', image:'5u36vg.png', special:true },
+      { key:'sterling-conqueror', name:'Sterling Conqueror', image:'j01t4c.png', special:true },
+      { key:'hand-of-hope', name:'Emerald Power', image:'6436xq.png', special:true },
+      { key:'digital-universe', name:'Hand Of Hope', image:'zn3lvf.png', special:true },
+      { key:'sandstorm-shimmer', name:'Sandstorm Shimmer', image:'un5dkk.png', special:true },
+      { key:'golden-glare', name:'Golden Glare', image:'yp8mp9.png', special:true },
+      { key:'incendium-burst', name:'Incendium Burst', image:'wfsjb8.png', special:true },
+      { key:'aqua-burst', name:'Solaris Burst', image:'1hqczx.png', special:true },
+      { key:'freezing-flame', name:'Aqua Burst', image:'vib3yo.png', special:true },
+      { key:'terrano-burst', name:'Terrano Burst', image:'1wfsrw.png', special:true },
+      { key:'emerald-power', name:'Ráfaga Esmeralda', image:'30hngi.png', special:true },
+      { key:'winterlands', name:'Winterlands', image:'mrm391.png', special:true },
+      { key:'trouble-maker', name:'Trouble Maker', image:'f00igu.png', special:true },
+      { key:'tropical-parrot', name:'Tropical Parrot', image:'qvftov.png', special:true },
+      { key:'eagle-gaze', name:'Freezing Flame', image:'45nwwp.png', special:true },
+      { key:'mamba-gnaw', name:'Mamba Gnaw', image:'34mohs.png', special:true },
+      { key:'bunnys-order', name:"Bunny's Order", image:'qyo2jx.png', special:true },
+      { key:'xtreme-adventure', name:'Xtreme Adventure', image:'hlx54b.png', special:true },
+      { key:'glistening-nightstar', name:'Holy Bullet', image:'kvysek.png', special:true },
+      { key:'solaris-burst', name:'Eagle Gaze', image:'78edku.png', special:true }
     ];
 
 
@@ -2689,13 +2466,6 @@
       tap: 40,
       weapon: 0
     };
-
-    const REDEEM_TIERS = [
-      { diamond: 100, cost: 200 },
-      { diamond: 250, cost: 500 },
-      { diamond: 500, cost: 1000 },
-      { diamond: 1000, cost: 2000 }
-    ];
 
     const DAILY_MISSIONS = [
       { id: 'm5', minutes: 5, reward: 5 },
@@ -2800,130 +2570,6 @@
       if (missionSheet) missionSheet.classList.add('hidden');
     }
 
-    const REDEEM_USED_KEY = 'sky_redeem_used_codes_max';
-
-    const REDEEM_CODES = {
-      100: [
-        '40A23D70', '9B2B7044', 'C94E705D', 'BE4AC0A8', 'C75C3A15', '126300C9', 'E677B060', '0AC16F98', 'E3030466', '09C9E73B',
-        '56EF8763', '71E40216', 'F43FD404', 'E8DC47F3', '4C81638D', 'E0639825', '2F966509', 'C304DA40', '7A23CC06', '35AB8CEC',
-        '67326D47', '935A9A2F', '0893752F', 'F50E8A44', '525AA80C', 'E8E9283B', 'C9F26ABC', 'BBFEEC31', 'E5FE232B', '7119E148',
-        'F53E9DE1', '7053B502', 'C65D04C6', '61B4A4BE', 'D2050309', '6011480B', '6812F6CF', '2A9F7410', 'A6CF61F4', '604AC736',
-        '74CD6CF4', '6690297C', 'DBE30C7A', '47AB5207', 'FF30C924', 'E01C62A7', 'BCEE5264', '03CEA04D', '244E448F', 'D1028E2B',
-        '7BE49D95', 'DC11B258', '2F082EC8', 'DFF23E2A', 'D8D4D176', '7DC6C269', '7DCFDC09', '9F75E16A', 'F8DE8138', '240C35FC',
-        'CA7B698C', 'D9F75974', 'FD0F5E0E', '214EBC03', '38DF29A8', 'C9CC8D88', '0805BB4B', '3B5E56A9', 'E792790B', '5DDC47AF',
-        '34D7B089', '534B7390', 'A3C1E15B', '7367CBC0', '438F3307', '8EBF6926', 'AD92498E', '4981FED8', '76B04139', '90B6868E',
-        '977FEFB6', '69752C19', '2258F7F6', '8E95CFFD', '7FD9B433', '1CFF15BA', '62E60AFC', 'B794C251', '28EF7856', '1469998A',
-        '67C265C0', 'A7028774', 'AAB70F73', '5F1358CB', 'FFD21AFD', '5491241E', '13E59C2F', '89F169B1', 'DA2CEC1C', '95B83671',
-        'C176D60C',
-      ],
-      250: [
-        '690861F8', '7713E85E', '3B6A2EAC', '8509D318', '3F367DEA', '349AE8EE', '080AB07C', '7EA6A0B3', '379072F0', 'A846954E',
-        '4FD6D012', 'C1A899D7', '519CA38D', '79CF3043', 'D3E009D0', '19166FEE', '617E2737', 'A61728AF', '30D5284C', '53FE04B8',
-        '106C7478', '773BCC6C', 'A548447E', 'E9ABADAC', '94FAC8D5', 'EDCE7AA6', 'D16E57BC', 'AF91AC3F', 'B0F12EB0', '96CA2A82',
-        'CA8ADC53', 'E9C9E1D6', '3874DA3F', '47FE7AFC', 'AA3FD72E', 'E2A5B295', '6DF15DFD', '14075F4D', '3F15C9B2', '4160DD48',
-        '886C4D53', 'EFC2804F', '33F3160C', '02D9F5C6', 'CA64D2BE', 'E5A232D0', 'B78166CA', '7DCF35D7', '9FB43695', 'C9FD8C37',
-        '76008AF0', '23FF53C1', 'DD6B304A', '6D32F66B', '28A9C922', '89279FDC', '45CB78E0', '806CEF71', '86D99139', 'EF4F8B85',
-        '0DB3260E', 'DEF51A83', '2A9D6203', '92D3E5DC', '0D6F7FC9', '26C10F72', '81053684', '9ED55BDF', '678B839F', '918A63C0',
-        '52531ADB', 'FDABC1C4', 'DE0C850E', '76644A8A', 'B7BB55A6', 'E28FC9B7', '490A2968', 'B8F15A9B', '96684B4B', 'E8F08A44',
-        '46434EA5', 'A6ED505D', '8F2CF695', 'E2144B25', 'CE4DAABA', '64557D8E', 'B8C71B3B', 'B908F3C0', 'C08E6678', '27DA2CDC',
-        'B75E5C78', 'CC3D7C56', '03DC3347', 'C8E3E772', '8D3E51D6', 'B634F958', 'C85DDA05', 'B6892E0A', '10A7B2EA', 'EA149689',
-        '690F5BC6', '5D932370', '75D2E864',
-      ],
-      500: [
-        '31AB5C8A', '11AE8C90', 'AD1D1468', 'F97242ED', '4CBA6BC5', '215F1399', 'D750921D', '1DCB0A28', '651216E4', 'F9571BC9',
-        'BFD17528', '3782D0DF', '387A604F', '9AEBFA80', '6C26C32D', '3AF3EE83', '965A93A5', '1ACA3B48', '710595F1', '54AC633A',
-        '4C45F001', '6647CEC6', '723D78EF', 'AED26E3A', 'F5B0A21D', '8DD91D60', '941B81D6', 'F3675225', '70AE921E', '791389D8',
-        '51361EA5', '6234BCEA', 'C0B602FC', '106660ED', '665CC35F', '756B6797', '41F127E2', 'B17B3C82', 'F1542997', '5B85894A',
-        '0CBCD17D', 'D7A70177', 'C6C48195', '0301DD70', '4DD3AAEE', '77B3E5FE', '494336C7', 'CB2F1D72', 'F1321018', '12A56F22',
-        '16ACA651', '5B2BE174', '319F41A7', '50DB7D69', '9E5253D3', '47CD018A', '2502DC6C', '38A70F18', '4A53EFC1', 'D9D54844',
-        'EE361089', 'F1D9C212', 'AE40599B', '6D3EA421', '3E967919', '01663918', 'E06E7708', '573AA2E1', '301BF0E8', 'EBD4BC7F',
-        'FA067629', '1BC9514C', '92DF7149', '53C46FC5', '95190741', 'B6B11D44', 'B5863E46', 'A43CE250', '84F99C38', 'A92E14DA',
-        '965601E8', 'EF7E77A4', '2F2F3677', 'B4ED0591', '88221AD2', 'FC33F3BA', '9BD3260E', '68CC029D', 'DD34999A', '23679C53',
-        '65B35D3F', '3A9016E9', '225255D2', '0DBCC097', 'D903FA52', 'E28E64A6', '07CB21AD', 'AA4EA9BF', 'CA253CFD', '1FA45199',
-      ],
-      1000: [
-        'F037E7C9', '685F2F50', 'BEA913D7', 'F8DE26EC', '9A6D15BD', '70C8B510', '3AEB41F9', 'B1296E13', 'A7236BFE', '3E458EC7',
-        '8D476AEE', 'C06ADA15', '55585E37', '4679BA08', '23D96F04', '3810F8D0', 'C9629C88', '2FE1B3FA', '8D8A1120', '252273F4',
-        '10A8A40C', '849270C4', 'CC3D744C', '3ACBE2FE', 'F622211C', '374D28C5', '3DD74088', '24A9BF8F', '47319CEF', 'A172CFAF',
-        'AB918248', 'F731F7BD', '97BFD201', '21DCF1A6', 'EB3E2498', 'FD778332', 'B6D00836', 'E545AD8C', '8DA92EB6', '81583658',
-        '56D3912B', 'C8ED4AFB', '5AB20584', 'E93ECDB4', 'C69DEA77', 'A48FF5FB', '6EB1E0D2', 'BC4BFC20', '4900E82C', 'CBC63FDC',
-        '8F05E0D6', '77CC9F50', 'E9F8927B', '9052337F', '972FBF16', '7DD724C6', '92777A80', 'EA73FC98', '382DD84C', 'CB9C3587',
-        'EC6B207C', '191D31FC', 'B118988B', 'D568C99A', 'DC388FAB', 'E7FF133A', 'A0E725B2', '67E63FE6', '014A09A0', 'A8C3EB84',
-        'B976763C', 'C780EBD5', 'F83D6B4C', 'F9896EAD', 'E87832A9', '5F984A96', '694A6707', '8B6216CD', 'D41A8D79', 'A2BB57B6',
-        '03D334CB', '5651EB70', 'DD4B2D02', '1B715EB1', '59B3FA4D', '84D1D96F', '8A282604', 'B80FDF1E', 'E5F3E9B3', '83B11FC0',
-        '730D31E8', '15AD1D77', '8AC1D045', '854EC749', '36304001', '367CAC0A',
-      ]
-    };
-
-    function loadUsedRedeemCodes() {
-      try {
-        const raw = JSON.parse(localStorage.getItem(REDEEM_USED_KEY) || '[]');
-        return Array.isArray(raw) ? raw : [];
-      } catch (e) { return []; }
-    }
-
-    function saveUsedRedeemCodes(list) {
-      try { localStorage.setItem(REDEEM_USED_KEY, JSON.stringify(list)); } catch (e) {}
-    }
-
-    let usedRedeemCodes = loadUsedRedeemCodes();
-
-    const REDEEM_HISTORY_KEY = 'sky_redeem_history_max';
-
-    function loadRedeemHistory() {
-      try {
-        const raw = JSON.parse(localStorage.getItem(REDEEM_HISTORY_KEY) || '[]');
-        return Array.isArray(raw) ? raw : [];
-      } catch (e) { return []; }
-    }
-
-    function saveRedeemHistory(list) {
-      try { localStorage.setItem(REDEEM_HISTORY_KEY, JSON.stringify(list)); } catch (e) {}
-    }
-
-    let redeemHistory = loadRedeemHistory();
-
-    function addRedeemHistory(code, diamond) {
-      redeemHistory.unshift({ code, diamond, ts: Date.now() });
-      if (redeemHistory.length > 30) redeemHistory = redeemHistory.slice(0, 30);
-      saveRedeemHistory(redeemHistory);
-    }
-
-    function formatRedeemDate(ts) {
-      try {
-        return new Date(ts).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-      } catch (e) { return ''; }
-    }
-
-    function renderRedeemHistory() {
-      const el = document.getElementById('redeemHistoryList');
-      if (!el) return;
-      if (redeemHistory.length === 0) {
-        el.innerHTML = `<div class="redeem-history-empty">Belum ada riwayat penukaran.</div>`;
-        return;
-      }
-      el.innerHTML = redeemHistory.map(item => `
-        <div class="redeem-history-item">
-          <div class="redeem-history-icon"></div>
-          <div class="redeem-history-info">
-            <div class="redeem-history-code">${item.code}</div>
-            <div class="redeem-history-date">${formatRedeemDate(item.ts)}</div>
-          </div>
-          <div class="redeem-history-amount">${item.diamond} Diamond</div>
-        </div>
-      `).join('');
-    }
-
-    function claimRedeemCode(tierDiamond) {
-      const pool = REDEEM_CODES[tierDiamond] || [];
-      const available = pool.filter(code => !usedRedeemCodes.includes(code));
-      if (available.length === 0) return null;
-      const code = available[Math.floor(Math.random() * available.length)];
-      usedRedeemCodes.push(code);
-      saveUsedRedeemCodes(usedRedeemCodes);
-      return code;
-    }
-
     skins.forEach((skin, index) => {
       skin.id = skin.id || `skin-${slugifyStoreId(skin.name)}-${index}`;
       skin.price = typeof skin.price === 'number' ? skin.price : STORE_PRICES.skin;
@@ -3004,6 +2650,8 @@
     const GOLD_COIN_INDEX = coinSkins.findIndex(coin => coin.key === 'gold');
     const LINKED_TAP_INDEX = tapSkins.findIndex(tap => tap.key === 'linked');
     const NONE_WEAPON_INDEX = weapons.findIndex(weapon => weapon.key === 'none');
+    const KAYU_WEAPON_INDEX = weapons.findIndex(weapon => weapon.key === 'kayu');
+    const DEFAULT_WEAPON_INDEX = KAYU_WEAPON_INDEX >= 0 ? KAYU_WEAPON_INDEX : (NONE_WEAPON_INDEX >= 0 ? NONE_WEAPON_INDEX : 0);
     const LEVEL_MODE_LIVES = 3;
     const LEVEL_MODE_EASE = 0.25;
     const FLY_SHIELD_BEFORE_END = 0.75;
@@ -3137,8 +2785,8 @@
     if (localStorage.getItem('sky_tap_skin_max') === null) localStorage.setItem('sky_tap_skin_max', String(LINKED_TAP_INDEX >= 0 ? LINKED_TAP_INDEX : 0));
     let selectedTapSkin = Number(localStorage.getItem('sky_tap_skin_max') || (LINKED_TAP_INDEX >= 0 ? LINKED_TAP_INDEX : 0));
     if (selectedTapSkin < 0 || selectedTapSkin >= tapSkins.length) selectedTapSkin = (LINKED_TAP_INDEX >= 0 ? LINKED_TAP_INDEX : 0);
-    let selectedWeapon = Number(localStorage.getItem('sky_weapon_max') || (NONE_WEAPON_INDEX >= 0 ? NONE_WEAPON_INDEX : 0));
-    if (selectedWeapon < 0 || selectedWeapon >= weapons.length) selectedWeapon = (NONE_WEAPON_INDEX >= 0 ? NONE_WEAPON_INDEX : 0);
+    let selectedWeapon = Number(localStorage.getItem('sky_weapon_max') || DEFAULT_WEAPON_INDEX);
+    if (selectedWeapon < 0 || selectedWeapon >= weapons.length) selectedWeapon = DEFAULT_WEAPON_INDEX;
 
     let bankCoins = Math.max(0, Number(localStorage.getItem(COIN_BANK_KEY) || 0));
     let ownedSkinIds = loadOwnedIds(OWNED_SKINS_KEY, skins, [skins[Math.max(0, EXPLORER_SKIN_INDEX >= 0 ? EXPLORER_SKIN_INDEX : 0)].id]);
@@ -3147,7 +2795,7 @@
     let ownedLandFxIds = loadOwnedIds(OWNED_LAND_FX_KEY, landEffects, [landEffects[Math.max(0, SOFT_LAND_FX_INDEX >= 0 ? SOFT_LAND_FX_INDEX : 0)].id]);
     let ownedCoinSkinIds = loadOwnedIds(OWNED_COIN_SKINS_KEY, coinSkins, [coinSkins[Math.max(0, GOLD_COIN_INDEX >= 0 ? GOLD_COIN_INDEX : 0)].id]);
     let ownedTapSkinIds = loadOwnedIds(OWNED_TAP_SKINS_KEY, tapSkins, [tapSkins[Math.max(0, LINKED_TAP_INDEX >= 0 ? LINKED_TAP_INDEX : 0)].id]);
-    let ownedWeaponIds = loadOwnedIds(OWNED_WEAPONS_KEY, weapons, [weapons[Math.max(0, NONE_WEAPON_INDEX >= 0 ? NONE_WEAPON_INDEX : 0)].id]);
+    let ownedWeaponIds = loadOwnedIds(OWNED_WEAPONS_KEY, weapons, [weapons[Math.max(0, DEFAULT_WEAPON_INDEX)].id]);
 
     if (!itemOwned(skins[selectedSkin], ownedSkinIds)) selectedSkin = EXPLORER_SKIN_INDEX >= 0 ? EXPLORER_SKIN_INDEX : 0;
     if (!itemOwned(themes[selectedTheme], ownedThemeIds)) selectedTheme = MEADOW_THEME_INDEX >= 0 ? MEADOW_THEME_INDEX : 0;
@@ -3155,7 +2803,7 @@
     if (!itemOwned(landEffects[selectedLandEffect], ownedLandFxIds)) selectedLandEffect = SOFT_LAND_FX_INDEX >= 0 ? SOFT_LAND_FX_INDEX : 0;
     if (!itemOwned(coinSkins[selectedCoinSkin], ownedCoinSkinIds)) selectedCoinSkin = GOLD_COIN_INDEX >= 0 ? GOLD_COIN_INDEX : 0;
     if (!itemOwned(tapSkins[selectedTapSkin], ownedTapSkinIds)) selectedTapSkin = LINKED_TAP_INDEX >= 0 ? LINKED_TAP_INDEX : 0;
-    if (!itemOwned(weapons[selectedWeapon], ownedWeaponIds)) selectedWeapon = NONE_WEAPON_INDEX >= 0 ? NONE_WEAPON_INDEX : 0;
+    if (!itemOwned(weapons[selectedWeapon], ownedWeaponIds)) selectedWeapon = DEFAULT_WEAPON_INDEX;
 
     const gamePrefs = {
       mode: localStorage.getItem('sky_mode_max') === 'level' ? 'level' : 'score',
@@ -4460,104 +4108,6 @@
       }));
     }
 
-    function renderRedeemTiers() {
-      if (!redeemTierGrid) return;
-      const makeCard = (tier, i) => {
-        const enough = bankCoins >= tier.cost;
-        const need = tier.cost - bankCoins;
-        return `
-        <button class="redeem-tier-card${enough ? '' : ' locked-card'}" data-tier="${i}">
-          <div class="redeem-tier-icon"></div>
-          <div class="redeem-tier-amount">${tier.diamond} Diamond</div>
-          <div class="redeem-tier-cost">Butuh ${tier.cost} Diamond kamu</div>
-          ${enough
-            ? `<div class="redeem-tier-cta">Tukar Sekarang</div>`
-            : `<div class="redeem-tier-need">Kurang ${need}</div>`}
-        </button>`;
-      };
-      redeemTierGrid.innerHTML = REDEEM_TIERS.map(makeCard).join('');
-      redeemTierGrid.querySelectorAll('[data-tier]').forEach(btn => btn.addEventListener('click', () => {
-        const tier = REDEEM_TIERS[Number(btn.dataset.tier)];
-        audio.click();
-        attemptRedeem(tier);
-      }));
-    }
-
-    function updateRedeemSheetSubtitle() {
-      if (redeemSheetSubtitle) redeemSheetSubtitle.innerHTML = `<span class="diamond-icon-inline"></span> Diamond kamu: ${bankCoins}`;
-    }
-
-    function openRedeemSheet() {
-      if (!redeemSheet) return;
-      renderRedeemTiers();
-      updateRedeemSheetSubtitle();
-      renderRedeemHistory();
-      redeemSheet.classList.remove('hidden');
-    }
-
-    function closeRedeemSheet() {
-      if (redeemSheet) redeemSheet.classList.add('hidden');
-    }
-
-    function attemptRedeem(tier) {
-      if (!tier) return;
-      if (bankCoins < tier.cost) {
-        showToast(`Diamond kurang • ${bankCoins}/${tier.cost}`);
-        return;
-      }
-      openRedeemConfirm(tier);
-    }
-
-    function openRedeemConfirm(tier) {
-      if (!redeemConfirmDialog) return;
-      pendingRedeemTier = tier;
-      if (redeemConfirmPrice) redeemConfirmPrice.textContent = `${tier.cost} Diamond`;
-      if (redeemConfirmCoins) redeemConfirmCoins.textContent = `${bankCoins}`;
-      if (redeemConfirmGet) redeemConfirmGet.textContent = `Kamu akan dapat kode ${tier.diamond} Diamond KZRIZUSMO`;
-      redeemConfirmDialog.classList.remove('hidden');
-    }
-
-    function closeRedeemConfirm() {
-      if (redeemConfirmDialog) redeemConfirmDialog.classList.add('hidden');
-      pendingRedeemTier = null;
-    }
-
-    function confirmRedeem() {
-      const tier = pendingRedeemTier;
-      if (!tier) return;
-      if (bankCoins < tier.cost) {
-        closeRedeemConfirm();
-        showToast(`Diamond kurang • ${bankCoins}/${tier.cost}`);
-        return;
-      }
-      const code = claimRedeemCode(tier.diamond);
-      if (!code) {
-        closeRedeemConfirm();
-        showToast('Kode redeem habis, hubungi admin');
-        return;
-      }
-      bankCoins -= tier.cost;
-      savePrefs();
-      updateUnlockInfo();
-      updateHUD();
-      addRedeemHistory(code, tier.diamond);
-      renderRedeemTiers();
-      updateRedeemSheetSubtitle();
-      renderRedeemHistory();
-      closeRedeemConfirm();
-      showRedeemCode(code);
-    }
-
-    function showRedeemCode(code) {
-      if (!redeemCodeDialog || !redeemCodeValue) return;
-      redeemCodeValue.textContent = code;
-      redeemCodeDialog.classList.remove('hidden');
-    }
-
-    function closeRedeemCodeDialog() {
-      if (redeemCodeDialog) redeemCodeDialog.classList.add('hidden');
-    }
-
     function renderTapCards() {
       const makeCard = (option, i) => {
         const owned = itemOwned(option, ownedTapSkinIds);
@@ -4636,8 +4186,6 @@
 
     function closeSheet() {
       closePurchaseDialog();
-      closeRedeemSheet();
-      closeRedeemCodeDialog();
       closeMissionSheet();
       settingsSheet.classList.add('hidden');
       if (prevState === 'playing') state = 'playing';
@@ -4759,8 +4307,6 @@
       lobbyScreen.classList.remove('hidden');
       gameUI.classList.add('hidden');
       settingsSheet.classList.add('hidden');
-      if (redeemSheet) redeemSheet.classList.add('hidden');
-      if (redeemCodeDialog) redeemCodeDialog.classList.add('hidden');
       if (missionSheet) missionSheet.classList.add('hidden');
       gameOverScreen.classList.add('hidden');
       renderHeroPreview();
@@ -4816,8 +4362,6 @@
       resetPlayer();
       lobbyScreen.classList.add('hidden');
       settingsSheet.classList.add('hidden');
-      if (redeemSheet) redeemSheet.classList.add('hidden');
-      if (redeemCodeDialog) redeemCodeDialog.classList.add('hidden');
       if (missionSheet) missionSheet.classList.add('hidden');
       gameOverScreen.classList.add('hidden');
       gameUI.classList.remove('hidden');
@@ -8664,7 +8208,6 @@
     }
 
     function stopSelect(e) {
-      if (e.target && e.target.closest && e.target.closest('#redeemCodeDialog')) return;
       e.preventDefault();
     }
     document.addEventListener('copy', stopSelect);
@@ -8757,6 +8300,7 @@
       exitConfirmNote.textContent = exitDialogPrevState === 'playing'
         ? 'Progress run ini belum kesimpan sebagai skor akhir.'
         : 'Kamu bisa balik lagi kapan aja buat lanjut main.';
+      if (exitConfirmStayLabel) exitConfirmStayLabel.textContent = exitDialogPrevState === 'playing' ? 'Lanjut Main' : 'Batal';
       exitConfirmDialog.classList.remove('hidden');
     }
     function closeExitConfirmDialog(resume) {
@@ -8795,6 +8339,7 @@
     setInterval(positionExitBtn, 500);
     quickResumeBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeSheet(); });
     lobbySettingsBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openSheet('skin'); });
+    if (lobbyHomeBtn) lobbyHomeBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openExitConfirmDialog(); });
     openSkinBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openSheet('skin'); });
     openThemeBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openSheet('theme'); });
     closeSheetBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeSheet(); });
@@ -8802,50 +8347,6 @@
     purchaseConfirmBtn.addEventListener('click', () => { audio.unlock(); audio.click(); confirmPendingPurchase(); });
     if (openMissionBtn) openMissionBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openMissionSheet(); });
     if (closeMissionBtn) closeMissionBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeMissionSheet(); saveMissionState(); });
-    if (openRedeemBtn) openRedeemBtn.addEventListener('click', () => { audio.unlock(); audio.click(); openRedeemSheet(); });
-    if (closeRedeemBtn) closeRedeemBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeRedeemSheet(); });
-    if (redeemConfirmCancelBtn) redeemConfirmCancelBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeRedeemConfirm(); });
-    if (redeemConfirmOkBtn) redeemConfirmOkBtn.addEventListener('click', () => { audio.unlock(); audio.click(); confirmRedeem(); });
-    if (redeemCodeCloseBtn) redeemCodeCloseBtn.addEventListener('click', () => { audio.unlock(); audio.click(); closeRedeemCodeDialog(); });
-    function fallbackCopyText(text) {
-      try {
-        const holder = document.createElement('div');
-        holder.textContent = text;
-        holder.style.position = 'fixed';
-        holder.style.top = '-9999px';
-        holder.style.left = '-9999px';
-        holder.style.opacity = '0';
-        holder.style.whiteSpace = 'pre';
-        document.body.appendChild(holder);
-        const range = document.createRange();
-        range.selectNodeContents(holder);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        const ok = document.execCommand('copy');
-        sel.removeAllRanges();
-        document.body.removeChild(holder);
-        return ok;
-      } catch (e) { return false; }
-    }
-
-    if (redeemCodeCopyBtn) redeemCodeCopyBtn.addEventListener('click', () => {
-      audio.unlock(); audio.click();
-      const text = redeemCodeValue ? redeemCodeValue.textContent : '';
-      if (!text) return;
-      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
-        navigator.clipboard.writeText(text)
-          .then(() => showToast('Kode disalin'))
-          .catch(() => {
-            if (fallbackCopyText(text)) showToast('Kode disalin');
-            else showToast('Gagal menyalin, salin manual');
-          });
-      } else if (fallbackCopyText(text)) {
-        showToast('Kode disalin');
-      } else {
-        showToast('Gagal menyalin, salin manual');
-      }
-    });
     purchaseDialog.addEventListener('click', (event) => {
       if (event.target === purchaseDialog) {
         audio.unlock();
