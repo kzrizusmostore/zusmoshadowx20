@@ -17433,8 +17433,6 @@ function launchGame(url, logoUrl, gameName, evt){
 }
 </script>
 
-</div>
-
 <style>
 .shop-hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 20px;margin:6px 0 18px;background:linear-gradient(135deg,rgba(30,0,0,.95),rgba(10,10,10,.98));border:1px solid rgba(255,43,43,.4);box-shadow:0 8px 28px rgba(0,0,0,.45),0 0 26px rgba(255,43,43,.12),inset 0 1px 0 rgba(255,255,255,.05);}
 .shop-hero:before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,43,43,.7),transparent);z-index:0;}
@@ -18017,9 +18015,9 @@ function launchGame(url, logoUrl, gameName, evt){
 </style>
 <style>
 /* === Background gambar custom (tambahan, tidak menghapus elemen/garis neon yang sudah ada) === */
-#shopTab .shop-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/file-000000002110820794dc7f056f8c03a6.png') center/cover no-repeat;box-shadow:none;filter:none;}
-#progressTab .prog-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/20260829-033041.jpg') center/cover no-repeat;box-shadow:none;filter:none;}
-#communityTab .shop-hero.cmty-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/file-00000000acf48211895d31cc85e18443.png') center/cover no-repeat;box-shadow:none;filter:none;}
+#shopTab .shop-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/file-000000002110820794dc7f056f8c03a6.png') center/contain no-repeat;background-color:#140505;box-shadow:none;filter:none;}
+#progressTab .prog-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/20260829-033041.jpg') center/contain no-repeat;background-color:#140505;box-shadow:none;filter:none;}
+#communityTab .shop-hero.cmty-hero{background:linear-gradient(135deg,rgba(30,0,0,.55),rgba(10,10,10,.65)),url('zusmo-assets/file-00000000acf48211895d31cc85e18443.png') center/contain no-repeat;background-color:#140505;box-shadow:none;filter:none;}
 /* Diamond pill dilepas dari "kolom kecil" -> nempel langsung di hero besar tanpa background/border sendiri */
 #shopTab .shop-diamond-pill{background:transparent;border:none;box-shadow:none;padding:0;border-radius:0;}
 /* Logo "Default 2" (lg0) dibuat lingkaran seperti "Default", tetap lingkaran juga saat diklik/aktif */
