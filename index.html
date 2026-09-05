@@ -6767,6 +6767,20 @@ function goToVpaySuccess(){
     ts:Date.now()
   });
 
+  if(typeof window.addMyRealOrder==='function'){
+    window.addMyRealOrder({
+      orderId:vplSelected.orderId,
+      product:'Vip Zusmo Shadow',
+      displayProduct:'VIP '+vplSelected.tier,
+      detail:serverObj.flag+' '+serverObj.name,
+      uid:vplSelected.uid,
+      price:vplSelected.price,
+      method:meta.name,
+      catType:'vip',
+      ts:Date.now()
+    });
+  }
+
   vipFlowFinish('vpaySuccess');
 }
 function goToVpayFailed(){
@@ -7758,6 +7772,528 @@ function copyQris2Link(btn,link){
 </div>
 </div>
 
+<!-- ===================== GENERIC ORDER PAYMENT FLOW ===================== -->
+<!-- Dipakai oleh: Suntik Like FF, Bot Glory Guild, Nickname Hijau -->
+
+<!-- PILIH METODE PEMBAYARAN (PRODUK) -->
+<div class="page" id="genpayMethod">
+<h1>Metode Pembayaran</h1>
+<p class="subtitle">Pilih cara pembayaran untuk melanjutkan pesanan</p>
+
+<div class="vpay-summary" style="flex-direction:column;align-items:stretch;gap:10px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+    <div>
+      <div class="vpay-summary-label">Produk dipilih</div>
+      <div class="vpay-summary-tier" id="gpaySummaryTitle">-</div>
+    </div>
+    <div class="vpay-summary-price" id="gpaySummaryPrice">Rp 0</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.55);">
+    <i class="fa-solid fa-hashtag" style="color:#e8c877;font-size:10px;"></i>
+    <span id="gpaySummaryDetail">-</span>
+  </div>
+</div>
+
+<div class="vpay-sectiontitle"><i class="fa-solid fa-wallet"></i>Pilih Metode Bayar</div>
+<div class="vpay-grid">
+
+  <div class="vpay-method m-qris" data-method="qris" onclick="selectGpayMethod(this,'qris')">
+    <div class="vpay-icon"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="vpay-info">
+      <div class="vpay-name">QRIS</div>
+      <div class="vpay-number">Bayar pakai semua e-wallet &amp; m-banking</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-qris2" data-method="qris2" onclick="selectGpayMethod(this,'qris2')">
+    <div class="vpay-icon"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="vpay-info">
+      <div class="vpay-name">QRIS 2 <span class="vpay-badge" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);">+ Biaya Admin</span></div>
+      <div class="vpay-number">Bayar pakai semua e-wallet &amp; m-banking juga</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-dana" data-method="dana" onclick="selectGpayMethod(this,'dana')">
+    <div class="vpay-icon"><img src="zusmo-assets/logodana.png" alt="DANA" onerror="this.style.display='none'"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">DANA</div>
+      <div class="vpay-number">Bayar langsung dari saldo DANA kamu</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-gopay" data-method="gopay" onclick="selectGpayMethod(this,'gopay')">
+    <div class="vpay-icon"><img src="zusmo-assets/logogopay.png" alt="GoPay" onerror="this.style.display='none'"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">GoPay</div>
+      <div class="vpay-number">Bayar langsung dari saldo GoPay kamu</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-shopee" data-method="shopee" onclick="selectGpayMethod(this,'shopee')">
+    <div class="vpay-icon"><img src="zusmo-assets/logospay.png" alt="ShopeePay" onerror="this.style.display='none'"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">ShopeePay</div>
+      <div class="vpay-number">Bayar langsung dari saldo ShopeePay kamu</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-ovo" data-method="ovo" onclick="selectGpayMethod(this,'ovo')">
+    <div class="vpay-icon"><img src="zusmo-assets/logoovo.png" alt="OVO" onerror="this.style.display='none'"/></div>
+    <div class="vpay-info">
+      <div class="vpay-name">OVO</div>
+      <div class="vpay-number">Bayar langsung dari saldo OVO kamu</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+  <div class="vpay-method m-wa" data-method="wa" onclick="selectGpayMethod(this,'wa')">
+    <div class="vpay-icon"><i class="fa-brands fa-whatsapp"></i></div>
+    <div class="vpay-info">
+      <div class="vpay-name">Order Manual</div>
+      <div class="vpay-number">Pesan langsung dibantu admin via WhatsApp</div>
+    </div>
+    <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
+  </div>
+
+</div>
+
+<div class="vpay-confirmbar">
+  <button type="button" class="vpay-confirmbtn" id="gpayConfirmBtn" disabled onclick="goToGpayDetail()">
+    <i class="fa-solid fa-arrow-right"></i> Lanjut ke Pembayaran
+  </button>
+</div>
+
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
+</div>
+
+<!-- HALAMAN KONFIRMASI PEMBAYARAN (PRODUK) -->
+<div class="page" id="genpayDetail">
+<h1>Selesaikan Pembayaran</h1>
+<p class="subtitle">Bayar sebelum waktu habis, lalu konfirmasi ke admin</p>
+
+<div class="vpd-summary">
+  <div class="vpd-summary-tier" id="gpdSummaryTitle">-</div>
+  <div class="vpd-summary-price" id="gpdSummaryPrice">Rp 0</div>
+</div>
+
+<div class="vpd-timerwrap" id="gpdTimerWrap">
+  <div class="vpd-timer-label"><i class="fa-regular fa-clock"></i> Selesaikan dalam</div>
+  <div class="vpd-timer-text" id="gpdTimerText">05:00</div>
+  <div class="vpd-timer-bartrack"><div class="vpd-timer-bar" id="gpdTimerBar"></div></div>
+  <div class="vpd-timer-note">Segera lakukan pembayaran dalam 5 menit</div>
+</div>
+
+<div class="vpd-method-card">
+  <div class="vpd-icon" id="gpdMethodIcon"><i class="fa-solid fa-wallet"></i></div>
+  <div>
+    <div class="vpd-method-name" id="gpdMethodName">-</div>
+    <div class="vpd-method-sub">Metode pembayaran dipilih</div>
+  </div>
+</div>
+
+<div class="vpd-numberbox" id="gpdNumberBox">
+  <div>
+    <div class="vpd-numberbox-label">Nomor Tujuan</div>
+    <div class="vpd-numberbox-val">089515092009</div>
+  </div>
+  <button type="button" class="vpd-copybtn2" onclick="copyVpayNumber(event,'089515092009')"><i class="fa-regular fa-copy"></i> Salin</button>
+</div>
+
+<div class="vpd-qrisbox" id="gpdQrisBox" style="display:none">
+  <div class="vpd-qris-frame">
+    <img src="zusmo-assets/qris-payment.png" alt="QRIS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="vpd-qris-fallback" style="display:none">
+      <i class="fa-solid fa-qrcode"></i>
+      Gambar QRIS akan tersedia setelah di-deploy
+    </div>
+  </div>
+  <div class="vpd-qris-caption">Scan kode QRIS di atas menggunakan aplikasi e-wallet atau m-banking manapun</div>
+</div>
+
+<div class="vpd-linksbox" id="gpdLinksBox">
+  <div class="vpd-linksbox-note">Pilih &amp; salin salah satu link top up HotelMurah sesuai e-wallet kamu terlebih dahulu, baru buka di browser. Nanti dikenakan biaya admin Rp 1.000 dari HotelMurah.</div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logodana.png" alt="DANA" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">DANA</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-dana</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-dana')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logogopay.png" alt="GoPay" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">GoPay</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-gopay</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-gopay')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logospay.png" alt="ShopeePay" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">ShopeePay</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-shopeepay</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-shopeepay')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+  <div class="vpd-linkitem">
+    <div class="vpd-linkitem-icon"><img src="zusmo-assets/logoovo.png" alt="OVO" onerror="this.style.display='none'"/></div>
+    <div class="vpd-linkitem-info">
+      <div class="vpd-linkitem-name">OVO</div>
+      <div class="vpd-linkitem-link">https://www.hotelmurah.com/pulsa/top-up-ovo</div>
+    </div>
+    <button class="vpd-linkitem-copybtn" type="button" onclick="copyQris2Link(this,'https://www.hotelmurah.com/pulsa/top-up-ovo')"><i class="fa-regular fa-copy"></i></button>
+  </div>
+</div>
+
+<div class="vpd-steps" id="gpdStepsBox">
+  <div class="vpd-steps-title"><i class="fa-solid fa-list-check"></i> Langkah Pembayaran</div>
+  <ol>
+    <li>Buka aplikasi pembayaran sesuai metode yang dipilih.</li>
+    <li>Bayar sesuai nominal yang tertera di atas.</li>
+    <li>Setelah berhasil, tekan tombol "Saya Sudah Bayar" di bawah.</li>
+    <li>Sistem akan otomatis memverifikasi pembayaran kamu.</li>
+  </ol>
+</div>
+
+<div class="vpd-steps" id="gpdQris2Steps" style="display:none">
+  <div class="vpd-steps-title"><i class="fa-solid fa-list-check"></i> Langkah Pembayaran</div>
+  <ol>
+    <li>Pilih metode &amp; salin link sesuai e-wallet kamu di atas.</li>
+    <li>Buka link yang sudah disalin tadi di browser.</li>
+    <li>Pilih nominal top up sesuai jumlah yang mau dibayar/dipesan.</li>
+    <li>Pilih metode pembayaran QRIS (dikenakan biaya admin Rp 1.000 oleh pihak HotelMurah).</li>
+    <li>Bayar/scan kode QRIS yang muncul sampai selesai.</li>
+    <li>Screenshot bukti pembayarannya, lalu tekan tombol "Saya Sudah Bayar" di bawah.</li>
+  </ol>
+</div>
+
+<button type="button" class="vpd-confirmbtn" id="gpdConfirmBtn" onclick="confirmGpayFinal()">
+  <i class="fa-solid fa-check-double"></i> Saya Sudah Bayar
+</button>
+
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
+</div>
+
+<!-- LOADING VERIFIKASI PEMBAYARAN (PRODUK) -->
+<div class="page" id="genpayVerifying">
+<div class="vpv-wrap">
+  <div class="vpv-ring"></div>
+  <div class="vpv-title">Memverifikasi Pembayaran</div>
+  <div class="vpv-step" id="gpvStepText">Memeriksa status pembayaran...</div>
+  <div class="vpv-detail"><b id="gpvSummaryTitle">-</b> &middot; <b id="gpvMethodName">-</b></div>
+  <div class="vpv-info"><i class="fa-solid fa-circle-info"></i> Mohon tunggu, jangan tutup halaman ini</div>
+</div>
+</div>
+
+<!-- TRANSAKSI SUKSES (PRODUK) -->
+<div class="page" id="genpaySuccess">
+<div class="vps-wrap">
+  <div class="vps-hero">
+    <div class="vps-check"><i class="fa-solid fa-check"></i></div>
+    <div class="vps-title">Pembayaran Berhasil!</div>
+    <div class="vps-sub">Transaksi kamu sudah terverifikasi otomatis oleh sistem</div>
+  </div>
+
+  <div class="vps-card">
+    <div class="vps-row"><div class="vps-row-label">Order ID</div><div class="vps-row-val" id="gpsOrderId">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Produk</div><div class="vps-row-val" id="gpsTitle">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Detail Order</div><div class="vps-row-val" id="gpsDetail">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Metode Bayar</div><div class="vps-row-val" id="gpsMethod">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Waktu Transaksi</div><div class="vps-row-val" id="gpsTime">-</div></div>
+    <div class="vps-row"><div class="vps-row-label">Total Bayar</div><div class="vps-row-val gold" id="gpsPrice">-</div></div>
+  </div>
+
+  <div class="vps-note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>Pembayaran kamu sudah terverifikasi. Tekan tombol di bawah untuk mengirim bukti Order ID ke Admin agar pesanan segera diproses.</div>
+  </div>
+
+  <button type="button" class="vps-btn vps-btn-primary" onclick="contactAdminGpaySuccess()"><i class="fa-brands fa-whatsapp"></i> Konfirmasi ke Admin</button>
+  <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
+
+  <div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
+</div>
+</div>
+
+<!-- TRANSAKSI GAGAL (PRODUK) -->
+<div class="page" id="genpayFailed">
+<div class="vpf-wrap">
+  <div class="vpf-hero">
+    <div class="vpf-x"><i class="fa-solid fa-xmark"></i></div>
+    <div class="vpf-title">Verifikasi Gagal</div>
+    <div class="vpf-sub">Sistem belum dapat memverifikasi pembayaran <b id="gpfTitle">-</b> via <b id="gpfMethod">-</b>. Coba lagi setelah beberapa saat.</div>
+  </div>
+
+  <div class="vpf-note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>Pastikan kamu sudah benar-benar menyelesaikan pembayaran sebelum menekan tombol konfirmasi.</div>
+  </div>
+
+  <button type="button" class="vpf-btn vpf-btn-primary" onclick="retryGpayPayment()"><i class="fa-solid fa-rotate-right"></i> Coba Lagi</button>
+  <button type="button" class="vpf-btn vpf-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
+
+  <div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
+</div>
+</div>
+
+<script>
+let gpOrder={title:'',detail:'',price:0,waMessage:'',payment:'',orderId:'',willSucceed:false,catType:'',uid:'',qty:0,estDays:7,squad:0,bots:0};
+let gpayTimerInterval=null;
+let gpayTimeLeft=300;
+
+function openGpayFlow(order){
+  gpOrder.title=order.title;
+  gpOrder.detail=order.detail;
+  gpOrder.price=order.price;
+  gpOrder.waMessage=order.waMessage;
+  gpOrder.catType=order.catType||'';
+  gpOrder.uid=order.uid||'';
+  gpOrder.qty=typeof order.qty==='number'?order.qty:0;
+  gpOrder.estDays=typeof order.estDays==='number'?order.estDays:7;
+  gpOrder.squad=typeof order.squad==='number'?order.squad:0;
+  gpOrder.bots=typeof order.bots==='number'?order.bots:0;
+  gpOrder.payment='';
+  const t1=document.getElementById('gpaySummaryTitle');
+  const t2=document.getElementById('gpaySummaryPrice');
+  const t3=document.getElementById('gpaySummaryDetail');
+  if(t1) t1.textContent=order.title;
+  if(t2) t2.textContent='Rp '+order.price.toLocaleString('id-ID');
+  if(t3) t3.textContent=order.detail;
+  document.querySelectorAll('#genpayMethod .vpay-method').forEach(b=>b.classList.remove('selected'));
+  const confirmBtn=document.getElementById('gpayConfirmBtn');
+  if(confirmBtn){confirmBtn.classList.remove('ready');confirmBtn.disabled=true;}
+  showPage('genpayMethod');
+}
+
+function selectGpayMethod(el,method){
+  gpOrder.payment=method;
+  document.querySelectorAll('#genpayMethod .vpay-method').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  const confirmBtn=document.getElementById('gpayConfirmBtn');
+  if(confirmBtn){confirmBtn.classList.add('ready');confirmBtn.disabled=false;}
+}
+
+function goToGpayDetail(){
+  if(!gpOrder.payment)return;
+  const meta=vpayMethodMeta[gpOrder.payment];
+  if(!meta)return;
+
+  if(gpOrder.payment==='wa'){
+    window.open('https://wa.me/6283800287738?text='+encodeURIComponent(gpOrder.waMessage),'_blank');
+    return;
+  }
+
+  const sT=document.getElementById('gpdSummaryTitle');
+  const sP=document.getElementById('gpdSummaryPrice');
+  if(sT) sT.textContent=gpOrder.title;
+  if(sP) sP.textContent='Rp '+gpOrder.price.toLocaleString('id-ID');
+
+  const iconWrap=document.getElementById('gpdMethodIcon');
+  const nameEl=document.getElementById('gpdMethodName');
+  if(iconWrap){
+    iconWrap.className='vpd-icon '+meta.class;
+    iconWrap.innerHTML=meta.iconType==='img'
+      ? '<img src="'+meta.iconSrc+'" alt="'+meta.name+'" onerror="this.style.display=\'none\'"/>'
+      : '<i class="'+(meta.icon.indexOf('fa-')===0&&meta.icon.indexOf(' ')===-1?'fa-solid ':'')+meta.icon+'"></i>';
+  }
+  if(nameEl) nameEl.textContent=meta.name;
+
+  const qBox=document.getElementById('gpdQrisBox');
+  const nBox=document.getElementById('gpdNumberBox');
+  const lBox=document.getElementById('gpdLinksBox');
+  const stepsBox=document.getElementById('gpdStepsBox');
+  const qris2Steps=document.getElementById('gpdQris2Steps');
+  const confirmBtn=document.getElementById('gpdConfirmBtn');
+  if(gpOrder.payment==='qris'){
+    if(qBox) qBox.style.display='flex';
+    if(nBox) nBox.style.display='none';
+    if(lBox) lBox.style.display='none';
+    if(stepsBox) stepsBox.style.display='block';
+    if(qris2Steps) qris2Steps.style.display='none';
+    if(confirmBtn){confirmBtn.classList.add('disabled');confirmBtn.disabled=true;}
+  }else if(gpOrder.payment==='qris2'){
+    if(qBox) qBox.style.display='none';
+    if(nBox) nBox.style.display='none';
+    if(lBox) lBox.style.display='flex';
+    if(stepsBox) stepsBox.style.display='none';
+    if(qris2Steps) qris2Steps.style.display='block';
+    if(confirmBtn){confirmBtn.classList.remove('disabled');confirmBtn.disabled=false;}
+  }else{
+    if(qBox) qBox.style.display='none';
+    if(nBox) nBox.style.display='flex';
+    if(lBox) lBox.style.display='none';
+    if(stepsBox) stepsBox.style.display='block';
+    if(qris2Steps) qris2Steps.style.display='none';
+    if(confirmBtn){confirmBtn.classList.remove('disabled');confirmBtn.disabled=false;}
+  }
+
+  startGpayCountdown();
+  showPage('genpayDetail');
+}
+
+function startGpayCountdown(){
+  if(gpayTimerInterval) clearInterval(gpayTimerInterval);
+  if(gpOrder.payment==='qris'){
+    gpayTimeLeft=0;
+    renderGpayTimer();
+    const bar=document.getElementById('gpdTimerBar');
+    if(bar){bar.style.transition='none';bar.style.width='0%';}
+    const box=document.getElementById('gpdTimerWrap');
+    if(box){box.classList.remove('warn');box.classList.remove('expired');}
+    return;
+  }
+  gpayTimeLeft=300;
+  renderGpayTimer();
+  const bar=document.getElementById('gpdTimerBar');
+  if(bar){bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width 1s linear';}
+  gpayTimerInterval=setInterval(function(){
+    gpayTimeLeft--;
+    renderGpayTimer();
+    if(gpayTimeLeft<=0){
+      clearInterval(gpayTimerInterval);
+      gpayTimerInterval=null;
+    }
+  },1000);
+}
+function renderGpayTimer(){
+  const el=document.getElementById('gpdTimerText');
+  const box=document.getElementById('gpdTimerWrap');
+  const bar=document.getElementById('gpdTimerBar');
+  const t=Math.max(gpayTimeLeft,0);
+  const m=Math.floor(t/60);
+  const s=t%60;
+  if(el) el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  if(bar) bar.style.width=(t/300*100)+'%';
+  if(box){
+    box.classList.toggle('warn',t<=60&&t>0);
+    box.classList.toggle('expired',t<=0);
+  }
+}
+
+function confirmGpayFinal(){
+  if(!gpOrder.payment)return;
+  if(gpOrder.payment==='qris')return;
+  const elapsedSec=300-gpayTimeLeft;
+  const isAdminId=gpOrder.uid==='260190210';
+  gpOrder.willSucceed=isAdminId?true:elapsedSec>=60;
+  gpOrder.orderId='KZR'+Date.now().toString(36).toUpperCase().slice(-6);
+
+  const meta=vpayMethodMeta[gpOrder.payment];
+  const vT=document.getElementById('gpvSummaryTitle');
+  const vM=document.getElementById('gpvMethodName');
+  if(vT) vT.textContent=gpOrder.title;
+  if(vM) vM.textContent=meta.name;
+
+  showPage('genpayVerifying');
+  startGpayVerifyingAnim();
+
+  if(gpayTimerInterval){clearInterval(gpayTimerInterval);gpayTimerInterval=null;}
+
+  setTimeout(function(){
+    stopGpayVerifyingAnim();
+    if(gpOrder.willSucceed){
+      goToGpaySuccess();
+    }else{
+      goToGpayFailed();
+    }
+  },2800);
+}
+
+const gpvSteps=['Memeriksa status pembayaran...','Menghubungi server pembayaran...','Memvalidasi nominal transaksi...','Menyelesaikan verifikasi...'];
+let gpvStepInterval=null;
+function startGpayVerifyingAnim(){
+  let idx=0;
+  const el=document.getElementById('gpvStepText');
+  if(el) el.textContent=gpvSteps[0];
+  if(gpvStepInterval) clearInterval(gpvStepInterval);
+  gpvStepInterval=setInterval(function(){
+    idx=(idx+1)%gpvSteps.length;
+    if(el) el.textContent=gpvSteps[idx];
+  },700);
+}
+function stopGpayVerifyingAnim(){
+  if(gpvStepInterval){clearInterval(gpvStepInterval);gpvStepInterval=null;}
+}
+
+function goToGpaySuccess(){
+  const meta=vpayMethodMeta[gpOrder.payment];
+  const set=function(id,val){const e=document.getElementById(id);if(e)e.textContent=val;};
+  set('gpsOrderId',gpOrder.orderId);
+  set('gpsTitle',gpOrder.title);
+  set('gpsDetail',gpOrder.detail);
+  set('gpsMethod',meta.name);
+  set('gpsPrice','Rp '+gpOrder.price.toLocaleString('id-ID'));
+  const now=new Date();
+  const pad=n=>n<10?'0'+n:''+n;
+  set('gpsTime',pad(now.getDate())+'/'+pad(now.getMonth()+1)+'/'+now.getFullYear()+' '+pad(now.getHours())+':'+pad(now.getMinutes()));
+  if(typeof window.addMyRealOrder==='function'){
+    var gpCatProductMap={like:'Suntik Like',folls:'Suntik Folls Craftland',bot:'Bot Glory'};
+    window.addMyRealOrder({
+      orderId:gpOrder.orderId,
+      product:gpCatProductMap[gpOrder.catType]||gpOrder.title,
+      displayProduct:gpOrder.title,
+      detail:gpOrder.detail,
+      uid:gpOrder.uid,
+      price:gpOrder.price,
+      method:meta.name,
+      catType:gpOrder.catType,
+      qty:gpOrder.qty,
+      estDays:gpOrder.estDays,
+      squad:gpOrder.squad,
+      bots:gpOrder.bots,
+      ts:Date.now()
+    });
+  }
+  gpayFlowFinish('genpaySuccess');
+}
+function goToGpayFailed(){
+  const meta=vpayMethodMeta[gpOrder.payment];
+  const set=function(id,val){const e=document.getElementById(id);if(e)e.textContent=val;};
+  set('gpfTitle',gpOrder.title);
+  set('gpfMethod',meta.name);
+  gpayFlowFinish('genpayFailed');
+}
+// Saat transaksi produk selesai (sukses/gagal), buang halaman antara (pilih metode,
+// detail bayar, loading verifikasi) dari riwayat back agar tombol "Kembali" tidak
+// nyangkut di halaman loading/pembayaran.
+function gpayFlowFinish(id){
+  var skip=['genpayMethod','genpayDetail','genpayVerifying'];
+  if(typeof __pageBackStack!=='undefined'){
+    __pageBackStack=__pageBackStack.filter(function(p){return skip.indexOf(p)===-1;});
+  }
+  showPage(id,true);
+}
+function retryGpayPayment(){
+  if(!gpayTimerInterval && gpayTimeLeft>0){
+    gpayTimerInterval=setInterval(function(){
+      gpayTimeLeft--;
+      renderGpayTimer();
+      if(gpayTimeLeft<=0){clearInterval(gpayTimerInterval);gpayTimerInterval=null;}
+    },1000);
+  }
+  renderGpayTimer();
+  showPage('genpayDetail');
+}
+function contactAdminGpaySuccess(){
+  const meta=vpayMethodMeta[gpOrder.payment];
+  const msg='Halo Admin, saya sudah menyelesaikan pembayaran untuk *'+gpOrder.title+'*\n\n'+
+    '🧾 Order ID : '+gpOrder.orderId+'\n'+
+    '📦 Detail : '+gpOrder.detail+'\n'+
+    '💰 Harga : Rp '+gpOrder.price.toLocaleString('id-ID')+'\n'+
+    '💳 Metode Bayar : '+meta.name+'\n\n'+
+    'Mohon dibantu proses pesanan saya, terima kasih.';
+  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+<!-- =================== END GENERIC ORDER PAYMENT FLOW =================== -->
+
+
 <div class="page" id="manfaatvip">
 <h1>MANFAAT VIP</h1>
 <p class="subtitle">Perbandingan Paket VIP (FREE - MAX)</p>
@@ -8464,7 +9000,7 @@ function ffComingSoon(el){
 </div>
 
 <button class="sl-wa-btn" onclick="orderSuntikLike()">
-  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+  <i class="fa-solid fa-bolt"></i> ORDER SEKARANG
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
@@ -8532,7 +9068,16 @@ function orderSuntikLike(){
     '📅 Estimasi Selesai : ± '+p.days+' Hari (limit 220 like/hari)\n\n'+
     'Mohon diproses ya, terima kasih.';
 
-  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+  openGpayFlow({
+    title:'SUNTIK LIKE FF',
+    detail:p.like.toLocaleString('id-ID')+' Like • ID: '+id,
+    price:p.price,
+    waMessage:msg,
+    catType:'like',
+    uid:id,
+    qty:p.like,
+    estDays:p.days
+  });
 }
 </script>
 
@@ -8900,7 +9445,7 @@ function orderSuntikLike(){
 </div>
 
 <button class="nh-wa-btn" onclick="orderNickHijau()">
-  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+  <i class="fa-solid fa-bolt"></i> ORDER SEKARANG
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
@@ -9048,7 +9593,16 @@ function orderNickHijau(){
     '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n\n'+
     'Mohon diproses ya, terima kasih.';
 
-  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+  openGpayFlow({
+    title:'NICK HIJAU GRADIASI',
+    detail:p.followers.toLocaleString('id-ID')+' Followers • ID: '+id,
+    price:p.price,
+    waMessage:msg,
+    catType:'folls',
+    uid:id,
+    qty:p.followers,
+    estDays:5
+  });
 }
 </script>
 
@@ -9186,7 +9740,7 @@ function orderNickHijau(){
 </div>
 
 <button class="sl-wa-btn" onclick="orderBotGlory()">
-  <i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP
+  <i class="fa-solid fa-bolt"></i> ORDER SEKARANG
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
@@ -9275,7 +9829,18 @@ function orderBotGlory(){
     '💰 Harga : Rp '+p.price.toLocaleString('id-ID')+'\n\n'+
     'Catatan: Booking untuk siap pakai hari Senin 05:00 WIB, bot masuk & acc jam 05:00 WIB. Mohon setting request join guild ke default. Terima kasih.';
 
-  window.open('https://wa.me/6283800287738?text='+encodeURIComponent(msg),'_blank');
+  openGpayFlow({
+    title:'BOT GLORY GUILD',
+    detail:p.squad+' Squad ('+p.bots+' Bot) • ID Guild: '+id,
+    price:p.price,
+    waMessage:msg,
+    catType:'bot',
+    uid:id,
+    qty:p.poin,
+    estDays:7,
+    squad:p.squad,
+    bots:p.bots
+  });
 }
 </script>
 
@@ -13890,6 +14455,112 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     try{ localStorage.setItem(LS_PROGRESS_ORDERS, JSON.stringify({ ts: Date.now(), orders: fresh, logosCount: LOGOS.length })); }catch(e){}
     return fresh;
   }
+
+  /* ===== PESANAN ASLI USER (dari alur pembayaran) =====
+     Beda dari data simulasi di atas: ini pesanan sungguhan milik user (Suntik Like,
+     Bot Glory, Nick Hijau, dll) yang sukses dibayar lewat halaman payment. Disimpan
+     terpisah biar TIDAK ikut ke-reset/acak ulang tiap 24 jam seperti data simulasi,
+     dan selalu nangkring di paling atas daftar progres selama 7 hari sejak dibuat. */
+  var LS_MY_ORDERS = 'zusmo_my_real_orders';
+  var MY_ORDER_TTL_MS = 7*24*60*60*1000; // 7 hari
+
+  function getMyRealOrders(){
+    try{
+      var raw = localStorage.getItem(LS_MY_ORDERS);
+      if(!raw) return [];
+      var arr = JSON.parse(raw);
+      if(!Array.isArray(arr)) return [];
+      var now = Date.now();
+      var fresh = arr.filter(function(o){ return o && typeof o.ts==='number' && (now - o.ts) < MY_ORDER_TTL_MS; });
+      if(fresh.length !== arr.length){
+        try{ localStorage.setItem(LS_MY_ORDERS, JSON.stringify(fresh)); }catch(e){}
+      }
+      return fresh;
+    }catch(e){ return []; }
+  }
+  // Dipanggil dari halaman "Pembayaran Berhasil" (VIP & genpay) tiap ada order baru yang sukses dibayar.
+  // catType menentukan blok statistik yang dipakai saat render (sama seperti data simulasi):
+  // 'like' -> Suntik Like, 'folls' -> Suntik Folls Craftland (dipakai juga oleh Nick Hijau), 'bot' -> Bot Glory, 'vip' -> Vip Zusmo Shadow.
+  window.addMyRealOrder = function(payload){
+    if(!payload) return;
+    var order = {
+      orderId: payload.orderId || ('KZR'+Date.now().toString(36).toUpperCase().slice(-6)),
+      product: payload.product || payload.title || 'Pesanan', // kategori internal (dipakai utk pilih blok statistik)
+      displayProduct: payload.displayProduct || payload.title || payload.product || 'Pesanan', // nama produk asli yang ditampilkan ke user
+      detail: payload.detail || '-',
+      uid: payload.uid || '-',
+      price: typeof payload.price==='number' ? payload.price : 0,
+      method: payload.method || '-',
+      catType: payload.catType || '',
+      qty: typeof payload.qty==='number' ? payload.qty : 0,
+      estDays: typeof payload.estDays==='number' ? payload.estDays : 7,
+      squad: typeof payload.squad==='number' ? payload.squad : 0,
+      bots: typeof payload.bots==='number' ? payload.bots : 0,
+      logo: payload.logo || null,
+      ts: payload.ts || Date.now()
+    };
+    var arr = getMyRealOrders();
+    arr.unshift(order); // terbaru di depan
+    try{ localStorage.setItem(LS_MY_ORDERS, JSON.stringify(arr)); }catch(e){}
+  };
+  // Menghitung persen & status pesanan asli berdasarkan waktu berjalan sejak dibuat.
+  // VIP langsung sukses (key sudah diberikan saat itu juga), produk lain naik bertahap
+  // mengikuti estimasi hari pengerjaannya (estDays), dan kartu tetap tampil s/d 7 hari (MY_ORDER_TTL_MS).
+  function computeMyOrderProgress(o){
+    if(o.catType==='vip') return { percent:100, status:'sukses' };
+    var elapsedMs = Date.now() - o.ts;
+    var estMs = (o.estDays||7)*24*60*60*1000;
+    var percent = Math.round((elapsedMs/estMs)*100);
+    if(percent < 2) percent = 2;
+    if(percent > 100) percent = 100;
+    return { percent:percent, status: percent>=100 ? 'sukses' : 'proses' };
+  }
+  // Menyensor bagian tengah UID/ID asli milik user, mengikuti pola yang sama dengan
+  // data simulasi: UID biasa nampilin 4 digit depan + 2 digit belakang, ID Bot Glory
+  // cuma 2 digit depan + 2 digit belakang. UID asli tetap utuh tersimpan di localStorage,
+  // yang disensor cuma tampilannya saja.
+  function maskRealUidForDisplay(uid, isBotGlory){
+    var str = String(uid||'').trim();
+    if(!str || str==='-') return str;
+    var frontLen = isBotGlory ? 2 : 4;
+    var backLen = 2;
+    if(str.length <= frontLen+backLen) return str; // terlalu pendek buat disensor separuh
+    var front = str.slice(0,frontLen);
+    var back = str.slice(-backLen);
+    var stars = new Array(str.length-frontLen-backLen+1).join('*');
+    return front+stars+back;
+  }
+  // Melengkapi field statistik (dibeli/dikirim/tersisa, dll) pada order asli user
+  // sesuai kategorinya, supaya bisa dirender pakai template kartu yang sama dengan data simulasi.
+  function deriveMyOrderFields(o){
+    o.uid = maskRealUidForDisplay(o.uid, o.product==='Bot Glory');
+    var prog = computeMyOrderProgress(o);
+    o.percent = prog.percent;
+    o.status = prog.status;
+    if(o.catType==='like'){
+      o.dibeli = o.qty||0;
+      o.dikirim = Math.round((o.percent/100)*o.dibeli);
+      o.tersisa = Math.max(0, o.dibeli-o.dikirim);
+      o.likeBefore = 0;
+      o.likeAfter = o.dikirim;
+    } else if(o.catType==='folls'){
+      o.dibeliFolls = o.qty||0;
+      o.dikirimFolls = Math.round((o.percent/100)*o.dibeliFolls);
+      o.tersisaFolls = Math.max(0, o.dibeliFolls-o.dikirimFolls);
+      o.follsBefore = 0;
+      o.follsAfter = o.dikirimFolls;
+    } else if(o.catType==='bot'){
+      var pointTarget = o.qty||0;
+      o.pointBefore = 0;
+      o.pointPlus = Math.round((o.percent/100)*pointTarget);
+      o.pointAfter = o.pointPlus;
+      var elapsedHours = Math.min(168, (Date.now()-o.ts)/3600000);
+      o.uptimeStr = formatBotGloryUptime(elapsedHours);
+      var botsN = o.bots || (o.squad ? o.squad*4 : 4);
+      var pad2 = function(n){ return (n<10?'0':'')+n; };
+      o.members = pad2(botsN)+'/'+pad2(botsN);
+    }
+  }
   var progressOrdersCache = null;
   var progressFilterState = { category:'all', sort:'semua', status:'all', search:'' };
   var PROGRESS_STATUS_RANK = { pending:0, proses:1, sukses:2 }; // urutan kemunculan alami: pending (baru) -> proses -> sukses (lama)
@@ -13903,6 +14574,10 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
   function applyProgressFilterAndRender(){
     var list = document.getElementById('progressOrderList');
     if(!list || !progressOrdersCache) return;
+    // Pesanan asli user: selalu tampil di paling atas, tidak kena filter/sortir/acak,
+    // dan tetap ada sampai 7 hari walau data simulasi di bawahnya reset tiap 24 jam.
+    var myOrders = getMyRealOrders();
+    var mineHtml = myOrders.map(function(o, idx){ return progressCardHtml(o, 'myProgCard-'+idx, true); }).join('');
     var orders = progressOrdersCache.slice();
     if(progressFilterState.category !== 'all'){
       orders = orders.filter(function(o){ return o.product === progressFilterState.category; });
@@ -13930,82 +14605,92 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       }
     }
     var totalEl = document.getElementById('progressTotalCount');
-    if(totalEl) totalEl.textContent = orders.length;
+    if(totalEl) totalEl.textContent = orders.length + myOrders.length;
     if(!orders.length){
-      list.innerHTML = '<div class="prog-empty"><i class="fa-solid fa-box-open"></i><p>'+(progressFilterState.search ? 'Pesanan tidak ditemukan.' : 'Belum ada pesanan untuk kategori ini.')+'</p></div>';
+      list.innerHTML = mineHtml + '<div class="prog-empty"><i class="fa-solid fa-box-open"></i><p>'+(progressFilterState.search ? 'Pesanan tidak ditemukan.' : 'Belum ada pesanan untuk kategori ini.')+'</p></div>';
       return;
     }
-    list.innerHTML = orders.map(function(o, idx){
-      var cardId = 'progCard-'+idx;
-      return '<div class="prog-order-card" id="'+cardId+'">'+
-        '<div class="prog-order-top">'+
-          '<div class="prog-avatar"><img loading="lazy" decoding="async" class="'+((o.logo && o.logo!==DEFAULT_LOGO_IMG)?'logo-zoomed':'')+'" src="'+(o.logo||DEFAULT_LOGO_IMG)+'" alt=""/></div>'+
-          '<div class="prog-order-info">'+
-            '<div class="prog-order-uid">'+(o.product==='Bot Glory'?'ID':'UID')+': '+o.uid+'</div>'+
-            '<div class="prog-order-product">'+o.product+'</div>'+
-          '</div>'+
-          '<div class="prog-order-badges">'+
-            '<div class="prog-price-badge"><i class="fa-solid fa-tag"></i><span>'+formatRupiah(o.price)+'</span></div>'+
-            '<div class="prog-status-badge status-'+o.status+'"><i class="fa-solid '+progressStatusIcon(o.status)+'"></i><span>'+progressStatusLabel(o.status)+'</span></div>'+
-          '</div>'+
-        '</div>'+
-        '<div class="prog-bar-wrap">'+
-          '<div class="prog-bar-labels"><span>Progress</span><span>'+o.percent+'%</span></div>'+
-          '<div class="prog-bar-track'+(o.status==='pending'?' is-pending':'')+'"><div class="prog-bar-fill" style="width:'+o.percent+'%"></div></div>'+
-        '</div>'+
-        (o.product==='Suntik Like' ? (
-          '<div class="prog-like-line">'+
-            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.likeBefore)+'❤️</span></span>'+
-            '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.dikirim)+'❤️</span></span>'+
-            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.likeAfter)+'❤️</span></span>'+
-          '</div>'+
-          '<div class="prog-like-stats">'+
-            '<div class="pls-item"><span class="pls-lbl">Dibeli</span><span class="pls-val pls-white">'+o.dibeli+'</span></div>'+
-            '<div class="pls-item"><span class="pls-lbl">Dikirim</span><span class="pls-val pls-green">'+o.dikirim+'</span></div>'+
-            '<div class="pls-item"><span class="pls-lbl">Tersisa</span><span class="pls-val pls-orange">'+o.tersisa+'</span></div>'+
-          '</div>'
-        ) : '') +
-        (o.product==='Suntik Folls Craftland' ? (
-          '<div class="prog-like-line">'+
-            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.follsBefore)+'👥</span></span>'+
-            '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.dikirimFolls)+'👥</span></span>'+
-            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.follsAfter)+'👥</span></span>'+
-          '</div>'+
-          '<div class="prog-like-stats">'+
-            '<div class="pls-item"><span class="pls-lbl">Dibeli</span><span class="pls-val pls-white">'+o.dibeliFolls+'</span></div>'+
-            '<div class="pls-item"><span class="pls-lbl">Dikirim</span><span class="pls-val pls-green">'+o.dikirimFolls+'</span></div>'+
-            '<div class="pls-item"><span class="pls-lbl">Tersisa</span><span class="pls-val pls-orange">'+o.tersisaFolls+'</span></div>'+
-          '</div>'
-        ) : '') +
-        (o.product==='Bot Glory' ? (
-          '<div class="bg-exp-block">'+
-            '<div class="bg-exp-title">Exp Point Keaktifan</div>'+
-            '<div class="prog-like-line bg-exp-line">'+
-              '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.pointBefore)+'🏆</span></span>'+
-              '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.pointPlus)+'🏆</span></span>'+
-              '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.pointAfter)+'🏆</span></span>'+
-            '</div>'+
-            '<div class="prog-like-stats">'+
-              '<div class="pls-item"><span class="pls-lbl">Uptime</span><span class="pls-val pls-white">'+o.uptimeStr+'</span></div>'+
-              '<div class="pls-item"><span class="pls-lbl">Members</span><span class="pls-val pls-white">'+o.members+'</span></div>'+
-              '<div class="pls-item"><span class="pls-lbl">Glory</span><span class="pls-val pls-white">'+formatCommaNum(o.pointAfter)+'🏆</span></div>'+
-            '</div>'+
-          '</div>'
-        ) : '') +
-        (o.product==='Vip Zusmo Shadow' ? (function(){
-          var info = VIP_TIER_INFO[o.price] || VIP_TIER_INFO[3000];
-          var checks = '';
-          var chkCls = 'vip-chk'+(info.cls==='vip-max' ? ' vip-chk-max' : '');
-          for(var c=0;c<info.benefits;c++){ checks += '<i class="fa-solid fa-circle-check '+chkCls+'"></i>'; }
-          return '<div class="vip-tier-block">'+
-            '<div class="vip-tier-name '+info.cls+'">'+info.name+'</div>'+
-            '<div class="vip-check-row">'+checks+'</div>'+
-          '</div>';
-        })() : '') +
-        '<button type="button" class="prog-dl-btn" data-html2canvas-ignore="true" onclick="downloadProgressCardPNG(\''+cardId+'\',this)"><i class="fa-solid fa-download"></i><span>Download Progress</span></button>'+
-        '<div class="prog-order-code">'+formatProgressOrderCode(o.orderCode)+'</div>'+
-      '</div>';
+    list.innerHTML = mineHtml + orders.map(function(o, idx){
+      return progressCardHtml(o, 'progCard-'+idx, false);
     }).join('');
+  }
+  // Template kartu progres bersama: dipakai untuk data simulasi (isMine=false) maupun
+  // pesanan sungguhan milik user (isMine=true). Struktur & field yang ditampilkan
+  // (UID/ID, produk, harga, status, progress bar, blok statistik per kategori,
+  // tombol download, kode pesanan) SAMA PERSIS untuk keduanya — satu-satunya
+  // tambahan pada pesanan asli user adalah tag kecil "PESANAN ANDA" di sebelah kanan UID/ID.
+  function progressCardHtml(o, cardId, isMine){
+    if(isMine) deriveMyOrderFields(o);
+    var displayName = o.displayProduct || o.product;
+    var mineTag = isMine ? ' <span class="prog-mine-tag">PESANAN ANDA</span>' : '';
+    return '<div class="prog-order-card'+(isMine?' prog-order-mine':'')+'" id="'+cardId+'">'+
+      '<div class="prog-order-top">'+
+        '<div class="prog-avatar"><img loading="lazy" decoding="async" class="'+((o.logo && o.logo!==DEFAULT_LOGO_IMG)?'logo-zoomed':'')+'" src="'+(o.logo||DEFAULT_LOGO_IMG)+'" alt=""/></div>'+
+        '<div class="prog-order-info">'+
+          '<div class="prog-order-uid">'+(o.product==='Bot Glory'?'ID':'UID')+': '+o.uid+mineTag+'</div>'+
+          '<div class="prog-order-product">'+displayName+'</div>'+
+        '</div>'+
+        '<div class="prog-order-badges">'+
+          '<div class="prog-price-badge"><i class="fa-solid fa-tag"></i><span>'+formatRupiah(o.price)+'</span></div>'+
+          '<div class="prog-status-badge status-'+o.status+'"><i class="fa-solid '+progressStatusIcon(o.status)+'"></i><span>'+progressStatusLabel(o.status)+'</span></div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="prog-bar-wrap">'+
+        '<div class="prog-bar-labels"><span>Progress</span><span>'+o.percent+'%</span></div>'+
+        '<div class="prog-bar-track'+(o.status==='pending'?' is-pending':'')+'"><div class="prog-bar-fill" style="width:'+o.percent+'%"></div></div>'+
+      '</div>'+
+      (o.product==='Suntik Like' ? (
+        '<div class="prog-like-line">'+
+          '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.likeBefore)+'❤️</span></span>'+
+          '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.dikirim)+'❤️</span></span>'+
+          '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.likeAfter)+'❤️</span></span>'+
+        '</div>'+
+        '<div class="prog-like-stats">'+
+          '<div class="pls-item"><span class="pls-lbl">Dibeli</span><span class="pls-val pls-white">'+o.dibeli+'</span></div>'+
+          '<div class="pls-item"><span class="pls-lbl">Dikirim</span><span class="pls-val pls-green">'+o.dikirim+'</span></div>'+
+          '<div class="pls-item"><span class="pls-lbl">Tersisa</span><span class="pls-val pls-orange">'+o.tersisa+'</span></div>'+
+        '</div>'
+      ) : '') +
+      (o.product==='Suntik Folls Craftland' ? (
+        '<div class="prog-like-line">'+
+          '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.follsBefore)+'👥</span></span>'+
+          '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.dikirimFolls)+'👥</span></span>'+
+          '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.follsAfter)+'👥</span></span>'+
+        '</div>'+
+        '<div class="prog-like-stats">'+
+          '<div class="pls-item"><span class="pls-lbl">Dibeli</span><span class="pls-val pls-white">'+o.dibeliFolls+'</span></div>'+
+          '<div class="pls-item"><span class="pls-lbl">Dikirim</span><span class="pls-val pls-green">'+o.dikirimFolls+'</span></div>'+
+          '<div class="pls-item"><span class="pls-lbl">Tersisa</span><span class="pls-val pls-orange">'+o.tersisaFolls+'</span></div>'+
+        '</div>'
+      ) : '') +
+      (o.product==='Bot Glory' ? (
+        '<div class="bg-exp-block">'+
+          '<div class="bg-exp-title">Exp Point Keaktifan</div>'+
+          '<div class="prog-like-line bg-exp-line">'+
+            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.pointBefore)+'🏆</span></span>'+
+            '<span class="pll-item"><span class="pll-val pll-plus">+'+formatCommaNum(o.pointPlus)+'🏆</span></span>'+
+            '<span class="pll-item"><span class="pll-val">'+formatCommaNum(o.pointAfter)+'🏆</span></span>'+
+          '</div>'+
+          '<div class="prog-like-stats">'+
+            '<div class="pls-item"><span class="pls-lbl">Uptime</span><span class="pls-val pls-white">'+o.uptimeStr+'</span></div>'+
+            '<div class="pls-item"><span class="pls-lbl">Members</span><span class="pls-val pls-white">'+o.members+'</span></div>'+
+            '<div class="pls-item"><span class="pls-lbl">Glory</span><span class="pls-val pls-white">'+formatCommaNum(o.pointAfter)+'🏆</span></div>'+
+          '</div>'+
+        '</div>'
+      ) : '') +
+      (o.product==='Vip Zusmo Shadow' ? (function(){
+        var info = VIP_TIER_INFO[o.price] || VIP_TIER_INFO[3000];
+        var checks = '';
+        var chkCls = 'vip-chk'+(info.cls==='vip-max' ? ' vip-chk-max' : '');
+        for(var c=0;c<info.benefits;c++){ checks += '<i class="fa-solid fa-circle-check '+chkCls+'"></i>'; }
+        return '<div class="vip-tier-block">'+
+          '<div class="vip-tier-name '+info.cls+'">'+info.name+'</div>'+
+          '<div class="vip-check-row">'+checks+'</div>'+
+        '</div>';
+      })() : '') +
+      '<button type="button" class="prog-dl-btn" data-html2canvas-ignore="true" onclick="downloadProgressCardPNG(\''+cardId+'\',this)"><i class="fa-solid fa-download"></i><span>Download Progress</span></button>'+
+      '<div class="prog-order-code">'+(typeof o.orderCode==='number' ? formatProgressOrderCode(o.orderCode) : o.orderId)+'</div>'+
+    '</div>';
   }
   window.downloadProgressCardPNG = function(cardId, btn){
     var card = document.getElementById(cardId);
@@ -17717,6 +18402,9 @@ function launchGame(url, logoUrl, gameName, evt){
 .prog-dl-btn.is-loading{opacity:.6;pointer-events:none;}
 .prog-dl-btn.is-done{background:rgba(0,255,136,.1);border-color:rgba(0,255,136,.4);color:#00ff88;}
 .prog-order-code{margin:1px 0 -6px;line-height:1;text-align:right;font-size:.56rem;font-weight:500;letter-spacing:.3px;color:rgba(255,255,255,.08);font-family:'Space Mono',monospace;}
+
+/* Tag kecil "PESANAN ANDA": nempel di sebelah kanan teks UID/ID, simple & kecil */
+.prog-mine-tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:6px;background:linear-gradient(135deg,#c99400,#ffd700);color:#1a1a1a;font-size:.52rem;font-weight:900;letter-spacing:.3px;text-transform:uppercase;vertical-align:middle;}
 
 /* DOWNLOAD FAIL MODAL */
 .prog-dlfail-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);display:none;align-items:flex-start;justify-content:center;padding:20px;padding-top:14vh;overflow:hidden !important;overscroll-behavior:none;}
