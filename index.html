@@ -2705,7 +2705,7 @@ object-fit:contain;
       --soft: rgba(255,255,255,.052);
       --danger: #ff5555;
       --radius: 24px;
-      --wallpaper-main: url("https://files.catbox.moe/wcgmkv.jpg");
+      --wallpaper-main: url("zusmo-assets/jk23mr.jpg");
     }#vipAppRoot {
       background:
         radial-gradient(860px 470px at 6% -10%, rgba(255,0,0,.23), transparent 60%),
@@ -4794,13 +4794,13 @@ object-fit:contain;
 
 #vipAppRoot{position:fixed;inset:0;z-index:99999999;display:none;overflow:auto;background:#000;}
 #vipAppRoot.vipapp-show{display:grid;}
-#vipAppCloseBtn{position:fixed;top:14px;right:14px;z-index:100000000;width:38px;height:38px;border-radius:50%;
-  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:18px;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);}
-#vipAppRoot:not(.vipapp-show) #vipAppCloseBtn{display:none;}
+.vipapp-back-btn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:15px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;margin-right:10px;}
+.vipapp-back-btn:active{transform:scale(.92);}
 
 </style>
-</head><body><div id="vipAppRoot"><div id="vipAppCloseBtn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')"><i class="fa-solid fa-xmark"></i></div>
+</head><body><div id="vipAppRoot">
   <div class="noise" aria-hidden="true"></div>
   
   <div class="global-lang-menu" id="globalLangMenu">
@@ -4815,7 +4815,7 @@ object-fit:contain;
     <section id="loadingScreen" class="screen active">
       <div class="shell loading-shell premium-shell no-select">
         <header class="appbar">
-          <div class="brand-row"><img class="brand-logo-small brand-mark-img" src="https://files.catbox.moe/qq5zjk.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
           <div class="top-lang-wrap">
             <button class="lang top-lang-btn" type="button">EN</button>
           </div>
@@ -4852,7 +4852,7 @@ object-fit:contain;
     <section id="authScreen" class="screen">
       <div class="shell auth-shell premium-shell">
         <header class="appbar no-select">
-          <div class="brand-row"><img class="brand-logo-small brand-mark-img" src="https://files.catbox.moe/qq5zjk.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
           <div class="top-lang-wrap">
             <button class="lang top-lang-btn" type="button">EN</button>
           </div>
@@ -4933,7 +4933,7 @@ object-fit:contain;
     <section id="vpnScreen" class="screen">
       <div class="shell vpn-shell premium-shell no-select">
         <header class="appbar">
-          <div class="brand-row"><img class="brand-logo-small brand-mark-img" src="https://files.catbox.moe/qq5zjk.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
           <div class="top-lang-wrap">
             <button class="lang top-lang-btn" type="button">EN</button>
           </div>
@@ -4946,7 +4946,7 @@ object-fit:contain;
           </div>
 
           <section class="dashboard-hero">
-            <div class="hero-orb logo-orb"><img src="https://files.catbox.moe/qq5zjk.png" alt="ZUSMO SHADOW Logo"></div>
+            <div class="hero-orb logo-orb"><img src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"></div>
             <div>
               <p class="hero-kicker"><span data-i18n="premiumAccess">PREMIUM ACCESS</span></p>
               <h2 data-i18n="dashboardTitle">ZUSMO SHADOW V.2.1</h2>
@@ -5008,7 +5008,7 @@ object-fit:contain;
     <section id="faqScreen" class="screen">
       <div class="shell faq-shell premium-shell no-select">
         <header class="appbar">
-          <div class="brand-row"><img class="brand-logo-small brand-mark-img" src="https://files.catbox.moe/qq5zjk.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
           <div class="top-lang-wrap">
             <button class="lang top-lang-btn" type="button">EN</button>
           </div>
@@ -19242,1207 +19242,1207 @@ if(navigator.storage && navigator.storage.persist){
     const KEY_DATABASE = {
       "KZR-FREE-2026-26KF": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-0315-40A2-3D70": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-9B2B-7044-44C4": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C94E-705D-041F": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-BE4A-C0A8-85FE": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C75C-3A15-4C06": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-1263-00C9-082C": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E677-B060-4576": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-0AC1-6F98-F115": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E303-0466-2E0B": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-09C9-E73B-2FE1": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-56EF-8763-240D": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-71E4-0216-A03F": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-F43F-D404-5E61": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E8DC-47F3-9E3E": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-4C81-638D-81D2": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E063-9825-668A": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-2F96-6509-36EB": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C304-DA40-9D16": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7A23-CC06-3709": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-35AB-8CEC-4172": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-6732-6D47-67F8": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-935A-9A2F-A715": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-0893-752F-514A": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-F50E-8A44-54B0": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-525A-A80C-CC04": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E8E9-283B-E229": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C9F2-6ABC-1926": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-BBFE-EC31-BA65": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E5FE-232B-31FD": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7119-E148-63B2": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-F53E-9DE1-DECA": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7053-B502-3544": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C65D-04C6-8DA5": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-61B4-A4BE-64C1": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-D205-0309-18CB": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-6011-480B-A3F4": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-6812-F6CF-BB14": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-2A9F-7410-E4E4": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-A6CF-61F4-4090": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-604A-C736-2752": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-74CD-6CF4-D70A": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-6690-297C-B9DF": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-DBE3-0C7A-BDC6": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-47AB-5207-EC1D": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-FF30-C924-4183": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E01C-62A7-AC9D": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-BCEE-5264-BE39": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-03CE-A04D-F863": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-244E-448F-4D05": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-D102-8E2B-1C9E": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7BE4-9D95-F9A6": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-DC11-B258-C992": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-2F08-2EC8-8048": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-DFF2-3E2A-97FA": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-D8D4-D176-C4BE": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7DC6-C269-3D5A": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7DCF-DC09-993B": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-9F75-E16A-03C8": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-F8DE-8138-63E9": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-240C-35FC-DD9F": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-CA7B-698C-37B0": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-D9F7-5974-3B4E": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-FD0F-5E0E-79CE": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-214E-BC03-FE03": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-38DF-29A8-4DAC": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C9CC-8D88-E468": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-0805-BB4B-EEBF": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-3B5E-56A9-1738": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-E792-790B-AD09": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-5DDC-47AF-22C5": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-34D7-B089-B05C": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-534B-7390-1E4D": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-A3C1-E15B-9985": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7367-CBC0-2F14": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-438F-3307-D159": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-8EBF-6926-F4CB": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-AD92-498E-B6D5": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-4981-FED8-AFF4": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-76B0-4139-4B05": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-90B6-868E-752F": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-977F-EFB6-8B7C": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-6975-2C19-EA67": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-2258-F7F6-635F": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-8E95-CFFD-B467": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-7FD9-B433-8838": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-1CFF-15BA-DEA9": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-62E6-0AFC-1E68": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-B794-C251-24F4": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-28EF-7856-FF2C": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-1469-998A-6DAE": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-67C2-65C0-FD12": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-A702-8774-7F1E": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-AAB7-0F73-62C5": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-5F13-58CB-2FB7": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-FFD2-1AFD-09D5": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-5491-241E-4D48": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-13E5-9C2F-7790": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-89F1-69B1-71D6": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-DA2C-EC1C-9030": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-95B8-3671-1184": {
             "tier": "vip",
-            "label": "VIP Biasa"
+            "label": "VIP Basic"
       },
       "KZR-C176-D60C-16EB": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-6908-61F8-776A": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-7713-E85E-1C4E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-3B6A-2EAC-035E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-8509-D318-E63B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-3F36-7DEA-15B0": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-349A-E8EE-08CF": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-080A-B07C-3F5D": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-7EA6-A0B3-36DA": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-3790-72F0-B335": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-A846-954E-F507": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-4FD6-D012-37C7": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-C1A8-99D7-CEF8": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-519C-A38D-FB8F": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-79CF-3043-16E1": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-D3E0-09D0-6EBF": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-1916-6FEE-96F3": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-617E-2737-453F": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-A617-28AF-DAA9": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-30D5-284C-BAC9": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-53FE-04B8-3849": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-106C-7478-B45F": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-773B-CC6C-6B68": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-A548-447E-79F4": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E9AB-ADAC-F682": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-94FA-C8D5-937E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-EDCE-7AA6-1EC0": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-D16E-57BC-4016": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-AF91-AC3F-1829": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B0F1-2EB0-9284": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-96CA-2A82-52F6": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-CA8A-DC53-D66B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E9C9-E1D6-E325": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-3874-DA3F-E74B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-47FE-7AFC-BE85": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-AA3F-D72E-956E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E2A5-B295-B654": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-6DF1-5DFD-D693": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-1407-5F4D-2F56": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-3F15-C9B2-238D": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-4160-DD48-5709": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-886C-4D53-1468": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-EFC2-804F-5DB5": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-33F3-160C-9104": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-02D9-F5C6-1060": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-CA64-D2BE-7682": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E5A2-32D0-BB55": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B781-66CA-2BD9": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-7DCF-35D7-D2B8": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-9FB4-3695-FF5B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-C9FD-8C37-5EBD": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-7600-8AF0-32C2": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-23FF-53C1-181A": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-DD6B-304A-0A7F": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-6D32-F66B-1C56": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-28A9-C922-4B9A": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-8927-9FDC-344B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-45CB-78E0-E877": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-806C-EF71-E940": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-86D9-9139-85D4": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-EF4F-8B85-7930": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-0DB3-260E-6466": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-DEF5-1A83-8772": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-2A9D-6203-1E68": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-92D3-E5DC-B08B": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-0D6F-7FC9-C793": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-26C1-0F72-21A6": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-8105-3684-046C": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-9ED5-5BDF-DCE2": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-678B-839F-F85D": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-918A-63C0-92AC": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-5253-1ADB-0095": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-FDAB-C1C4-898C": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-DE0C-850E-A29D": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-7664-4A8A-CF9D": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B7BB-55A6-9ECA": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E28F-C9B7-71DA": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-490A-2968-4F64": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B8F1-5A9B-AC07": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-9668-4B4B-DEE9": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E8F0-8A44-89DE": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-4643-4EA5-D146": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-A6ED-505D-2B84": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-8F2C-F695-1866": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-E214-4B25-E85E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-CE4D-AABA-BE7F": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-6455-7D8E-C441": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B8C7-1B3B-F8CE": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B908-F3C0-BB31": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-C08E-6678-8142": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-27DA-2CDC-F3AF": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B75E-5C78-EC3E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-CC3D-7C56-9827": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-03DC-3347-102E": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-C8E3-E772-52E6": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-8D3E-51D6-541A": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B634-F958-9630": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-C85D-DA05-25C1": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-B689-2E0A-2B2A": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-10A7-B2EA-77ED": {
             "tier": "vip_luar_biasa",
-            "label": "VIP Luar Biasa"
+            "label": "VIP Elite"
       },
       "KZR-EA14-9689-0B39": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-690F-5BC6-2278": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-5D93-2370-7138": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-75D2-E864-FD34": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-31AB-5C8A-9BFA": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-11AE-8C90-89EA": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-AD1D-1468-6F47": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F972-42ED-C8C5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-4CBA-6BC5-B255": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-215F-1399-9EC2": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-D750-921D-C469": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-1DCB-0A28-592C": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-6512-16E4-FD66": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F957-1BC9-ED8A": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-BFD1-7528-3475": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-3782-D0DF-90AA": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-387A-604F-64FA": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-9AEB-FA80-9CE8": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-6C26-C32D-F153": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-3AF3-EE83-606F": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-965A-93A5-4607": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-1ACA-3B48-EE0E": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-7105-95F1-8708": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-54AC-633A-7922": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-4C45-F001-EE30": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-6647-CEC6-B4A5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-723D-78EF-C88D": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-AED2-6E3A-F3D4": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F5B0-A21D-6878": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-8DD9-1D60-DC9E": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-941B-81D6-77AC": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F367-5225-564B": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-70AE-921E-477F": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-7913-89D8-4D5D": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-5136-1EA5-CDB5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-6234-BCEA-25F5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-C0B6-02FC-747E": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-1066-60ED-DBD6": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-665C-C35F-8009": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-756B-6797-703C": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-41F1-27E2-DCEC": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-B17B-3C82-FFBD": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F154-2997-9FDC": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-5B85-894A-C4DF": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-0CBC-D17D-B10E": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-D7A7-0177-3CEB": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-C6C4-8195-9636": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-0301-DD70-3EDF": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-4DD3-AAEE-96BE": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-77B3-E5FE-98B3": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-4943-36C7-262F": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-CB2F-1D72-1F03": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F132-1018-9817": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-12A5-6F22-541F": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-16AC-A651-38A5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-5B2B-E174-A7D9": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-319F-41A7-D4ED": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-50DB-7D69-0D59": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-9E52-53D3-2A95": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-47CD-018A-7031": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-2502-DC6C-42E0": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-38A7-0F18-C801": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-4A53-EFC1-0376": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-D9D5-4844-2E44": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-EE36-1089-B332": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-F1D9-C212-13C7": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-AE40-599B-EEE4": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-6D3E-A421-C363": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-3E96-7919-CC9E": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-0166-3918-18F1": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-E06E-7708-D035": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-573A-A2E1-5709": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-301B-F0E8-8F6F": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-EBD4-BC7F-4277": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-FA06-7629-1843": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-1BC9-514C-66AE": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-92DF-7149-D494": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-53C4-6FC5-AC21": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-9519-0741-E746": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-B6B1-1D44-CFAD": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-B586-3E46-D61A": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-A43C-E250-7F1B": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-84F9-9C38-B121": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-A92E-14DA-3966": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-9656-01E8-9754": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-EF7E-77A4-40F5": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-2F2F-3677-520C": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-B4ED-0591-BB6D": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-8822-1AD2-1A73": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-FC33-F3BA-92E1": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-9BD3-260E-B9B8": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-68CC-029D-CDDC": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-DD34-999A-8C80": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-2367-9C53-58CC": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-65B3-5D3F-BCE3": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-3A90-16E9-3FC8": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-2252-55D2-BBB0": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-0DBC-C097-4ABD": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-D903-FA52-0EB1": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-E28E-64A6-66FE": {
             "tier": "sangat_luar_biasa",
-            "label": "Sangat Luar Biasa"
+            "label": "VIP Ultimate"
       },
       "KZR-07CB-21AD-40EE": {
             "tier": "vip_max",
