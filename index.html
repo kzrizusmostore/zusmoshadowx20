@@ -4717,8 +4717,7 @@ object-fit:contain;
     }#vipAppRoot #authScreen .auth-shell {
       background:
         radial-gradient(circle at 50% 18%, rgba(255, 0, 0, .16), transparent 34%),
-        linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.50)),
-        url("https://www.image2url.com/r2/default/images/1778677316679-30636987-cdce-4645-95d6-f017dafb7f48.jpg") center/cover no-repeat !important;
+        linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.50)) !important;
     }#vipAppRoot .buy-key-access-link {
       width: max-content !important;
       max-width: 100% !important;
@@ -4755,35 +4754,33 @@ object-fit:contain;
 #vipAppRoot #loadingScreen .premium-shell {
       background:
         linear-gradient(180deg, rgba(0,0,0,.50), rgba(0,0,0,.56) 42%, rgba(0,0,0,.78) 100%),
-        radial-gradient(420px 260px at 52% 24%, rgba(255,0,0,.14), transparent 62%),
-        url("https://www.image2url.com/r2/default/images/1778677316679-30636987-cdce-4645-95d6-f017dafb7f48.jpg") center/cover no-repeat,
-        var(--wallpaper-main) center/cover no-repeat !important;
+        radial-gradient(420px 260px at 52% 24%, rgba(255,0,0,.14), transparent 62%) !important;
       background-color: #050505 !important;
-    }#vipAppRoot #loadingScreen::before {
-      content: "";
+    }#vipAppRoot #vipWallpaperBg {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       z-index: 0;
-      background: url("https://www.image2url.com/r2/default/images/1778677316679-30636987-cdce-4645-95d6-f017dafb7f48.jpg") center/cover no-repeat;
-      opacity: 0;
       pointer-events: none;
+      background: #050505;
     }#vipAppRoot .screen {
-      display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
       pointer-events: none !important;
       z-index: 0 !important;
-      transform: none !important;
+      animation-play-state: paused !important;
     }#vipAppRoot .screen.active {
-      display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
       pointer-events: auto !important;
       z-index: 30 !important;
-      transform: none !important;
+      animation-play-state: running !important;
     }#vipAppRoot .screen:not(.active),
 #vipAppRoot .screen:not(.active) * {
       pointer-events: none !important;
+      animation-play-state: paused !important;
     }#vipAppRoot #loadingScreen.active {
       z-index: 60 !important;
     }#vipAppRoot #authScreen.active,
@@ -4804,11 +4801,12 @@ object-fit:contain;
   <div class="noise" aria-hidden="true"></div>
   
   <main class="phone">
+    <video id="vipWallpaperBg" muted loop autoplay playsinline preload="none" poster="zusmo-assets/jk23mr.jpg" aria-hidden="true"></video>
     <div class="hacker-click-flash" id="hackerClickFlash" aria-hidden="true"></div>
     <section id="loadingScreen" class="screen active">
       <div class="shell loading-shell premium-shell no-select">
         <header class="appbar">
-          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="closeVipShadowApp()" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
         </header>
 
         <div class="loading-content">
@@ -4842,7 +4840,7 @@ object-fit:contain;
     <section id="authScreen" class="screen">
       <div class="shell auth-shell premium-shell">
         <header class="appbar no-select">
-          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="closeVipShadowApp()" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
         </header>
 
         <div class="hacker-rain" id="hackerRain" aria-hidden="true"></div>
@@ -4920,7 +4918,7 @@ object-fit:contain;
     <section id="vpnScreen" class="screen">
       <div class="shell vpn-shell premium-shell no-select">
         <header class="appbar">
-          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="closeVipShadowApp()" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
         </header>
 
         <div class="content">
@@ -4982,7 +4980,7 @@ object-fit:contain;
     <section id="faqScreen" class="screen">
       <div class="shell faq-shell premium-shell no-select">
         <header class="appbar">
-          <button type="button" class="vipapp-back-btn" onclick="document.getElementById('vipAppRoot').classList.remove('vipapp-show')" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
+          <button type="button" class="vipapp-back-btn" onclick="closeVipShadowApp()" aria-label="Kembali"><i class="fa-solid fa-arrow-left"></i></button><div class="brand-row"><img class="brand-logo-small brand-mark-img" src="zusmo-assets/20260904_073401.png" alt="ZUSMO SHADOW Logo"><span class="brand-wordmark">ZUSMO <em>SHADOW</em></span></div>
         </header>
 
         <div class="faq-scroll">
@@ -5120,6 +5118,35 @@ object-fit:contain;
   
 </div>
 
+<script>
+// Wallpaper Zusmo Shadow VIP: ikut wallpaper yang lagi dipakai di aplikasi (default / wallpaper 1-30)
+function vipWpApply(){
+  var v = document.getElementById('vipWallpaperBg');
+  if(!v) return;
+  var src = (typeof window.__zsGetActiveWallpaperVideo === 'function') ? window.__zsGetActiveWallpaperVideo() : '';
+  if(src){
+    if(v.getAttribute('data-cur') !== src){
+      v.setAttribute('data-cur', src);
+      v.setAttribute('src', src);
+      v.load();
+    }
+    v.play().catch(function(){});
+  }else if(v.hasAttribute('src')){
+    v.removeAttribute('src');
+    v.removeAttribute('data-cur');
+    v.load(); // balik nampilin poster (wallpaper default)
+  }
+}
+function openVipShadowApp(){
+  document.getElementById('vipAppRoot').classList.add('vipapp-show');
+  vipWpApply();
+}
+function closeVipShadowApp(){
+  document.getElementById('vipAppRoot').classList.remove('vipapp-show');
+  var v = document.getElementById('vipWallpaperBg');
+  if(v) v.pause();
+}
+</script>
 <script>
 (function(){
   function isExempt(el){
@@ -5626,7 +5653,7 @@ object-fit:contain;
 <div class="zs-card-cap">Download Gratis<small>Versi tanpa VIP</small></div>
 </div>
 <div style="flex:1;">
-<div class="shine-card" onclick="document.getElementById('vipAppRoot').classList.add('vipapp-show')" style="cursor:pointer;">
+<div class="shine-card" onclick="openVipShadowApp()" style="cursor:pointer;">
 <img loading="lazy" decoding="async" src="zusmo-assets/edczch.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
 <div class="zs-card-cap">Download VIP<small>Akses fitur premium</small></div>
@@ -13101,6 +13128,12 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
     { id:'wp30', name:'30', video:'zusmo-assets/wtr1fy.mp4', price:500 }
   ];
   var LS_WALLPAPER_ID = 'zusmo_settings_wallpaper';
+  // Dipakai halaman Zusmo Shadow VIP supaya wallpaper-nya ikut wallpaper yang aktif dipakai user.
+  window.__zsGetActiveWallpaperVideo = function(){
+    var _id = localStorage.getItem(LS_WALLPAPER_ID) || '';
+    for(var _i=0;_i<WALLPAPERS.length;_i++){ if(WALLPAPERS[_i].id===_id) return WALLPAPERS[_i].video; }
+    return ''; // '' artinya wallpaper default (pakai poster gambar default)
+  };
 
   var LOGOS = [
     { id:'lg0', name:'Developer', img:'zusmo-assets/xzqkso.jpg', price:0 },
