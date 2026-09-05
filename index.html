@@ -2081,12 +2081,21 @@ object-fit:contain;
     }#vipAppRoot .vpn-shell {
       background: var(--dark);
     }#vipAppRoot .content {
-      min-height: calc(100svh - 50px);
+      height: calc(100svh - 50px);
+      max-height: calc(100svh - 50px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
       padding: 28px 18px 28px;
       position: relative;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,23,23,.08), transparent 35%),
         var(--dark);
+    }#vipAppRoot .content::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }#vipAppRoot .proxy-pill {
       display: flex;
       align-items: center;
@@ -3119,11 +3128,11 @@ object-fit:contain;
       background:
         radial-gradient(520px 260px at 50% -12%, rgba(255,255,255,.045), transparent 58%),
         radial-gradient(420px 220px at 100% 6%, rgba(0,213,255,.025), transparent 58%),
-        linear-gradient(180deg, #0A0A0A, #080808 52%, #050505) !important;
+        linear-gradient(180deg, rgba(10,10,10,.55), rgba(8,8,8,.68) 52%, rgba(5,5,5,.85)) !important;
     }#vipAppRoot #vpnScreen .content {
       background:
         radial-gradient(520px 230px at 50% -14%, rgba(255,255,255,.045), transparent 58%),
-        linear-gradient(180deg, #0A0A0A, #080808 58%, #050505) !important;
+        linear-gradient(180deg, rgba(10,10,10,.45), rgba(5,5,5,.72) 58%) !important;
     }#vipAppRoot #vpnScreen .dashboard-hero {
       background:
         linear-gradient(180deg, rgba(24,24,24,.92), rgba(10,10,10,.97)) !important;
