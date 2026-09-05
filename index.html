@@ -17355,7 +17355,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       <h4 class="egc-title">Sky Hopper Max</h4>
       <p class="egc-desc">Lompat setinggi mungkin, kumpulkan diamond di setiap platform!</p>
       <div class="egc-footer">
-        <span class="egc-reward"><i class="fa-solid fa-gem"></i>Hingga ∞</span>
+        <span class="egc-reward"><img loading="lazy" decoding="async" src="zusmo-assets/onzrii.png" alt="diamond" class="egc-reward-icon"/>Hingga ∞</span>
         <span class="egc-play">Main<i class="fa-solid fa-play"></i></span>
       </div>
     </div>
@@ -17372,7 +17372,7 @@ function openSettings(){ if(typeof openSettingsPanel==='function'){ openSettings
       <h4 class="egc-title">Kuis FF</h4>
       <p class="egc-desc">Jawab kuis seputar Free Fire dan raih diamond gratis di setiap jawaban benar!</p>
       <div class="egc-footer">
-        <span class="egc-reward"><i class="fa-solid fa-gem"></i>Hingga ∞</span>
+        <span class="egc-reward"><img loading="lazy" decoding="async" src="zusmo-assets/onzrii.png" alt="diamond" class="egc-reward-icon"/>Hingga ∞</span>
         <span class="egc-play">Main<i class="fa-solid fa-play"></i></span>
       </div>
     </div>
@@ -17412,6 +17412,7 @@ function launchGame(url, logoUrl, gameName, evt){
       if(evt.currentTarget) cardEl = evt.currentTarget;
       else if(evt.target && evt.target.closest) cardEl = evt.target.closest('.egc');
     }
+    ov.classList.toggle('gl-red', !!(cardEl && cardEl.classList.contains('egc-red')) || gameName === 'Kuis FF');
     if(cardEl){
       var rect = cardEl.getBoundingClientRect();
       ov.style.setProperty('--tx', rect.left + 'px');
@@ -17485,6 +17486,7 @@ function launchGame(url, logoUrl, gameName, evt){
 .egc-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .egc-reward{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#1f7fc1;background:rgba(60,150,230,.14);border:1px solid rgba(60,150,230,.4);padding:4px 10px;border-radius:999px;}
 .egc-reward i{font-size:9px;color:#1f8fe0;}
+.egc-reward-icon{width:11px;height:11px;object-fit:contain;display:block;}
 .egc-play{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.3px;color:#fff;background:linear-gradient(180deg,#5fceff,#1f8fe0);padding:5px 13px;border-radius:999px;box-shadow:0 3px 10px rgba(31,143,224,.4);}
 .egc-play i{font-size:8px;}
 .egc-art{position:relative;flex-shrink:0;width:84px;height:84px;z-index:1;}
@@ -17535,6 +17537,16 @@ function launchGame(url, logoUrl, gameName, evt){
 @keyframes glFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .gl-progress-track{width:170px;height:4px;border-radius:4px;background:rgba(31,143,224,.12);overflow:hidden;opacity:0;animation:glFadeUp .4s ease .7s forwards;}
 .gl-progress-fill{height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,#5fceff,#1f8fe0);animation:glProgress 1s cubic-bezier(.4,0,.2,1) .7s forwards;}
+
+/* ===== VARIAN MERAH (dipakai saat launch Kuis FF) ===== */
+.game-launch-overlay.gl-red .gl-glow{background:radial-gradient(circle,rgba(255,43,43,.16),transparent 70%);}
+.game-launch-overlay.gl-red .gl-ring-track{stroke:rgba(255,43,43,.16);}
+.game-launch-overlay.gl-red .gl-ring-fill{stroke:#ff2b2b;filter:drop-shadow(0 0 6px rgba(255,43,43,.5));}
+.game-launch-overlay.gl-red .gl-logo-wrap{box-shadow:0 14px 34px rgba(255,43,43,.22),0 0 0 3px #fff,0 0 0 4px rgba(255,43,43,.3);}
+.game-launch-overlay.gl-red .gl-name{color:#7a1010;}
+.game-launch-overlay.gl-red .gl-tagline{color:rgba(122,16,16,.55);}
+.game-launch-overlay.gl-red .gl-progress-track{background:rgba(255,43,43,.12);}
+.game-launch-overlay.gl-red .gl-progress-fill{background:linear-gradient(90deg,#ff8a5c,#ff2b2b);}
 @keyframes glProgress{to{width:100%;}}
 
 
