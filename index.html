@@ -22,7 +22,33 @@ h1{text-align:center;font-size:2.2rem}.subtitle{text-align:center;color:#ddd;mar
 .card{padding:28px 15px;text-align:center}.card i{font-size:42px;color:#ff4747;margin-bottom:12px}
 .apklogo{width:72px;height:72px;border-radius:0;object-fit:cover;margin:0 auto 12px;border:none}
 .long-btn{display:flex;align-items:center;gap:15px;padding:18px;margin-top:18px}.long-btn i{font-size:22px;color:#ff4747}
-.footer{text-align:center;color:#bbb;margin:25px 0}
+.footer{
+  text-align:center;
+  margin:28px 0 14px;
+  position:relative;
+  padding-top:16px;
+  font-family:'Space Mono',monospace;
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:2.2px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+}
+.footer::before{
+  content:'';
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:46px;height:2px;
+  border-radius:2px;
+  background:linear-gradient(90deg,transparent,#ff2b2b,transparent);
+}
+.footer .footer-brand{
+  color:#ff3c3c;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-shadow:0 0 10px rgba(255,43,43,.35);
+}
 .notif-date{padding:0 18px 16px;text-align:right;font-size:.68rem;font-weight:600;letter-spacing:.3px;color:rgba(255,255,255,.42)}
 .page{display:none;opacity:0}.active{display:block;animation:fadePage .6s ease forwards}@keyframes fadePage{from{opacity:0}to{opacity:1}}
 .back{background:#ff2b2b;border:none;color:#fff;padding:18px 18px;border-radius:8px;margin-bottom:20px}
@@ -2136,7 +2162,7 @@ object-fit:contain;
 <div class="shine-card" onclick="showPage('downloadui')" style="cursor:pointer;">
 <img loading="lazy" decoding="async" src="zusmo-assets/kcxby8.png" style="width:100%;aspect-ratio:1280/900;object-fit:cover;display:block;border-radius:16px;"/>
 </div>
-<div class="zs-card-cap">Download Gratis<small>Versi original tanpa VIP</small></div>
+<div class="zs-card-cap">Download Gratis<small>Versi tanpa VIP</small></div>
 </div>
 <div style="flex:1;">
 <div class="shine-card" onclick="showPage('downloadvip')" style="cursor:pointer;">
@@ -2476,6 +2502,12 @@ object-fit:contain;
   mask-size:contain;
   mask-repeat:no-repeat;
   mask-position:center;
+  /* fix: cegah warna hilang saat tab/app disembunyikan lalu ditampilkan lagi (bug repaint mask-image di browser mobile) */
+  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 
 .vpl-more{
@@ -2653,7 +2685,7 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Ori</span>
       <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
@@ -2705,7 +2737,7 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Ori</span>
       <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
@@ -2757,7 +2789,7 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Ori</span>
       <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
@@ -2810,7 +2842,7 @@ object-fit:contain;
     <div class="vpl-compat">
       <span><i class="fa-brands fa-android"></i>Android</span>
       <span><i class="fa-brands fa-apple"></i>iOS</span>
-      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Original</span>
+      <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Ori</span>
       <span><span class="vpl-ff-icon" aria-hidden="true"></span>FF Max</span>
     </div>
     <div class="vpl-more"><span>Lihat manfaat</span><i class="fa-solid fa-chevron-down"></i></div>
@@ -2849,10 +2881,22 @@ object-fit:contain;
 </div>
 <p class="pc-sub" style="margin:10px 0 0;font-size:9.5px;text-align:center;">Admin : +62 838-0028-7738</p>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
+// Fix: paksa repaint icon FF Ori/Max saat halaman disembunyikan lalu ditampilkan lagi,
+// supaya warnanya (mask-image + background-color) tidak hilang di browser mobile.
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible'){
+    document.querySelectorAll('.vpl-ff-icon').forEach(function(el){
+      el.style.display='none';
+      // eslint-disable-next-line no-unused-expressions
+      el.offsetHeight; // force reflow
+      el.style.display='inline-block';
+    });
+  }
+});
 function toggleVplCard(card){
   const wasOpen=card.classList.contains('open');
   document.querySelectorAll('#vippricelist .vpl-card.open').forEach(c=>{
@@ -3466,7 +3510,7 @@ function copyQris2Link(btn,link){
   <i class="fa-solid fa-shield-halved"></i> Verifikasi &amp; Lanjutkan
 </button>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 
 <div class="vuv-overlay" id="vuvLoadingOverlay">
   <div class="vuv-overlay-box">
@@ -3648,7 +3692,7 @@ function copyQris2Link(btn,link){
   <div class="vpay-method m-qris2" data-method="qris2" onclick="selectVpayMethod(this,'qris2')">
     <div class="vpay-icon"><i class="fa-solid fa-qrcode"></i></div>
     <div class="vpay-info">
-      <div class="vpay-name">QRIS 2 <span class="vpay-badge" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);">+Biaya Admin</span></div>
+      <div class="vpay-name">QRIS 2 <span class="vpay-badge" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);">+ Biaya Admin</span></div>
       <div class="vpay-number">Bayar pakai semua e-wallet &amp; m-banking juga</div>
     </div>
     <div class="vpay-check"><i class="fa-solid fa-check"></i></div>
@@ -3707,7 +3751,7 @@ function copyQris2Link(btn,link){
   </button>
 </div>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <!-- HALAMAN KONFIRMASI PEMBAYARAN -->
@@ -3957,7 +4001,7 @@ function copyQris2Link(btn,link){
   <i class="fa-solid fa-check-double"></i> Saya Sudah Bayar
 </button>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <!-- LOADING VERIFIKASI PEMBAYARAN -->
@@ -4101,14 +4145,13 @@ function copyQris2Link(btn,link){
 
   <div class="vps-note">
     <i class="fa-solid fa-circle-info"></i>
-    <div>Simpan Key VIP &amp; Order ID di atas. Masukkan Key ini di halaman "Masukkan Key VIP" untuk aktivasi. Jika ada kendala, hubungi Admin dan sertakan Order ID ini.</div>
+    <div>Simpan Key VIP di atas. Masukkan Key ini di halaman "Masukkan Key VIP" untuk aktivasi. Jika ada kendala, hubungi Admin dan sertakan Key VIP ini.</div>
   </div>
 
-  <button type="button" class="vps-btn vps-btn-primary" onclick="contactAdminVpaySuccess()"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin</button>
   <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('vipKeyHistoryPage')"><i class="fa-solid fa-clock-rotate-left"></i> Lihat Riwayat Key VIP</button>
   <button type="button" class="vps-btn vps-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
 
-  <div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+  <div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 </div>
 
@@ -4121,21 +4164,31 @@ function copyQris2Link(btn,link){
 .vkh-empty i{display:block;font-size:40px;margin-bottom:14px;color:#444;}
 .vkh-empty p{font-size:12.5px;line-height:1.6;}
 .vkh-item{
+  --vkh-c:#a8a8a8;--vkh-c2:#6b6b6b;
+  position:relative;overflow:hidden;
   margin:0 2px 14px;padding:16px 18px;border-radius:16px;
   background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid color-mix(in srgb, var(--vkh-c) 35%, rgba(255,255,255,.12));
   box-shadow:0 8px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
 }
+.vkh-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--vkh-c2),var(--vkh-c),var(--vkh-c2));
+}
+.vkh-item.ELITE{--vkh-c:#0a84ff;--vkh-c2:#0057b8;}
+.vkh-item.ULTIMATE{--vkh-c:#a855f7;--vkh-c2:#7e22ce;}
+.vkh-item.MAX{--vkh-c:#ff3c3c;--vkh-c2:#ff7a45;}
 .vkh-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.vkh-tier{font-size:11px;font-weight:900;letter-spacing:.5px;padding:4px 10px;border-radius:20px;text-transform:uppercase;}
-.vkh-tier.BASIC{color:#3B82F6;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.4);}
-.vkh-tier.ELITE{color:#A855F7;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.4);}
-.vkh-tier.ULTIMATE{color:#FFD700;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.4);}
-.vkh-tier.MAX{color:#FF2B2B;background:rgba(255,43,43,.12);border:1px solid rgba(255,43,43,.4);}
+.vkh-tier{
+  font-size:11px;font-weight:900;letter-spacing:.5px;padding:4px 10px;border-radius:20px;text-transform:uppercase;
+  color:var(--vkh-c);
+  background:color-mix(in srgb, var(--vkh-c) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--vkh-c) 40%, transparent);
+}
 .vkh-date{font-size:10.5px;color:rgba(255,255,255,.4);}
 .vkh-key-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
-.vkh-key-val{flex:1;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.5px;color:#ffd700;word-break:break-all;}
-.vkh-copy-btn{flex-shrink:0;border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:rgba(255,215,0,.15);color:#ffd700;cursor:pointer;}
+.vkh-key-val{flex:1;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.5px;color:var(--vkh-c);word-break:break-all;}
+.vkh-copy-btn{flex-shrink:0;border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--vkh-c) 16%, transparent);color:var(--vkh-c);cursor:pointer;}
 .vkh-copy-btn.copied{background:rgba(0,255,136,.18);color:#00ff88;}
 .vkh-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:rgba(255,255,255,.5);}
 .vkh-meta span b{color:#ddd;font-weight:700;}
@@ -4204,7 +4257,7 @@ function copyQris2Link(btn,link){
   <button type="button" class="vpf-btn vpf-btn-primary" onclick="retryVpayPayment()"><i class="fa-solid fa-rotate-right"></i> Coba Lagi</button>
   <button type="button" class="vpf-btn vpf-btn-secondary" onclick="showPage('home')"><i class="fa-solid fa-house"></i> Kembali ke Beranda</button>
 
-  <div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+  <div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 </div>
 
@@ -4214,43 +4267,105 @@ function copyQris2Link(btn,link){
 <style>
 .vipwrap{
 overflow-x:auto;
-padding:18px;
+padding:16px 2px;
 }
 
 .viptbl{
 width:100%;
 min-width:900px;
-border-collapse:collapse;
+border-collapse:separate;
+border-spacing:0;
 color:#fff;
-font-size:13px;
-background:rgba(255,255,255,0.03);
-border-radius:16px;
+font-size:12.5px;
+background:linear-gradient(160deg,#1c1c1c 0%,#121212 55%,#0a0a0a 100%);
+border-radius:18px;
 overflow:hidden;
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 8px 20px rgba(0,0,0,.4);
 }
 
 .viptbl th{
-background:rgba(255,255,255,0.08);
-padding:18px;
-border:1px solid rgba(255,255,255,0.12);
+padding:16px 14px 13px;
 text-align:center;
+font-family:'Space Mono',monospace;
+letter-spacing:.6px;
+text-transform:uppercase;
+font-size:11.5px;
+font-weight:700;
+color:rgba(255,255,255,.55);
+background:rgba(255,255,255,.05);
+border-bottom:3px solid rgba(255,255,255,.15);
+white-space:nowrap;
 }
+.viptbl th.tc-basic{color:#a8a8a8;background:rgba(168,168,168,.08);border-bottom-color:#a8a8a8;}
+.viptbl th.tc-elite{color:#0a84ff;background:rgba(10,132,255,.08);border-bottom-color:#0a84ff;}
+.viptbl th.tc-ultimate{color:#a855f7;background:rgba(168,85,247,.08);border-bottom-color:#a855f7;}
+.viptbl th.tc-max{color:#ff3c3c;background:rgba(255,60,60,.08);border-bottom-color:#ff3c3c;}
+.viptbl-badge{
+display:inline-block;margin-top:5px;font-size:8px;font-weight:800;letter-spacing:.4px;
+text-transform:uppercase;padding:2px 8px;border-radius:20px;color:#fff;vertical-align:middle;
+}
+th.tc-elite .viptbl-badge{background:linear-gradient(135deg,#0a84ff,#0057b8);box-shadow:0 2px 6px rgba(10,132,255,.4);}
+th.tc-max .viptbl-badge{background:linear-gradient(135deg,#ff3c3c,#ff7a45);box-shadow:0 2px 6px rgba(255,60,60,.4);}
+th .viptbl-badge{display:block;width:fit-content;margin-left:auto;margin-right:auto;}
 
 .viptbl td{
-padding:18px;
-border:1px solid rgba(255,255,255,0.10);
+padding:13px 14px;
 text-align:center;
 vertical-align:middle;
+border-bottom:1px solid rgba(255,255,255,.07);
 }
+.viptbl tbody tr:nth-child(odd) td{background:rgba(255,255,255,.02);}
+.viptbl tbody tr:hover td{background:rgba(255,255,255,.05);}
+.viptbl tbody tr:last-child td{border-bottom:none;}
 
 .viptbl td:first-child,
 .viptbl th:first-child{
 text-align:left;
-padding-left:14px;
+padding-left:16px;
 font-weight:600;
+position:sticky;
+left:0;
+z-index:1;
+}
+.viptbl td:first-child{
+background:#141414;
+color:#d5d5d5;
+font-size:12px;
+font-family:inherit;
+text-transform:none;
+letter-spacing:0;
+box-shadow:2px 0 8px rgba(0,0,0,.35);
+}
+.viptbl th:first-child{
+background:rgba(255,255,255,.07);
+box-shadow:2px 0 8px rgba(0,0,0,.35);
 }
 
-.yes{color:#00ff88;font-weight:700}
-.no{color:#aaa}
+.yes{font-size:14px;}
+.yes i{color:#00ff88;}
+.no i{color:#555;font-size:12px;}
+.viptbl td.yes.tc-basic i{color:#a8a8a8;}
+.viptbl td.yes.tc-elite i{color:#0a84ff;}
+.viptbl td.yes.tc-ultimate i{color:#a855f7;}
+.viptbl td.yes.tc-max i{color:#ff3c3c;}
+
+.viptbl tbody tr.vip-row-price td{
+padding:16px 14px;
+background:rgba(255,255,255,.06);
+border-top:2px solid rgba(255,255,255,.15);
+border-bottom:none;
+font-weight:900;
+font-size:13.5px;
+}
+.viptbl tbody tr.vip-row-price td:first-child{
+background:rgba(255,255,255,.09);
+color:#fff;
+}
+.viptbl tbody tr.vip-row-price td.tc-basic{color:#a8a8a8;}
+.viptbl tbody tr.vip-row-price td.tc-elite{color:#0a84ff;}
+.viptbl tbody tr.vip-row-price td.tc-ultimate{color:#a855f7;}
+.viptbl tbody tr.vip-row-price td.tc-max{color:#ff3c3c;}
 
 
 /* FORCE SHARP UI CONSISTENCY */
@@ -4298,13 +4413,13 @@ img#shadowBanner,
 <tr>
 <th>Fitur</th>
 <th>FREE</th>
-<th>BASIC</th>
-<th>ELITE</th>
-<th>ULTIMATE</th>
-<th>MAX</th>
+<th class="tc-basic">BASIC</th>
+<th class="tc-elite">ELITE<span class="viptbl-badge">POPULER</span></th>
+<th class="tc-ultimate">ULTIMATE</th>
+<th class="tc-max">MAX<span class="viptbl-badge">TERBAIK</span></th>
 </tr>
 </thead>
-<tbody><tr><td>Skin Bundle Tembus Lobi</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Skin Emote Tembus Lobi</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Skin Evogun Tembus Lobi</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Jaringan Anti Merah</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Akses 356 Hari</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Tembus Lobi Teman</td><td>-</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Tembus In Game</td><td>-</td><td>-</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Tanpa Key Login</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Full Update</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="color:#00ff88;font-weight:700;">✔</td></tr><tr><td>Harga</td><td>Rp0</td><td>Rp3.000</td><td>Rp5.000</td><td>Rp8.000</td><td>Rp12.000</td></tr></tbody>
+<tbody><tr><td>Skin Bundle Tembus Lobi</td><td class="yes"><i class="fa-solid fa-check"></i></td><td class="yes tc-basic"><i class="fa-solid fa-check"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Skin Emote Tembus Lobi</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-basic"><i class="fa-solid fa-check"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Skin Evogun Tembus Lobi</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-basic"><i class="fa-solid fa-check"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Jaringan Anti Merah</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-basic"><i class="fa-solid fa-check"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Akses 356 Hari</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-basic"><i class="fa-solid fa-check"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Tembus Lobi Teman</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-elite"><i class="fa-solid fa-check"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Tembus In Game</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-ultimate"><i class="fa-solid fa-check"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Tanpa Key Login</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr><td>Full Update</td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="no"><i class="fa-solid fa-xmark"></i></td><td class="yes tc-max"><i class="fa-solid fa-check"></i></td></tr><tr class="vip-row-price"><td>Harga</td><td>Rp0</td><td class="tc-basic">Rp3.000</td><td class="tc-elite">Rp5.000</td><td class="tc-ultimate">Rp8.000</td><td class="tc-max">Rp12.000</td></tr></tbody>
 </table>
 </div>
 </div>
@@ -4856,7 +4971,7 @@ function ffComingSoon(el){
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -5292,7 +5407,7 @@ function orderSuntikLike(){
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -5578,7 +5693,7 @@ function orderNickHijau(){
 </button>
 <p class="pc-sub" style="margin:6px 0 0;font-size:9.5px;">Admin : +62 838-0028-7738</p>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -5931,7 +6046,7 @@ function orderBotGlory(){
   </div>
 </div>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -6830,7 +6945,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <button class="pc-btn" style="margin-top:16px;" onclick="showPage('home')"><i class="fa-solid fa-house"></i> KEMBALI KE BERANDA</button>
 </div>
 
-<div class="footer" style="margin-top:14px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:14px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -7403,7 +7518,7 @@ function submitJoinGuild(){
   </div>
 </div>
 
-<div class="footer" style="margin-top:4px;">© 2026 KZRIZUSMO DEV</div>
+<div class="footer" style="margin-top:4px;">© 2026 <span class="footer-brand">KZRIZUSMO</span> DEV</div>
 </div>
 
 <script>
@@ -8069,7 +8184,7 @@ function renderVipKeyHistory(){
   }
   let html='';
   list.forEach(function(it,i){
-    html+='<div class="vkh-item">'+
+    html+='<div class="vkh-item '+it.tier+'">'+
       '<div class="vkh-top"><span class="vkh-tier '+it.tier+'">VIP '+it.tier+'</span><span class="vkh-date">'+formatVkhDate(it.ts)+'</span></div>'+
       '<div class="vkh-key-row"><div class="vkh-key-val">'+it.keyDisplay+'</div>'+
       '<button type="button" class="vkh-copy-btn" onclick="copyVkhKey(event,'+i+')"><i class="fa-regular fa-copy"></i></button></div>'+
@@ -8121,10 +8236,10 @@ function checkVipKey(){
  let input=document.getElementById('vipKey');
  const idx=validKeys.indexOf(key);
  if(idx!==-1){
-   let role='BASIC',color='#3B82F6';
-   if(idx>=100&&idx<200){role='ELITE';color='#A855F7';}
-   else if(idx>=200&&idx<300){role='ULTIMATE';color='#FFD700';}
-   else if(idx>=300){role='MAX';color='#FF2B2B';}
+   let role='BASIC',color='#a8a8a8';
+   if(idx>=100&&idx<200){role='ELITE';color='#0a84ff';}
+   else if(idx>=200&&idx<300){role='ULTIMATE';color='#A855F7';}
+   else if(idx>=300){role='MAX';color='#ff3c3c';}
    localStorage.setItem('role',role);
    localStorage.setItem('roleColor',color);
    const badge=document.getElementById('roleBadge');
