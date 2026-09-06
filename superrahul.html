@@ -32,6 +32,14 @@
     color:var(--ink); box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; gap:6px; }
   .hud-left{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
   .hud-pill.level-pill{ padding:5px 12px; font-size:clamp(8px,2.4vw,11px); background:var(--sun); }
+  .mute-toggle-btn{ pointer-events:auto; cursor:pointer; padding:0; width:clamp(30px,8vw,38px);
+    height:clamp(30px,8vw,38px); border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 3px 0 var(--ink); background:var(--cream); }
+  .mute-toggle-btn:active{ transform:translateY(3px); box-shadow:0 0 0 var(--ink); }
+  .mute-toggle-btn svg{ width:60%; height:60%; }
+  .mute-toggle-btn .icon-off{ display:none; }
+  .mute-toggle-btn.muted .icon-on{ display:none; }
+  .mute-toggle-btn.muted .icon-off{ display:block; }
   .hud-right{ display:flex; align-items:center; gap:8px; }
   #livesWrap{ background:var(--cream); border:3px solid var(--ink); border-radius:999px;
     padding:8px 12px; box-shadow:0 3px 0 var(--ink); display:flex; gap:3px; align-items:center; }
@@ -52,6 +60,13 @@
     background:var(--sun); border:4px solid var(--ink); border-radius:16px; padding:14px 30px;
     box-shadow:0 6px 0 #b8860b; cursor:pointer; transition:transform .08s, box-shadow .08s; }
   .big-btn:active{ transform:translateY(6px); box-shadow:0 0 0 #b8860b; }
+  .big-btn.shake{ animation:skinShake .32s; }
+  .cost-hint{ font-family:'Baloo 2',sans-serif; font-weight:700; color:#fff; font-size:clamp(11px,3vw,13px);
+    display:flex; align-items:center; justify-content:center; gap:5px; margin:0; }
+  .cost-hint img{ width:14px; height:14px; object-fit:contain; }
+  .cost-error{ font-family:'Baloo 2',sans-serif; font-weight:700; color:#FFB3B3; font-size:clamp(11px,3vw,13px);
+    margin:0; display:none; }
+  .cost-error.show{ display:block; }
 
   #controls{ position:absolute; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0;
     display:flex; justify-content:space-between; align-items:flex-end; padding:0 24px; z-index:5; pointer-events:none; }
@@ -66,6 +81,8 @@
   .run-btn{ background:linear-gradient(var(--run-1),var(--run-2)); }
   .jump-btn{ background:linear-gradient(var(--jump-1),var(--jump-2)); }
   .ctrl-btn.pressed{ transform:translateY(6px); box-shadow:0 0 0 rgba(0,0,0,.35); }
+  .ctrl-btn img.ctrl-icon{ width:62%; height:62%; object-fit:contain; pointer-events:none; }
+  .ctrl-btn .ctrl-fallback{ display:none; }
   #jumpGroup{ display:flex; flex-direction:row; align-items:flex-end; gap:12px; }
   .jump-col{ display:flex; flex-direction:column; align-items:center; gap:10px; }
   .sound-btn{ width:clamp(42px,12vw,56px); height:clamp(42px,12vw,56px);
@@ -122,6 +139,17 @@
 
   <div id="hud">
     <div class="hud-left">
+      <button id="muteToggleBtn" class="mute-toggle-btn" title="Suara game">
+        <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
+          <path d="M15.8 8.3c1.4 1.1 1.4 6.3 0 7.4" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M18.3 6.2c2.6 2.3 2.6 9.3 0 11.6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+        </svg>
+        <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
+          <path d="M16 9l5 6M21 9l-5 6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
       <div class="hud-pill level-pill">LV <span id="levelVal">1</span></div>
       <div class="hud-pill">SKOR <span id="scoreVal">0</span></div>
       <div class="hud-pill">🏁 <span id="meterVal">0</span>m</div>
@@ -156,20 +184,29 @@
   <div id="startScreen" class="overlay hidden">
     <h1 class="title">SUPER<br>RAHULLL</h1>
     <p class="tagline">Berlari, melompat, kumpulkan diamond!</p>
+    <p class="cost-hint">Biaya main: <img src="zusmo-assets/onzrii.png" alt="diamond" onerror="this.style.display='none'">100</p>
     <button id="startBtn" class="big-btn">MULAI</button>
-    
+    <p class="cost-error" id="startCostError">Diamond kamu tidak cukup buat main (butuh 100)</p>
   </div>
 
   <div id="gameOverScreen" class="overlay hidden">
     <h2 class="title small">GAME OVER</h2>
     <p class="tagline" id="finalStats"></p>
+    <p class="cost-hint">Biaya main lagi: <img src="zusmo-assets/onzrii.png" alt="diamond" onerror="this.style.display='none'">100</p>
     <button id="retryBtn" class="big-btn">MAIN LAGI</button>
+    <p class="cost-error" id="retryCostError">Diamond kamu tidak cukup buat main lagi (butuh 100)</p>
   </div>
 
   <div id="controls">
     <div id="moveBtns">
-      <button id="backBtn" class="ctrl-btn back-btn"><span>MUNDUR</span></button>
-      <button id="runBtn" class="ctrl-btn run-btn"><span>LARI</span></button>
+      <button id="backBtn" class="ctrl-btn back-btn">
+        <img class="ctrl-icon" src="zusmo-assets/mundur.png" alt="Mundur" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="ctrl-fallback">MUNDUR</span>
+      </button>
+      <button id="runBtn" class="ctrl-btn run-btn">
+        <img class="ctrl-icon" src="zusmo-assets/lari.png" alt="Lari" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="ctrl-fallback">LARI</span>
+      </button>
     </div>
     <div id="jumpGroup">
       <button id="buffBtn" class="ctrl-btn buff-btn locked" title="Klaim / pakai Cangkul">
@@ -178,13 +215,22 @@
         <span id="buffBadge" class="buff-badge hidden">0</span>
       </button>
       <div class="jump-col">
-        <button id="soundBtn" class="ctrl-btn sound-btn" title="Suara karakter">🔊</button>
+        <button id="soundBtn" class="ctrl-btn sound-btn" title="Suara karakter">
+          <svg viewBox="0 0 24 24" width="58%" height="58%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
+            <path d="M15.8 8.3c1.4 1.1 1.4 6.3 0 7.4" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M18.3 6.2c2.6 2.3 2.6 9.3 0 11.6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          </svg>
+        </button>
         <div class="jump-wrap">
           <svg class="jump-ring" id="jumpRing" viewBox="0 0 100 100">
             <circle class="ring-bg" cx="50" cy="50" r="44"></circle>
             <circle class="ring-fg" id="ringFg" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="276.46"></circle>
           </svg>
-          <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+          <button id="jumpBtn" class="ctrl-btn jump-btn">
+            <img class="ctrl-icon" src="zusmo-assets/lompat.png" alt="Lompat" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ctrl-fallback">LOMPAT</span>
+          </button>
         </div>
       </div>
     </div>
@@ -257,6 +303,25 @@
     var v = Math.max(0, getGlobalDiamond() + n);
     localStorage.setItem(LS_DIAMOND, String(v));
     return v;
+  }
+  // ================= BIAYA MAIN: -100 DIAMOND SETIAP KALI MAIN =================
+  // Tiap kali pencet MULAI atau MAIN LAGI, saldo diamond global (punya apk kzrizusmo)
+  // dipotong 100. Kalau saldo kurang dari 100, game TIDAK dimulai dan muncul pesan error.
+  var PLAY_COST = 100;
+  function trySpendPlayCost(){
+    if (getGlobalDiamond() < PLAY_COST) return false;
+    addGlobalDiamond(-PLAY_COST);
+    return true;
+  }
+  function shakeBtn(btn){
+    btn.classList.remove('shake');
+    void btn.offsetWidth; // restart animasi kalau diklik berkali-kali
+    btn.classList.add('shake');
+  }
+  function showCostError(el){
+    el.classList.add('show');
+    clearTimeout(el._hideTimer);
+    el._hideTimer = setTimeout(function(){ el.classList.remove('show'); }, 2200);
   }
   var spriteFiles = { idle:'Diam.png', a:'runA.png', b:'runB.png', c:'runC.png', d:'runD.png',
     j1:'jump1.png', j2:'jump2.png', j3:'jump3.png', j4:'jump4.png', j5:'jump5.png', j6:'jump6.png' };
@@ -472,7 +537,10 @@
 
   function updateHUD(){
     scoreVal.textContent = score;
-    diamondVal.textContent = diamonds;
+    // Diamond di HUD nampilin SALDO GLOBAL apk kzrizusmo (localStorage zusmo_diamond_balance),
+    // bukan hitungan diamond sesi game ini doang. Jadi kalau di apk lagi 1100, di sini juga 1100,
+    // dan langsung naik real-time tiap ambil diamond di game (addGlobalDiamond dipanggil pas ambil).
+    diamondVal.textContent = getGlobalDiamond();
     levelVal.textContent = level;
     meterVal.textContent = Math.floor(meters);
     livesWrap.innerHTML = '';
@@ -490,8 +558,42 @@
       try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){}
     }
   }
+
+  // ================= MUTE / UNMUTE SUARA GAME =================
+  // Nyimpen preferensi mute di localStorage biar keinget tiap buka lagi.
+  var LS_MUTED = 'superrahul_sound_muted';
+  var muteToggleBtn = document.getElementById('muteToggleBtn');
+  function isSoundMuted(){ return localStorage.getItem(LS_MUTED) === '1'; }
+  function applyMuteUI(){
+    var m = isSoundMuted();
+    muteToggleBtn.classList.toggle('muted', m);
+    muteToggleBtn.title = m ? 'Suara game: MATI (tap buat nyalain)' : 'Suara game: NYALA (tap buat matiin)';
+  }
+  function setSoundMuted(v){
+    localStorage.setItem(LS_MUTED, v ? '1' : '0');
+    bgMusic.muted = v;
+    charVoiceAudio.muted = v;
+    if (!v){ ensureAudio(); startBgMusic(); }
+    applyMuteUI();
+  }
+  muteToggleBtn.addEventListener('click', function(){ setSoundMuted(!isSoundMuted()); });
+
+  // ================= MUSIK LATAR (BACKGROUND GAME SOUND) =================
+  // File musiknya taruh di zusmo-assets/bgm.mp3 -- kalau belum ada filenya,
+  // play() bakal gagal diam-diam (di-catch) dan game tetap jalan normal tanpa musik.
+  var bgMusic = new Audio();
+  bgMusic.loop = true;
+  bgMusic.volume = 0.45;
+  bgMusic.src = ASSET_PATH + 'bgm.mp3';
+  bgMusic.muted = isSoundMuted();
+  function startBgMusic(){
+    if (isSoundMuted()) return;
+    bgMusic.play().catch(function(){});
+  }
+  applyMuteUI();
+
   function beep(type){
-    if (!audioCtx) return;
+    if (!audioCtx || isSoundMuted()) return;
     if (type==='levelup'){
       [660,990].forEach(function(freq, i){
         setTimeout(function(){
@@ -1430,6 +1532,7 @@
   // ================= GAME FLOW =================
   function startGame(preserveLevel){
     ensureAudio();
+    startBgMusic();
     if (!isFullscreen()){
       try { toggleFullscreen(); } catch(e){}
     }
@@ -1463,8 +1566,14 @@
     gameOverScreen.classList.remove('hidden');
   }
 
-  startBtn.addEventListener('click', function(){ startGame(false); });
-  retryBtn.addEventListener('click', function(){ startGame(true); });
+  startBtn.addEventListener('click', function(){
+    if (!trySpendPlayCost()){ shakeBtn(startBtn); showCostError(document.getElementById('startCostError')); return; }
+    startGame(false);
+  });
+  retryBtn.addEventListener('click', function(){
+    if (!trySpendPlayCost()){ shakeBtn(retryBtn); showCostError(document.getElementById('retryCostError')); return; }
+    startGame(true);
+  });
 
   // ================= LAYAR PILIH SKIN =================
   // Cuma Rahul yang terbuka sekarang; Gem & Vincent masih terkunci (belum ada karakternya).
