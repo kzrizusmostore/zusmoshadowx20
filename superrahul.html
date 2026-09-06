@@ -66,8 +66,8 @@
   .run-btn{ background:linear-gradient(var(--run-1),var(--run-2)); }
   .jump-btn{ background:linear-gradient(var(--jump-1),var(--jump-2)); }
   .ctrl-btn.pressed{ transform:translateY(6px); box-shadow:0 0 0 rgba(0,0,0,.35); }
-  #jumpGroup{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
-  .jump-top-row{ display:flex; align-items:center; gap:10px; }
+  #jumpGroup{ display:flex; flex-direction:row; align-items:flex-end; gap:12px; }
+  .jump-col{ display:flex; flex-direction:column; align-items:center; gap:10px; }
   .sound-btn{ width:clamp(42px,12vw,56px); height:clamp(42px,12vw,56px);
     font-size:clamp(15px,4vw,20px); background:linear-gradient(#FFD34D,#B8860B);
     box-shadow:0 4px 0 rgba(0,0,0,.35); }
@@ -172,20 +172,20 @@
       <button id="runBtn" class="ctrl-btn run-btn"><span>LARI</span></button>
     </div>
     <div id="jumpGroup">
-      <div class="jump-top-row">
-        <button id="buffBtn" class="ctrl-btn buff-btn locked" title="Klaim buff Cangkul">
-          <img src="zusmo-assets/buffcangkul.png" alt="Buff Cangkul" onerror="this.style.display='none'; this.parentElement.querySelector('.buff-fallback').style.display='block';">
-          <span class="buff-fallback" style="display:none">⛏️</span>
-          <span id="buffBadge" class="buff-badge hidden">0</span>
-        </button>
+      <button id="buffBtn" class="ctrl-btn buff-btn locked" title="Klaim / pakai Cangkul">
+        <img src="zusmo-assets/buffcangkul.png" alt="Buff Cangkul" onerror="this.style.display='none'; this.parentElement.querySelector('.buff-fallback').style.display='block';">
+        <span class="buff-fallback" style="display:none">⛏️</span>
+        <span id="buffBadge" class="buff-badge hidden">0</span>
+      </button>
+      <div class="jump-col">
         <button id="soundBtn" class="ctrl-btn sound-btn" title="Suara karakter">🔊</button>
-      </div>
-      <div class="jump-wrap">
-        <svg class="jump-ring" id="jumpRing" viewBox="0 0 100 100">
-          <circle class="ring-bg" cx="50" cy="50" r="44"></circle>
-          <circle class="ring-fg" id="ringFg" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="276.46"></circle>
-        </svg>
-        <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+        <div class="jump-wrap">
+          <svg class="jump-ring" id="jumpRing" viewBox="0 0 100 100">
+            <circle class="ring-bg" cx="50" cy="50" r="44"></circle>
+            <circle class="ring-fg" id="ringFg" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="276.46"></circle>
+          </svg>
+          <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+        </div>
       </div>
     </div>
   </div>
@@ -426,16 +426,18 @@
     ringFg.setAttribute('stroke-dashoffset', String(CANGKUL_RING_CIRC*(1-frac)));
     jumpRing.classList.toggle('full', frac>=1);
 
-    if (buffCangkulCount>0){
-      buffBadge.textContent = buffCangkulCount;
+    // Badge nunjukin jumlah charge siap serang (kalau ada), atau jumlah buff siap diklaim (kalau charge habis)
+    var showNum = cangkulCharges>0 ? cangkulCharges : buffCangkulCount;
+    if (showNum>0){
+      buffBadge.textContent = showNum;
       buffBadge.classList.remove('hidden');
       buffBtn.classList.remove('locked');
-      buffBtn.classList.add('ready');
     } else {
       buffBadge.classList.add('hidden');
       buffBtn.classList.add('locked');
-      buffBtn.classList.remove('ready');
     }
+    // Animasi "ready" (nyala/pulsing) cuma buat kasih tau ada buff baru yang perlu diklaim
+    buffBtn.classList.toggle('ready', cangkulCharges<=0 && buffCangkulCount>0);
 
     if (cangkulCharges>0){
       cangkulVal.textContent = cangkulCharges;
@@ -533,16 +535,23 @@
     jumpBtn.addEventListener(ev, function(){ jumpBtn.classList.remove('pressed'); });
   });
 
-  // Tombol buff Cangkul: kalau ada buff yang siap (buffCangkulCount>0), klik untuk "membuka"-nya
-  // -> 1 buff jadi 3 cangkul (cangkulCharges) yang siap dipakai otomatis menghancurkan rintangan.
-  function handleClaimBuff(){
-    if (state!=='playing' || buffCangkulCount<=0) return;
-    buffCangkulCount--;
-    cangkulCharges += 3;
-    beep('coin');
-    updateBuffUI();
+  // Tombol Cangkul kerjanya dua tahap:
+  // 1) Kalau ada buff siap diklaim (buffCangkulCount>0) & belum ada charge aktif -> klik = klaim (1 buff jadi 3 charge).
+  // 2) Kalau sudah punya charge (cangkulCharges>0) -> klik = serang manual (luncurkan 1 cangkul ke rintangan di depan).
+  function handleBuffBtnClick(){
+    if (state!=='playing') return;
+    if (cangkulCharges>0){
+      fireCangkul();
+      return;
+    }
+    if (buffCangkulCount>0){
+      buffCangkulCount--;
+      cangkulCharges += 3;
+      beep('coin');
+      updateBuffUI();
+    }
   }
-  buffBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); buffBtn.classList.add('pressed'); handleClaimBuff(); });
+  buffBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); buffBtn.classList.add('pressed'); handleBuffBtnClick(); });
   ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
     buffBtn.addEventListener(ev, function(){ buffBtn.classList.remove('pressed'); });
   });
@@ -684,45 +693,36 @@
   function spawnCangkulBurst(x,y){
     cangkulBursts.push({ x:x, y:y, t:0 });
   }
+  // Serangan cangkul manual: dipanggil waktu tombol buff diklik & cangkulCharges>0.
+  // Langsung melesat cepat lurus ke depan begitu diklik, ga peduli ada rintangan atau tidak di depan;
+  // kalau kebetulan lewat rintangan tanah di jalurnya, rintangan itu baru hancur (lihat updateCangkul).
+  function fireCangkul(){
+    if (cangkulProjectiles.length>0) return; // satu cangkul aktif dalam satu waktu
+    cangkulCharges--;
+    var pxCenter = CW*player.xRatio;
+    var cs = CH*0.085;
+    cangkulProjectiles.push({ x: pxCenter-player.w*0.75, w:cs, h:cs, life:2.5 });
+    updateBuffUI();
+  }
   // d = jarak dunia yang bergeser frame ini (sama seperti yang dipakai buat geser obstacles/orbs/platforms)
   function updateCangkul(dt, d){
     for (var i=cangkulProjectiles.length-1; i>=0; i--){
       var pr = cangkulProjectiles[i];
       pr.x += -d + CANGKUL_EXTRA_SPEED*dt;
       pr.life -= dt;
-      var idx = obstacles.indexOf(pr.target);
-      if (idx===-1 || pr.life<=0 || pr.x > CW+80){
-        // targetnya sudah hilang duluan (misal kena tabrak sebelum cangkul sampai) atau waktu habis
-        cangkulProjectiles.splice(i,1);
-        continue;
-      }
-      if (pr.x + pr.w*0.5 >= pr.target.x){
-        var hitX = pr.target.x + pr.target.w/2;
-        spawnCangkulBurst(hitX, groundYAt(hitX));
-        obstacles.splice(idx,1);
-        cangkulProjectiles.splice(i,1);
-      }
-    }
-
-    // Kalau ada charge cangkul & belum ada cangkul yang lagi melesat, luncurkan ke rintangan
-    // tanah terdekat di depan karakter (satu-satu, bukan sekaligus semua).
-    if (cangkulCharges>0 && cangkulProjectiles.length===0){
-      var pxCenter = CW*player.xRatio;
-      var nearest = null;
-      for (var j=0;j<obstacles.length;j++){
-        var ob = obstacles[j];
+      // Lewat rintangan tanah manapun yang lagi ada di jalurnya -> hancur (boleh kena lebih dari satu)
+      for (var k=obstacles.length-1; k>=0; k--){
+        var ob = obstacles[k];
         if (!ob.ground) continue;
-        if (ob.x+ob.w <= pxCenter) continue; // sudah di belakang karakter, abaikan
-        if (!nearest || ob.x < nearest.x) nearest = ob;
+        if (pr.x+pr.w*0.5 > ob.x && pr.x-pr.w*0.5 < ob.x+ob.w){
+          spawnCangkulBurst(ob.x+ob.w/2, groundYAt(ob.x+ob.w/2));
+          obstacles.splice(k,1);
+        }
       }
-      if (nearest){
-        cangkulCharges--;
-        var cs = CH*0.085;
-        cangkulProjectiles.push({ x: pxCenter-player.w*0.75, w:cs, h:cs, target:nearest, life:2.5 });
-        updateBuffUI();
+      if (pr.life<=0 || pr.x > CW+80){
+        cangkulProjectiles.splice(i,1);
       }
     }
-
     cangkulBursts.forEach(function(b){ b.x -= d; b.t += dt; });
     cangkulBursts = cangkulBursts.filter(function(b){ return b.t < 0.4; });
   }
@@ -743,20 +743,7 @@
         if (effRight <= o.x || effLeft >= o.x+o.w) continue; // tidak overlap horizontal
         if (o.ground){
           var groundHereY = groundYAt(o.x+o.w/2);
-          if (effBottom > groundHereY-o.h+6){
-            if (cangkulCharges>0){
-              // Jaring pengaman: rintangan keburu nabrak sebelum cangkul sempat melesat sampai
-              // -> tetap dihancurkan pakai 1 charge cangkul, karakter tidak kehilangan nyawa.
-              cangkulCharges--;
-              spawnCangkulBurst(o.x+o.w/2, groundHereY);
-              obstacles.splice(i,1);
-              cangkulProjectiles = cangkulProjectiles.filter(function(p){ return p.target!==o; });
-              updateBuffUI();
-              i--;
-              continue;
-            }
-            loseLife(); break;
-          }
+          if (effBottom > groundHereY-o.h+6){ loseLife(); break; }
         } else {
           var oy = birdFlightY(o);
           if (effTop < oy+o.h && effBottom > oy){ loseLife(); break; }
@@ -1082,20 +1069,19 @@
   }
 
   function drawCangkulProjectile(pr){
-    var groundY = groundYAt(pr.target ? pr.target.x+pr.target.w/2 : pr.x);
-    var baseline = groundY - pr.h*0.6; // melayang sedikit di atas tanah, kira-kira setinggi rintangan
+    var groundY = groundYAt(pr.x);
+    var baseline = groundY - pr.h*0.6; // melayang sedikit di atas tanah, sejajar mengikuti kontur tanah di posisinya
     ctx.save();
     ctx.translate(pr.x, baseline);
-    ctx.rotate((performance.now()/110) % (Math.PI*2)); // muter-muter waktu melesat, kesan dilempar
     if (cangkulSprite.ready && !cangkulSprite.failed){
       ctx.drawImage(cangkulSprite.img, -pr.w/2, -pr.h/2, pr.w, pr.h);
     } else {
       // fallback: gambar cangkul sederhana (gagang kayu + mata cangkul) kalau skilcangkul.png belum ada
       ctx.strokeStyle = '#6b431f'; ctx.lineWidth = pr.w*0.14; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(-pr.w*0.4,-pr.h*0.4); ctx.lineTo(pr.w*0.35,pr.h*0.35); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-pr.w*0.4,0); ctx.lineTo(pr.w*0.4,0); ctx.stroke();
       ctx.fillStyle = '#B5B5B5';
       ctx.beginPath();
-      ctx.moveTo(pr.w*0.12,pr.h*0.12); ctx.lineTo(pr.w*0.55,pr.h*0.02); ctx.lineTo(pr.w*0.4,pr.h*0.55);
+      ctx.moveTo(pr.w*0.15,-pr.h*0.22); ctx.lineTo(pr.w*0.55,0); ctx.lineTo(pr.w*0.15,pr.h*0.22);
       ctx.closePath(); ctx.fill();
       ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1.5; ctx.stroke();
     }
