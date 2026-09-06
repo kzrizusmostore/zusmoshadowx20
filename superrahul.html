@@ -40,6 +40,23 @@
   .mute-toggle-btn .icon-off{ display:none; }
   .mute-toggle-btn.muted .icon-on{ display:none; }
   .mute-toggle-btn.muted .icon-off{ display:block; }
+  .settings-toggle-btn{ pointer-events:auto; cursor:pointer; padding:0; width:clamp(30px,8vw,38px);
+    height:clamp(30px,8vw,38px); border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 3px 0 var(--ink); background:var(--cream); border:3px solid var(--ink); }
+  .settings-toggle-btn:active{ transform:translateY(3px); box-shadow:0 0 0 var(--ink); }
+  .settings-toggle-btn svg{ width:62%; height:62%; }
+  #settingsPopup{ z-index:20; }
+  .popup-btn{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:clamp(13px,3.6vw,16px); color:#fff;
+    border:3px solid var(--ink); border-radius:14px; padding:12px 26px; cursor:pointer; width:min(78vw,300px);
+    transition:transform .08s, box-shadow .08s; box-shadow:0 5px 0 rgba(0,0,0,.4); }
+  .popup-btn:active{ transform:translateY(5px); box-shadow:0 0 0 rgba(0,0,0,.4); }
+  .popup-btn.pause{ background:linear-gradient(var(--run-1),var(--run-2)); }
+  .popup-btn.home{ background:linear-gradient(var(--jump-1),var(--jump-2)); }
+  .popup-btn.resume{ background:linear-gradient(#7CFC7C,#3d9142); color:var(--ink); }
+  .home-btn{ font-family:'Baloo 2',sans-serif; font-weight:700; font-size:clamp(11px,3vw,13px); color:#fff;
+    background:rgba(0,0,0,0.35); border:2px solid rgba(255,255,255,0.7); border-radius:999px;
+    padding:9px 20px; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .home-btn svg{ width:14px; height:14px; }
   .hud-right{ display:flex; align-items:center; gap:8px; }
   #livesWrap{ background:var(--cream); border:3px solid var(--ink); border-radius:999px;
     padding:8px 12px; box-shadow:0 3px 0 var(--ink); display:flex; gap:3px; align-items:center; }
@@ -139,6 +156,13 @@
 
   <div id="hud">
     <div class="hud-left">
+      <button id="settingsToggleBtn" class="settings-toggle-btn" title="Pengaturan">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.4" fill="none" stroke="#2B2118" stroke-width="1.8"/>
+          <path d="M12 3.2l.9 2.3 2.3.5 1.3 2 2.3.5-.3 2.3 1.6 1.8-1.6 1.8.3 2.3-2.3.5-1.3 2-2.3.5-.9 2.3-.9-2.3-2.3-.5-1.3-2-2.3-.5.3-2.3-1.6-1.8 1.6-1.8-.3-2.3 2.3-.5 1.3-2 2.3-.5z"
+            fill="none" stroke="#2B2118" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <button id="muteToggleBtn" class="mute-toggle-btn" title="Suara game">
         <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
@@ -161,7 +185,20 @@
     </div>
   </div>
 
+  <div id="settingsPopup" class="overlay hidden">
+    <h2 class="title small">PENGATURAN</h2>
+    <button id="pauseResumeBtn" class="popup-btn pause">⏸ PAUSE</button>
+    <button id="settingsHomeBtn" class="popup-btn home">KEMBALI KE BERANDA</button>
+  </div>
+
   <div id="skinScreen" class="overlay">
+    <button id="homeBtnSkin" class="home-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.5 11.5L12 4l8.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 10.5V20h5v-5h2v5h5v-9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      BERANDA
+    </button>
     <h2 class="title small">PILIH SKIN</h2>
     <div class="skin-row">
       <button class="skin-box locked" data-skin="gem" disabled>
@@ -182,6 +219,13 @@
   </div>
 
   <div id="startScreen" class="overlay hidden">
+    <button id="homeBtnStart" class="home-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.5 11.5L12 4l8.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 10.5V20h5v-5h2v5h5v-9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      BERANDA
+    </button>
     <h1 class="title">SUPER<br>RAHULLL</h1>
     <p class="tagline">Berlari, melompat, kumpulkan diamond!</p>
     <p class="cost-hint">Biaya main: <img src="zusmo-assets/onzrii.png" alt="diamond" onerror="this.style.display='none'">100</p>
@@ -383,6 +427,7 @@
 
   // ================= STATE GAME =================
   var state = 'start'; // start | playing | gameover
+  var paused = false; // true kalau game lagi di-pause lewat menu pengaturan
   var groundBaseY = 0; // garis referensi rata-rata (dipakai elemen non-tanah spt burung, bukan tinggi tanah aktual)
   var player = { xRatio:0.5, w:0, h:0, y:0, vy:0, onGround:true, standingPlatform:null, running:false, movingBack:false, facing:1, invincible:0, frameIdx:0, frameTimer:0 };
   var score = 0, diamonds = 0, lives = 3;
@@ -592,6 +637,47 @@
   }
   applyMuteUI();
 
+  // ================= MENU PENGATURAN: PAUSE/LANJUT & KEMBALI KE BERANDA =================
+  // "Beranda" = balik ke apk kzrizusmo (index.html, satu folder yang sama dengan game ini).
+  var HOME_URL = 'index.html';
+  function goHome(){ window.location.href = HOME_URL; }
+  var settingsToggleBtn = document.getElementById('settingsToggleBtn');
+  var settingsPopup = document.getElementById('settingsPopup');
+  var pauseResumeBtn = document.getElementById('pauseResumeBtn');
+  var settingsHomeBtn = document.getElementById('settingsHomeBtn');
+  function updatePauseBtnLabel(){
+    if (paused){
+      pauseResumeBtn.textContent = '▶ LANJUT MAIN';
+      pauseResumeBtn.classList.add('resume'); pauseResumeBtn.classList.remove('pause');
+    } else {
+      pauseResumeBtn.textContent = '⏸ PAUSE';
+      pauseResumeBtn.classList.add('pause'); pauseResumeBtn.classList.remove('resume');
+    }
+  }
+  function setPaused(v){
+    paused = v;
+    if (v){ bgMusic.pause(); } else if (!isSoundMuted()){ bgMusic.play().catch(function(){}); }
+    updatePauseBtnLabel();
+  }
+  function openSettings(){
+    if (state==='playing'){ setPaused(true); }
+    settingsPopup.classList.remove('hidden');
+  }
+  settingsToggleBtn.addEventListener('click', openSettings);
+  pauseResumeBtn.addEventListener('click', function(){
+    if (paused){
+      setPaused(false);
+      settingsPopup.classList.add('hidden');
+    } else {
+      setPaused(true);
+    }
+  });
+  settingsHomeBtn.addEventListener('click', goHome);
+  var homeBtnSkin = document.getElementById('homeBtnSkin');
+  var homeBtnStart = document.getElementById('homeBtnStart');
+  if (homeBtnSkin) homeBtnSkin.addEventListener('click', goHome);
+  if (homeBtnStart) homeBtnStart.addEventListener('click', goHome);
+
   function beep(type){
     if (!audioCtx || isSoundMuted()) return;
     if (type==='levelup'){
@@ -623,12 +709,12 @@
   }
 
   // ================= INPUT =================
-  function handleRunStart(){ if (state==='playing'){ player.running = true; player.movingBack = false; player.facing = 1; } }
+  function handleRunStart(){ if (state==='playing' && !paused){ player.running = true; player.movingBack = false; player.facing = 1; } }
   function handleRunEnd(){ player.running = false; }
-  function handleBackStart(){ if (state==='playing'){ player.movingBack = true; player.running = false; player.facing = -1; } }
+  function handleBackStart(){ if (state==='playing' && !paused){ player.movingBack = true; player.running = false; player.facing = -1; } }
   function handleBackEnd(){ player.movingBack = false; }
   function handleJump(){
-    if (state!=='playing') return;
+    if (state!=='playing' || paused) return;
     // Progres menuju buff Cangkul cuma jalan kalau tombol LARI sedang ditahan
     // BARENGAN waktu tombol LOMPAT diklik (dua tombol dipencet sekaligus).
     if (player.running){
@@ -664,7 +750,7 @@
   // 1) Kalau ada buff siap diklaim (buffCangkulCount>0) & belum ada charge aktif -> klik = klaim (1 buff jadi 3 charge).
   // 2) Kalau sudah punya charge (cangkulCharges>0) -> klik = serang manual (luncurkan 1 cangkul ke rintangan di depan).
   function handleBuffBtnClick(){
-    if (state!=='playing') return;
+    if (state!=='playing' || paused) return;
     if (cangkulCharges>0){
       fireCangkul();
       return;
@@ -907,6 +993,7 @@
 
   // ================= UPDATE =================
   function update(dt){
+    if (paused) return;
     clouds.forEach(function(c){
       c.xRatio -= (c.speed*dt)/CW;
       if (c.xRatio < -0.2) c.xRatio = 1.1;
