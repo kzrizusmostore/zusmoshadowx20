@@ -287,6 +287,14 @@
   cangkulSprite.img.onerror = function(){ cangkulSprite.failed = true; };
   cangkulSprite.img.src = ASSET_PATH + 'skilcangkul.png';
 
+  // ================= NPC DEKORASI: VINCENT NYAPA =================
+  // Vincent cuma karakter dekorasi yang kadang muncul berdiri di jalan sambil nyapa.
+  // BUKAN rintangan -> tidak pernah dicek tabrakan, tidak bikin kena/hilang nyawa.
+  var vincentSapaSprite = { img: new Image(), ready:false, failed:false };
+  vincentSapaSprite.img.onload = function(){ vincentSapaSprite.ready = true; };
+  vincentSapaSprite.img.onerror = function(){ vincentSapaSprite.failed = true; };
+  vincentSapaSprite.img.src = ASSET_PATH + 'vincentsapa.png';
+
 
 
   // ================= KONSTANTA GAME =================
@@ -305,6 +313,8 @@
   var obstacles = [];
   var orbs = [];
   var platforms = [];
+  var npcs = []; // karakter dekorasi di jalan (mis. Vincent nyapa) -> bukan rintangan, ga ada tabrakan
+  var npcSpawnTimer = 6; // detik sampai NPC dekorasi berikutnya muncul
   var spawnTimer = 1;
   var platformSpawnTimer = 2.5;
   var playTime = 0; // detik sejak game dimulai, dipakai buat menaikkan kesulitan pelan-pelan
@@ -689,6 +699,13 @@
     }
   }
 
+  // Vincent muncul berdiri di tanah kayak obstacle "ground", tapi TIDAK dimasukkan ke
+  // array obstacles -> checkCollisions() ga pernah lihat dia, jadi ga mungkin bikin kena/mati.
+  function spawnNpc(){
+    var h = CH*0.24, w = h*0.72;
+    npcs.push({ x: CW+40, w:w, h:h, type:'vincentsapa' });
+  }
+
   // ================= LOGIKA CANGKUL (buff) =================
   function spawnCangkulBurst(x,y){
     cangkulBursts.push({ x:x, y:y, t:0 });
@@ -832,6 +849,7 @@
       obstacles.forEach(function(o){ o.x -= d; });
       orbs.forEach(function(c){ c.x -= d; });
       platforms.forEach(function(p){ p.x -= d; });
+      npcs.forEach(function(n){ n.x -= d; });
       if (!player.movingBack){
         // Gelombang "rush": sesekali ada periode singkat rintangan agak lebih rapat,
         // lalu jeda napas yang lebih panjang sebelum gelombang berikutnya -> tetap ada variasi tanpa kebanyakan
@@ -858,6 +876,11 @@
           spawnPlatform();
           platformSpawnTimer = 2.2 + Math.random()*1.6;
         }
+        npcSpawnTimer -= dt;
+        if (npcSpawnTimer<=0){
+          spawnNpc();
+          npcSpawnTimer = 16 + Math.random()*12; // Vincent ga sesering rintangan, cuma sesekali nongol nyapa
+        }
         updateCangkul(dt, d);
       }
       player.frameTimer += dt;
@@ -880,6 +903,7 @@
       if (!keep && player.standingPlatform===p){ player.standingPlatform = null; }
       return keep;
     });
+    npcs = npcs.filter(function(n){ return n.x+n.w > -20; });
   }
 
   // ================= DRAW HELPERS =================
@@ -942,6 +966,71 @@
     var seg = p.w/4;
     for (var si=1; si<4; si++){
       ctx.beginPath(); ctx.moveTo(p.x+seg*si, p.y+3); ctx.lineTo(p.x+seg*si, p.y+p.h-3); ctx.stroke();
+    }
+  }
+
+  // Bubble chat statis "DUA LAH" yang muncul di atas kepala Vincent waktu Rahul lagi deket dia
+  function drawGreetBubble(cx, topY, w, text){
+    ctx.save();
+    ctx.font = "bold " + Math.max(11, w*0.16) + "px 'Baloo 2', sans-serif";
+    var padX = 10, padY = 7;
+    var textW = ctx.measureText(text).width;
+    var bw = textW + padX*2, bh = Math.max(11,w*0.16) + padY*2;
+    var bx = cx - bw/2, by = topY - bh - 14;
+    ctx.fillStyle = '#FFF8E7';
+    ctx.strokeStyle = '#2B2118';
+    ctx.lineWidth = 3;
+    var r = 9;
+    ctx.beginPath();
+    ctx.moveTo(bx+r, by);
+    ctx.lineTo(bx+bw-r, by);
+    ctx.quadraticCurveTo(bx+bw, by, bx+bw, by+r);
+    ctx.lineTo(bx+bw, by+bh-r);
+    ctx.quadraticCurveTo(bx+bw, by+bh, bx+bw-r, by+bh);
+    ctx.lineTo(bx+bw/2+7, by+bh);
+    ctx.lineTo(bx+bw/2, by+bh+9); // ekor bubble ngarah ke Vincent
+    ctx.lineTo(bx+bw/2-4, by+bh);
+    ctx.lineTo(bx+r, by+bh);
+    ctx.quadraticCurveTo(bx, by+bh, bx, by+bh-r);
+    ctx.lineTo(bx, by+r);
+    ctx.quadraticCurveTo(bx, by, bx+r, by);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = '#2B2118';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, bx+bw/2, by+bh/2);
+    ctx.restore();
+  }
+
+  // Gambar Vincent berdiri di jalan sambil nyapa. Cuma dekorasi -> ga pernah dicek tabrakan
+  // di checkCollisions(), jadi Rahul aman lewat di sebelahnya, ga kena/hilang nyawa.
+  function drawNpc(n){
+    var baseY = groundYAt(n.x+n.w/2);
+    var x = n.x, y = baseY - n.h;
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.beginPath();
+    ctx.ellipse(x+n.w/2, baseY+4, n.w*0.32, 6, 0, 0, Math.PI*2);
+    ctx.fill();
+    if (vincentSapaSprite.ready && !vincentSapaSprite.failed){
+      ctx.drawImage(vincentSapaSprite.img, x, y, n.w, n.h);
+    } else {
+      // placeholder selagi vincentsapa.png belum ada/gagal dimuat
+      ctx.fillStyle = 'rgba(126,87,194,0.9)';
+      roundRect(x, y, n.w, n.h, n.w*0.18); ctx.fill();
+      ctx.strokeStyle = '#2B2118'; ctx.lineWidth = 3;
+      roundRect(x, y, n.w, n.h, n.w*0.18); ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold ' + (n.w*0.4) + 'px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('V', x+n.w/2, y+n.h*0.42);
+    }
+    // Bubble "DUA LAH" cuma nongol pas Rahul lagi deket/ketemu Vincent di jalan
+    var pxCenter = CW*player.xRatio;
+    var dist = Math.abs(pxCenter - (x+n.w/2));
+    if (dist < CH*0.42){
+      drawGreetBubble(x+n.w/2, y, n.w, 'DUA LAH');
     }
   }
 
@@ -1279,6 +1368,7 @@
     }
 
     obstacles.forEach(drawObstacle);
+    npcs.forEach(drawNpc);
     platforms.forEach(drawPlatform);
     orbs.forEach(function(c){ if(!c.taken) drawDiamond(c); });
     cangkulProjectiles.forEach(drawCangkulProjectile);
@@ -1318,10 +1408,10 @@
     }
     state = 'playing';
     score = 0; diamonds = 0; lives = 3;
-    obstacles = []; orbs = []; platforms = [];
+    obstacles = []; orbs = []; platforms = []; npcs = [];
     jumpProgressCount = 0; buffCangkulCount = 0; cangkulCharges = 0;
     cangkulProjectiles = []; cangkulBursts = [];
-    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0;
+    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; npcSpawnTimer = 6; playTime = 0;
     rushActive = false; rushTimer = 10; rushDuration = 0;
     if (preserveLevel){
       // Mati lalu main lagi: level TIDAK direset ke 1, dilanjut dari level terakhir.
