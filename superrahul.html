@@ -127,7 +127,6 @@
         <span class="skin-name">Vincent</span>
       </button>
     </div>
-    <p class="hint">Rahul sudah terbuka. Gem &amp; Vincent masih terkunci.</p>
   </div>
 
   <div id="startScreen" class="overlay hidden">
@@ -435,7 +434,7 @@
 
   // ================= TOMBOL SUARA (SOUNDPACK KARAKTER) =================
   // Mainkan file suara sesuai skin yang lagi dipakai, dan tampilkan bubble chat
-  // "OH YA BANG!" di atas kepala karakter selama 3 detik.
+  // "OH YA BANG!" di atas kepala karakter selama 2 detik.
   var charVoiceAudio = new Audio();
   function playCharacterVoice(){
     try {
@@ -446,7 +445,7 @@
   }
   function triggerTaunt(text){
     tauntText = text;
-    tauntTimer = 3;
+    tauntTimer = 2;
   }
   soundBtn.addEventListener('pointerdown', function(e){
     e.preventDefault();
