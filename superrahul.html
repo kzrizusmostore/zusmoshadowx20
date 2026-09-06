@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SUPER RAHULLL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#7EC8F2;
+    --sky-bottom:#BFE8FF;
+    --grass:#4CAF50;
+    --dirt:#8B5A2B;
+    --dirt-dark:#6b431f;
+    --sun:#FFD34D;
+    --ink:#2B2118;
+    --cream:#FFF8E7;
+    --run-1:#3EA6F2; --run-2:#2273B5;
+    --back-1:#7E57C2; --back-2:#4A2C82;
+    --jump-1:#F2543E; --jump-2:#B52222;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; height:100%; overflow:hidden; background:#000; font-family:'Baloo 2',sans-serif; }
+  #stage{ position:relative; width:100vw; height:100dvh; overflow:hidden; }
+  canvas{ display:block; width:100%; height:100%; touch-action:none; }
+
+  #hud{ position:absolute; top:max(12px,env(safe-area-inset-top)); left:12px; right:12px;
+    display:flex; justify-content:space-between; align-items:flex-start; pointer-events:none; z-index:5; }
+  .hud-pill{ background:var(--cream); border:3px solid var(--ink); border-radius:999px;
+    padding:8px 14px; font-family:'Press Start 2P',monospace; font-size:clamp(10px,3vw,14px);
+    color:var(--ink); box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; gap:6px; }
+  .hud-left{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .hud-pill.level-pill{ padding:5px 12px; font-size:clamp(8px,2.4vw,11px); background:var(--sun); }
+  #fullscreenBtn{ pointer-events:auto; cursor:pointer; background:var(--cream); border:3px solid var(--ink);
+    border-radius:50%; width:clamp(34px,8vw,42px); height:clamp(34px,8vw,42px); font-size:clamp(14px,4vw,18px);
+    box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; justify-content:center; color:var(--ink); }
+  #fullscreenBtn:active{ transform:translateY(3px); box-shadow:0 0 0 var(--ink); }
+  #livesWrap{ background:var(--cream); border:3px solid var(--ink); border-radius:999px;
+    padding:8px 12px; box-shadow:0 3px 0 var(--ink); display:flex; gap:3px; align-items:center; }
+  #livesWrap span{ font-size:clamp(14px,4vw,20px); line-height:1; }
+
+  .overlay{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:16px; background:rgba(10,25,45,0.55); backdrop-filter:blur(2px);
+    text-align:center; padding:24px; z-index:10; }
+  .overlay.hidden{ display:none; }
+  .title{ font-family:'Press Start 2P',monospace; color:#fff; font-size:clamp(28px,9vw,56px);
+    line-height:1.35; letter-spacing:2px; margin:0;
+    text-shadow:4px 4px 0 var(--jump-1), 0 0 24px rgba(0,0,0,.45); }
+  .title.small{ font-size:clamp(20px,6vw,32px); }
+  .tagline{ font-family:'Baloo 2',sans-serif; font-weight:700; color:#fff; font-size:clamp(14px,4vw,18px); margin:0; }
+  .hint{ font-family:'Baloo 2',sans-serif; color:#f0f0f0; font-size:clamp(11px,3vw,13px);
+    max-width:360px; line-height:1.6; margin:0; }
+  .big-btn{ font-family:'Press Start 2P',monospace; font-size:clamp(14px,4vw,18px); color:var(--ink);
+    background:var(--sun); border:4px solid var(--ink); border-radius:16px; padding:14px 30px;
+    box-shadow:0 6px 0 #b8860b; cursor:pointer; transition:transform .08s, box-shadow .08s; }
+  .big-btn:active{ transform:translateY(6px); box-shadow:0 0 0 #b8860b; }
+
+  #controls{ position:absolute; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0;
+    display:flex; justify-content:space-between; align-items:flex-end; padding:0 24px; z-index:5; pointer-events:none; }
+  #moveBtns{ display:flex; gap:clamp(20px,6vw,32px); }
+  .ctrl-btn{ pointer-events:auto; width:clamp(78px,22vw,108px); height:clamp(78px,22vw,108px);
+    border-radius:50%; border:4px solid var(--ink); font-family:'Press Start 2P',monospace;
+    font-size:clamp(9px,2.6vw,12px); color:#fff; user-select:none; touch-action:none;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 6px 0 rgba(0,0,0,.35);
+    transition:transform .06s, box-shadow .06s; opacity:0.95; }
+  .back-btn{ background:linear-gradient(var(--back-1),var(--back-2));
+    width:clamp(62px,17vw,86px); height:clamp(62px,17vw,86px); font-size:clamp(8px,2.2vw,10px); align-self:flex-end; }
+  .run-btn{ background:linear-gradient(var(--run-1),var(--run-2)); }
+  .jump-btn{ background:linear-gradient(var(--jump-1),var(--jump-2)); }
+  .ctrl-btn.pressed{ transform:translateY(6px); box-shadow:0 0 0 rgba(0,0,0,.35); }
+
+  .skin-row{ display:flex; align-items:center; justify-content:center; gap:clamp(14px,4vw,26px); }
+  .skin-box{ position:relative; width:clamp(78px,22vw,110px); height:clamp(78px,22vw,110px);
+    border-radius:24%; border:4px solid var(--ink); background:linear-gradient(#FFF8E7,#F2E2BE);
+    box-shadow:0 6px 0 var(--ink); display:flex; align-items:center; justify-content:center;
+    padding:0; cursor:pointer; overflow:visible; transition:transform .08s, box-shadow .08s; }
+  .skin-box[data-skin="rahul"]{ width:clamp(96px,27vw,134px); height:clamp(96px,27vw,134px); }
+  .skin-box img{ width:78%; height:78%; object-fit:contain; border-radius:18%; pointer-events:none; }
+  .skin-box .skin-name{ position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+    font-family:'Baloo 2',sans-serif; font-weight:700; color:#fff; font-size:clamp(11px,3vw,14px);
+    white-space:nowrap; text-shadow:0 2px 3px rgba(0,0,0,.5); }
+  .skin-box:not(.locked):active{ transform:translateY(6px); box-shadow:0 0 0 var(--ink); }
+  .skin-box.locked{ cursor:not-allowed; filter:grayscale(0.6) brightness(0.75); }
+  .skin-box .skin-lock{ position:absolute; top:-10px; right:-10px; background:var(--ink);
+    border:3px solid var(--cream); border-radius:50%; width:30px; height:30px; display:flex;
+    align-items:center; justify-content:center; font-size:14px; }
+  .skin-box.locked.shake{ animation:skinShake .32s; }
+  @keyframes skinShake{
+    0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-6px); }
+    50%{ transform:translateX(6px); } 75%{ transform:translateX(-4px); }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div class="hud-left">
+      <div class="hud-pill level-pill">LV <span id="levelVal">1</span></div>
+      <div class="hud-pill">SKOR <span id="scoreVal">0</span></div>
+    </div>
+    <div id="livesWrap"></div>
+    <div class="hud-pill">🪙 <span id="coinVal">0</span></div>
+    <button id="fullscreenBtn" title="Layar penuh">⛶</button>
+  </div>
+
+  <div id="skinScreen" class="overlay">
+    <h2 class="title small">PILIH SKIN</h2>
+    <div class="skin-row">
+      <button class="skin-box locked" data-skin="gem" disabled>
+        <img src="zusmo-assets/gemskin.png" alt="Gem" onerror="this.style.display='none'">
+        <span class="skin-lock">🔒</span>
+        <span class="skin-name">Gem</span>
+      </button>
+      <button class="skin-box" data-skin="rahul">
+        <img src="zusmo-assets/rahulskin.png" alt="Rahul" onerror="this.style.display='none'">
+        <span class="skin-name">Rahul</span>
+      </button>
+      <button class="skin-box locked" data-skin="vincent" disabled>
+        <img src="zusmo-assets/vincentskin.png" alt="Vincent" onerror="this.style.display='none'">
+        <span class="skin-lock">🔒</span>
+        <span class="skin-name">Vincent</span>
+      </button>
+    </div>
+    <p class="hint">Rahul sudah terbuka. Gem &amp; Vincent masih terkunci.</p>
+  </div>
+
+  <div id="startScreen" class="overlay hidden">
+    <h1 class="title">SUPER<br>RAHULLL</h1>
+    <p class="tagline">Berlari, melompat, kumpulkan koin!</p>
+    <button id="startBtn" class="big-btn">MULAI</button>
+    
+  </div>
+
+  <div id="gameOverScreen" class="overlay hidden">
+    <h2 class="title small">GAME OVER</h2>
+    <p class="tagline" id="finalStats"></p>
+    <button id="retryBtn" class="big-btn">MAIN LAGI</button>
+  </div>
+
+  <div id="controls">
+    <div id="moveBtns">
+      <button id="backBtn" class="ctrl-btn back-btn"><span>MUNDUR</span></button>
+      <button id="runBtn" class="ctrl-btn run-btn"><span>LARI</span></button>
+    </div>
+    <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ================= SETUP CANVAS =================
+  var canvas = document.getElementById('game');
+  var ctx = canvas.getContext('2d');
+  var CW = 0, CH = 0, DPR = Math.min(window.devicePixelRatio || 1, 3);
+
+  function resize(){
+    CW = window.innerWidth;
+    CH = window.innerHeight;
+    canvas.width = CW * DPR;
+    canvas.height = CH * DPR;
+    canvas.style.width = CW + 'px';
+    canvas.style.height = CH + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    computeMetrics();
+  }
+
+  // ================= KARAKTER =================
+  // Diam.png = pose diam. runA/runB/runC/runD = 4 pose lari, bergantian tiap 250ms
+  // (total 4 x 250ms = 1 detik per siklus, berulang terus selama tombol LARI ditahan).
+  var ASSET_PATH = 'zusmo-assets/';
+  var spriteFiles = { idle:'Diam.png', a:'runA.png', b:'runB.png', c:'runC.png', d:'runD.png',
+    j1:'jump1.png', j2:'jump2.png', j3:'jump3.png', j4:'jump4.png', j5:'jump5.png', j6:'jump6.png' };
+  var sprites = {};
+  Object.keys(spriteFiles).forEach(function(key){
+    var img = new Image();
+    var entry = { img: img, ready:false, failed:false };
+    img.onload = function(){ entry.ready = true; };
+    img.onerror = function(){ entry.failed = true; };
+    img.src = ASSET_PATH + spriteFiles[key];
+    sprites[key] = entry;
+  });
+  var runOrder = ['a','b','c','d'];
+  var jumpOrder = ['j1','j2','j3','j4','j5','j6'];
+
+
+
+  // ================= KONSTANTA GAME =================
+  var GRAVITY = 2200;
+  var JUMP_VELOCITY = -780;
+  var RUN_SPEED = 280; // px/detik saat tombol LARI ditahan
+  var JUMP_SPEED_MULT = 1.4; // pengali kecepatan scroll saat sedang di udara (melompat)
+  var FRAME_TIME = 0.25; // detik per frame animasi lari (4 frame x 0.25 = 1 detik)
+
+  // ================= STATE GAME =================
+  var state = 'start'; // start | playing | gameover
+  var groundBaseY = 0; // garis referensi rata-rata (dipakai elemen non-tanah spt burung, bukan tinggi tanah aktual)
+  var player = { xRatio:0.5, w:0, h:0, y:0, vy:0, onGround:true, standingPlatform:null, running:false, movingBack:false, facing:1, invincible:0, frameIdx:0, frameTimer:0 };
+  var score = 0, coins = 0, lives = 3;
+  var scrollX = 0;
+  var obstacles = [];
+  var orbs = [];
+  var platforms = [];
+  var spawnTimer = 1;
+  var platformSpawnTimer = 2.5;
+  var playTime = 0; // detik sejak game dimulai, dipakai buat menaikkan kesulitan pelan-pelan
+  var hitFlash = 0;
+  var rushActive = false, rushTimer = 5, rushDuration = 0; // gelombang "rush": periode rintangan bertubi-tubi, lalu jeda napas
+  var level = 1, levelUpFlash = 0; // naik 1 level tiap LEVEL_DURATION detik bertahan
+  var LEVEL_DURATION = 20;
+
+  // Tingkat kesulitan 0->1 selama ~32 detik pertama: rintangan makin variatif & scroll makin cepat
+  function getDifficulty(){ return Math.min(1, playTime/50); }
+  var clouds = [];
+
+  function initClouds(){
+    clouds = [];
+    for (var i=0;i<5;i++){
+      clouds.push({ xRatio: Math.random(), yRatio: 0.08+Math.random()*0.18, scale: 0.6+Math.random()*0.8, speed: 8+Math.random()*10 });
+    }
+  }
+  initClouds();
+
+  // ================= KONTUR TANAH (naik-turun) =================
+  // Gabungan beberapa gelombang sinus frekuensi beda -> permukaan tanah terasa
+  // beriak/bertekstur (ripple halus), bukan pola berulang yg gampang ketebak.
+  var TERRAIN_WAVES = [
+    { amp:0.055, freq:0.0016, phase:0.0 },
+    { amp:0.032, freq:0.0037, phase:2.1 },
+    { amp:0.018, freq:0.0071, phase:4.6 }
+  ];
+  function terrainOffset(worldX){
+    var off = 0;
+    for (var i=0;i<TERRAIN_WAVES.length;i++){
+      var tw = TERRAIN_WAVES[i];
+      off += Math.sin(worldX*tw.freq + tw.phase) * CH*tw.amp;
+    }
+    return off;
+  }
+
+  // ---- ELEVASI TANAH (perbukitan sungguhan, beda dari ripple di atas) ----
+  // Dunia dibagi jadi segmen sepanjang ELEV_SEG_LEN. Tiap batas segmen dapat
+  // ketinggian target acak (tapi tetap/konsisten lewat hash "seededRand"),
+  // lalu diinterpolasi mulus (smoothstep) antar segmen -> jalan naik & turun
+  // beneran ke tanjakan/turunan, bukan cuma riak bergelombang.
+  var ELEV_SEG_LEN = 900;
+  var ELEV_AMP = 0.13; // rasio thd tinggi layar (CH) -> seberapa tinggi bukit/lembahnya
+  function seededRand(i){
+    var x = Math.sin(i*12.9898 + 78.233) * 43758.5453;
+    return x - Math.floor(x);
+  }
+  function elevTargetAt(segIdx){
+    return (seededRand(segIdx)*2 - 1) * CH*ELEV_AMP;
+  }
+  function smoothstep(t){ return t*t*(3-2*t); }
+  function elevationAt(worldX){
+    var segIdx = Math.floor(worldX/ELEV_SEG_LEN);
+    var t = (worldX - segIdx*ELEV_SEG_LEN)/ELEV_SEG_LEN;
+    var a = elevTargetAt(segIdx), b = elevTargetAt(segIdx+1);
+    return a + (b-a)*smoothstep(t);
+  }
+
+  function groundYAt(screenX){
+    var worldX = scrollX + screenX;
+    return groundBaseY - elevationAt(worldX) - terrainOffset(worldX);
+  }
+
+  function computeMetrics(){
+    player.h = CH*0.26;
+    player.w = player.h*0.78;
+    groundBaseY = CH*0.80;
+    if (player.onGround || state !== 'playing'){
+      player.y = (player.standingPlatform ? player.standingPlatform.y : groundYAt(CW*player.xRatio)) - player.h;
+    }
+  }
+
+  // ================= HUD =================
+  var scoreVal = document.getElementById('scoreVal');
+  var coinVal = document.getElementById('coinVal');
+  var levelVal = document.getElementById('levelVal');
+  var livesWrap = document.getElementById('livesWrap');
+  var skinScreen = document.getElementById('skinScreen');
+  var startScreen = document.getElementById('startScreen');
+  var gameOverScreen = document.getElementById('gameOverScreen');
+  var finalStats = document.getElementById('finalStats');
+  var runBtn = document.getElementById('runBtn');
+  var backBtn = document.getElementById('backBtn');
+  var jumpBtn = document.getElementById('jumpBtn');
+  var startBtn = document.getElementById('startBtn');
+  var retryBtn = document.getElementById('retryBtn');
+  var fullscreenBtn = document.getElementById('fullscreenBtn');
+
+  function updateHUD(){
+    scoreVal.textContent = score;
+    coinVal.textContent = coins;
+    levelVal.textContent = level;
+    livesWrap.innerHTML = '';
+    for (var i=0;i<3;i++){
+      var span = document.createElement('span');
+      span.textContent = i < lives ? '❤' : '🖤';
+      livesWrap.appendChild(span);
+    }
+  }
+
+  // ================= AUDIO (bunyi sederhana, tanpa file) =================
+  var audioCtx = null;
+  function ensureAudio(){
+    if (!audioCtx){
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){}
+    }
+  }
+  function beep(type){
+    if (!audioCtx) return;
+    if (type==='levelup'){
+      [660,990].forEach(function(freq, i){
+        setTimeout(function(){
+          if (!audioCtx) return;
+          var o2 = audioCtx.createOscillator(), g2 = audioCtx.createGain();
+          o2.connect(g2); g2.connect(audioCtx.destination);
+          o2.type = 'triangle'; o2.frequency.value = freq; g2.gain.value = 0.07;
+          o2.start();
+          g2.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.14);
+          o2.stop(audioCtx.currentTime + 0.16);
+        }, i*90);
+      });
+      return;
+    }
+    var o = audioCtx.createOscillator();
+    var g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    var freq = 440, dur = 0.09, wave = 'sine';
+    if (type==='coin'){ freq=880; dur=0.09; wave='square'; }
+    else if (type==='jump'){ freq=520; dur=0.08; wave='triangle'; }
+    else if (type==='hit'){ freq=140; dur=0.18; wave='sawtooth'; }
+    o.type = wave; o.frequency.value = freq;
+    g.gain.value = 0.06;
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+    o.stop(audioCtx.currentTime + dur + 0.02);
+  }
+
+  // ================= INPUT =================
+  function handleRunStart(){ if (state==='playing'){ player.running = true; player.movingBack = false; player.facing = 1; } }
+  function handleRunEnd(){ player.running = false; }
+  function handleBackStart(){ if (state==='playing'){ player.movingBack = true; player.running = false; player.facing = -1; } }
+  function handleBackEnd(){ player.movingBack = false; }
+  function handleJump(){
+    if (state!=='playing') return;
+    if (player.onGround){
+      player.vy = JUMP_VELOCITY;
+      player.onGround = false;
+      beep('jump');
+    }
+  }
+
+  runBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); runBtn.classList.add('pressed'); handleRunStart(); });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    runBtn.addEventListener(ev, function(){ runBtn.classList.remove('pressed'); handleRunEnd(); });
+  });
+  backBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); backBtn.classList.add('pressed'); handleBackStart(); });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    backBtn.addEventListener(ev, function(){ backBtn.classList.remove('pressed'); handleBackEnd(); });
+  });
+  jumpBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); jumpBtn.classList.add('pressed'); handleJump(); });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    jumpBtn.addEventListener(ev, function(){ jumpBtn.classList.remove('pressed'); });
+  });
+
+  window.addEventListener('keydown', function(e){
+    if (e.code==='ArrowRight' || e.code==='KeyD'){ handleRunStart(); }
+    if (e.code==='ArrowLeft' || e.code==='KeyA'){ handleBackStart(); }
+    if (e.code==='Space' || e.code==='ArrowUp' || e.code==='KeyW'){ e.preventDefault(); handleJump(); }
+  });
+  window.addEventListener('keyup', function(e){
+    if (e.code==='ArrowRight' || e.code==='KeyD'){ handleRunEnd(); }
+    if (e.code==='ArrowLeft' || e.code==='KeyA'){ handleBackEnd(); }
+  });
+
+  // ================= SPAWN RINTANGAN & KOIN =================
+  function spawnObstacle(){
+    var diff = getDifficulty();
+    // Bobot kemunculan tiap jenis: rock/bush (paling gampang dihindari) jadi andalan lagi,
+    // spike & burung (butuh presisi) baru makin sering muncul kalau kesulitan sudah naik
+    var wRock = 0.38, wBush = 0.34, wSpike = 0.12+diff*0.16, wBird = 0.06+diff*0.14;
+    var total = wRock+wBush+wSpike+wBird, roll = Math.random()*total, type;
+    if ((roll -= wRock) < 0) type = 'rock';
+    else if ((roll -= wBush) < 0) type = 'bush';
+    else if ((roll -= wSpike) < 0) type = 'spike';
+    else type = 'bird';
+
+    if (type === 'bird'){
+      // Rintangan terbang: kadang rendah (wajib lompat), kadang tinggi (wajib jangan lompat)
+      var h = CH*0.085, w = h*1.5;
+      var flightLevel = Math.random();
+      var baseY = groundBaseY - CH*(0.16+flightLevel*0.22);
+      // Sebagian burung menukik turun lalu naik lagi (dive) -> pola kelakan baru, bukan cuma naik-turun halus
+      var isDiver = Math.random() < 0.15+diff*0.15;
+      obstacles.push({ x: CW+40, w:w, h:h, type:'bird', ground:false, baseY:baseY, bob:Math.random()*Math.PI*2, dive:isDiver });
+      // Burung kadang datang berombongan biar makin rame di udara
+      if (Math.random() < 0.15+diff*0.2){
+        var h2 = h, w2 = w, flightLevel2 = Math.random();
+        var baseY2 = groundBaseY - CH*(0.16+flightLevel2*0.22);
+        obstacles.push({ x: CW+40+w2+CH*0.09, w:w2, h:h2, type:'bird', ground:false, baseY:baseY2, bob:Math.random()*Math.PI*2, dive:Math.random()<0.15+diff*0.15 });
+      }
+      return;
+    }
+
+    var h, w;
+    if (type === 'rock'){ h = CH*(0.10+Math.random()*0.05); w = h*1.1; }
+    else if (type === 'bush'){ h = CH*(0.09+Math.random()*0.04); w = h*1.3; }
+    else { h = CH*(0.17+Math.random()*0.05); w = h*0.5; } // spike: lebih tinggi & ramping, butuh lompatan presisi
+    obstacles.push({ x: CW+40, w:w, h:h, type:type, ground:true });
+    var lastX = CW+40+w;
+
+    // Kombo rintangan kedua: lebih jarang dan baru sering muncul di kesulitan tinggi
+    if (diff > 0.25 && Math.random() < 0.14+diff*0.22){
+      var type2 = Math.random()<0.5 ? 'rock' : (Math.random()<0.6 ? 'bush' : 'spike');
+      var h2 = type2==='spike' ? CH*(0.17+Math.random()*0.05) : CH*(0.09+Math.random()*0.05);
+      var w2 = type2==='spike' ? h2*0.5 : h2*1.15;
+      lastX += CH*0.055;
+      obstacles.push({ x: lastX, w:w2, h:h2, type:type2, ground:true });
+      lastX += w2;
+
+      // Kombo tripel jadi langka, cuma di kesulitan yang sudah cukup tinggi
+      if (diff > 0.55 && Math.random() < 0.12+diff*0.15){
+        var type3 = Math.random()<0.5 ? 'rock' : 'bush';
+        var h3 = CH*(0.09+Math.random()*0.05), w3 = h3*1.15;
+        lastX += CH*0.06;
+        obstacles.push({ x: lastX, w:w3, h:h3, type:type3, ground:true });
+      }
+    }
+  }
+  function spawnCoinGroup(){
+    var count = 1 + Math.floor(Math.random()*4);
+    var low = Math.random()<0.5;
+    var localGY = groundYAt(CW+40);
+    var baseY = low ? localGY-CH*0.10 : localGY-CH*0.30;
+    for (var i=0;i<count;i++){
+      orbs.push({ x: CW+40+i*CH*0.09, y: baseY, r: CH*0.028, taken:false, bob: Math.random()*Math.PI*2 });
+    }
+  }
+  function spawnPlatform(){
+    // tinggi lompatan maksimum ~= JUMP_VELOCITY^2/(2*GRAVITY) ~ 138px, jadi elevasi platform
+    // sengaja dijaga di 70-115px biar selalu bisa dicapai & didarati dari atas.
+    var elevation = 70 + Math.random()*45;
+    var pw = CH*(0.30+Math.random()*0.18);
+    var py = groundYAt(CW+40) - elevation;
+    var plat = { x: CW+40, y: py, w: pw, h: 18 };
+    platforms.push(plat);
+    if (Math.random()<0.75){
+      var count = 1 + Math.floor(Math.random()*3);
+      for (var pi=0; pi<count; pi++){
+        orbs.push({ x: plat.x+plat.w*0.22+pi*plat.w*0.28, y: py-CH*0.07, r: CH*0.028, taken:false, bob: Math.random()*Math.PI*2 });
+      }
+    }
+
+    // Sering banget dilanjut platform kedua (bukan rintangan!) biar berasa panjatan kayu
+    // bertingkat, bukan cuma satu papan lalu balik ke tanah lagi.
+    if (Math.random()<0.5){
+      var elevation2 = 70 + Math.random()*45;
+      var pw2 = CH*(0.26+Math.random()*0.16);
+      var gap = CH*(0.14+Math.random()*0.08);
+      var px2 = plat.x+plat.w+gap;
+      var py2 = groundYAt(px2+pw2/2) - elevation2;
+      var plat2 = { x: px2, y: py2, w: pw2, h: 18 };
+      platforms.push(plat2);
+      if (Math.random()<0.75){
+        var count2 = 1 + Math.floor(Math.random()*3);
+        for (var pj=0; pj<count2; pj++){
+          orbs.push({ x: plat2.x+plat2.w*0.22+pj*plat2.w*0.28, y: py2-CH*0.07, r: CH*0.028, taken:false, bob: Math.random()*Math.PI*2 });
+        }
+      }
+    }
+  }
+
+  // ================= COLLISION =================
+  function checkCollisions(){
+    var px = CW*player.xRatio - player.w/2, pw = player.w, ph = player.h, py = player.y;
+    if (player.invincible<=0){
+      // Hitbox sengaja dibikin lebih kecil dari kotak sprite penuh, karena gambar karakter
+      // punya banyak ruang kosong/transparan di sekitarnya -> biar "kena" beneran cuma
+      // kalau badan karakter (bukan kotak sprite-nya) betulan tumpang tindih rintangan.
+      var insetX = pw*0.26;
+      var topInset = ph*0.22; // abaikan bagian atas sprite (kepala & ruang kosong di atasnya)
+      var effLeft = px+insetX, effRight = px+pw-insetX;
+      var effTop = py+topInset, effBottom = py+ph-ph*0.03;
+      for (var i=0;i<obstacles.length;i++){
+        var o = obstacles[i];
+        if (effRight <= o.x || effLeft >= o.x+o.w) continue; // tidak overlap horizontal
+        if (o.ground){
+          var groundHereY = groundYAt(o.x+o.w/2);
+          if (effBottom > groundHereY-o.h+6){ loseLife(); break; }
+        } else {
+          var oy = birdFlightY(o);
+          if (effTop < oy+o.h && effBottom > oy){ loseLife(); break; }
+        }
+      }
+    }
+    for (var j=0;j<orbs.length;j++){
+      var c = orbs[j];
+      if (c.taken) continue;
+      var cy = c.y + Math.sin(performance.now()/300 + c.bob)*4;
+      var dx = (px+pw/2)-c.x, dy=(py+ph/2)-cy;
+      if (Math.sqrt(dx*dx+dy*dy) < (pw*0.4+c.r)){
+        c.taken = true; coins++; score += 10; beep('coin'); updateHUD();
+      }
+    }
+  }
+  function loseLife(){
+    lives--; player.invincible = 1.2; hitFlash = 0.4; beep('hit'); updateHUD();
+    if (lives<=0) endGame();
+  }
+
+  // ================= UPDATE =================
+  function update(dt){
+    clouds.forEach(function(c){
+      c.xRatio -= (c.speed*dt)/CW;
+      if (c.xRatio < -0.2) c.xRatio = 1.1;
+    });
+
+    if (state!=='playing') return;
+    playTime += dt;
+
+    var newLevel = 1 + Math.floor(playTime/LEVEL_DURATION);
+    if (newLevel > level){
+      level = newLevel;
+      score += 50;
+      levelUpFlash = 1.6;
+      beep('levelup');
+      updateHUD();
+    }
+    if (levelUpFlash>0) levelUpFlash = Math.max(0, levelUpFlash-dt);
+
+    var pxCenter = CW*player.xRatio;
+
+    if (!player.onGround){
+      var prevFeetY = player.y + player.h;
+      player.vy += GRAVITY*dt;
+      player.y += player.vy*dt;
+      var feetY = player.y + player.h;
+      var localGroundY = groundYAt(pxCenter);
+
+      var landedOn = null; // null = tanah kontur kalau kena
+      if (player.vy >= 0){
+        for (var pi2=0; pi2<platforms.length; pi2++){
+          var pl2 = platforms[pi2];
+          if (pxCenter > pl2.x && pxCenter < pl2.x+pl2.w && prevFeetY <= pl2.y+1 && feetY >= pl2.y){
+            if (!landedOn || pl2.y < landedOn.y) landedOn = pl2;
+          }
+        }
+        if (landedOn){
+          player.y = landedOn.y - player.h; player.vy = 0; player.onGround = true; player.standingPlatform = landedOn;
+        } else if (feetY >= localGroundY){
+          player.y = localGroundY - player.h; player.vy = 0; player.onGround = true; player.standingPlatform = null;
+        }
+      }
+    } else if (player.standingPlatform){
+      // masih di atas platform yang sama? kalau sudah lewat tepinya, mulai jatuh lagi
+      var sp = player.standingPlatform;
+      if (pxCenter > sp.x && pxCenter < sp.x+sp.w){
+        player.y = sp.y - player.h;
+      } else {
+        player.onGround = false; player.standingPlatform = null;
+      }
+    } else {
+      // di darat & bukan di atas platform: ikuti kontur tanah yang naik-turun tiap frame
+      player.y = groundYAt(pxCenter) - player.h;
+    }
+
+    if (player.running || player.movingBack){
+      var speedMult = player.onGround ? 1 : JUMP_SPEED_MULT;
+      var diffMult = 1 + getDifficulty()*0.25; // makin lama bertahan, scroll makin cepat sedikit demi sedikit
+      var d = RUN_SPEED*speedMult*diffMult*dt*(player.movingBack ? -1 : 1);
+      scrollX += d;
+      obstacles.forEach(function(o){ o.x -= d; });
+      orbs.forEach(function(c){ c.x -= d; });
+      platforms.forEach(function(p){ p.x -= d; });
+      if (!player.movingBack){
+        // Gelombang "rush": sesekali ada periode singkat rintangan agak lebih rapat,
+        // lalu jeda napas yang lebih panjang sebelum gelombang berikutnya -> tetap ada variasi tanpa kebanyakan
+        if (rushActive){
+          rushDuration -= dt;
+          if (rushDuration<=0){ rushActive=false; rushTimer = 8+Math.random()*4 - getDifficulty()*1.5; }
+        } else {
+          rushTimer -= dt;
+          if (rushTimer<=0){ rushActive=true; rushDuration = 1.4+Math.random()*0.8; }
+        }
+
+        spawnTimer -= dt;
+        if (spawnTimer<=0){
+          if (rushActive){
+            spawnObstacle();
+            spawnTimer = 0.4+Math.random()*0.2;
+          } else {
+            if (Math.random()<0.5) spawnCoinGroup(); else spawnObstacle();
+            spawnTimer = Math.max(0.45, 0.95 + Math.random()*0.6 - getDifficulty()*0.3);
+          }
+        }
+        platformSpawnTimer -= dt;
+        if (platformSpawnTimer<=0){
+          spawnPlatform();
+          platformSpawnTimer = 2.2 + Math.random()*1.6;
+        }
+      }
+      player.frameTimer += dt;
+      if (player.frameTimer >= FRAME_TIME){
+        player.frameTimer = 0;
+        player.frameIdx = (player.frameIdx+1)%4;
+      }
+    } else {
+      player.frameIdx = 0; player.frameTimer = 0;
+    }
+
+    if (player.invincible>0) player.invincible -= dt;
+    if (hitFlash>0) hitFlash = Math.max(0, hitFlash-dt*1.5);
+
+    checkCollisions();
+    obstacles = obstacles.filter(function(o){ return o.x+o.w > -20; });
+    orbs = orbs.filter(function(c){ return !c.taken && c.x+c.r > -20; });
+    platforms = platforms.filter(function(p){
+      var keep = p.x+p.w > -20;
+      if (!keep && player.standingPlatform===p){ player.standingPlatform = null; }
+      return keep;
+    });
+  }
+
+  // ================= DRAW HELPERS =================
+  function shade(hex, amt){
+    var num = parseInt(hex.slice(1),16);
+    var r = Math.max(0,Math.min(255,(num>>16)+amt));
+    var g = Math.max(0,Math.min(255,((num>>8)&0xff)+amt));
+    var b = Math.max(0,Math.min(255,(num&0xff)+amt));
+    return 'rgb('+r+','+g+','+b+')';
+  }
+
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  function drawHillLayer(color, baseYRatio, speedFactor, spacing, ampRatio){
+    var baseY = CH*baseYRatio;
+    var offset = (scrollX*speedFactor) % spacing;
+    var grad = ctx.createLinearGradient(0, baseY-CH*ampRatio, 0, CH);
+    grad.addColorStop(0, shade(color, 26));
+    grad.addColorStop(1, shade(color, -24));
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(-spacing*2, CH);
+    for (var x=-spacing*2-offset; x<CW+spacing*2; x+=spacing){
+      ctx.lineTo(x, baseY);
+      ctx.quadraticCurveTo(x+spacing/2, baseY-CH*ampRatio, x+spacing, baseY);
+    }
+    ctx.lineTo(CW+spacing*2, CH);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawCloud(xRatio,yRatio,scale){
+    var x = xRatio*CW, y = yRatio*CH;
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    [[-20,0,18],[0,-10,22],[20,0,18],[0,8,20]].forEach(function(p){
+      ctx.beginPath();
+      ctx.arc(x+p[0]*scale, y+p[1]*scale, p[2]*scale, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  function drawPlatform(p){
+    var grad = ctx.createLinearGradient(p.x, p.y, p.x, p.y+p.h);
+    grad.addColorStop(0, '#E8A857'); grad.addColorStop(1, '#B5762A');
+    ctx.fillStyle = grad;
+    roundRect(p.x, p.y, p.w, p.h, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#2B2118'; ctx.lineWidth = 3;
+    roundRect(p.x, p.y, p.w, p.h, 6);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(43,33,24,0.35)'; ctx.lineWidth = 1.5;
+    var seg = p.w/4;
+    for (var si=1; si<4; si++){
+      ctx.beginPath(); ctx.moveTo(p.x+seg*si, p.y+3); ctx.lineTo(p.x+seg*si, p.y+p.h-3); ctx.stroke();
+    }
+  }
+
+  function birdFlightY(o){
+    // Lintasan naik-turun halus (dipakai sinkron oleh collision & gambar biar konsisten)
+    var y = o.baseY + Math.sin(performance.now()/260 + o.bob)*CH*0.02;
+    if (o.dive){
+      // Menukik: satu siklus turun-dalam lalu naik lagi, jauh lebih besar dari bob halus di atas
+      var diveT = (performance.now()/1000 + o.bob) % 2.4;
+      var diveWave = Math.sin(diveT/2.4 * Math.PI); // 0 -> 1 -> 0 sepanjang siklus
+      y += diveWave*CH*0.16;
+    }
+    return y;
+  }
+
+  function drawObstacle(o){
+    var baseY = groundYAt(o.x+o.w/2);
+    if (o.type==='rock'){
+      var rg = ctx.createRadialGradient(o.x+o.w*0.34, baseY-o.h*0.68, o.w*0.04, o.x+o.w/2, baseY-o.h/2, o.w*0.62);
+      rg.addColorStop(0, '#BDB7AE'); rg.addColorStop(0.6, '#8B8680'); rg.addColorStop(1, '#5E5A54');
+      ctx.fillStyle = rg;
+      ctx.beginPath();
+      ctx.ellipse(o.x+o.w/2, baseY-o.h/2, o.w/2, o.h/2, 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = 'rgba(0,0,0,0.16)';
+      [[0.62,0.55,0.15],[0.42,0.72,0.10],[0.68,0.30,0.08]].forEach(function(p){
+        ctx.beginPath();
+        ctx.ellipse(o.x+o.w*p[0], baseY-o.h*p[1], o.w*p[2], o.h*p[2]*0.75, 0, 0, Math.PI*2);
+        ctx.fill();
+      });
+    } else if (o.type==='bush'){
+      for (var i=0;i<3;i++){
+        var bx = o.x + (i*o.w/3);
+        var bg = ctx.createLinearGradient(bx, baseY-o.h, bx, baseY);
+        bg.addColorStop(0, '#3F9A45'); bg.addColorStop(1, '#1F5C22');
+        ctx.fillStyle = bg;
+        ctx.beginPath();
+        ctx.moveTo(bx, baseY);
+        ctx.lineTo(bx+o.w/6, baseY-o.h);
+        ctx.lineTo(bx+o.w/3, baseY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.22)'; ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    } else if (o.type==='spike'){
+      // Dua bilah paku tajam warna metal - lebih tinggi & ramping dari batu biar butuh lompatan presisi
+      for (var si=0; si<2; si++){
+        var sx = o.x + si*(o.w*0.5);
+        var sg = ctx.createLinearGradient(sx, baseY-o.h, sx, baseY);
+        sg.addColorStop(0, '#EDEDED'); sg.addColorStop(0.6, '#ADADAD'); sg.addColorStop(1, '#6E6E6E');
+        ctx.fillStyle = sg;
+        ctx.beginPath();
+        ctx.moveTo(sx, baseY);
+        ctx.lineTo(sx+o.w*0.25, baseY-o.h);
+        ctx.lineTo(sx+o.w*0.5, baseY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    } else if (o.type==='bird'){
+      var oy = birdFlightY(o), cx = o.x+o.w/2, cy = oy+o.h/2;
+      var flap = Math.sin(performance.now()/90 + o.bob)*0.5+0.5;
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.beginPath(); ctx.ellipse(cx, groundYAt(cx)+4, o.w*0.28, 5, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#4A2C82';
+      ctx.beginPath(); ctx.ellipse(cx, cy, o.w*0.32, o.h*0.34, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#7E57C2';
+      ctx.beginPath();
+      ctx.moveTo(cx-o.w*0.08, cy);
+      ctx.lineTo(cx-o.w*0.55, cy-o.h*(0.3+flap*0.35));
+      ctx.lineTo(cx-o.w*0.05, cy+o.h*0.12);
+      ctx.closePath(); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx+o.w*0.08, cy);
+      ctx.lineTo(cx+o.w*0.55, cy-o.h*(0.3+flap*0.35));
+      ctx.lineTo(cx+o.w*0.05, cy+o.h*0.12);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#F2543E';
+      ctx.beginPath();
+      ctx.moveTo(cx+o.w*0.28, cy);
+      ctx.lineTo(cx+o.w*0.46, cy-o.h*0.06);
+      ctx.lineTo(cx+o.w*0.28, cy+o.h*0.12);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  function drawCoin(c){
+    var t = performance.now()/300 + c.bob;
+    var cy = c.y + Math.sin(t)*4;
+    var squash = Math.max(0.25, Math.abs(Math.cos(t*1.3)));
+    ctx.save();
+    ctx.translate(c.x, cy);
+    ctx.scale(squash, 1);
+    var grad = ctx.createRadialGradient(-c.r*0.3,-c.r*0.3,1,0,0,c.r);
+    grad.addColorStop(0, '#FFF3B0'); grad.addColorStop(0.5, '#FFD34D'); grad.addColorStop(1, '#C98E1D');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(0,0,c.r,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#8A5D10'; ctx.lineWidth = Math.max(1,c.r*0.15); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawCharacter(x, y, w, h, running, frameIdx, jumping, jumpFrameIdx, facing){
+    var key = jumping ? jumpOrder[jumpFrameIdx] : (running ? runOrder[frameIdx] : 'idle');
+    var spr = sprites[key];
+
+    ctx.save();
+    ctx.translate(x, y);
+    if (facing < 0){
+      // hadap belakang/kiri: cerminkan sprite secara horizontal di tempat
+      ctx.translate(w, 0);
+      ctx.scale(-1, 1);
+    }
+
+    if (spr && spr.ready && !spr.failed){
+      ctx.drawImage(spr.img, 0, 0, w, h);
+    } else {
+      // placeholder netral selagi gambar belum berhasil dimuat dari folder Rahul
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      roundRect(0, 0, w, h, w*0.15); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 3;
+      roundRect(0, 0, w, h, w*0.15); ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold ' + (w*0.4) + 'px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('?', w/2, h/2);
+    }
+    ctx.restore();
+  }
+
+  function drawPlayer(){
+    var px = CW*player.xRatio - player.w/2, py = player.y, w = player.w, h = player.h;
+    ctx.save();
+    if (player.invincible>0 && Math.floor(performance.now()/100)%2===0){ ctx.globalAlpha = 0.35; }
+    // bayangan di bawah karakter
+    var localGroundY = groundYAt(px+w/2);
+    var jumpProgress = Math.min(1, Math.max(0, (localGroundY-(py+h))/(CH*0.35)));
+    var shadowScale = Math.max(0.3, 1-jumpProgress);
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(px+w/2, localGroundY+4, w*0.35*shadowScale, 6*shadowScale, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    var jumpFrameIdx = 0;
+    var jumpXOffset = 0, jumpYExtra = 0;
+    if (!player.onGround){
+      // vy negatif = sedang naik, vy positif = sedang turun.
+      // Peta rentang kecepatan vertikal ke 6 pose: naik cepat -> naik pelan -> puncak -> mulai turun -> turun cepat -> turun sangat cepat.
+      var vRatio = Math.max(-1, Math.min(1, player.vy / Math.abs(JUMP_VELOCITY)));
+      jumpFrameIdx = Math.min(5, Math.floor((vRatio + 1) / 2 * 6));
+
+      // Karakter condong maju selama melompat: dorong ke depan seiring lompatan berlangsung,
+      // memakai kurva naik-turun (0 di lepas landas & mendarat, puncak di tengah lompatan) berbasis fase vertikal (vRatio),
+      // supaya proporsional walau tinggi lompatan aktualnya kecil dibanding tinggi layar.
+      var airProgress = (vRatio + 1) / 2; // 0 = baru lompat, 0.5 = puncak, 1 = hampir mendarat
+      jumpXOffset = Math.sin(airProgress * Math.PI) * w * 0.35 * player.facing;
+
+      // jump5 dinaikkan sekitar 15% dari tinggi karakter
+      if (jumpFrameIdx === 4){ jumpYExtra = -h * 0.15; }
+    }
+    drawCharacter(px + jumpXOffset, py + jumpYExtra, w, h, player.running || player.movingBack, player.frameIdx, !player.onGround, jumpFrameIdx, player.facing);
+    ctx.restore();
+  }
+
+  // ================= DRAW UTAMA =================
+  function draw(){
+    ctx.clearRect(0,0,CW,CH);
+
+    var sky = ctx.createLinearGradient(0,0,0,CH);
+    sky.addColorStop(0, '#7EC8F2'); sky.addColorStop(1, '#BFE8FF');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0,0,CW,CH);
+
+    var sx = CW*0.86, sy = CH*0.14, sr = Math.min(CW,CH)*0.06;
+    var glow = ctx.createRadialGradient(sx,sy,0,sx,sy,sr*2.2);
+    glow.addColorStop(0, '#FFF3B0'); glow.addColorStop(0.5, 'rgba(255,211,77,0.55)'); glow.addColorStop(1, 'rgba(255,211,77,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(sx,sy,sr*2.2,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#FFD34D';
+    ctx.beginPath(); ctx.arc(sx,sy,sr,0,Math.PI*2); ctx.fill();
+
+    drawHillLayer('#8FD49A', 0.62, 0.15, CH*0.9, 0.10);
+    clouds.forEach(function(c){ drawCloud(c.xRatio, c.yRatio, c.scale); });
+    drawHillLayer('#5FBF6E', 0.72, 0.35, CH*0.7, 0.08);
+
+    // Sampel kontur tanah di sepanjang lebar layar, dipakai buat gambar dirt & rumput
+    // sebagai bidang yang ikut naik-turun (bukan kotak lurus seperti sebelumnya)
+    var groundStep = 18;
+    var groundPts = [];
+    for (var gx=0; gx<CW; gx+=groundStep){ groundPts.push({ x:gx, y:groundYAt(gx) }); }
+    groundPts.push({ x:CW, y:groundYAt(CW) });
+    var minGroundY = CH;
+    groundPts.forEach(function(p){ if (p.y<minGroundY) minGroundY = p.y; });
+
+    var dirtGrad = ctx.createLinearGradient(0, minGroundY, 0, CH);
+    dirtGrad.addColorStop(0, '#9C6B37'); dirtGrad.addColorStop(1, '#5c3a1a');
+    ctx.fillStyle = dirtGrad;
+    ctx.beginPath();
+    ctx.moveTo(groundPts[0].x, CH);
+    groundPts.forEach(function(p){ ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(groundPts[groundPts.length-1].x, CH);
+    ctx.closePath();
+    ctx.fill();
+
+    var speckleSpacing = 34, speckleOffset = scrollX % speckleSpacing;
+    ctx.fillStyle = 'rgba(0,0,0,0.13)';
+    for (var spx=-speckleOffset; spx<CW+speckleSpacing; spx+=speckleSpacing){
+      var row = Math.round((spx+speckleOffset)/speckleSpacing);
+      var localGY1 = groundYAt(spx);
+      var dirtH1 = Math.max(1, CH-localGY1-16);
+      var spy = localGY1 + 12 + ((row*37) % dirtH1);
+      ctx.beginPath(); ctx.arc(spx + (row%2)*speckleSpacing*0.5, spy, 2.1, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    for (var spx2=-speckleOffset+14; spx2<CW+speckleSpacing; spx2+=speckleSpacing){
+      var row2 = Math.round((spx2+speckleOffset)/speckleSpacing);
+      var localGY2 = groundYAt(spx2);
+      var dirtH2 = Math.max(1, CH-localGY2-16);
+      var spy2 = localGY2 + 12 + ((row2*61+9) % dirtH2);
+      ctx.beginPath(); ctx.arc(spx2, spy2, 1.6, 0, Math.PI*2); ctx.fill();
+    }
+
+    var grassH = CH*0.025;
+    var grassGrad = ctx.createLinearGradient(0, minGroundY, 0, minGroundY+grassH);
+    grassGrad.addColorStop(0, '#63C169'); grassGrad.addColorStop(1, '#3d9142');
+    ctx.fillStyle = grassGrad;
+    ctx.beginPath();
+    ctx.moveTo(groundPts[0].x, groundPts[0].y);
+    groundPts.forEach(function(p){ ctx.lineTo(p.x, p.y); });
+    for (var gi=groundPts.length-1; gi>=0; gi--){ ctx.lineTo(groundPts[gi].x, groundPts[gi].y+grassH); }
+    ctx.closePath();
+    ctx.fill();
+
+    var dashSpacing = 40, dashOffset = scrollX % dashSpacing;
+    ctx.strokeStyle = '#6b431f'; ctx.lineWidth = 3;
+    for (var x=-dashOffset; x<CW; x+=dashSpacing){
+      var dashGY = groundYAt(x)+12;
+      ctx.beginPath(); ctx.moveTo(x, dashGY); ctx.lineTo(x+18, dashGY); ctx.stroke();
+    }
+
+    obstacles.forEach(drawObstacle);
+    platforms.forEach(drawPlatform);
+    orbs.forEach(function(c){ if(!c.taken) drawCoin(c); });
+    drawPlayer();
+
+    if (hitFlash>0){
+      ctx.fillStyle = 'rgba(220,30,30,' + (hitFlash*0.5) + ')';
+      ctx.fillRect(0,0,CW,CH);
+    }
+
+    if (levelUpFlash>0){
+      // Muncul cepat (scale-in) lalu memudar pelan sampai levelUpFlash habis
+      var t = 1.6 - levelUpFlash; // waktu sejak level naik
+      var scaleIn = Math.min(1, t/0.25);
+      var alpha = Math.min(1, levelUpFlash/0.5);
+      var bannerY = CH*0.3;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(CW/2, bannerY);
+      ctx.scale(0.7+scaleIn*0.3, 0.7+scaleIn*0.3);
+      ctx.font = "bold " + Math.round(CH*0.06) + "px 'Press Start 2P', monospace";
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.lineWidth = 6; ctx.strokeStyle = '#2B2118';
+      ctx.strokeText('LEVEL ' + level, 0, 0);
+      ctx.fillStyle = '#FFD34D';
+      ctx.fillText('LEVEL ' + level, 0, 0);
+      ctx.restore();
+    }
+  }
+
+  // ================= GAME FLOW =================
+  function startGame(){
+    ensureAudio();
+    if (!isFullscreen()){
+      try { toggleFullscreen(); } catch(e){}
+    }
+    state = 'playing';
+    score = 0; coins = 0; lives = 3;
+    obstacles = []; orbs = []; platforms = [];
+    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0;
+    rushActive = false; rushTimer = 10; rushDuration = 0;
+    level = 1; levelUpFlash = 0;
+    player.vy = 0; player.onGround = true; player.standingPlatform = null; player.running = false; player.invincible = 0;
+    player.frameIdx = 0; player.frameTimer = 0;
+    computeMetrics();
+    startScreen.classList.add('hidden');
+    gameOverScreen.classList.add('hidden');
+    updateHUD();
+  }
+  function endGame(){
+    state = 'gameover';
+    player.running = false;
+    finalStats.textContent = 'Skor: ' + score + ' \u00b7 Koin: ' + coins;
+    gameOverScreen.classList.remove('hidden');
+  }
+
+  startBtn.addEventListener('click', startGame);
+  retryBtn.addEventListener('click', startGame);
+
+  // ================= LAYAR PILIH SKIN =================
+  // Cuma Rahul yang terbuka sekarang; Gem & Vincent masih terkunci (belum ada karakternya).
+  var selectedSkin = 'rahul';
+  document.querySelectorAll('.skin-box').forEach(function(box){
+    box.addEventListener('click', function(){
+      if (box.classList.contains('locked')){
+        box.classList.remove('shake');
+        void box.offsetWidth; // restart animasi shake kalau diklik berkali-kali
+        box.classList.add('shake');
+        return;
+      }
+      selectedSkin = box.dataset.skin;
+      skinScreen.classList.add('hidden');
+      startScreen.classList.remove('hidden');
+    });
+  });
+
+  // ================= LAYAR PENUH =================
+  function isFullscreen(){
+    return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  }
+  function toggleFullscreen(){
+    var el = document.documentElement;
+    if (!isFullscreen()){
+      var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+      if (req) req.call(el);
+    } else {
+      var exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+      if (exit) exit.call(document);
+    }
+  }
+  function updateFsIcon(){ fullscreenBtn.textContent = isFullscreen() ? '⤢' : '⛶'; }
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
+  document.addEventListener('fullscreenchange', updateFsIcon);
+  document.addEventListener('webkitfullscreenchange', updateFsIcon);
+
+  // ================= LOOP =================
+  var lastTime = performance.now();
+  function loop(now){
+    var dt = Math.min((now-lastTime)/1000, 0.033);
+    lastTime = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  updateHUD();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
