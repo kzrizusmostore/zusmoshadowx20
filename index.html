@@ -6460,7 +6460,10 @@ function orderVipKey(tier,price){
   const errBox=document.getElementById('vuvError');
   if(errBox) errBox.style.display='none';
   const uidField=document.getElementById('vuvUidField');
-  if(uidField) uidField.classList.remove('vuv-shake');
+  if(uidField){uidField.classList.remove('vuv-shake');uidField.classList.remove('error');}
+  const nickBox=document.getElementById('vuvNicknameBox');
+  if(nickBox) nickBox.style.display='none';
+  vplSelected.nickname='';
   resetVuvButton();
 
   document.querySelectorAll('.vpay-method').forEach(m=>m.classList.remove('selected'));
@@ -6471,6 +6474,52 @@ function orderVipKey(tier,price){
 }
 function vuvCleanUid(el){
   el.value=el.value.replace(/[^0-9]/g,'').slice(0,13);
+  const nickBox=document.getElementById('vuvNicknameBox');
+  if(nickBox) nickBox.style.display='none';
+  const errBox=document.getElementById('vuvError');
+  if(errBox) errBox.style.display='none';
+  const uidField=document.getElementById('vuvUidField');
+  if(uidField) uidField.classList.remove('error');
+  vplSelected.nickname='';
+}
+function extractFFNickname(json){
+  if(!json||json.status===false) return '';
+  const d=json.data||json.result||json;
+  const candidates=[
+    json.nickname,json.username,json.Username,json.name,json.Name,
+    d&&d.nickname,d&&d.username,d&&d.Username,d&&d.name,d&&d.Name,
+    d&&d.account_name,d&&d.accountName,d&&d.nick,d&&d.Nick,
+    d&&d.data&&(d.data.nickname||d.data.username||d.data.Username||d.data.name)
+  ];
+  for(const c of candidates){ if(c&&String(c).trim()) return String(c).trim(); }
+  return '';
+}
+async function fetchFFNickname(uid){
+  const target='https://api.saipulanuar.eu.org/api/stalkgame/ffstalk1?userId='+encodeURIComponent(uid);
+  let json=null;
+  try{
+    const res=await fetch(target,{headers:{'Accept':'application/json'}});
+    json=await res.json();
+  }catch(directErr){
+    console.warn('[VUV] fetch langsung gagal (kemungkinan CORS), coba lewat proxy...',directErr);
+    try{
+      const proxyRes=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(target));
+      json=await proxyRes.json();
+    }catch(proxyErr){
+      console.error('[VUV] fetch via proxy juga gagal:',proxyErr);
+      const netErr=new Error('NETWORK');
+      netErr.isNetwork=true;
+      throw netErr;
+    }
+  }
+  console.log('[VUV] ffstalk response:',json);
+  const nickname=extractFFNickname(json);
+  if(!nickname){
+    const nfErr=new Error(json&&json.message?json.message:'Nickname tidak ditemukan di response API.');
+    nfErr.raw=json;
+    throw nfErr;
+  }
+  return nickname;
 }
 function resetVuvButton(){
   const btn=document.getElementById('vuvSubmitBtn');
@@ -6479,21 +6528,24 @@ function resetVuvButton(){
   btn.classList.remove('loading');
   btn.innerHTML='<i class="fa-solid fa-shield-halved"></i> Verifikasi &amp; Lanjutkan';
 }
-function submitVuvVerify(){
+async function submitVuvVerify(){
   const uidInput=document.getElementById('vuvUidInput');
   const serverSelect=document.getElementById('vuvServerSelect');
   const errBox=document.getElementById('vuvError');
   const uidField=document.getElementById('vuvUidField');
+  const nickBox=document.getElementById('vuvNicknameBox');
   const uid=uidInput?uidInput.value.trim():'';
 
   if(uid.length<8||uid.length>13){
     if(errBox){errBox.textContent='UID harus terdiri dari 8-13 karakter angka.';errBox.style.display='flex';}
     if(uidField){uidField.classList.remove('vuv-shake');void uidField.offsetWidth;uidField.classList.add('vuv-shake');uidField.classList.add('error');}
+    if(nickBox) nickBox.style.display='none';
     try{navigator.vibrate&&navigator.vibrate([30,40,30]);}catch(e){}
     return;
   }
   if(errBox) errBox.style.display='none';
   if(uidField) uidField.classList.remove('error');
+  if(nickBox) nickBox.style.display='none';
 
   vplSelected.uid=uid;
   vplSelected.server=serverSelect?serverSelect.value:'ID';
@@ -6505,36 +6557,57 @@ function submitVuvVerify(){
     btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Memeriksa ID...';
   }
 
-  setTimeout(function(){
-    showVuvOverlay();
+  let nickname='';
+  try{
+    nickname=await fetchFFNickname(uid);
+  }catch(e){
+    console.warn('[VUV] gagal ambil nickname:',e,e&&e.raw?e.raw:'');
+    const msg=(e&&e.isNetwork)?'Gagal menghubungi server cek UID. Coba lagi beberapa saat.':'UID tidak ditemukan. Periksa kembali UID kamu.';
+    if(errBox){errBox.textContent=msg;errBox.style.display='flex';}
+    if(uidField){uidField.classList.remove('vuv-shake');void uidField.offsetWidth;uidField.classList.add('vuv-shake');uidField.classList.add('error');}
+    try{navigator.vibrate&&navigator.vibrate([30,40,30]);}catch(err){}
+    resetVuvButton();
+    return;
+  }
 
-    setTimeout(function(){
-      const serverObj=vplServers.find(s=>s.code===vplSelected.server)||vplServers[0];
-      const sT=document.getElementById('vpaySummaryTier');
-      const sP=document.getElementById('vpaySummaryPrice');
-      const sU=document.getElementById('vpaySummaryUid');
-      if(sT) sT.textContent='VIP '+vplSelected.tier;
-      if(sP) sP.textContent='Rp '+vplSelected.price.toLocaleString('id-ID');
-      if(sU) sU.textContent=vplSelected.uid+' • '+serverObj.flag+' '+serverObj.name;
-      resetVuvButton();
-      hideVuvOverlay();
-      showPage('vippayment');
-    },2200);
-  },900);
+  vplSelected.nickname=nickname;
+  if(nickBox){
+    const nickText=document.getElementById('vuvNicknameText');
+    if(nickText) nickText.textContent='Nickname: '+nickname;
+    nickBox.style.display='flex';
+  }
+
+  showVuvOverlay(nickname);
+
+  setTimeout(function(){
+    const serverObj=vplServers.find(s=>s.code===vplSelected.server)||vplServers[0];
+    const sT=document.getElementById('vpaySummaryTier');
+    const sP=document.getElementById('vpaySummaryPrice');
+    const sU=document.getElementById('vpaySummaryUid');
+    const sN=document.getElementById('vpaySummaryNickname');
+    if(sT) sT.textContent='VIP '+vplSelected.tier;
+    if(sP) sP.textContent='Rp '+vplSelected.price.toLocaleString('id-ID');
+    if(sU) sU.textContent=vplSelected.uid+' • '+serverObj.flag+' '+serverObj.name;
+    if(sN) sN.textContent=nickname;
+    resetVuvButton();
+    hideVuvOverlay();
+    showPage('vippayment');
+  },1600);
 }
 const vuvOverlaySteps=['Memeriksa UID...','Menghubungi server game...','UID ditemukan, memuat data...'];
 let vuvOverlayStepInterval=null;
-function showVuvOverlay(){
+function showVuvOverlay(nickname){
   const overlay=document.getElementById('vuvLoadingOverlay');
   if(!overlay)return;
   overlay.classList.add('show');
+  const steps=nickname?[vuvOverlaySteps[0],vuvOverlaySteps[1],'UID ditemukan: '+nickname]:vuvOverlaySteps;
   let idx=0;
   const textEl=document.getElementById('vuvOverlayText');
-  if(textEl) textEl.textContent=vuvOverlaySteps[0];
+  if(textEl) textEl.textContent=steps[0];
   if(vuvOverlayStepInterval) clearInterval(vuvOverlayStepInterval);
   vuvOverlayStepInterval=setInterval(function(){
-    idx=(idx+1)%vuvOverlaySteps.length;
-    if(textEl) textEl.textContent=vuvOverlaySteps[idx];
+    idx=(idx+1)%steps.length;
+    if(textEl) textEl.textContent=steps[idx];
   },700);
 }
 function hideVuvOverlay(){
@@ -6906,6 +6979,12 @@ function copyQris2Link(btn,link){
 }
 .vuv-error i{margin-top:1px;}
 
+.vuv-nickname-box{
+  display:none;align-items:center;gap:8px;margin-top:9px;padding:10px 14px;border-radius:12px;
+  background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.3);font-size:12px;font-weight:800;color:#7CFFA0;line-height:1.4;
+}
+.vuv-nickname-box i{color:#2ecc71;}
+
 .vuv-note{
   display:flex;gap:10px;align-items:flex-start;margin:0 2px 20px;padding:12px 14px;border-radius:14px;
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:11px;color:#bdbdbd;line-height:1.5;
@@ -6970,6 +7049,10 @@ function copyQris2Link(btn,link){
       <input class="vuv-input" id="vuvUidInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="13" placeholder="Contoh: 1234567890" oninput="vuvCleanUid(this)"/>
     </div>
     <div class="vuv-hint">Masukkan UID sesuai akun Free Fire kamu</div>
+    <div class="vuv-nickname-box" id="vuvNicknameBox" style="display:none;">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="vuvNicknameText">Nickname: -</span>
+    </div>
   </div>
 
   <div class="vuv-group">
@@ -7171,6 +7254,10 @@ function copyQris2Link(btn,link){
   <div style="display:flex;align-items:center;gap:7px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.55);">
     <i class="fa-solid fa-hashtag" style="color:#e8c877;font-size:10px;"></i>
     <span id="vpaySummaryUid">-</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:#7CFFA0;font-weight:700;">
+    <i class="fa-solid fa-circle-check" style="color:#2ecc71;font-size:10px;"></i>
+    <span id="vpaySummaryNickname">-</span>
   </div>
 </div>
 
