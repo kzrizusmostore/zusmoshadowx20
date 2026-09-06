@@ -22,7 +22,7 @@
   }
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html,body{ margin:0; padding:0; height:100%; overflow:hidden; background:#000; font-family:'Baloo 2',sans-serif; }
-  #stage{ position:relative; width:100vw; height:100dvh; overflow:hidden; }
+  #stage{ position:fixed; top:0; left:0; width:100vw; height:100dvh; overflow:hidden; transform-origin:center center; }
   canvas{ display:block; width:100%; height:100%; touch-action:none; }
 
   #hud{ position:absolute; top:max(12px,env(safe-area-inset-top)); left:12px; right:12px;
@@ -100,9 +100,10 @@
     <div class="hud-left">
       <div class="hud-pill level-pill">LV <span id="levelVal">1</span></div>
       <div class="hud-pill">SKOR <span id="scoreVal">0</span></div>
+      <div class="hud-pill">🏁 <span id="meterVal">0</span>m</div>
     </div>
     <div id="livesWrap"></div>
-    <div class="hud-pill">🪙 <span id="coinVal">0</span></div>
+    <div class="hud-pill"><img src="zusmo-assets/onzrii.png" alt="diamond" style="width:13px;height:13px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'"><span id="diamondVal">0</span></div>
     <button id="fullscreenBtn" title="Layar penuh">⛶</button>
   </div>
 
@@ -129,7 +130,7 @@
 
   <div id="startScreen" class="overlay hidden">
     <h1 class="title">SUPER<br>RAHULLL</h1>
-    <p class="tagline">Berlari, melompat, kumpulkan koin!</p>
+    <p class="tagline">Berlari, melompat, kumpulkan diamond!</p>
     <button id="startBtn" class="big-btn">MULAI</button>
     
   </div>
@@ -157,10 +158,37 @@
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var CW = 0, CH = 0, DPR = Math.min(window.devicePixelRatio || 1, 3);
+  var stage = document.getElementById('stage');
+
+  // ================= PAKSA LANDSCAPE (tanpa perlu miringin HP) =================
+  // Kalau layar HP lagi portrait (tinggi > lebar), seluruh #stage diputar 90 derajat
+  // via CSS transform supaya game langsung tampil landscape, tanpa minta user rotasi.
+  function applyOrientationLock(){
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    if(h > w){
+      // Portrait: putar stage jadi landscape, ukuran "logika" stage = h x w (dibalik)
+      stage.style.width = h + 'px';
+      stage.style.height = w + 'px';
+      stage.style.transform = 'translate(-50%, -50%) rotate(90deg)';
+      stage.style.top = '50%';
+      stage.style.left = '50%';
+    } else {
+      // Sudah landscape asli: tampil normal, tanpa rotasi
+      stage.style.width = w + 'px';
+      stage.style.height = h + 'px';
+      stage.style.transform = 'none';
+      stage.style.top = '0';
+      stage.style.left = '0';
+    }
+  }
 
   function resize(){
-    CW = window.innerWidth;
-    CH = window.innerHeight;
+    applyOrientationLock();
+    // Pakai ukuran nyata #stage (bukan window langsung), karena setelah rotasi
+    // ukuran logika stage sudah otomatis jadi landscape (lebar > tinggi).
+    CW = stage.offsetWidth;
+    CH = stage.offsetHeight;
     canvas.width = CW * DPR;
     canvas.height = CH * DPR;
     canvas.style.width = CW + 'px';
@@ -175,6 +203,20 @@
   // Diam.png = pose diam. runA/runB/runC/runD = 4 pose lari, bergantian tiap 250ms
   // (total 4 x 250ms = 1 detik per siklus, berulang terus selama tombol LARI ditahan).
   var ASSET_PATH = 'zusmo-assets/';
+  // ================= INTEGRASI DIAMOND DENGAN APK KZRIZUSMO =================
+  // Pakai key localStorage yang SAMA PERSIS dengan apk utama (index.html),
+  // Sky Hopper Max, dan Kuis FF, supaya diamond yang didapat di Super Rahul
+  // langsung nambah ke saldo diamond apk juga (real-time, bukan hitungan terpisah).
+  var LS_DIAMOND = 'zusmo_diamond_balance';
+  function getGlobalDiamond(){
+    var v = parseInt(localStorage.getItem(LS_DIAMOND), 10);
+    return isNaN(v) ? 0 : v;
+  }
+  function addGlobalDiamond(n){
+    var v = Math.max(0, getGlobalDiamond() + n);
+    localStorage.setItem(LS_DIAMOND, String(v));
+    return v;
+  }
   var spriteFiles = { idle:'Diam.png', a:'runA.png', b:'runB.png', c:'runC.png', d:'runD.png',
     j1:'jump1.png', j2:'jump2.png', j3:'jump3.png', j4:'jump4.png', j5:'jump5.png', j6:'jump6.png' };
   var sprites = {};
@@ -202,7 +244,7 @@
   var state = 'start'; // start | playing | gameover
   var groundBaseY = 0; // garis referensi rata-rata (dipakai elemen non-tanah spt burung, bukan tinggi tanah aktual)
   var player = { xRatio:0.5, w:0, h:0, y:0, vy:0, onGround:true, standingPlatform:null, running:false, movingBack:false, facing:1, invincible:0, frameIdx:0, frameTimer:0 };
-  var score = 0, coins = 0, lives = 3;
+  var score = 0, diamonds = 0, lives = 3;
   var scrollX = 0;
   var obstacles = [];
   var orbs = [];
@@ -212,8 +254,12 @@
   var playTime = 0; // detik sejak game dimulai, dipakai buat menaikkan kesulitan pelan-pelan
   var hitFlash = 0;
   var rushActive = false, rushTimer = 5, rushDuration = 0; // gelombang "rush": periode rintangan bertubi-tubi, lalu jeda napas
-  var level = 1, levelUpFlash = 0; // naik 1 level tiap LEVEL_DURATION detik bertahan
-  var LEVEL_DURATION = 20;
+  var level = 1, levelUpFlash = 0; // naik 1 level tiap 100 meter jarak tempuh
+  var meters = 0; // jarak tempuh dalam "meter" game, dihitung dari scrollX
+  // Kalibrasi: 100 meter = 1 menit (60 detik) kalau tombol LARI ditahan terus-menerus
+  // di kecepatan dasar (RUN_SPEED, tanpa bonus lompat/kesulitan).
+  // -> RUN_SPEED px/detik harus setara (100/60) meter/detik.
+  var METERS_PER_PIXEL = (100/60) / RUN_SPEED;
 
   // Tingkat kesulitan 0->1 selama ~32 detik pertama: rintangan makin variatif & scroll makin cepat
   function getDifficulty(){ return Math.min(1, playTime/50); }
@@ -282,8 +328,9 @@
 
   // ================= HUD =================
   var scoreVal = document.getElementById('scoreVal');
-  var coinVal = document.getElementById('coinVal');
+  var diamondVal = document.getElementById('diamondVal');
   var levelVal = document.getElementById('levelVal');
+  var meterVal = document.getElementById('meterVal');
   var livesWrap = document.getElementById('livesWrap');
   var skinScreen = document.getElementById('skinScreen');
   var startScreen = document.getElementById('startScreen');
@@ -298,8 +345,9 @@
 
   function updateHUD(){
     scoreVal.textContent = score;
-    coinVal.textContent = coins;
+    diamondVal.textContent = diamonds;
     levelVal.textContent = level;
+    meterVal.textContent = Math.floor(meters);
     livesWrap.innerHTML = '';
     for (var i=0;i<3;i++){
       var span = document.createElement('span');
@@ -382,7 +430,7 @@
     if (e.code==='ArrowLeft' || e.code==='KeyA'){ handleBackEnd(); }
   });
 
-  // ================= SPAWN RINTANGAN & KOIN =================
+  // ================= SPAWN RINTANGAN & DIAMOND =================
   function spawnObstacle(){
     var diff = getDifficulty();
     // Bobot kemunculan tiap jenis: rock/bush (paling gampang dihindari) jadi andalan lagi,
@@ -436,7 +484,7 @@
       }
     }
   }
-  function spawnCoinGroup(){
+  function spawnDiamondGroup(){
     var count = 1 + Math.floor(Math.random()*4);
     var low = Math.random()<0.5;
     var localGY = groundYAt(CW+40);
@@ -508,7 +556,7 @@
       var cy = c.y + Math.sin(performance.now()/300 + c.bob)*4;
       var dx = (px+pw/2)-c.x, dy=(py+ph/2)-cy;
       if (Math.sqrt(dx*dx+dy*dy) < (pw*0.4+c.r)){
-        c.taken = true; coins++; score += 10; beep('coin'); updateHUD();
+        c.taken = true; diamonds++; score += 10; addGlobalDiamond(1); beep('coin'); updateHUD();
       }
     }
   }
@@ -527,7 +575,7 @@
     if (state!=='playing') return;
     playTime += dt;
 
-    var newLevel = 1 + Math.floor(playTime/LEVEL_DURATION);
+    var newLevel = 1 + Math.floor(meters/100);
     if (newLevel > level){
       level = newLevel;
       score += 50;
@@ -578,6 +626,7 @@
       var diffMult = 1 + getDifficulty()*0.25; // makin lama bertahan, scroll makin cepat sedikit demi sedikit
       var d = RUN_SPEED*speedMult*diffMult*dt*(player.movingBack ? -1 : 1);
       scrollX += d;
+      if (d > 0){ meters += d*METERS_PER_PIXEL; meterVal.textContent = Math.floor(meters); } // jarak cuma nambah kalau maju, bukan pas mundur
       obstacles.forEach(function(o){ o.x -= d; });
       orbs.forEach(function(c){ c.x -= d; });
       platforms.forEach(function(p){ p.x -= d; });
@@ -598,7 +647,7 @@
             spawnObstacle();
             spawnTimer = 0.4+Math.random()*0.2;
           } else {
-            if (Math.random()<0.5) spawnCoinGroup(); else spawnObstacle();
+            if (Math.random()<0.5) spawnDiamondGroup(); else spawnObstacle();
             spawnTimer = Math.max(0.45, 0.95 + Math.random()*0.6 - getDifficulty()*0.3);
           }
         }
@@ -779,18 +828,33 @@
     }
   }
 
-  function drawCoin(c){
+  function drawDiamond(c){
     var t = performance.now()/300 + c.bob;
     var cy = c.y + Math.sin(t)*4;
     var squash = Math.max(0.25, Math.abs(Math.cos(t*1.3)));
+    var r = c.r;
     ctx.save();
     ctx.translate(c.x, cy);
     ctx.scale(squash, 1);
-    var grad = ctx.createRadialGradient(-c.r*0.3,-c.r*0.3,1,0,0,c.r);
-    grad.addColorStop(0, '#FFF3B0'); grad.addColorStop(0.5, '#FFD34D'); grad.addColorStop(1, '#C98E1D');
+    // Bentuk permata (diamond) segi delapan sederhana, gradasi biru cyan seperti ikon diamond apk
+    ctx.beginPath();
+    ctx.moveTo(0, -r);
+    ctx.lineTo(r*0.62, -r*0.42);
+    ctx.lineTo(r*0.62, r*0.42);
+    ctx.lineTo(0, r);
+    ctx.lineTo(-r*0.62, r*0.42);
+    ctx.lineTo(-r*0.62, -r*0.42);
+    ctx.closePath();
+    var grad = ctx.createLinearGradient(0, -r, 0, r);
+    grad.addColorStop(0, '#DFF8FF'); grad.addColorStop(0.45, '#4DC8FF'); grad.addColorStop(1, '#0A6FBF');
     ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.arc(0,0,c.r,0,Math.PI*2); ctx.fill();
-    ctx.strokeStyle = '#8A5D10'; ctx.lineWidth = Math.max(1,c.r*0.15); ctx.stroke();
+    ctx.fill();
+    ctx.strokeStyle = '#053E70'; ctx.lineWidth = Math.max(1,r*0.12); ctx.stroke();
+    // Facet tengah biar keliatan berkilau seperti permata
+    ctx.beginPath();
+    ctx.moveTo(0, -r); ctx.lineTo(0, r);
+    ctx.moveTo(-r*0.62, -r*0.42); ctx.lineTo(0, -r*0.15); ctx.lineTo(r*0.62, -r*0.42);
+    ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = Math.max(1,r*0.07); ctx.stroke();
     ctx.restore();
   }
 
@@ -934,7 +998,7 @@
 
     obstacles.forEach(drawObstacle);
     platforms.forEach(drawPlatform);
-    orbs.forEach(function(c){ if(!c.taken) drawCoin(c); });
+    orbs.forEach(function(c){ if(!c.taken) drawDiamond(c); });
     drawPlayer();
 
     if (hitFlash>0){
@@ -969,9 +1033,9 @@
       try { toggleFullscreen(); } catch(e){}
     }
     state = 'playing';
-    score = 0; coins = 0; lives = 3;
+    score = 0; diamonds = 0; lives = 3;
     obstacles = []; orbs = []; platforms = [];
-    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0;
+    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0; meters = 0;
     rushActive = false; rushTimer = 10; rushDuration = 0;
     level = 1; levelUpFlash = 0;
     player.vy = 0; player.onGround = true; player.standingPlatform = null; player.running = false; player.invincible = 0;
@@ -984,7 +1048,7 @@
   function endGame(){
     state = 'gameover';
     player.running = false;
-    finalStats.textContent = 'Skor: ' + score + ' \u00b7 Koin: ' + coins;
+    finalStats.textContent = 'Skor: ' + score + ' \u00b7 Diamond: ' + diamonds;
     gameOverScreen.classList.remove('hidden');
   }
 
@@ -1038,6 +1102,7 @@
   }
 
   window.addEventListener('resize', resize);
+  window.addEventListener('orientationchange', function(){ setTimeout(resize, 50); });
   resize();
   updateHUD();
   requestAnimationFrame(loop);
