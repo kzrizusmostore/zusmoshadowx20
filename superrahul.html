@@ -407,10 +407,10 @@
   // ================= NPC DEKORASI: KARAKTER YANG NYAPA DI JALAN =================
   // Karakter dekorasi yang kadang muncul berdiri di jalan sambil nyapa & kasih bubble chat.
   // BUKAN rintangan -> tidak pernah dicek tabrakan, tidak bikin kena/hilang nyawa.
-  var vincentSapaSprite = { img: new Image(), ready:false, failed:false };
-  vincentSapaSprite.img.onload = function(){ vincentSapaSprite.ready = true; };
-  vincentSapaSprite.img.onerror = function(){ vincentSapaSprite.failed = true; };
-  vincentSapaSprite.img.src = ASSET_PATH + 'vincentsapa.png';
+  var vincentSopoSprite = { img: new Image(), ready:false, failed:false };
+  vincentSopoSprite.img.onload = function(){ vincentSopoSprite.ready = true; };
+  vincentSopoSprite.img.onerror = function(){ vincentSopoSprite.failed = true; };
+  vincentSopoSprite.img.src = ASSET_PATH + 'vincentsopo.png';
 
   var gemSapaSprite = { img: new Image(), ready:false, failed:false };
   gemSapaSprite.img.onload = function(){ gemSapaSprite.ready = true; };
@@ -419,7 +419,7 @@
 
   // Daftar semua karakter sapa: tinggal nambah entry baru di sini kalau ada karakter baru lagi
   var NPC_TYPES = {
-    vincentsapa: { sprite: vincentSapaSprite, text: 'DUA LAH', letter: 'V', color: 'rgba(126,87,194,0.9)' },
+    vincentsopo: { sprite: vincentSopoSprite, text: 'DUA LAH', letter: 'V', color: 'rgba(126,87,194,0.9)' },
     gemsapa:     { sprite: gemSapaSprite,     text: 'PAHAM !', letter: 'G', color: 'rgba(46,168,166,0.9)' }
   };
   var NPC_TYPE_KEYS = Object.keys(NPC_TYPES);
@@ -1267,7 +1267,7 @@
   // Gambar NPC berdiri di jalan sambil nyapa. Cuma dekorasi -> ga pernah dicek tabrakan
   // di checkCollisions(), jadi Rahul aman lewat di sebelahnya, ga kena/hilang nyawa.
   function drawNpc(n){
-    var cfg = NPC_TYPES[n.type] || NPC_TYPES.vincentsapa;
+    var cfg = NPC_TYPES[n.type] || NPC_TYPES.vincentsopo;
     var baseY = groundYAt(n.x+n.w/2);
     var x = n.x, y = baseY - n.h;
     ctx.fillStyle = 'rgba(0,0,0,0.22)';
