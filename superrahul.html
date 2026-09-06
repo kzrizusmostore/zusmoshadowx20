@@ -287,13 +287,25 @@
   cangkulSprite.img.onerror = function(){ cangkulSprite.failed = true; };
   cangkulSprite.img.src = ASSET_PATH + 'skilcangkul.png';
 
-  // ================= NPC DEKORASI: VINCENT NYAPA =================
-  // Vincent cuma karakter dekorasi yang kadang muncul berdiri di jalan sambil nyapa.
+  // ================= NPC DEKORASI: KARAKTER YANG NYAPA DI JALAN =================
+  // Karakter dekorasi yang kadang muncul berdiri di jalan sambil nyapa & kasih bubble chat.
   // BUKAN rintangan -> tidak pernah dicek tabrakan, tidak bikin kena/hilang nyawa.
   var vincentSapaSprite = { img: new Image(), ready:false, failed:false };
   vincentSapaSprite.img.onload = function(){ vincentSapaSprite.ready = true; };
   vincentSapaSprite.img.onerror = function(){ vincentSapaSprite.failed = true; };
   vincentSapaSprite.img.src = ASSET_PATH + 'vincentsapa.png';
+
+  var gemSapaSprite = { img: new Image(), ready:false, failed:false };
+  gemSapaSprite.img.onload = function(){ gemSapaSprite.ready = true; };
+  gemSapaSprite.img.onerror = function(){ gemSapaSprite.failed = true; };
+  gemSapaSprite.img.src = ASSET_PATH + 'gemsapa.png';
+
+  // Daftar semua karakter sapa: tinggal nambah entry baru di sini kalau ada karakter baru lagi
+  var NPC_TYPES = {
+    vincentsapa: { sprite: vincentSapaSprite, text: 'DUA LAH', letter: 'V', color: 'rgba(126,87,194,0.9)' },
+    gemsapa:     { sprite: gemSapaSprite,     text: 'PAHAM !', letter: 'G', color: 'rgba(46,168,166,0.9)' }
+  };
+  var NPC_TYPE_KEYS = Object.keys(NPC_TYPES);
 
 
 
@@ -336,7 +348,8 @@
   var cangkulProjectiles = []; // cangkul yang sedang melesat menuju rintangan
   var cangkulBursts = [];      // efek kilatan sesaat rintangan hancur kena cangkul
   var CANGKUL_RING_CIRC = 2*Math.PI*44; // keliling lingkaran ring progres (r=44 sesuai viewBox svg)
-  var CANGKUL_EXTRA_SPEED = 620; // px/detik tambahan di atas kecepatan scroll biasa, biar cangkul terasa melesat cepat
+  var CANGKUL_EXTRA_SPEED = 1600; // px/detik tambahan di atas kecepatan scroll biasa -> jauh lebih ngebut, kesan "menyerang" bukan cuma jalan
+  var CANGKUL_SPIN_SPEED = 22; // radian/detik -> cangkul muter-muter cepat di udara waktu melesat
   // Kalibrasi: 100 meter = 1 menit (60 detik) kalau tombol LARI ditahan terus-menerus
   // di kecepatan dasar (RUN_SPEED, tanpa bonus lompat/kesulitan).
   // -> RUN_SPEED px/detik harus setara (100/60) meter/detik.
@@ -699,11 +712,12 @@
     }
   }
 
-  // Vincent muncul berdiri di tanah kayak obstacle "ground", tapi TIDAK dimasukkan ke
+  // Vincent/Gem muncul berdiri di tanah kayak obstacle "ground", tapi TIDAK dimasukkan ke
   // array obstacles -> checkCollisions() ga pernah lihat dia, jadi ga mungkin bikin kena/mati.
   function spawnNpc(){
     var h = CH*0.24, w = h*0.72;
-    npcs.push({ x: CW+40, w:w, h:h, type:'vincentsapa' });
+    var type = NPC_TYPE_KEYS[Math.floor(Math.random()*NPC_TYPE_KEYS.length)];
+    npcs.push({ x: CW+40, w:w, h:h, type:type });
   }
 
   // ================= LOGIKA CANGKUL (buff) =================
@@ -711,21 +725,28 @@
     cangkulBursts.push({ x:x, y:y, t:0 });
   }
   // Serangan cangkul manual: dipanggil waktu tombol buff diklik & cangkulCharges>0.
-  // Langsung melesat cepat lurus ke depan begitu diklik, ga peduli ada rintangan atau tidak di depan;
-  // kalau kebetulan lewat rintangan tanah di jalurnya, rintangan itu baru hancur (lihat updateCangkul).
+  // Langsung melesat SANGAT cepat lurus ke depan begitu diklik (bukan pelan-pelan ngikutin
+  // posisi karakter), sambil muter-muter di udara, ga peduli ada rintangan atau tidak di
+  // depan; kalau kebetulan lewat rintangan tanah di jalurnya, rintangan itu baru hancur
+  // (lihat updateCangkul).
   function fireCangkul(){
     if (cangkulProjectiles.length>0) return; // satu cangkul aktif dalam satu waktu
     cangkulCharges--;
     var pxCenter = CW*player.xRatio;
     var cs = CH*0.085;
-    cangkulProjectiles.push({ x: pxCenter-player.w*0.75, w:cs, h:cs, life:2.5 });
+    // Muncul sudah agak di depan karakter (bukan di belakang) biar langsung kelihatan "nembak maju",
+    // bukan nongol nempel/deket badan lalu pelan2 lepas.
+    cangkulProjectiles.push({ x: pxCenter+player.w*0.35, w:cs, h:cs, life:1.4, rot:0 });
     updateBuffUI();
   }
-  // d = jarak dunia yang bergeser frame ini (sama seperti yang dipakai buat geser obstacles/orbs/platforms)
+  // d = jarak dunia yang bergeser frame ini (sama seperti yang dipakai buat geser obstacles/orbs/platforms).
+  // Cangkul dikasih kecepatan sendiri yang jauh lebih ngebut dari scroll biasa, plus efek muter
+  // (rotasi cepat) tiap frame, biar keliatan jelas dia "menyerang sendiri" bukan sekadar geser bareng dunia.
   function updateCangkul(dt, d){
     for (var i=cangkulProjectiles.length-1; i>=0; i--){
       var pr = cangkulProjectiles[i];
       pr.x += -d + CANGKUL_EXTRA_SPEED*dt;
+      pr.rot = (pr.rot||0) + CANGKUL_SPIN_SPEED*dt;
       pr.life -= dt;
       // Lewat rintangan tanah manapun yang lagi ada di jalurnya -> hancur (boleh kena lebih dari satu)
       for (var k=obstacles.length-1; k>=0; k--){
@@ -840,10 +861,11 @@
       player.y = groundYAt(pxCenter) - player.h;
     }
 
+    var d = 0;
     if (player.running || player.movingBack){
       var speedMult = player.onGround ? 1 : JUMP_SPEED_MULT;
       var diffMult = 1 + getDifficulty()*0.25; // makin lama bertahan, scroll makin cepat sedikit demi sedikit
-      var d = RUN_SPEED*speedMult*diffMult*dt*(player.movingBack ? -1 : 1);
+      d = RUN_SPEED*speedMult*diffMult*dt*(player.movingBack ? -1 : 1);
       scrollX += d;
       if (d > 0){ meters += d*METERS_PER_PIXEL; meterVal.textContent = Math.floor(meters); } // jarak cuma nambah kalau maju, bukan pas mundur
       obstacles.forEach(function(o){ o.x -= d; });
@@ -881,7 +903,6 @@
           spawnNpc();
           npcSpawnTimer = 16 + Math.random()*12; // Vincent ga sesering rintangan, cuma sesekali nongol nyapa
         }
-        updateCangkul(dt, d);
       }
       player.frameTimer += dt;
       if (player.frameTimer >= FRAME_TIME){
@@ -891,6 +912,10 @@
     } else {
       player.frameIdx = 0; player.frameTimer = 0;
     }
+
+    // Cangkul jalan terus tiap frame, ga peduli Rahul lagi lari/diam/mundur -> begitu diklik
+    // langsung melesat sendiri dengan kecepatannya sendiri, ga "nempel"/ngikutin karakter lagi.
+    updateCangkul(dt, d);
 
     if (player.invincible>0) player.invincible -= dt;
     if (hitFlash>0) hitFlash = Math.max(0, hitFlash-dt*1.5);
@@ -1004,33 +1029,34 @@
     ctx.restore();
   }
 
-  // Gambar Vincent berdiri di jalan sambil nyapa. Cuma dekorasi -> ga pernah dicek tabrakan
+  // Gambar NPC berdiri di jalan sambil nyapa. Cuma dekorasi -> ga pernah dicek tabrakan
   // di checkCollisions(), jadi Rahul aman lewat di sebelahnya, ga kena/hilang nyawa.
   function drawNpc(n){
+    var cfg = NPC_TYPES[n.type] || NPC_TYPES.vincentsapa;
     var baseY = groundYAt(n.x+n.w/2);
     var x = n.x, y = baseY - n.h;
     ctx.fillStyle = 'rgba(0,0,0,0.22)';
     ctx.beginPath();
     ctx.ellipse(x+n.w/2, baseY+4, n.w*0.32, 6, 0, 0, Math.PI*2);
     ctx.fill();
-    if (vincentSapaSprite.ready && !vincentSapaSprite.failed){
-      ctx.drawImage(vincentSapaSprite.img, x, y, n.w, n.h);
+    if (cfg.sprite.ready && !cfg.sprite.failed){
+      ctx.drawImage(cfg.sprite.img, x, y, n.w, n.h);
     } else {
-      // placeholder selagi vincentsapa.png belum ada/gagal dimuat
-      ctx.fillStyle = 'rgba(126,87,194,0.9)';
+      // placeholder selagi gambar aslinya belum ada/gagal dimuat
+      ctx.fillStyle = cfg.color;
       roundRect(x, y, n.w, n.h, n.w*0.18); ctx.fill();
       ctx.strokeStyle = '#2B2118'; ctx.lineWidth = 3;
       roundRect(x, y, n.w, n.h, n.w*0.18); ctx.stroke();
       ctx.fillStyle = '#fff';
       ctx.font = 'bold ' + (n.w*0.4) + 'px sans-serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('V', x+n.w/2, y+n.h*0.42);
+      ctx.fillText(cfg.letter, x+n.w/2, y+n.h*0.42);
     }
-    // Bubble "DUA LAH" cuma nongol pas Rahul lagi deket/ketemu Vincent di jalan
+    // Bubble chat cuma nongol pas Rahul lagi deket/ketemu karakternya di jalan
     var pxCenter = CW*player.xRatio;
     var dist = Math.abs(pxCenter - (x+n.w/2));
     if (dist < CH*0.42){
-      drawGreetBubble(x+n.w/2, y, n.w, 'DUA LAH');
+      drawGreetBubble(x+n.w/2, y, n.w, cfg.text);
     }
   }
 
@@ -1162,6 +1188,7 @@
     var baseline = groundY - pr.h*0.6; // melayang sedikit di atas tanah, sejajar mengikuti kontur tanah di posisinya
     ctx.save();
     ctx.translate(pr.x, baseline);
+    ctx.rotate(pr.rot||0); // efek muter-muter waktu melesat
     if (cangkulSprite.ready && !cangkulSprite.failed){
       ctx.drawImage(cangkulSprite.img, -pr.w/2, -pr.h/2, pr.w, pr.h);
     } else {
