@@ -32,10 +32,7 @@
     color:var(--ink); box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; gap:6px; }
   .hud-left{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
   .hud-pill.level-pill{ padding:5px 12px; font-size:clamp(8px,2.4vw,11px); background:var(--sun); }
-  #fullscreenBtn{ pointer-events:auto; cursor:pointer; background:var(--cream); border:3px solid var(--ink);
-    border-radius:50%; width:clamp(34px,8vw,42px); height:clamp(34px,8vw,42px); font-size:clamp(14px,4vw,18px);
-    box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; justify-content:center; color:var(--ink); }
-  #fullscreenBtn:active{ transform:translateY(3px); box-shadow:0 0 0 var(--ink); }
+  .hud-right{ display:flex; align-items:center; gap:8px; }
   #livesWrap{ background:var(--cream); border:3px solid var(--ink); border-radius:999px;
     padding:8px 12px; box-shadow:0 3px 0 var(--ink); display:flex; gap:3px; align-items:center; }
   #livesWrap span{ font-size:clamp(14px,4vw,20px); line-height:1; }
@@ -69,6 +66,10 @@
   .run-btn{ background:linear-gradient(var(--run-1),var(--run-2)); }
   .jump-btn{ background:linear-gradient(var(--jump-1),var(--jump-2)); }
   .ctrl-btn.pressed{ transform:translateY(6px); box-shadow:0 0 0 rgba(0,0,0,.35); }
+  #jumpGroup{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .sound-btn{ width:clamp(42px,12vw,56px); height:clamp(42px,12vw,56px);
+    font-size:clamp(15px,4vw,20px); background:linear-gradient(#FFD34D,#B8860B);
+    box-shadow:0 4px 0 rgba(0,0,0,.35); }
 
   .skin-row{ display:flex; align-items:center; justify-content:center; gap:clamp(14px,4vw,26px); }
   .skin-box{ position:relative; width:clamp(78px,22vw,110px); height:clamp(78px,22vw,110px);
@@ -102,9 +103,10 @@
       <div class="hud-pill">SKOR <span id="scoreVal">0</span></div>
       <div class="hud-pill">🏁 <span id="meterVal">0</span>m</div>
     </div>
-    <div id="livesWrap"></div>
-    <div class="hud-pill"><img src="zusmo-assets/onzrii.png" alt="diamond" style="width:13px;height:13px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'"><span id="diamondVal">0</span></div>
-    <button id="fullscreenBtn" title="Layar penuh">⛶</button>
+    <div class="hud-right">
+      <div id="livesWrap"></div>
+      <div class="hud-pill"><img src="zusmo-assets/onzrii.png" alt="diamond" style="width:13px;height:13px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'"><span id="diamondVal">0</span></div>
+    </div>
   </div>
 
   <div id="skinScreen" class="overlay">
@@ -146,7 +148,10 @@
       <button id="backBtn" class="ctrl-btn back-btn"><span>MUNDUR</span></button>
       <button id="runBtn" class="ctrl-btn run-btn"><span>LARI</span></button>
     </div>
-    <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+    <div id="jumpGroup">
+      <button id="soundBtn" class="ctrl-btn sound-btn" title="Suara karakter">🔊</button>
+      <button id="jumpBtn" class="ctrl-btn jump-btn"><span>LOMPAT</span></button>
+    </div>
   </div>
 </div>
 
@@ -231,6 +236,13 @@
   var runOrder = ['a','b','c','d'];
   var jumpOrder = ['j1','j2','j3','j4','j5','j6'];
 
+  // Gambar diamond yang dikumpulkan di game pakai ikon diamond asli apk (onzrii.png),
+  // biar konsisten sama tampilan diamond di kzrizusmo/Sky Hopper/Kuis FF.
+  var diamondSprite = { img: new Image(), ready:false, failed:false };
+  diamondSprite.img.onload = function(){ diamondSprite.ready = true; };
+  diamondSprite.img.onerror = function(){ diamondSprite.failed = true; };
+  diamondSprite.img.src = ASSET_PATH + 'onzrii.png';
+
 
 
   // ================= KONSTANTA GAME =================
@@ -238,7 +250,7 @@
   var JUMP_VELOCITY = -780;
   var RUN_SPEED = 280; // px/detik saat tombol LARI ditahan
   var JUMP_SPEED_MULT = 1.4; // pengali kecepatan scroll saat sedang di udara (melompat)
-  var FRAME_TIME = 0.25; // detik per frame animasi lari (4 frame x 0.25 = 1 detik)
+  var FRAME_TIME = 0.25/1.5; // detik per frame animasi lari, dipercepat 1.5x dari semula 0.25
 
   // ================= STATE GAME =================
   var state = 'start'; // start | playing | gameover
@@ -256,6 +268,7 @@
   var rushActive = false, rushTimer = 5, rushDuration = 0; // gelombang "rush": periode rintangan bertubi-tubi, lalu jeda napas
   var level = 1, levelUpFlash = 0; // naik 1 level tiap 100 meter jarak tempuh
   var meters = 0; // jarak tempuh dalam "meter" game, dihitung dari scrollX
+  var tauntText = '', tauntTimer = 0; // bubble chat di atas karakter waktu tombol suara dipencet
   // Kalibrasi: 100 meter = 1 menit (60 detik) kalau tombol LARI ditahan terus-menerus
   // di kecepatan dasar (RUN_SPEED, tanpa bonus lompat/kesulitan).
   // -> RUN_SPEED px/detik harus setara (100/60) meter/detik.
@@ -339,9 +352,9 @@
   var runBtn = document.getElementById('runBtn');
   var backBtn = document.getElementById('backBtn');
   var jumpBtn = document.getElementById('jumpBtn');
+  var soundBtn = document.getElementById('soundBtn');
   var startBtn = document.getElementById('startBtn');
   var retryBtn = document.getElementById('retryBtn');
-  var fullscreenBtn = document.getElementById('fullscreenBtn');
 
   function updateHUD(){
     scoreVal.textContent = score;
@@ -418,6 +431,32 @@
   jumpBtn.addEventListener('pointerdown', function(e){ e.preventDefault(); jumpBtn.classList.add('pressed'); handleJump(); });
   ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
     jumpBtn.addEventListener(ev, function(){ jumpBtn.classList.remove('pressed'); });
+  });
+
+  // ================= TOMBOL SUARA (SOUNDPACK KARAKTER) =================
+  // Mainkan file suara sesuai skin yang lagi dipakai, dan tampilkan bubble chat
+  // "OH YA BANG!" di atas kepala karakter selama 3 detik.
+  var charVoiceAudio = new Audio();
+  function playCharacterVoice(){
+    try {
+      charVoiceAudio.src = ASSET_PATH + 'soundpack-' + selectedSkin + '.mp3';
+      charVoiceAudio.currentTime = 0;
+      charVoiceAudio.play().catch(function(){});
+    } catch(e){}
+  }
+  function triggerTaunt(text){
+    tauntText = text;
+    tauntTimer = 3;
+  }
+  soundBtn.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    soundBtn.classList.add('pressed');
+    ensureAudio();
+    playCharacterVoice();
+    triggerTaunt('OH YA BANG!');
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    soundBtn.addEventListener(ev, function(){ soundBtn.classList.remove('pressed'); });
   });
 
   window.addEventListener('keydown', function(e){
@@ -571,6 +610,8 @@
       c.xRatio -= (c.speed*dt)/CW;
       if (c.xRatio < -0.2) c.xRatio = 1.1;
     });
+
+    if (tauntTimer>0) tauntTimer = Math.max(0, tauntTimer-dt);
 
     if (state!=='playing') return;
     playTime += dt;
@@ -836,7 +877,14 @@
     ctx.save();
     ctx.translate(c.x, cy);
     ctx.scale(squash, 1);
-    // Bentuk permata (diamond) segi delapan sederhana, gradasi biru cyan seperti ikon diamond apk
+    if (diamondSprite.ready && !diamondSprite.failed){
+      // Pakai gambar diamond asli apk (onzrii.png)
+      var s = r*2.1;
+      ctx.drawImage(diamondSprite.img, -s/2, -s/2, s, s);
+      ctx.restore();
+      return;
+    }
+    // Fallback: bentuk permata segi delapan sederhana kalau gambar belum/gagal dimuat
     ctx.beginPath();
     ctx.moveTo(0, -r);
     ctx.lineTo(r*0.62, -r*0.42);
@@ -886,6 +934,46 @@
     ctx.restore();
   }
 
+  function drawTauntBubble(cx, topY, w){
+    if (tauntTimer<=0 || !tauntText) return;
+    ctx.save();
+    ctx.font = "bold " + Math.max(11, w*0.13) + "px 'Baloo 2', sans-serif";
+    var padX = 12, padY = 8;
+    var textW = ctx.measureText(tauntText).width;
+    var bw = textW + padX*2, bh = Math.max(11,w*0.13) + padY*2;
+    var bx = cx - bw/2, by = topY - bh - 16;
+    // muncul cepat lalu memudar di 0.5 detik terakhir dari 3 detik
+    var alpha = tauntTimer < 0.5 ? tauntTimer/0.5 : 1;
+    ctx.globalAlpha = alpha;
+    // badan bubble
+    ctx.fillStyle = '#FFF8E7';
+    ctx.strokeStyle = '#2B2118';
+    ctx.lineWidth = 3;
+    var r = 10;
+    ctx.beginPath();
+    ctx.moveTo(bx+r, by);
+    ctx.lineTo(bx+bw-r, by);
+    ctx.quadraticCurveTo(bx+bw, by, bx+bw, by+r);
+    ctx.lineTo(bx+bw, by+bh-r);
+    ctx.quadraticCurveTo(bx+bw, by+bh, bx+bw-r, by+bh);
+    ctx.lineTo(bx+bw/2+8, by+bh);
+    ctx.lineTo(bx+bw/2, by+bh+10); // ekor bubble mengarah ke karakter
+    ctx.lineTo(bx+bw/2-4, by+bh);
+    ctx.lineTo(bx+r, by+bh);
+    ctx.quadraticCurveTo(bx, by+bh, bx, by+bh-r);
+    ctx.lineTo(bx, by+r);
+    ctx.quadraticCurveTo(bx, by, bx+r, by);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // teks
+    ctx.fillStyle = '#2B2118';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(tauntText, bx+bw/2, by+bh/2);
+    ctx.restore();
+  }
+
   function drawPlayer(){
     var px = CW*player.xRatio - player.w/2, py = player.y, w = player.w, h = player.h;
     ctx.save();
@@ -917,6 +1005,7 @@
       if (jumpFrameIdx === 4){ jumpYExtra = -h * 0.15; }
     }
     drawCharacter(px + jumpXOffset, py + jumpYExtra, w, h, player.running || player.movingBack, player.frameIdx, !player.onGround, jumpFrameIdx, player.facing);
+    drawTauntBubble(px + jumpXOffset + w/2, py + jumpYExtra, w);
     ctx.restore();
   }
 
@@ -1027,7 +1116,7 @@
   }
 
   // ================= GAME FLOW =================
-  function startGame(){
+  function startGame(preserveLevel){
     ensureAudio();
     if (!isFullscreen()){
       try { toggleFullscreen(); } catch(e){}
@@ -1035,9 +1124,16 @@
     state = 'playing';
     score = 0; diamonds = 0; lives = 3;
     obstacles = []; orbs = []; platforms = [];
-    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0; meters = 0;
+    scrollX = 0; spawnTimer = 1; platformSpawnTimer = 2.5; playTime = 0;
     rushActive = false; rushTimer = 10; rushDuration = 0;
-    level = 1; levelUpFlash = 0;
+    if (preserveLevel){
+      // Mati lalu main lagi: level TIDAK direset ke 1, dilanjut dari level terakhir.
+      levelUpFlash = 0;
+      meters = (level-1)*100; // biar progress jarak konsisten sama level yang dipertahankan
+    } else {
+      // Main dari awal (pertama kali buka game): mulai dari level 1.
+      level = 1; levelUpFlash = 0; meters = 0;
+    }
     player.vy = 0; player.onGround = true; player.standingPlatform = null; player.running = false; player.invincible = 0;
     player.frameIdx = 0; player.frameTimer = 0;
     computeMetrics();
@@ -1052,8 +1148,8 @@
     gameOverScreen.classList.remove('hidden');
   }
 
-  startBtn.addEventListener('click', startGame);
-  retryBtn.addEventListener('click', startGame);
+  startBtn.addEventListener('click', function(){ startGame(false); });
+  retryBtn.addEventListener('click', function(){ startGame(true); });
 
   // ================= LAYAR PILIH SKIN =================
   // Cuma Rahul yang terbuka sekarang; Gem & Vincent masih terkunci (belum ada karakternya).
@@ -1073,6 +1169,8 @@
   });
 
   // ================= LAYAR PENUH =================
+  // Tombol layar penuh sudah dihapus dari HUD; fungsi ini masih dipakai
+  // buat auto-fullscreen otomatis waktu game dimulai (lihat startGame()).
   function isFullscreen(){
     return !!(document.fullscreenElement || document.webkitFullscreenElement);
   }
@@ -1086,10 +1184,6 @@
       if (exit) exit.call(document);
     }
   }
-  function updateFsIcon(){ fullscreenBtn.textContent = isFullscreen() ? '⤢' : '⛶'; }
-  fullscreenBtn.addEventListener('click', toggleFullscreen);
-  document.addEventListener('fullscreenchange', updateFsIcon);
-  document.addEventListener('webkitfullscreenchange', updateFsIcon);
 
   // ================= LOOP =================
   var lastTime = performance.now();
