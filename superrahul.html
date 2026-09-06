@@ -31,6 +31,7 @@
     padding:8px 14px; font-family:'Press Start 2P',monospace; font-size:clamp(10px,3vw,14px);
     color:var(--ink); box-shadow:0 3px 0 var(--ink); display:flex; align-items:center; gap:6px; }
   .hud-left{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .hud-toggle-row{ display:flex; flex-direction:row; align-items:center; gap:8px; }
   .hud-pill.level-pill{ padding:5px 12px; font-size:clamp(8px,2.4vw,11px); background:var(--sun); }
   .mute-toggle-btn{ pointer-events:auto; cursor:pointer; padding:0; width:clamp(30px,8vw,38px);
     height:clamp(30px,8vw,38px); border-radius:50%; display:flex; align-items:center; justify-content:center;
@@ -77,6 +78,10 @@
     background:var(--sun); border:4px solid var(--ink); border-radius:16px; padding:14px 30px;
     box-shadow:0 6px 0 #b8860b; cursor:pointer; transition:transform .08s, box-shadow .08s; }
   .big-btn:active{ transform:translateY(6px); box-shadow:0 0 0 #b8860b; }
+  .big-btn.big-btn-alt{ background:linear-gradient(var(--back-1),var(--back-2)); color:#fff;
+    box-shadow:0 6px 0 var(--back-2); display:flex; align-items:center; gap:10px; }
+  .big-btn.big-btn-alt:active{ box-shadow:0 0 0 var(--back-2); }
+  .big-btn.big-btn-alt svg{ width:16px; height:16px; flex:none; }
   .big-btn.shake{ animation:skinShake .32s; }
   .cost-hint{ font-family:'Baloo 2',sans-serif; font-weight:700; color:#fff; font-size:clamp(11px,3vw,13px);
     display:flex; align-items:center; justify-content:center; gap:5px; margin:0; }
@@ -84,6 +89,7 @@
   .cost-error{ font-family:'Baloo 2',sans-serif; font-weight:700; color:#FFB3B3; font-size:clamp(11px,3vw,13px);
     margin:0; display:none; }
   .cost-error.show{ display:block; }
+  .home-btn-below-skins{ margin-top:26px; }
 
   #controls{ position:absolute; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0;
     display:flex; justify-content:space-between; align-items:flex-end; padding:0 24px; z-index:5; pointer-events:none; }
@@ -156,24 +162,26 @@
 
   <div id="hud">
     <div class="hud-left">
-      <button id="settingsToggleBtn" class="settings-toggle-btn" title="Pengaturan">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="12" cy="12" r="3.4" fill="none" stroke="#2B2118" stroke-width="1.8"/>
-          <path d="M12 3.2l.9 2.3 2.3.5 1.3 2 2.3.5-.3 2.3 1.6 1.8-1.6 1.8.3 2.3-2.3.5-1.3 2-2.3.5-.9 2.3-.9-2.3-2.3-.5-1.3-2-2.3-.5.3-2.3-1.6-1.8 1.6-1.8-.3-2.3 2.3-.5 1.3-2 2.3-.5z"
-            fill="none" stroke="#2B2118" stroke-width="1.4" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <button id="muteToggleBtn" class="mute-toggle-btn" title="Suara game">
-        <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
-          <path d="M15.8 8.3c1.4 1.1 1.4 6.3 0 7.4" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <path d="M18.3 6.2c2.6 2.3 2.6 9.3 0 11.6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
-        </svg>
-        <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
-          <path d="M16 9l5 6M21 9l-5 6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </button>
+      <div class="hud-toggle-row">
+        <button id="settingsToggleBtn" class="settings-toggle-btn" title="Pengaturan">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.4" fill="none" stroke="#2B2118" stroke-width="1.8"/>
+            <path d="M12 3.2l.9 2.3 2.3.5 1.3 2 2.3.5-.3 2.3 1.6 1.8-1.6 1.8.3 2.3-2.3.5-1.3 2-2.3.5-.9 2.3-.9-2.3-2.3-.5-1.3-2-2.3-.5.3-2.3-1.6-1.8 1.6-1.8-.3-2.3 2.3-.5 1.3-2 2.3-.5z"
+              fill="none" stroke="#2B2118" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button id="muteToggleBtn" class="mute-toggle-btn" title="Suara game">
+          <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
+            <path d="M15.8 8.3c1.4 1.1 1.4 6.3 0 7.4" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M18.3 6.2c2.6 2.3 2.6 9.3 0 11.6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          </svg>
+          <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 9.5v5h3.4l4.6 3.6V5.9L7.4 9.5H4z" fill="#2B2118"/>
+            <path d="M16 9l5 6M21 9l-5 6" stroke="#2B2118" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
       <div class="hud-pill level-pill">LV <span id="levelVal">1</span></div>
       <div class="hud-pill">SKOR <span id="scoreVal">0</span></div>
       <div class="hud-pill">🏁 <span id="meterVal">0</span>m</div>
@@ -192,13 +200,6 @@
   </div>
 
   <div id="skinScreen" class="overlay">
-    <button id="homeBtnSkin" class="home-btn">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M3.5 11.5L12 4l8.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6 10.5V20h5v-5h2v5h5v-9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-      </svg>
-      BERANDA
-    </button>
     <h2 class="title small">PILIH SKIN</h2>
     <div class="skin-row">
       <button class="skin-box locked" data-skin="gem" disabled>
@@ -216,20 +217,27 @@
         <span class="skin-name">Vincent</span>
       </button>
     </div>
-  </div>
-
-  <div id="startScreen" class="overlay hidden">
-    <button id="homeBtnStart" class="home-btn">
+    <button id="homeBtnSkin" class="home-btn home-btn-below-skins">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3.5 11.5L12 4l8.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M6 10.5V20h5v-5h2v5h5v-9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
       </svg>
       BERANDA
     </button>
+  </div>
+
+  <div id="startScreen" class="overlay hidden">
     <h1 class="title">SUPER<br>RAHULLL</h1>
     <p class="tagline">Berlari, melompat, kumpulkan diamond!</p>
     <p class="cost-hint">Biaya main: <img src="zusmo-assets/onzrii.png" alt="diamond" onerror="this.style.display='none'">100</p>
     <button id="startBtn" class="big-btn">MULAI</button>
+    <button id="homeBtnStart" class="big-btn big-btn-alt">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3.5 11.5L12 4l8.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 10.5V20h5v-5h2v5h5v-9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      BERANDA
+    </button>
     <p class="cost-error" id="startCostError">Diamond kamu tidak cukup buat main (butuh 100)</p>
   </div>
 
@@ -804,56 +812,94 @@
   });
 
   // ================= SPAWN RINTANGAN & DIAMOND =================
+  // Tipe rintangan darat & terbang dikumpulin di sini biar gampang nambah jenis baru lagi nanti.
+  var GROUND_OBSTACLE_TYPES = ['rock','bush','log','crate','cactus','barrel','spike'];
+  var FLYING_OBSTACLE_TYPES = ['bird','bat','wasp'];
+
+  // Ukuran tiap jenis rintangan darat (beda-beda biar polanya kebaca beda pas main)
+  function groundObstacleDims(type){
+    var h;
+    if (type === 'rock'){ h = CH*(0.10+Math.random()*0.05); return { h:h, w:h*1.1 }; }
+    if (type === 'bush'){ h = CH*(0.09+Math.random()*0.04); return { h:h, w:h*1.3 }; }
+    if (type === 'log'){ h = CH*(0.06+Math.random()*0.015); return { h:h, w:h*2.8 }; } // rebahan, pendek tapi lebar
+    if (type === 'crate'){ h = CH*(0.11+Math.random()*0.03); return { h:h, w:h*0.95 }; } // peti kayu kotak
+    if (type === 'cactus'){ h = CH*(0.15+Math.random()*0.05); return { h:h, w:h*0.62 }; } // kaktus, tinggi & ramping
+    if (type === 'barrel'){ h = CH*(0.13+Math.random()*0.03); return { h:h, w:h*0.72 }; } // drum/tong
+    h = CH*(0.17+Math.random()*0.05); return { h:h, w:h*0.5 }; // spike (default)
+  }
+
+  // Bobot kemunculan tiap jenis rintangan. Yang gampang dihindari (rock/bush/log/crate/barrel) jadi andalan,
+  // yang butuh presisi (spike/cactus/bird/bat/wasp) makin sering muncul kalau kesulitan sudah naik.
+  function pickObstacleType(diff){
+    var pool = [
+      { type:'rock',   w:0.20 },
+      { type:'bush',   w:0.16 },
+      { type:'log',    w:0.10 },
+      { type:'crate',  w:0.09 },
+      { type:'barrel', w:0.08 },
+      { type:'cactus', w:0.07+diff*0.05 },
+      { type:'spike',  w:0.09+diff*0.14 },
+      { type:'bird',   w:0.06+diff*0.12 },
+      { type:'bat',    w:0.03+diff*0.08 },
+      { type:'wasp',   w:0.02+diff*0.06 }
+    ];
+    var total = 0;
+    pool.forEach(function(p){ total += p.w; });
+    var roll = Math.random()*total;
+    for (var i=0;i<pool.length;i++){
+      roll -= pool[i].w;
+      if (roll < 0) return pool[i].type;
+    }
+    return pool[pool.length-1].type;
+  }
+
+  // Jarak terbang & kelakuan tiap jenis rintangan udara beda-beda (burung tenang, kelelawar gesit, tawon paling ricuh)
+  function flyingObstacleSpec(type){
+    if (type === 'bat') return { h:CH*0.065, w:CH*0.065*1.6, rangeMin:0.12, rangeMax:0.30, diveChance:true };
+    if (type === 'wasp') return { h:CH*0.05, w:CH*0.05*1.3, rangeMin:0.10, rangeMax:0.24, diveChance:false };
+    return { h:CH*0.085, w:CH*0.085*1.5, rangeMin:0.16, rangeMax:0.38, diveChance:true }; // bird (default)
+  }
+
   function spawnObstacle(){
     var diff = getDifficulty();
-    // Bobot kemunculan tiap jenis: rock/bush (paling gampang dihindari) jadi andalan lagi,
-    // spike & burung (butuh presisi) baru makin sering muncul kalau kesulitan sudah naik
-    var wRock = 0.38, wBush = 0.34, wSpike = 0.12+diff*0.16, wBird = 0.06+diff*0.14;
-    var total = wRock+wBush+wSpike+wBird, roll = Math.random()*total, type;
-    if ((roll -= wRock) < 0) type = 'rock';
-    else if ((roll -= wBush) < 0) type = 'bush';
-    else if ((roll -= wSpike) < 0) type = 'spike';
-    else type = 'bird';
+    var type = pickObstacleType(diff);
 
-    if (type === 'bird'){
+    if (FLYING_OBSTACLE_TYPES.indexOf(type) !== -1){
       // Rintangan terbang: kadang rendah (wajib lompat), kadang tinggi (wajib jangan lompat)
-      var h = CH*0.085, w = h*1.5;
+      var spec = flyingObstacleSpec(type);
       var flightLevel = Math.random();
-      var baseY = groundBaseY - CH*(0.16+flightLevel*0.22);
-      // Sebagian burung menukik turun lalu naik lagi (dive) -> pola kelakan baru, bukan cuma naik-turun halus
-      var isDiver = Math.random() < 0.15+diff*0.15;
-      obstacles.push({ x: CW+40, w:w, h:h, type:'bird', ground:false, baseY:baseY, bob:Math.random()*Math.PI*2, dive:isDiver });
-      // Burung kadang datang berombongan biar makin rame di udara
+      var baseY = groundBaseY - CH*(spec.rangeMin + flightLevel*(spec.rangeMax-spec.rangeMin));
+      // Sebagian menukik turun lalu naik lagi (dive) -> pola kelakuan baru, bukan cuma naik-turun halus
+      var isDiver = spec.diveChance && Math.random() < 0.15+diff*0.15;
+      obstacles.push({ x: CW+40, w:spec.w, h:spec.h, type:type, ground:false, baseY:baseY, bob:Math.random()*Math.PI*2, dive:isDiver });
+      // Kadang datang berombongan biar makin rame di udara
       if (Math.random() < 0.15+diff*0.2){
-        var h2 = h, w2 = w, flightLevel2 = Math.random();
-        var baseY2 = groundBaseY - CH*(0.16+flightLevel2*0.22);
-        obstacles.push({ x: CW+40+w2+CH*0.09, w:w2, h:h2, type:'bird', ground:false, baseY:baseY2, bob:Math.random()*Math.PI*2, dive:Math.random()<0.15+diff*0.15 });
+        var flightLevel2 = Math.random();
+        var baseY2 = groundBaseY - CH*(spec.rangeMin + flightLevel2*(spec.rangeMax-spec.rangeMin));
+        var isDiver2 = spec.diveChance && Math.random() < 0.15+diff*0.15;
+        obstacles.push({ x: CW+40+spec.w+CH*0.09, w:spec.w, h:spec.h, type:type, ground:false, baseY:baseY2, bob:Math.random()*Math.PI*2, dive:isDiver2 });
       }
       return;
     }
 
-    var h, w;
-    if (type === 'rock'){ h = CH*(0.10+Math.random()*0.05); w = h*1.1; }
-    else if (type === 'bush'){ h = CH*(0.09+Math.random()*0.04); w = h*1.3; }
-    else { h = CH*(0.17+Math.random()*0.05); w = h*0.5; } // spike: lebih tinggi & ramping, butuh lompatan presisi
-    obstacles.push({ x: CW+40, w:w, h:h, type:type, ground:true });
-    var lastX = CW+40+w;
+    var dims = groundObstacleDims(type);
+    obstacles.push({ x: CW+40, w:dims.w, h:dims.h, type:type, ground:true });
+    var lastX = CW+40+dims.w;
 
     // Kombo rintangan kedua: lebih jarang dan baru sering muncul di kesulitan tinggi
     if (diff > 0.25 && Math.random() < 0.14+diff*0.22){
-      var type2 = Math.random()<0.5 ? 'rock' : (Math.random()<0.6 ? 'bush' : 'spike');
-      var h2 = type2==='spike' ? CH*(0.17+Math.random()*0.05) : CH*(0.09+Math.random()*0.05);
-      var w2 = type2==='spike' ? h2*0.5 : h2*1.15;
+      var type2 = GROUND_OBSTACLE_TYPES[Math.floor(Math.random()*GROUND_OBSTACLE_TYPES.length)];
+      var dims2 = groundObstacleDims(type2);
       lastX += CH*0.055;
-      obstacles.push({ x: lastX, w:w2, h:h2, type:type2, ground:true });
-      lastX += w2;
+      obstacles.push({ x: lastX, w:dims2.w, h:dims2.h, type:type2, ground:true });
+      lastX += dims2.w;
 
       // Kombo tripel jadi langka, cuma di kesulitan yang sudah cukup tinggi
       if (diff > 0.55 && Math.random() < 0.12+diff*0.15){
-        var type3 = Math.random()<0.5 ? 'rock' : 'bush';
-        var h3 = CH*(0.09+Math.random()*0.05), w3 = h3*1.15;
+        var type3 = GROUND_OBSTACLE_TYPES[Math.floor(Math.random()*GROUND_OBSTACLE_TYPES.length)];
+        var dims3 = groundObstacleDims(type3);
         lastX += CH*0.06;
-        obstacles.push({ x: lastX, w:w3, h:h3, type:type3, ground:true });
+        obstacles.push({ x: lastX, w:dims3.w, h:dims3.h, type:type3, ground:true });
       }
     }
   }
@@ -1250,8 +1296,12 @@
   }
 
   function birdFlightY(o){
-    // Lintasan naik-turun halus (dipakai sinkron oleh collision & gambar biar konsisten)
-    var y = o.baseY + Math.sin(performance.now()/260 + o.bob)*CH*0.02;
+    // Lintasan naik-turun (dipakai sinkron oleh collision & gambar biar konsisten).
+    // Tiap jenis terbang punya kecepatan/amplitudo beda: burung tenang, kelelawar gesit, tawon paling ricuh.
+    var speedDiv = 260, amp = CH*0.02;
+    if (o.type === 'bat'){ speedDiv = 140; amp = CH*0.035; }
+    else if (o.type === 'wasp'){ speedDiv = 85; amp = CH*0.05; }
+    var y = o.baseY + Math.sin(performance.now()/speedDiv + o.bob)*amp;
     if (o.dive){
       // Menukik: satu siklus turun-dalam lalu naik lagi, jauh lebih besar dari bob halus di atas
       var diveT = (performance.now()/1000 + o.bob) % 2.4;
@@ -1308,6 +1358,62 @@
         ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 1.5;
         ctx.stroke();
       }
+    } else if (o.type==='log'){
+      // Batang kayu rebah: pendek tapi lebar, ada tampang lingkaran kayu di ujung kanan
+      var lg = ctx.createLinearGradient(o.x, baseY-o.h, o.x, baseY);
+      lg.addColorStop(0, '#A9713C'); lg.addColorStop(1, '#6b431f');
+      ctx.fillStyle = lg;
+      ctx.fillRect(o.x, baseY-o.h, o.w, o.h);
+      ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1.5;
+      ctx.strokeRect(o.x, baseY-o.h, o.w, o.h);
+      var capX = o.x+o.w-o.h*0.42;
+      ctx.fillStyle = '#C68A4B';
+      ctx.beginPath(); ctx.ellipse(capX, baseY-o.h/2, o.h*0.42, o.h/2, 0, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#8B5A2B'; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.ellipse(capX, baseY-o.h/2, o.h*0.26, o.h*0.32, 0, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(capX, baseY-o.h/2, o.h*0.11, o.h*0.15, 0, 0, Math.PI*2); ctx.stroke();
+    } else if (o.type==='crate'){
+      // Peti kayu kotak dengan garis silang & bingkai
+      var cg = ctx.createLinearGradient(o.x, baseY-o.h, o.x, baseY);
+      cg.addColorStop(0, '#C68A4B'); cg.addColorStop(1, '#8B5A2B');
+      ctx.fillStyle = cg;
+      ctx.fillRect(o.x, baseY-o.h, o.w, o.h);
+      ctx.strokeStyle = '#5b3a1a'; ctx.lineWidth = Math.max(1.6, o.w*0.05);
+      ctx.strokeRect(o.x+1.5, baseY-o.h+1.5, o.w-3, o.h-3);
+      ctx.beginPath();
+      ctx.moveTo(o.x+2, baseY-o.h+2); ctx.lineTo(o.x+o.w-2, baseY-2);
+      ctx.moveTo(o.x+o.w-2, baseY-o.h+2); ctx.lineTo(o.x+2, baseY-2);
+      ctx.stroke();
+    } else if (o.type==='cactus'){
+      // Kaktus hijau: badan ramping + dua lengan pendek, ada guratan duri
+      var cxg = ctx.createLinearGradient(o.x, baseY-o.h, o.x, baseY);
+      cxg.addColorStop(0, '#4CAF50'); cxg.addColorStop(1, '#2E7D32');
+      ctx.fillStyle = cxg;
+      var bw = o.w*0.42, bx = o.x+(o.w-bw)/2;
+      ctx.fillRect(bx, baseY-o.h, bw, o.h);
+      ctx.fillRect(o.x, baseY-o.h*0.55, bw*0.62, o.h*0.16);
+      ctx.fillRect(o.x+o.w-bw*0.62, baseY-o.h*0.72, bw*0.62, o.h*0.16);
+      ctx.strokeStyle = 'rgba(0,0,0,0.28)'; ctx.lineWidth = 1;
+      for (var ci=0; ci<4; ci++){
+        var csy = baseY - o.h*0.12 - ci*(o.h*0.2);
+        ctx.beginPath(); ctx.moveTo(bx, csy); ctx.lineTo(bx-3, csy-3); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx+bw, csy); ctx.lineTo(bx+bw+3, csy-3); ctx.stroke();
+      }
+    } else if (o.type==='barrel'){
+      // Drum/tong logam berdiri dengan dua lingkar sabuk metal
+      var capH = o.w*0.18;
+      var brg = ctx.createLinearGradient(o.x, 0, o.x+o.w, 0);
+      brg.addColorStop(0, '#6b431f'); brg.addColorStop(0.5, '#C68A4B'); brg.addColorStop(1, '#6b431f');
+      ctx.fillStyle = brg;
+      ctx.fillRect(o.x, baseY-o.h+capH, o.w, o.h-capH*2);
+      ctx.beginPath(); ctx.ellipse(o.x+o.w/2, baseY-o.h+capH, o.w/2, capH, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(o.x+o.w/2, baseY-capH, o.w/2, capH, 0, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#3a3a3a'; ctx.lineWidth = Math.max(2, o.w*0.09);
+      [0.32, 0.7].forEach(function(fr){
+        ctx.beginPath();
+        ctx.ellipse(o.x+o.w/2, baseY-o.h+o.h*fr, o.w/2*0.97, capH*0.85, 0, 0, Math.PI*2);
+        ctx.stroke();
+      });
     } else if (o.type==='bird'){
       var oy = birdFlightY(o), cx = o.x+o.w/2, cy = oy+o.h/2;
       var flap = Math.sin(performance.now()/90 + o.bob)*0.5+0.5;
@@ -1332,6 +1438,44 @@
       ctx.lineTo(cx+o.w*0.46, cy-o.h*0.06);
       ctx.lineTo(cx+o.w*0.28, cy+o.h*0.12);
       ctx.closePath(); ctx.fill();
+    } else if (o.type==='bat'){
+      // Kelelawar: badan gelap + sayap tajam bercabang, terbang gesit & lebih erratic dari burung
+      var oyB = birdFlightY(o), cxB = o.x+o.w/2, cyB = oyB+o.h/2;
+      var flapB = Math.sin(performance.now()/70 + o.bob)*0.5+0.5;
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.beginPath(); ctx.ellipse(cxB, groundYAt(cxB)+4, o.w*0.22, 4, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#3d3450';
+      [-1,1].forEach(function(side){
+        ctx.beginPath();
+        ctx.moveTo(cxB+side*o.w*0.06, cyB);
+        ctx.lineTo(cxB+side*o.w*0.5, cyB-o.h*(0.1+flapB*0.5));
+        ctx.lineTo(cxB+side*o.w*0.3, cyB-o.h*0.05);
+        ctx.lineTo(cxB+side*o.w*0.42, cyB+o.h*0.18);
+        ctx.lineTo(cxB+side*o.w*0.04, cyB+o.h*0.08);
+        ctx.closePath(); ctx.fill();
+      });
+      ctx.fillStyle = '#2B2118';
+      ctx.beginPath(); ctx.ellipse(cxB, cyB, o.w*0.2, o.h*0.3, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#F2543E';
+      ctx.beginPath(); ctx.arc(cxB-o.w*0.06, cyB-o.h*0.06, o.w*0.035, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cxB+o.w*0.06, cyB-o.h*0.06, o.w*0.035, 0, Math.PI*2); ctx.fill();
+    } else if (o.type==='wasp'){
+      // Tawon kecil belang kuning-hitam: paling kecil & gerakannya paling ricuh, mengecoh mata
+      var oyW = birdFlightY(o), cxW = o.x+o.w/2, cyW = oyW+o.h/2;
+      var flapW = Math.sin(performance.now()/45 + o.bob);
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.beginPath(); ctx.ellipse(cxW, groundYAt(cxW)+3, o.w*0.18, 3, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.beginPath(); ctx.ellipse(cxW-o.w*0.14, cyW-o.h*0.22, o.w*0.2, o.h*0.11, -0.4+flapW*0.2, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cxW+o.w*0.14, cyW-o.h*0.22, o.w*0.2, o.h*0.11, 0.4-flapW*0.2, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#FFD34D';
+      ctx.beginPath(); ctx.ellipse(cxW, cyW, o.w*0.34, o.h*0.42, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#2B2118';
+      [-0.2, 0.1, 0.4].forEach(function(fr){
+        ctx.beginPath();
+        ctx.ellipse(cxW+o.w*0.34*fr, cyW, o.w*0.07, o.h*0.4, 0, 0, Math.PI*2);
+        ctx.fill();
+      });
     }
   }
 
